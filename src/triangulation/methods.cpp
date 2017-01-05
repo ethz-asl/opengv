@@ -28,9 +28,10 @@
  * SUCH DAMAGE.                                                               *
  ******************************************************************************/
 
-
+#include <iostream>
 #include <opengv/triangulation/methods.hpp>
 #include <Eigen/Eigenvalues>
+#include <glog/logging.h>
 
 opengv::point_t
 opengv::triangulation::triangulate(
@@ -82,7 +83,35 @@ opengv::triangulation::triangulate2(
   A(1,0) = f1.dot(f2_unrotated);
   A(0,1) = -A(1,0);
   A(1,1) = -f2_unrotated.dot(f2_unrotated);
-  Eigen::Vector2d lambda = A.inverse() * b;
+
+  const double inverese_determinant = (A(0,0) * A(1,1) - A(0,1) * A(1,0));
+
+  if (std::abs(inverese_determinant) < 1e-8) {
+    //std::cout << "Zero determinant! " << inverese_determinant << std::endl
+    //    << A << std::endl << b.transpose() << std::endl;
+    Eigen::Vector3d xm = f1;
+    Eigen::Vector3d xn = t12 + f2_unrotated;
+    point_t point = ( xm + xn )/2;
+    return point;
+  }
+
+  const double determinant = 1.0 / inverese_determinant;
+
+  Eigen::Matrix2d A_inverse = Eigen::Matrix2d::Zero();
+  A_inverse(0, 0) = determinant * A(1, 1);
+  A_inverse(0, 1) = determinant * -A(0, 1);
+  A_inverse(1, 0) = determinant * -A(1, 0);
+  A_inverse(1, 1) = determinant * A(0, 0);
+
+  Eigen::Vector2d lambda = A_inverse * b;
+  if (lambda(0) < 0) {
+    lambda(0) = -lambda(0);
+  }
+  if (lambda(1) < 0) {
+    lambda(1) = -lambda(1);
+  }
+  CHECK_GT(lambda(0), 0.0);
+  CHECK_GT(lambda(1), 0.0);
   Eigen::Vector3d xm = lambda[0] * f1;
   Eigen::Vector3d xn = t12 + lambda[1] * f2_unrotated;
   point_t point = ( xm + xn )/2;

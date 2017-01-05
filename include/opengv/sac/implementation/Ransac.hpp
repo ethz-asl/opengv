@@ -30,6 +30,8 @@
 
 //Note: has been derived from ROS
 
+#include <iostream>
+
 template<typename P>
 opengv::sac::Ransac<P>::Ransac(
     int maxIterations, double threshold, double probability) :

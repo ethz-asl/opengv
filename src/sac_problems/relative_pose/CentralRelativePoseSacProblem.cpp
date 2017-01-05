@@ -271,7 +271,7 @@ opengv::sac_problems::
   for( size_t i = 0; i < indices.size(); i++ )
   {
     p_hom.block<3,1>(0,0) =
-        opengv::triangulation::triangulate2(_adapter,indices[i]);
+        opengv::triangulation::triangulate2(_adapter, indices[i]);
     bearingVector_t reprojection1 = p_hom.block<3,1>(0,0);
     bearingVector_t reprojection2 = inverseSolution * p_hom;
     reprojection1 = reprojection1 / reprojection1.norm();
@@ -279,11 +279,23 @@ opengv::sac_problems::
     bearingVector_t f1 = _adapter.getBearingVector1(indices[i]);
     bearingVector_t f2 = _adapter.getBearingVector2(indices[i]);
 
-    //bearing-vector based outlier criterium (select threshold accordingly):
-    //1-(f1'*f2) = 1-cos(alpha) \in [0:2]
-    double reprojError1 = 1.0 - (f1.transpose() * reprojection1);
-    double reprojError2 = 1.0 - (f2.transpose() * reprojection2);
-    scores.push_back(reprojError1 + reprojError2);
+    //const double vanishing_discriminator = (reprojection1.transpose() * reprojection2);
+    //std::cout << std::setprecision(16);
+    //std::cout << i << " - vanishing_discriminator: " << vanishing_discriminator << std::endl;
+
+    //if (vanishing_discriminator > 0.99995) {
+    //  scores.push_back(0.0);
+    //} else {
+      //bearing-vector based outlier criterium (select threshold accordingly):
+      //1-(f1'*f2) = 1-cos(alpha) \in [0:2]
+      double alpha_1 = acos(f1.transpose() * reprojection1);
+      double alpha_2 = acos(f1.transpose() * reprojection1);
+      double alpha = std::abs(alpha_1 + alpha_2);
+      scores.push_back(alpha);
+      //double reprojError1 = 1.0 - (f1.transpose() * reprojection1);
+      //double reprojError2 = 1.0 - (f2.transpose() * reprojection2);
+      //scores.push_back(reprojError1 + reprojError2);
+    //}
   }
 }
 

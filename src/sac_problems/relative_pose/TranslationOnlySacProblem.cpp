@@ -28,6 +28,7 @@
  * SUCH DAMAGE.                                                               *
  ******************************************************************************/
 
+#include <cmath>
 
 #include <opengv/sac_problems/relative_pose/TranslationOnlySacProblem.hpp>
 #include <opengv/relative_pose/methods.hpp>
@@ -75,6 +76,18 @@ opengv::sac_problems::
     reprojection2 = reprojection2 / reprojection2.norm();
     bearingVector_t f1 = _adapter.getBearingVector1(indices[i]);
     bearingVector_t f2 = _adapter.getBearingVector2(indices[i]);
+
+    // Test: assume landmark is a vanishing point.
+    /*
+    Eigen::Matrix<double, 4,1> p_vanishing;
+    p_vanishing[3] = 1.0;
+    const double kPseudoInfiniteDistance = 1e2;
+    p_vanishing.block<3,1>(0,0) = kPseudoInfiniteDistance * f1;
+    bearingVector_t test_reprojection2 = inverseSolution * p_vanishing;
+    test_reprojection2 = test_reprojection2 / test_reprojection2.norm();
+    const double vanishing_reprojection_error_angle = acos(f2.transpose() * test_reprojection2);
+    //std::cout << i << " - Vanishing_reprojection_error_angle deg: " << vanishing_reprojection_error_angle * 180.0 / M_PI << std::endl;
+    */
 
     //bearing-vector based outlier criterium (select threshold accordingly):
     //1-(f1'*f2) = 1-cos(alpha) \in [0:2]

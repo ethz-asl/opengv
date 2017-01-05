@@ -160,6 +160,26 @@ opengv::sac::SampleConsensusProblem<M>::rnd()
   return ((*rng_gen_)());
 }
 
+template<typename M>
+void
+opengv::sac::SampleConsensusProblem<M>::selectWithinDistance(
+    const model_t& model_coefficients,
+    const double threshold,
+    std::vector<int>& inliers,
+    std::vector<double>& reporjection_errors_radians)
+{
+  reporjection_errors_radians.clear();
+  reporjection_errors_radians.reserve(indices_->size());
+  getDistancesToModel( model_coefficients, reporjection_errors_radians );
+
+  inliers.clear();
+  inliers.reserve(indices_->size());
+  for( size_t i = 0; i < reporjection_errors_radians.size(); ++i )
+  {
+    if( reporjection_errors_radians[i] < threshold )
+      inliers.push_back( (*indices_)[i] );
+  }
+}
 
 template<typename M>
 void
@@ -169,16 +189,7 @@ opengv::sac::SampleConsensusProblem<M>::selectWithinDistance(
     std::vector<int> &inliers )
 {
   std::vector<double> dist;
-  dist.reserve(indices_->size());
-  getDistancesToModel( model_coefficients, dist );
-
-  inliers.clear();
-  inliers.reserve(indices_->size());
-  for( size_t i = 0; i < dist.size(); ++i )
-  {
-    if( dist[i] < threshold )
-      inliers.push_back( (*indices_)[i] );
-  }
+  selectWithinDistance(model_coefficients, threshold, inliers, dist);
 }
 
 template<typename M>

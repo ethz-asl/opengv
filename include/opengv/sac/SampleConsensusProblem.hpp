@@ -162,6 +162,8 @@ public:
       const model_t & model_coefficients, 
       std::vector<double> &distances );
 
+
+
   /**
    * \brief Select all the inlier samples whith respect to given model
    *        coefficients.
@@ -174,6 +176,12 @@ public:
       const model_t &model_coefficients, 
       const double threshold,
       std::vector<int> &inliers );
+
+  virtual void selectWithinDistance(
+      const model_t &model_coefficients,
+      const double threshold,
+      std::vector<int> &inliers,
+      std::vector<double>& reprojection_errors_radians);
 
   /**
    * \brief Count all the inlier samples whith respect to given model
