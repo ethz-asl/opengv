@@ -110,7 +110,7 @@ int main( int argc, char** argv )
       sac_problems::relative_pose::CentralRelativePoseSacProblem> relposeproblem_ptr(
       new sac_problems::relative_pose::CentralRelativePoseSacProblem(
       adapter,
-      sac_problems::relative_pose::CentralRelativePoseSacProblem::NISTER));
+      sac_problems::relative_pose::CentralRelativePoseSacProblem::STEWENIUS));
   ransac.sac_model_ = relposeproblem_ptr;
   ransac.threshold_ = 2.0*(1.0 - cos(atan(sqrt(2.0)*0.5/800.0)));
   ransac.max_iterations_ = 50;
