@@ -29,21 +29,21 @@
  ******************************************************************************/
 
 /**
- * \file NoncentralRelativeMultiAdapter.hpp
- * \brief Adapter-class for passing bearing-vector correspondences to the
- *        non-central relative-pose algorithms. Maps opengv types
- *        back to opengv types. Manages multiple match-lists for pairs of cameras.
+ * \file NoncentralAbsoluteMultiAdapter.hpp
+ * \brief Adapter-class for passing bearing-vector-to-point correspondences to
+ *        the non-central absolute-pose algorithms. It maps opengv
+ *        types back to opengv types. Manages multiple match-lists for each camera.
  *        This allows to draw samples homogeneously over the cameras.
  */
 
-#ifndef OPENGV_RELATIVE_POSE_NONCENTRALRELATIVEMULTIADAPTER_HPP_
-#define OPENGV_RELATIVE_POSE_NONCENTRALRELATIVEMULTIADAPTER_HPP_
+#ifndef OPENGV_ABSOLUTE_POSE_NONCENTRALABSOLUTEMULTIADAPTER_HPP_
+#define OPENGV_ABSOLUTE_POSE_NONCENTRALABSOLUTEMULTIADAPTER_HPP_
 
+#include <memory>
 #include <stdlib.h>
 #include <vector>
-#include <memory>
 #include <opengv/types.hpp>
-#include <opengv/relative_pose/RelativeMultiAdapterBase.hpp>
+#include <opengv/absolute_pose/AbsoluteMultiAdapterBase.hpp>
 
 /**
  * \brief The namespace of this library.
@@ -51,24 +51,22 @@
 namespace opengv
 {
 /**
- * \brief The namespace for the relative pose methods.
+ * \brief The namespace for the absolute pose methods.
  */
-namespace relative_pose
+namespace absolute_pose
 {
 
 /**
  * Check the documentation of the parent-class to understand the meaning of
- * a RelativeMultiAdapter. This child-class is for the relative non-central case
- * and holds data in form of references to opengv-types. It is meant to be used
- * for problems involving two non-central viewpoints, but in the special case
- * where correspondences result from two cameras with equal transformation
- * to their two viewpoints.
+ * an AbsoluteAdapter. This child-class is for the non-central case and holds
+ * data in form of references to opengv-types.
  */
-class NoncentralRelativeMultiAdapter : public RelativeMultiAdapterBase
+
+class NoncentralAbsoluteMultiAdapter : public AbsoluteMultiAdapterBase
 {
 protected:
-  using RelativeMultiAdapterBase::_t12;
-  using RelativeMultiAdapterBase::_R12;
+  using AbsoluteMultiAdapterBase::_t;
+  using AbsoluteMultiAdapterBase::_R;
 
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -76,69 +74,67 @@ public:
   /**
    * \brief Constructor. See protected class-members to understand parameters
    */
-  NoncentralRelativeMultiAdapter(
-      std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors1,
-      std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors2,
+  NoncentralAbsoluteMultiAdapter(
+      std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors,
+      std::vector<std::shared_ptr<points_t> > points,
       const translations_t & camOffsets,
       const rotations_t & camRotations );
   /**
    * \brief Destructor.
    */
-  virtual ~NoncentralRelativeMultiAdapter();
+  virtual ~NoncentralAbsoluteMultiAdapter();
 
-  //camera-pair-wise access of correspondences
-  
+  //camera-wise access of correspondences
+
   /** See parent-class */
-  virtual bearingVector_t getBearingVector1(
-      size_t pairIndex, size_t correspondenceIndex ) const;
+  virtual point_t getPoint(
+      size_t frameIndex, size_t correspondenceIndex ) const;
   /** See parent-class */
-  virtual bearingVector_t getBearingVector2(
-      size_t pairIndex, size_t correspondenceIndex ) const;
+  virtual bearingVector_t getBearingVector(
+      size_t frameIndex, size_t correspondenceIndex ) const;
   /** See parent-class */
-  virtual double getWeight( size_t camIndex, size_t correspondenceIndex ) const;
+  virtual double getWeight( size_t frameIndex, size_t correspondenceIndex ) const;
   /** See parent-class */
-  virtual translation_t getCamOffset( size_t pairIndex ) const;
+  virtual translation_t getMultiCamOffset( size_t frameIndex ) const;
   /** See parent-class */
-  virtual rotation_t getCamRotation( size_t pairIndex ) const;
+  virtual rotation_t getMultiCamRotation( size_t frameIndex ) const;
   /** See parent-class */
-  virtual size_t getNumberCorrespondences( size_t pairIndex ) const;
+  virtual size_t getNumberCorrespondences( size_t frameIndex ) const;
   /** See parent-class */
-  virtual size_t getNumberPairs() const;
+  virtual size_t getNumberFrames() const;
 
   //Conversion to and from serialized indices
-  
+
   /** See parent-class */
   virtual std::vector<int> convertMultiIndices(
       const std::vector<std::vector<int> > & multiIndices ) const;
   /** See parent-class */
   virtual int convertMultiIndex(
-      size_t camIndex, size_t correspondenceIndex ) const;
+      size_t frameIndex, size_t correspondenceIndex ) const;
   /** See parent-class */
-  virtual int multiPairIndex( size_t index ) const;
+  virtual int multiFrameIndex( size_t index ) const;
   /** See parent-class */
   virtual int multiCorrespondenceIndex( size_t index ) const;
 
 protected:
-  /** References to multiple sets of bearing-vectors (the ones from camera 1 of
-   *  each pair, and expressed in there).
+  /** References to multiple sets of bearing-vectors (the ones from each camera).
    */
-  std::vector<std::shared_ptr<bearingVectors_t> > _bearingVectors1;
-  /** References to multiple sets of bearing-vectors (the ones from camera 2 of
-   *  each pair, and expressed in there).
+  std::vector<std::shared_ptr<bearingVectors_t> > _bearingVectors;
+  /** References to multiple sets of points (the ones from each camera).
    */
-  std::vector<std::shared_ptr<bearingVectors_t> > _bearingVectors2;
+  std::vector<std::shared_ptr<points_t> > _points;
 
   /** Reference to positions of the different cameras seen from the
-   *  viewpoints.
+   *  viewpoint.
    */
   const translations_t & _camOffsets;
   /** Reference to rotations from the different cameras back to the
-   *  viewpoints.
+   *  viewpoint.
    */
   const rotations_t & _camRotations;
 
   /** Initialized in constructor, used for (de)-serialiaztion of indices */
-  std::vector<int> multiPairIndices;
+  std::vector<int> multiFrameIndices;
   /** Initialized in constructor, used for (de)-serialiaztion of indices */
   std::vector<int> multiKeypointIndices;
   /** Initialized in constructor, used for (de)-serialiaztion of indices */
@@ -146,6 +142,6 @@ protected:
 };
 
 }
-}
+};
 
-#endif /* OPENGV_RELATIVE_POSE_NONCENTRALRELATIVEMULTIADAPTER_HPP_ */
+#endif /* OPENGV_ABSOLUTE_POSE_NONCENTRALABSOLUTEADAPTER_HPP_ */

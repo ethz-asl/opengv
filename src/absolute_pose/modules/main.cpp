@@ -389,7 +389,7 @@ opengv::absolute_pose::modules::gp3p_main(
   M(6,0) = 1.0;
   M(7,6) = 1.0;
 
-  Eigen::ComplexEigenSolver< Eigen::Matrix<double,8,8> > Eig(M,true);
+  Eigen::EigenSolver< Eigen::Matrix<double,8,8> > Eig(M,true);
   Eigen::Matrix<std::complex<double>,8,1> D = Eig.eigenvalues();
   Eigen::Matrix<std::complex<double>,8,8> V = Eig.eigenvectors();
 
@@ -730,7 +730,7 @@ opengv::absolute_pose::modules::upnp_main(
 {
   Eigen::Matrix<double,16,16> Action;
   upnp::setupAction_gj( M, C, gamma, Action );
-  Eigen::ComplexEigenSolver< Eigen::Matrix<double,16,16> > Eig( Action, true );
+  Eigen::EigenSolver< Eigen::Matrix<double,16,16> > Eig( Action, true );
   Eigen::Matrix<std::complex<double>,16,16> V = Eig.eigenvectors();
   
   //cut the double solutions
@@ -793,14 +793,13 @@ opengv::absolute_pose::modules::upnp_main_sym(
 {
   Eigen::Matrix<double,8,8> Action;
   upnp::setupAction_sym_gj( M, C, gamma, Action );
-  Eigen::ComplexEigenSolver< Eigen::Matrix<double,8,8> > Eig( Action, true );
+  Eigen::EigenSolver< Eigen::Matrix<double,8,8> > Eig( Action, true );
   Eigen::Matrix<std::complex<double>,8,8> V = Eig.eigenvectors();
   
   //ok, let's cut the imaginary solutions (with a reasonable threshold!)
-  double imagThreshold = 0.01;
+  // const double imagThreshold = 0.01;
   std::vector<std::pair<double,Eigen::Vector4d>,Eigen::aligned_allocator< std::pair<double,Eigen::Vector4d> > > bad_quaternions;
   
-  Eigen::Matrix<std::complex<double>,8,1> D = Eig.eigenvalues();
   for( int i = 0; i < 8; i++ )
   {
     Eigen::Vector4d quaternion;

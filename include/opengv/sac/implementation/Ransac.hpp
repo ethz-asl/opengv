@@ -140,7 +140,8 @@ opengv::sac::Ransac<PROBLEM_T>::computeModel(
   }
 
   // Get the set of inliers that correspond to the best model found so far
-  sac_model_->selectWithinDistance( model_coefficients_, threshold_, inliers_ );
+  sac_model_->selectWithinDistance(
+      model_coefficients_, threshold_, inliers_, inlier_distances_to_model_);
 
   return (true);
 }

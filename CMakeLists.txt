@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.4.6)
-project(opengv)
+cmake_minimum_required(VERSION 2.8.12)
+project(opengv CXX)
 
 # Set to true if used with ROS
 set (ROS true)
@@ -7,7 +7,6 @@ set (catkin_FOUND false)
 
 set (OPENGV_VERSION_MAJOR 1)
 set (OPENGV_VERSION_MINOR 0)
-
 
 IF(ROS)
   find_package(catkin)
@@ -80,6 +79,7 @@ set(OPENGV_SOURCE_FILES
   src/absolute_pose/methods.cpp
   src/absolute_pose/CentralAbsoluteAdapter.cpp
   src/absolute_pose/NoncentralAbsoluteAdapter.cpp
+  src/absolute_pose/NoncentralAbsoluteMultiAdapter.cpp
   src/relative_pose/methods.cpp
   src/relative_pose/CentralRelativeAdapter.cpp
   src/relative_pose/CentralRelativeWeightingAdapter.cpp
@@ -90,6 +90,7 @@ set(OPENGV_SOURCE_FILES
   src/point_cloud/methods.cpp
   src/point_cloud/PointCloudAdapter.cpp
   src/sac_problems/absolute_pose/AbsolutePoseSacProblem.cpp
+  src/sac_problems/absolute_pose/MultiNoncentralAbsolutePoseSacProblem.cpp
   src/sac_problems/relative_pose/CentralRelativePoseSacProblem.cpp
   src/sac_problems/relative_pose/NoncentralRelativePoseSacProblem.cpp
   src/sac_problems/relative_pose/RotationOnlySacProblem.cpp
@@ -121,6 +122,8 @@ set(OPENGV_HEADER_FILES
   include/opengv/absolute_pose/AbsoluteAdapterBase.hpp
   include/opengv/absolute_pose/CentralAbsoluteAdapter.hpp
   include/opengv/absolute_pose/NoncentralAbsoluteAdapter.hpp
+  include/opengv/absolute_pose/NoncentralAbsoluteMultiAdapter.hpp
+  include/opengv/absolute_pose/AbsoluteMultiAdapterBase.hpp
   include/opengv/relative_pose/RelativeAdapterBase.hpp
   include/opengv/relative_pose/RelativeMultiAdapterBase.hpp
   include/opengv/relative_pose/CentralRelativeAdapter.hpp
@@ -131,6 +134,7 @@ set(OPENGV_HEADER_FILES
   include/opengv/point_cloud/PointCloudAdapterBase.hpp
   include/opengv/point_cloud/PointCloudAdapter.hpp
   include/opengv/sac_problems/absolute_pose/AbsolutePoseSacProblem.hpp
+  include/opengv/sac_problems/absolute_pose/MultiNoncentralAbsolutePoseSacProblem.hpp
   include/opengv/sac_problems/relative_pose/CentralRelativePoseSacProblem.hpp
   include/opengv/sac_problems/relative_pose/NoncentralRelativePoseSacProblem.hpp
   include/opengv/sac_problems/relative_pose/MultiCentralRelativePoseSacProblem.hpp
@@ -281,5 +285,4 @@ IF (catkin_FOUND)
   cs_install()
   cs_export()
 ENDIF()
-
 

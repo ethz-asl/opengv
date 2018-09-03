@@ -81,5 +81,6 @@ size_t
 opengv::point_cloud::MAPointCloud::
     getNumberCorrespondences() const
 {
+  static_cast<void>(_numberPoints1);  // Fix not used warning.
   return _numberPoints2;
 }

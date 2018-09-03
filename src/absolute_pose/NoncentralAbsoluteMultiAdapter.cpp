@@ -29,127 +29,136 @@
  ******************************************************************************/
 
 
-#include <opengv/relative_pose/CentralRelativeMultiAdapter.hpp>
+#include <opengv/absolute_pose/NoncentralAbsoluteMultiAdapter.hpp>
 
-opengv::relative_pose::CentralRelativeMultiAdapter::CentralRelativeMultiAdapter(
-    std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors1,
-    std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors2 ) :
-    _bearingVectors1(bearingVectors1),
-    _bearingVectors2(bearingVectors2)
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::NoncentralAbsoluteMultiAdapter(
+    std::vector<std::shared_ptr<bearingVectors_t> > bearingVectors,
+    std::vector<std::shared_ptr<points_t> > points,
+    const translations_t & camOffsets,
+    const rotations_t & camRotations ) :
+    _bearingVectors(bearingVectors),
+    _points(points),
+    _camOffsets(camOffsets),
+    _camRotations(camRotations)
 {
   // The following variables are needed for the serialization and
   // de-serialization of indices
+
   size_t singleIndexOffset = 0;
-  for( size_t pairIndex = 0; pairIndex < bearingVectors2.size(); pairIndex++ )
+  for( size_t frameIndex = 0; frameIndex < bearingVectors.size(); frameIndex++ )
   {
     singleIndexOffsets.push_back(singleIndexOffset);
     for(
         size_t correspondenceIndex = 0;
-        correspondenceIndex < bearingVectors2[pairIndex]->size();
+        correspondenceIndex < bearingVectors[frameIndex]->size();
         correspondenceIndex++ )
     {
-      multiPairIndices.push_back(pairIndex);
+      multiFrameIndices.push_back(frameIndex);
       multiKeypointIndices.push_back(correspondenceIndex);
     }
-    singleIndexOffset += bearingVectors2[pairIndex]->size();
+    singleIndexOffset += bearingVectors[frameIndex]->size();
   }
 }
-  
-opengv::relative_pose::CentralRelativeMultiAdapter::~CentralRelativeMultiAdapter()
+
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::~NoncentralAbsoluteMultiAdapter()
 {}
 
-//The multi interface!!
-opengv::bearingVector_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getBearingVector1( size_t pairIndex, size_t correspondenceIndex ) const
+opengv::point_t
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getPoint( size_t frameIndex, size_t correspondenceIndex ) const
 {
-  assert(pairIndex < _bearingVectors1.size());
+  assert(frameIndex < _points.size());
+  assert(correspondenceIndex < _points[frameIndex]->size());
 
-  assert(correspondenceIndex < _bearingVectors1[pairIndex]->size());
-  return (*_bearingVectors1[pairIndex])[correspondenceIndex];
+  return (*_points[frameIndex])[correspondenceIndex];
 }
 
 opengv::bearingVector_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getBearingVector2( size_t pairIndex, size_t correspondenceIndex ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getBearingVector( size_t frameIndex, size_t correspondenceIndex ) const
 {
-  assert(pairIndex < _bearingVectors2.size());
+  assert(frameIndex < _bearingVectors.size());
+  assert(correspondenceIndex < _bearingVectors[frameIndex]->size());
 
-  assert(correspondenceIndex < _bearingVectors2[pairIndex]->size());
-  return (*_bearingVectors2[pairIndex])[correspondenceIndex];
+  return (*_bearingVectors[frameIndex])[correspondenceIndex];
 }
 
 double
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getWeight( size_t pairIndex, size_t correspondenceIndex ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getWeight( size_t frameIndex, size_t correspondenceIndex ) const
 {
   return 1.0;
 }
 
 opengv::translation_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getCamOffset( size_t pairIndex ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getMultiCamOffset( size_t frameIndex ) const
 {
-  return Eigen::Vector3d::Zero();
+  assert(frameIndex < _camOffsets.size());
+  return _camOffsets[frameIndex];
 }
 
 opengv::rotation_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getCamRotation( size_t pairIndex ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getMultiCamRotation( size_t frameIndex ) const
 {
-  return Eigen::Matrix3d::Identity();
+  assert(frameIndex < _camRotations.size());
+  return _camRotations[frameIndex];
 }
 
 size_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getNumberCorrespondences(size_t pairIndex) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getNumberCorrespondences(size_t frameIndex) const
 {
-  assert(pairIndex < _bearingVectors2.size());
-  return _bearingVectors2[pairIndex]->size();
+  assert(frameIndex < _bearingVectors.size());
+
+  return _bearingVectors[frameIndex]->size();
 }
 
 size_t
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    getNumberPairs() const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    getNumberFrames() const
 {
-  return _bearingVectors2.size();
+  return _camOffsets.size();
 }
 
-//important conversion function for the serialization of indices
+//important conversion between the serialized and the multi interface
 std::vector<int>
-opengv::relative_pose::CentralRelativeMultiAdapter::
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
     convertMultiIndices( const std::vector<std::vector<int> > & multiIndices ) const
 {
   std::vector<int> singleIndices;
-  for(size_t pairIndex = 0; pairIndex < multiIndices.size(); pairIndex++)
+  for(size_t frameIndex = 0; frameIndex < multiIndices.size(); frameIndex++)
   {
     for(
         size_t correspondenceIndex = 0;
-        correspondenceIndex < multiIndices[pairIndex].size();
+        correspondenceIndex < multiIndices[frameIndex].size();
         correspondenceIndex++ )
+    {
       singleIndices.push_back(convertMultiIndex(
-          pairIndex, multiIndices[pairIndex][correspondenceIndex] ));
+          frameIndex, multiIndices[frameIndex][correspondenceIndex] ));
+    }
   }
 
   return singleIndices;
 }
 
 int
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    convertMultiIndex( size_t pairIndex, size_t correspondenceIndex ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    convertMultiIndex( size_t frameIndex, size_t correspondenceIndex ) const
 {
-  return singleIndexOffsets[pairIndex]+correspondenceIndex;
+  return singleIndexOffsets[frameIndex]+correspondenceIndex;
 }
 
 int
-opengv::relative_pose::CentralRelativeMultiAdapter::
-    multiPairIndex( size_t index ) const
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
+    multiFrameIndex( size_t index ) const
 {
-  return multiPairIndices[index];
+  return multiFrameIndices[index];
 }
 
 int
-opengv::relative_pose::CentralRelativeMultiAdapter::
+opengv::absolute_pose::NoncentralAbsoluteMultiAdapter::
     multiCorrespondenceIndex( size_t index ) const
 {
   return multiKeypointIndices[index];

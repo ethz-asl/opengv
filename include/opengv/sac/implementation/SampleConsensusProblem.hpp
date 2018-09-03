@@ -35,15 +35,14 @@ opengv::sac::SampleConsensusProblem<M>::SampleConsensusProblem(
     bool randomSeed) :
     max_sample_checks_(10)
 {
-  rng_dist_.reset(new boost::uniform_int<>( 0, std::numeric_limits<int>::max() ));
+  rng_dist_.reset(new std::uniform_int_distribution<>( 0, std::numeric_limits<int>::max() ));
   // Create a random number generator object
   if(randomSeed)
     rng_alg_.seed(static_cast<unsigned> (std::time(0)));
   else
     rng_alg_.seed(12345u);
 
-  rng_gen_.reset( new boost::variate_generator< boost::mt19937&,
-      boost::uniform_int<> >( rng_alg_, *rng_dist_ ));
+  rng_gen_.reset(new std::function<int()>(std::bind(*rng_dist_, rng_alg_)));
 }
 
 template<typename M>
@@ -95,7 +94,7 @@ opengv::sac::SampleConsensusProblem<M>::getSamples(
         (size_t) getSampleSize(), indices_->size() );
     // one of these will make it stop :)
     samples.clear();
-    iterations = INT_MAX - 1;
+    iterations = std::numeric_limits<int>::max();
     return;
   }
 
@@ -105,7 +104,7 @@ opengv::sac::SampleConsensusProblem<M>::getSamples(
   for( int iter = 0; iter < max_sample_checks_; ++iter )
   {
     drawIndexSample(samples);
-    
+
     // If it's a good sample, stop here
     if(isSampleGood(samples))
       return;
@@ -118,7 +117,7 @@ opengv::sac::SampleConsensusProblem<M>::getSamples(
 }
 
 template<typename M>
-boost::shared_ptr< std::vector<int> >
+std::shared_ptr< std::vector<int> >
 opengv::sac::SampleConsensusProblem<M>::getIndices() const
 {
   return indices_;
@@ -160,24 +159,29 @@ opengv::sac::SampleConsensusProblem<M>::rnd()
   return ((*rng_gen_)());
 }
 
+
 template<typename M>
 void
 opengv::sac::SampleConsensusProblem<M>::selectWithinDistance(
-    const model_t& model_coefficients,
+    const model_t & model_coefficients,
     const double threshold,
     std::vector<int>& inliers,
-    std::vector<double>& reporjection_errors_radians)
+    std::vector<double>& inlier_distances_to_model)
 {
-  reporjection_errors_radians.clear();
-  reporjection_errors_radians.reserve(indices_->size());
-  getDistancesToModel( model_coefficients, reporjection_errors_radians );
+  std::vector<double> dist;
+  dist.reserve(indices_->size());
+  getDistancesToModel( model_coefficients, dist );
 
   inliers.clear();
   inliers.reserve(indices_->size());
-  for( size_t i = 0; i < reporjection_errors_radians.size(); ++i )
+  inlier_distances_to_model.clear();
+  inlier_distances_to_model.reserve(indices_->size());
+  for( size_t i = 0; i < dist.size(); ++i )
   {
-    if( reporjection_errors_radians[i] < threshold )
+    if( dist[i] < threshold ) {
       inliers.push_back( (*indices_)[i] );
+      inlier_distances_to_model.emplace_back(dist[i]);
+    }
   }
 }
 
@@ -186,8 +190,7 @@ void
 opengv::sac::SampleConsensusProblem<M>::selectWithinDistance(
     const model_t & model_coefficients,
     const double threshold,
-    std::vector<int> &inliers )
-{
+    std::vector<int> &inliers) {
   std::vector<double> dist;
   selectWithinDistance(model_coefficients, threshold, inliers, dist);
 }
@@ -207,6 +210,6 @@ opengv::sac::SampleConsensusProblem<M>::countWithinDistance(
     if( dist[i] < threshold )
       ++count;
   }
-  
+
   return count;
 }

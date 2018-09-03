@@ -34,10 +34,10 @@
 #include <iomanip>
 #include <limits.h>
 #include <Eigen/Eigen>
-#include <opengv/relative_pose/methods.hpp>
-#include <opengv/relative_pose/NoncentralRelativeMultiAdapter.hpp>
+#include <opengv/absolute_pose/methods.hpp>
+#include <opengv/absolute_pose/NoncentralAbsoluteMultiAdapter.hpp>
 #include <opengv/sac/MultiRansac.hpp>
-#include <opengv/sac_problems/relative_pose/MultiNoncentralRelativePoseSacProblem.hpp>
+#include <opengv/sac_problems/absolute_pose/MultiNoncentralAbsolutePoseSacProblem.hpp>
 #include <sstream>
 #include <fstream>
 
@@ -52,63 +52,56 @@ using namespace opengv;
 
 int main( int argc, char** argv )
 {
-  // initialize random seed
+  //initialize random seed
   initializeRandomSeed();
 
   //set experiment parameters
-  double noise = 0.3;
+  double noise = 0.5;
   double outlierFraction = 0.1;
   size_t pointsPerCam = 25;
   int numberCameras = 4;
 
-  //generate a random pose for viewpoint 1
-  translation_t position1 = Eigen::Vector3d::Zero();
-  rotation_t rotation1 = Eigen::Matrix3d::Identity();
+  //create a random viewpoint pose
+  translation_t position = generateRandomTranslation(2.0);
+  rotation_t rotation = generateRandomRotation(0.5);
 
-  //generate a random pose for viewpoint 2
-  translation_t position2 = generateRandomTranslation(2.0);
-  rotation_t rotation2 = generateRandomRotation(0.5);
-
-  //create a fake central camera
+  //create a random camera-system
   translations_t camOffsets;
   rotations_t camRotations;
   generateRandomCameraSystem( numberCameras, camOffsets, camRotations );
 
   //derive correspondences based on random point-cloud
-  std::vector<std::shared_ptr<bearingVectors_t> > multiBearingVectors1;
-  std::vector<std::shared_ptr<bearingVectors_t> > multiBearingVectors2;
-  std::vector<std::shared_ptr<Eigen::MatrixXd> > gt;
-  generateMulti2D2DCorrespondences(
-      position1, rotation1, position2, rotation2, camOffsets, camRotations,
+  std::vector<std::shared_ptr<points_t> > multiPoints;
+  std::vector<std::shared_ptr<bearingVectors_t> > multiBearingVectors;
+  std::vector< std::shared_ptr<Eigen::MatrixXd> > gt;
+  generateMulti2D3DCorrespondences(
+      position, rotation, camOffsets, camRotations,
       pointsPerCam, noise, outlierFraction,
-      multiBearingVectors1, multiBearingVectors2, gt );
+      multiPoints, multiBearingVectors, gt );
 
-  //Extract the relative pose
-  translation_t position; rotation_t rotation;
-  extractRelativePose(
-      position1, position2, rotation1, rotation2, position, rotation, false );
+  //print the experiment characteristics
+  printExperimentCharacteristics(
+      position, rotation, noise, outlierFraction );
 
-  //print experiment characteristics
-  printExperimentCharacteristics( position, rotation, noise, outlierFraction );
-  
-  //create a non-central relative multi-adapter
-  relative_pose::NoncentralRelativeMultiAdapter adapter(
-      multiBearingVectors1,
-      multiBearingVectors2,
+  //create a non-central absolute adapter
+  absolute_pose::NoncentralAbsoluteMultiAdapter adapter(
+      multiBearingVectors,
+      multiPoints,
       camOffsets,
-      camRotations);
+      camRotations );
 
-  //Create a MultiNoncentralRelativePoseSacProblem and Ransac
-  opengv::sac::MultiRansac<
-      sac_problems::relative_pose::MultiNoncentralRelativePoseSacProblem> ransac;
+  //Create a AbsolutePoseSacProblem and Ransac
+  //The method is set to GP3P
+  sac::MultiRansac<
+      sac_problems::absolute_pose::MultiNoncentralAbsolutePoseSacProblem> ransac;
   std::shared_ptr<
-      sac_problems::relative_pose::MultiNoncentralRelativePoseSacProblem> relposeproblem_ptr(
-      new sac_problems::relative_pose::MultiNoncentralRelativePoseSacProblem(
-      adapter,
-      sac_problems::relative_pose::MultiNoncentralRelativePoseSacProblem::SIXPT));
-  ransac.sac_model_ = relposeproblem_ptr;
-  ransac.threshold_ = 2.0*(1.0 - cos(atan(sqrt(2.0)*0.5/800.0)));
-  ransac.max_iterations_ = 100;
+      sac_problems::absolute_pose::MultiNoncentralAbsolutePoseSacProblem> absposeproblem_ptr(
+      new sac_problems::absolute_pose::MultiNoncentralAbsolutePoseSacProblem(
+      adapter ));
+
+  ransac.sac_model_ = absposeproblem_ptr;
+  ransac.threshold_ = 1.0 - cos(atan(sqrt(2.0)*0.5/800.0));
+  ransac.max_iterations_ = 50;
 
   //Run the experiment
   struct timeval tic;
@@ -119,7 +112,6 @@ int main( int argc, char** argv )
   double ransac_time = TIMETODOUBLE(timeval_minus(toc,tic));
 
   //print the results
-  std::cout << "the ransac threshold is: " << ransac.threshold_ << std::endl;
   std::cout << "the ransac results is: " << std::endl;
   std::cout << ransac.model_coefficients_ << std::endl << std::endl;
   std::cout << "Ransac needed " << ransac.iterations_ << " iterations and ";
