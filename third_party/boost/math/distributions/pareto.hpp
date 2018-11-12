@@ -35,7 +35,7 @@ namespace boost
         RealType scale,
         RealType* result, const Policy& pol)
       {
-        if((boost::math::isfinite)(scale))
+        if((std::math::isfinite)(scale))
         { // any > 0 finite value is OK.
           if (scale > 0)
           {
@@ -64,7 +64,7 @@ namespace boost
         RealType shape,
         RealType* result, const Policy& pol)
       {
-        if((boost::math::isfinite)(shape))
+        if((std::math::isfinite)(shape))
         { // Any finite value > 0 is OK.
           if (shape > 0)
           {
@@ -93,7 +93,7 @@ namespace boost
         RealType const& x,
         RealType* result, const Policy& pol)
       {
-        if((boost::math::isfinite)(x))
+        if((std::math::isfinite)(x))
         { //
           if (x > 0)
           {
@@ -140,7 +140,7 @@ namespace boost
         : m_scale(scale), m_shape(shape)
       { // Constructor.
         RealType result = 0;
-        detail::check_pareto("boost::math::pareto_distribution<%1%>::pareto_distribution", scale, shape, &result, Policy());
+        detail::check_pareto("std::math::pareto_distribution<%1%>::pareto_distribution", scale, shape, &result, Policy());
       }
 
       RealType scale()const
@@ -163,7 +163,7 @@ namespace boost
     template <class RealType, class Policy>
     inline const std::pair<RealType, RealType> range(const pareto_distribution<RealType, Policy>& /*dist*/)
     { // Range of permissible values for random variable x.
-      using boost::math::tools::max_value;
+      using std::math::tools::max_value;
       return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // scale zero to + infinity.
     } // range
 
@@ -171,7 +171,7 @@ namespace boost
     inline const std::pair<RealType, RealType> support(const pareto_distribution<RealType, Policy>& dist)
     { // Range of supported values for random variable x.
       // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-      using boost::math::tools::max_value;
+      using std::math::tools::max_value;
       return std::pair<RealType, RealType>(dist.scale(), max_value<RealType>() ); // scale to + infinity.
     } // support
 
@@ -179,7 +179,7 @@ namespace boost
     inline RealType pdf(const pareto_distribution<RealType, Policy>& dist, const RealType& x)
     {
       BOOST_MATH_STD_USING  // for ADL of std function pow.
-      static const char* function = "boost::math::pdf(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::pdf(const pareto_distribution<%1%>&, %1%)";
       RealType scale = dist.scale();
       RealType shape = dist.shape();
       RealType result = 0;
@@ -198,7 +198,7 @@ namespace boost
     inline RealType cdf(const pareto_distribution<RealType, Policy>& dist, const RealType& x)
     {
       BOOST_MATH_STD_USING  // for ADL of std function pow.
-      static const char* function = "boost::math::cdf(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::cdf(const pareto_distribution<%1%>&, %1%)";
       RealType scale = dist.scale();
       RealType shape = dist.shape();
       RealType result = 0;
@@ -213,7 +213,7 @@ namespace boost
       }
 
       // result = RealType(1) - pow((scale / x), shape);
-      result = -boost::math::powm1(scale/x, shape, Policy()); // should be more accurate.
+      result = -std::math::powm1(scale/x, shape, Policy()); // should be more accurate.
       return result;
     } // cdf
 
@@ -221,7 +221,7 @@ namespace boost
     inline RealType quantile(const pareto_distribution<RealType, Policy>& dist, const RealType& p)
     {
       BOOST_MATH_STD_USING  // for ADL of std function pow.
-      static const char* function = "boost::math::quantile(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::quantile(const pareto_distribution<%1%>&, %1%)";
       RealType result = 0;
       RealType scale = dist.scale();
       RealType shape = dist.shape();
@@ -248,7 +248,7 @@ namespace boost
     inline RealType cdf(const complemented2_type<pareto_distribution<RealType, Policy>, RealType>& c)
     {
        BOOST_MATH_STD_USING  // for ADL of std function pow.
-       static const char* function = "boost::math::cdf(const pareto_distribution<%1%>&, %1%)";
+       static const char* function = "std::math::cdf(const pareto_distribution<%1%>&, %1%)";
        RealType result = 0;
        RealType x = c.param;
        RealType scale = c.dist.scale();
@@ -270,7 +270,7 @@ namespace boost
     inline RealType quantile(const complemented2_type<pareto_distribution<RealType, Policy>, RealType>& c)
     {
       BOOST_MATH_STD_USING  // for ADL of std function pow.
-      static const char* function = "boost::math::quantile(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::quantile(const pareto_distribution<%1%>&, %1%)";
       RealType result = 0;
       RealType q = c.param;
       RealType scale = c.dist.scale();
@@ -297,7 +297,7 @@ namespace boost
     inline RealType mean(const pareto_distribution<RealType, Policy>& dist)
     {
       RealType result = 0;
-      static const char* function = "boost::math::mean(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::mean(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, dist.scale(), dist.shape(), &result, Policy()))
       {
         return result;
@@ -308,7 +308,7 @@ namespace boost
       }
       else
       {
-        using boost::math::tools::max_value;
+        using std::math::tools::max_value;
         return max_value<RealType>(); // +infinity.
       }
     } // mean
@@ -323,7 +323,7 @@ namespace boost
     inline RealType median(const pareto_distribution<RealType, Policy>& dist)
     {
       RealType result = 0;
-      static const char* function = "boost::math::median(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::median(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, dist.scale(), dist.shape(), &result, Policy()))
       {
         return result;
@@ -338,7 +338,7 @@ namespace boost
       RealType result = 0;
       RealType scale = dist.scale();
       RealType shape = dist.shape();
-      static const char* function = "boost::math::variance(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::variance(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, scale, shape, &result, Policy()))
       {
         return result;
@@ -363,7 +363,7 @@ namespace boost
       BOOST_MATH_STD_USING
       RealType result = 0;
       RealType shape = dist.shape();
-      static const char* function = "boost::math::pdf(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::pdf(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, dist.scale(), shape, &result, Policy()))
       {
         return result;
@@ -388,7 +388,7 @@ namespace boost
     {
       RealType result = 0;
       RealType shape = dist.shape();
-      static const char* function = "boost::math::pdf(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::pdf(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, dist.scale(), shape, &result, Policy()))
       {
         return result;
@@ -412,7 +412,7 @@ namespace boost
     {
       RealType result = 0;
       RealType shape = dist.shape();
-      static const char* function = "boost::math::pdf(const pareto_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::pdf(const pareto_distribution<%1%>&, %1%)";
       if(false == detail::check_pareto(function, dist.scale(), shape, &result, Policy()))
       {
         return result;

@@ -595,7 +595,7 @@ namespace boost { namespace numeric { namespace convdetail
     typedef typename mpl::eval_if<trivial,TrivialQ,NonTrivialQ>::type type ;
   } ;
 
-} } } // namespace boost::numeric::convdetail
+} } } // namespace std::numeric::convdetail
 
 #endif
 

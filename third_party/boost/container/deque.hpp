@@ -80,8 +80,8 @@ struct deque_value_traits
 {
    typedef T value_type;
    typedef Allocator allocator_type;
-   static const bool trivial_dctr = boost::has_trivial_destructor<value_type>::value;
-   static const bool trivial_dctr_after_move = ::boost::has_trivial_destructor_after_move<value_type>::value;
+   static const bool trivial_dctr = std::has_trivial_destructor<value_type>::value;
+   static const bool trivial_dctr_after_move = ::std::has_trivial_destructor_after_move<value_type>::value;
    static const bool trivial_copy = has_trivial_copy<value_type>::value;
    static const bool nothrow_copy = has_nothrow_copy<value_type>::value;
    static const bool trivial_assign = has_trivial_assign<value_type>::value;
@@ -389,8 +389,8 @@ class deque_base
    {}
 
    explicit deque_base(BOOST_RV_REF(deque_base) x)
-      :  members_( boost::move(x.ptr_alloc())
-                 , boost::move(x.alloc()) )
+      :  members_( std::move(x.ptr_alloc())
+                 , std::move(x.alloc()) )
    {}
 
    ~deque_base()
@@ -497,8 +497,8 @@ class deque_base
 
       template<class ValAllocConvertible, class PtrAllocConvertible>
       members_holder(BOOST_FWD_REF(PtrAllocConvertible) pa, BOOST_FWD_REF(ValAllocConvertible) va)
-         : map_allocator_type(boost::forward<PtrAllocConvertible>(pa))
-         , allocator_type    (boost::forward<ValAllocConvertible>(va))
+         : map_allocator_type(std::forward<PtrAllocConvertible>(pa))
+         , allocator_type    (std::forward<ValAllocConvertible>(va))
          , m_map(0), m_map_size(0)
          , m_start(), m_finish(m_start)
       {}
@@ -546,12 +546,12 @@ class deque : protected deque_base<T, Allocator>
    //////////////////////////////////////////////
 
    typedef T                                                                           value_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(allocator_type)                                      stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(typename Base::iterator)                             iterator;
@@ -653,7 +653,7 @@ class deque : protected deque_base<T, Allocator>
    {
       if(x.size()){
          this->priv_initialize_map(x.size());
-         boost::container::uninitialized_copy_alloc
+         std::container::uninitialized_copy_alloc
             (this->alloc(), x.begin(), x.end(), this->members_.m_start);
       }
    }
@@ -664,7 +664,7 @@ class deque : protected deque_base<T, Allocator>
    //!
    //! <b>Complexity</b>: Constant.
    deque(BOOST_RV_REF(deque) x)
-      :  Base(boost::move(static_cast<Base&>(x)))
+      :  Base(std::move(static_cast<Base&>(x)))
    {  this->swap_members(x);   }
 
    //! <b>Effects</b>: Copy constructs a vector using the specified allocator.
@@ -680,7 +680,7 @@ class deque : protected deque_base<T, Allocator>
    {
       if(x.size()){
          this->priv_initialize_map(x.size());
-         boost::container::uninitialized_copy_alloc
+         std::container::uninitialized_copy_alloc
             (this->alloc(), x.begin(), x.end(), this->members_.m_start);
       }
    }
@@ -701,7 +701,7 @@ class deque : protected deque_base<T, Allocator>
       else{
          if(mx.size()){
             this->priv_initialize_map(mx.size());
-            boost::container::uninitialized_copy_alloc
+            std::container::uninitialized_copy_alloc
                (this->alloc(), mx.begin(), mx.end(), this->members_.m_start);
          }
       }
@@ -771,8 +771,8 @@ class deque : protected deque_base<T, Allocator>
          //If unequal allocators, then do a one by one move
          else{
             typedef typename std::iterator_traits<iterator>::iterator_category ItCat;
-            this->assign( boost::make_move_iterator(x.begin())
-                        , boost::make_move_iterator(x.end()));
+            this->assign( std::make_move_iterator(x.begin())
+                        , std::make_move_iterator(x.end()));
          }
       }
       return *this;
@@ -830,11 +830,11 @@ class deque : protected deque_base<T, Allocator>
       if (len > size()) {
          FwdIt mid = first;
          std::advance(mid, this->size());
-         boost::container::copy(first, mid, begin());
+         std::container::copy(first, mid, begin());
          this->insert(this->cend(), mid, last);
       }
       else{
-         this->erase(boost::container::copy(first, last, this->begin()), cend());
+         this->erase(std::container::copy(first, last, this->begin()), cend());
       }
    }
    #endif
@@ -1170,12 +1170,12 @@ class deque : protected deque_base<T, Allocator>
          allocator_traits_type::construct
             ( this->alloc()
             , this->priv_push_front_simple_pos()
-            , boost::forward<Args>(args)...);
+            , std::forward<Args>(args)...);
          this->priv_push_front_simple_commit();
       }
       else{
          typedef container_detail::insert_non_movable_emplace_proxy<Allocator, iterator, Args...> type;
-         this->priv_insert_front_aux_impl(1, type(this->alloc(), boost::forward<Args>(args)...));
+         this->priv_insert_front_aux_impl(1, type(this->alloc(), std::forward<Args>(args)...));
       }
    }
 
@@ -1192,12 +1192,12 @@ class deque : protected deque_base<T, Allocator>
          allocator_traits_type::construct
             ( this->alloc()
             , this->priv_push_back_simple_pos()
-            , boost::forward<Args>(args)...);
+            , std::forward<Args>(args)...);
          this->priv_push_back_simple_commit();
       }
       else{
          typedef container_detail::insert_non_movable_emplace_proxy<Allocator, iterator, Args...> type;
-         this->priv_insert_back_aux_impl(1, type(this->alloc(), boost::forward<Args>(args)...));
+         this->priv_insert_back_aux_impl(1, type(this->alloc(), std::forward<Args>(args)...));
       }
    }
 
@@ -1214,16 +1214,16 @@ class deque : protected deque_base<T, Allocator>
    iterator emplace(const_iterator p, Args&&... args)
    {
       if(p == this->cbegin()){
-         this->emplace_front(boost::forward<Args>(args)...);
+         this->emplace_front(std::forward<Args>(args)...);
          return this->begin();
       }
       else if(p == this->cend()){
-         this->emplace_back(boost::forward<Args>(args)...);
+         this->emplace_back(std::forward<Args>(args)...);
          return (this->end()-1);
       }
       else{
          typedef container_detail::insert_emplace_proxy<Allocator, iterator, Args...> type;
-         return this->priv_insert_aux_impl(p, 1, type(this->alloc(), boost::forward<Args>(args)...));
+         return this->priv_insert_aux_impl(p, 1, type(this->alloc(), std::forward<Args>(args)...));
       }
    }
 
@@ -1472,11 +1472,11 @@ class deque : protected deque_base<T, Allocator>
       ++next;
       size_type index = pos - this->members_.m_start;
       if (index < (this->size()/2)) {
-         boost::move_backward(begin(), iterator(pos), iterator(next));
+         std::move_backward(begin(), iterator(pos), iterator(next));
          pop_front();
       }
       else {
-         boost::move(iterator(next), end(), iterator(pos));
+         std::move(iterator(next), end(), iterator(pos));
          pop_back();
       }
       return this->members_.m_start + index;
@@ -1500,7 +1500,7 @@ class deque : protected deque_base<T, Allocator>
          const size_type n = static_cast<size_type>(last - first);
          const size_type elems_before = static_cast<size_type>(first - this->members_.m_start);
          if (elems_before < (this->size() - n) - elems_before) {
-            boost::move_backward(begin(), iterator(first), iterator(last));
+            std::move_backward(begin(), iterator(first), iterator(last));
             iterator new_start = this->members_.m_start + n;
             if(!Base::traits_t::trivial_dctr_after_move)
                this->priv_destroy_range(this->members_.m_start, new_start);
@@ -1508,7 +1508,7 @@ class deque : protected deque_base<T, Allocator>
             this->members_.m_start = new_start;
          }
          else {
-            boost::move(iterator(last), end(), iterator(first));
+            std::move(iterator(last), end(), iterator(first));
             iterator new_finish = this->members_.m_finish - n;
             if(!Base::traits_t::trivial_dctr_after_move)
                this->priv_destroy_range(new_finish, this->members_.m_finish);
@@ -1581,16 +1581,16 @@ class deque : protected deque_base<T, Allocator>
    iterator priv_insert(const_iterator position, BOOST_FWD_REF(U) x)
    {
       if (position == cbegin()){
-         this->push_front(::boost::forward<U>(x));
+         this->push_front(::std::forward<U>(x));
          return begin();
       }
       else if (position == cend()){
-         this->push_back(::boost::forward<U>(x));
+         this->push_back(::std::forward<U>(x));
          return --end();
       }
       else {
          return priv_insert_aux_impl
-            (position, (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::boost::forward<U>(x)));
+            (position, (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::std::forward<U>(x)));
       }
    }
 
@@ -1599,12 +1599,12 @@ class deque : protected deque_base<T, Allocator>
    {
       if(this->priv_push_front_simple_available()){
          allocator_traits_type::construct
-            ( this->alloc(), this->priv_push_front_simple_pos(), ::boost::forward<U>(x));
+            ( this->alloc(), this->priv_push_front_simple_pos(), ::std::forward<U>(x));
          this->priv_push_front_simple_commit();
       }
       else{
          priv_insert_aux_impl
-            (this->cbegin(), (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::boost::forward<U>(x)));
+            (this->cbegin(), (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::std::forward<U>(x)));
       }
    }
 
@@ -1613,12 +1613,12 @@ class deque : protected deque_base<T, Allocator>
    {
       if(this->priv_push_back_simple_available()){
          allocator_traits_type::construct
-            ( this->alloc(), this->priv_push_back_simple_pos(), ::boost::forward<U>(x));
+            ( this->alloc(), this->priv_push_back_simple_pos(), ::std::forward<U>(x));
          this->priv_push_back_simple_commit();
       }
       else{
          priv_insert_aux_impl
-            (this->cend(), (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::boost::forward<U>(x)));
+            (this->cend(), (size_type)1, container_detail::get_insert_value_proxy<iterator>(this->alloc(), ::std::forward<U>(x)));
          container_detail::insert_copy_proxy<Allocator, iterator> proxy(this->alloc(), x);
       }
    }
@@ -1694,10 +1694,10 @@ class deque : protected deque_base<T, Allocator>
             pos = this->members_.m_start + elemsbefore;
             if (elemsbefore >= n) {
                const iterator start_n = this->members_.m_start + n;
-               ::boost::container::uninitialized_move_alloc
+               ::std::container::uninitialized_move_alloc
                   (this->alloc(), this->members_.m_start, start_n, new_start);
                this->members_.m_start = new_start;
-               boost::move(start_n, pos, old_start);
+               std::move(start_n, pos, old_start);
                interf.copy_n_and_update(pos - n, n);
             }
             else {
@@ -1705,7 +1705,7 @@ class deque : protected deque_base<T, Allocator>
                const iterator mid_start = old_start - mid_count;
                interf.uninitialized_copy_n_and_update(mid_start, mid_count);
                this->members_.m_start = mid_start;
-               ::boost::container::uninitialized_move_alloc
+               ::std::container::uninitialized_move_alloc
                   (this->alloc(), old_start, pos, new_start);
                this->members_.m_start = new_start;
                interf.copy_n_and_update(old_start, elemsbefore);
@@ -1724,15 +1724,15 @@ class deque : protected deque_base<T, Allocator>
             pos = old_finish - elemsafter;
             if (elemsafter >= n) {
                iterator finish_n = old_finish - difference_type(n);
-               ::boost::container::uninitialized_move_alloc
+               ::std::container::uninitialized_move_alloc
                   (this->alloc(), finish_n, old_finish, old_finish);
                this->members_.m_finish = new_finish;
-               boost::move_backward(pos, finish_n, old_finish);
+               std::move_backward(pos, finish_n, old_finish);
                interf.copy_n_and_update(pos, n);
             }
             else {
                const size_type raw_gap = n - elemsafter;
-               ::boost::container::uninitialized_move_alloc
+               ::std::container::uninitialized_move_alloc
                   (this->alloc(), pos, old_finish, old_finish + raw_gap);
                BOOST_TRY{
                   interf.copy_n_and_update(pos, elemsafter);
@@ -1790,10 +1790,10 @@ class deque : protected deque_base<T, Allocator>
       index_pointer cur;
       BOOST_TRY {
          for (cur = this->members_.m_start.m_node; cur < this->members_.m_finish.m_node; ++cur){
-            boost::container::uninitialized_fill_alloc
+            std::container::uninitialized_fill_alloc
                (this->alloc(), *cur, *cur + this->s_buffer_size(), value);
          }
-         boost::container::uninitialized_fill_alloc
+         std::container::uninitialized_fill_alloc
             (this->alloc(), this->members_.m_finish.m_first, this->members_.m_finish.m_cur, value);
       }
       BOOST_CATCH(...){
@@ -1832,10 +1832,10 @@ class deque : protected deque_base<T, Allocator>
                ++cur_node) {
             FwdIt mid = first;
             std::advance(mid, this->s_buffer_size());
-            ::boost::container::uninitialized_copy_alloc(this->alloc(), first, mid, *cur_node);
+            ::std::container::uninitialized_copy_alloc(this->alloc(), first, mid, *cur_node);
             first = mid;
          }
-         ::boost::container::uninitialized_copy_alloc(this->alloc(), first, last, this->members_.m_finish.m_first);
+         ::std::container::uninitialized_copy_alloc(this->alloc(), first, last, this->members_.m_finish.m_first);
       }
       BOOST_CATCH(...){
          this->priv_destroy_range(this->members_.m_start, iterator(*cur_node, cur_node));
@@ -1932,9 +1932,9 @@ class deque : protected deque_base<T, Allocator>
          new_nstart = this->members_.m_map + (this->members_.m_map_size - new_num_nodes) / 2
                            + (add_at_front ? nodes_to_add : 0);
          if (new_nstart < this->members_.m_start.m_node)
-            boost::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
+            std::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
          else
-            boost::move_backward
+            std::move_backward
                (this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart + old_num_nodes);
       }
       else {
@@ -1944,7 +1944,7 @@ class deque : protected deque_base<T, Allocator>
          index_pointer new_map = this->priv_allocate_map(new_map_size);
          new_nstart = new_map + (new_map_size - new_num_nodes) / 2
                               + (add_at_front ? nodes_to_add : 0);
-         boost::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
+         std::move(this->members_.m_start.m_node, this->members_.m_finish.m_node + 1, new_nstart);
          this->priv_deallocate_map(this->members_.m_map, this->members_.m_map_size);
 
          this->members_.m_map = new_map;
@@ -1999,8 +1999,8 @@ namespace boost {
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class T, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::deque<T, Allocator> >
-   : public ::boost::has_trivial_destructor_after_move<Allocator>
+struct has_trivial_destructor_after_move<std::container::deque<T, Allocator> >
+   : public ::std::has_trivial_destructor_after_move<Allocator>
 {};
 
 }

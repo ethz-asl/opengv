@@ -32,7 +32,7 @@ T inverse_students_t_hill(T ndf, T u, const Policy& pol)
    T a, b, c, d, q, x, y;
 
    if (ndf > 1e20f)
-      return -boost::math::erfc_inv(2 * u, pol) * constants::root_two<T>();
+      return -std::math::erfc_inv(2 * u, pol) * constants::root_two<T>();
 
    a = 1 / (ndf - 0.5f);
    b = 48 / (a * a);
@@ -45,14 +45,14 @@ T inverse_students_t_hill(T ndf, T u, const Policy& pol)
       //
       // Asymptotic inverse expansion about normal:
       //
-      x = -boost::math::erfc_inv(2 * u, pol) * constants::root_two<T>();
+      x = -std::math::erfc_inv(2 * u, pol) * constants::root_two<T>();
       y = x * x;
 
       if (ndf < 5)
          c += 0.3f * (ndf - 4.5f) * (x + 0.6f);
       c += (((0.05f * d * x - 5) * x - 7) * x - 2) * x + b;
       y = (((((0.4f * y + 6.3f) * y + 36) * y + 94.5f) / c - y - 3) / b + 1) * x;
-      y = boost::math::expm1(a * y * y, pol);
+      y = std::math::expm1(a * y * y, pol);
    }
    else
    {
@@ -79,7 +79,7 @@ T inverse_students_t_tail_series(T df, T v, const Policy& pol)
    BOOST_MATH_STD_USING
    // Tail series expansion, see section 6 of Shaw's paper.
    // w is calculated using Eq 60:
-   T w = boost::math::tgamma_delta_ratio(df / 2, constants::half<T>(), pol)
+   T w = std::math::tgamma_delta_ratio(df / 2, constants::half<T>(), pol)
       * sqrt(df * constants::pi<T>()) * v;
    // define some variables:
    T np2 = df + 2;
@@ -133,7 +133,7 @@ T inverse_students_t_body_series(T df, T u, const Policy& pol)
    //
    // Start with Eq 56 of Shaw:
    //
-   T v = boost::math::tgamma_delta_ratio(df / 2, constants::half<T>(), pol)
+   T v = std::math::tgamma_delta_ratio(df / 2, constants::half<T>(), pol)
       * sqrt(df * constants::pi<T>()) * (u - constants::half<T>());
    //
    // Workspace for the polynomial coefficients:
@@ -284,7 +284,7 @@ T inverse_students_t(T df, T u, T v, const Policy& pol, bool* pexact = 0)
             // supplement:
             //
             T a = 4 * (u - u * u);//1 - 4 * (u - 0.5f) * (u - 0.5f);
-            T b = boost::math::cbrt(a);
+            T b = std::math::cbrt(a);
             static const T c = 0.85498797333834849467655443627193;
             T p = 6 * (1 + c * (1 / b - 1));
             T p0;
@@ -381,11 +381,11 @@ calculate_real:
          T crossover = 0.2742f - df * 0.0242143f;
          if(u > crossover)
          {
-            result = boost::math::detail::inverse_students_t_body_series(df, u, pol);
+            result = std::math::detail::inverse_students_t_body_series(df, u, pol);
          }
          else
          {
-            result = boost::math::detail::inverse_students_t_tail_series(df, u, pol);
+            result = std::math::detail::inverse_students_t_tail_series(df, u, pol);
          }
       }
       else
@@ -398,11 +398,11 @@ calculate_real:
          T crossover = ldexp(1.0f, iround(T(df / -0.654f), pol));
          if(u > crossover)
          {
-            result = boost::math::detail::inverse_students_t_hill(df, u, pol);
+            result = std::math::detail::inverse_students_t_hill(df, u, pol);
          }
          else
          {
-            result = boost::math::detail::inverse_students_t_tail_series(df, u, pol);
+            result = std::math::detail::inverse_students_t_tail_series(df, u, pol);
          }
       }
    }
@@ -415,7 +415,7 @@ inline T find_ibeta_inv_from_t_dist(T a, T p, T q, T* py, const Policy& pol)
    T u = (p > q) ? T(0.5f - q) / T(2) : T(p / 2);
    T v = 1 - u; // u < 0.5 so no cancellation error
    T df = a * 2;
-   T t = boost::math::detail::inverse_students_t(df, u, v, pol);
+   T t = std::math::detail::inverse_students_t(df, u, v, pol);
    T x = df / (df + t * t);
    *py = t * t / (df + t * t);
    return x;
@@ -433,7 +433,7 @@ inline T fast_students_t_quantile_imp(T df, T p, const Policy& pol, const mpl::f
    T t, x, y(0);
    x = ibeta_inv(df / 2, T(0.5), 2 * probability, &y, pol);
    if(df * y > tools::max_value<T>() * x)
-      t = policies::raise_overflow_error<T>("boost::math::students_t_quantile<%1%>(%1%,%1%)", 0, pol);
+      t = policies::raise_overflow_error<T>("std::math::students_t_quantile<%1%>(%1%,%1%)", 0, pol);
    else
       t = sqrt(df * y / x);
    //
@@ -450,7 +450,7 @@ T fast_students_t_quantile_imp(T df, T p, const Policy& pol, const mpl::true_*)
    BOOST_MATH_STD_USING
    bool invert = false;
    if((df < 2) && (floor(df) != df))
-      return boost::math::detail::fast_students_t_quantile_imp(df, p, pol, static_cast<mpl::false_*>(0));
+      return std::math::detail::fast_students_t_quantile_imp(df, p, pol, static_cast<mpl::false_*>(0));
    if(p > 0.5)
    {
       p = 1 - p;
@@ -533,7 +533,7 @@ inline T fast_students_t_quantile(T df, T p, const Policy& pol)
        &&
       (std::numeric_limits<T>::radix == 2)
    > tag_type;
-   return policies::checked_narrowing_cast<T, forwarding_policy>(fast_students_t_quantile_imp(static_cast<value_type>(df), static_cast<value_type>(p), pol, static_cast<tag_type*>(0)), "boost::math::students_t_quantile<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<T, forwarding_policy>(fast_students_t_quantile_imp(static_cast<value_type>(df), static_cast<value_type>(p), pol, static_cast<tag_type*>(0)), "std::math::students_t_quantile<%1%>(%1%,%1%,%1%)");
 }
 
 }}} // namespaces

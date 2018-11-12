@@ -33,21 +33,21 @@ class basic_multiallocation_chain
                         ,bi::link_mode<bi::normal_link>
                         > node;
 
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <VoidPointer>::template rebind_pointer<char>::type    char_ptr;
-   typedef typename boost::intrusive::
+   typedef typename std::intrusive::
       pointer_traits<char_ptr>::difference_type             difference_type;
 
    typedef bi::slist< node
                     , bi::linear<true>
                     , bi::cache_last<true>
-                    , bi::size_type<typename boost::make_unsigned<difference_type>::type>
+                    , bi::size_type<typename std::make_unsigned<difference_type>::type>
                     > slist_impl_t;
    slist_impl_t slist_impl_;
 
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <VoidPointer>::template rebind_pointer<node>::type    node_ptr;
-   typedef typename boost::intrusive::
+   typedef typename std::intrusive::
       pointer_traits<node_ptr>                              node_ptr_traits;
 
    static node & to_node(const VoidPointer &p)
@@ -76,12 +76,12 @@ class basic_multiallocation_chain
    {}
 
    basic_multiallocation_chain(BOOST_RV_REF(basic_multiallocation_chain) other)
-      :  slist_impl_(::boost::move(other.slist_impl_))
+      :  slist_impl_(::std::move(other.slist_impl_))
    {}
 
    basic_multiallocation_chain& operator=(BOOST_RV_REF(basic_multiallocation_chain) other)
    {
-      slist_impl_ = ::boost::move(other.slist_impl_);
+      slist_impl_ = ::std::move(other.slist_impl_);
       return *this;
    }
 
@@ -134,7 +134,7 @@ class basic_multiallocation_chain
 
    void_pointer incorporate_after(iterator after_this, const void_pointer &b, size_type unit_bytes, size_type num_units)
    {
-      typedef typename boost::intrusive::pointer_traits<char_ptr> char_pointer_traits;
+      typedef typename std::intrusive::pointer_traits<char_ptr> char_pointer_traits;
       char_ptr elem = char_pointer_traits::static_cast_from(b);
       if(num_units){
          char_ptr prev_elem = elem;
@@ -186,11 +186,11 @@ class transform_multiallocation_chain
    //transform_multiallocation_chain & operator=(const transform_multiallocation_chain &);
 
    typedef typename MultiallocationChain::void_pointer   void_pointer;
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <void_pointer>                                     void_pointer_traits;
    typedef typename void_pointer_traits::template
       rebind_pointer<T>::type                            pointer;
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <pointer>                                          pointer_traits;
 
    static pointer cast(const void_pointer &p)
@@ -207,17 +207,17 @@ class transform_multiallocation_chain
    {}
 
    transform_multiallocation_chain(BOOST_RV_REF(transform_multiallocation_chain) other)
-      : MultiallocationChain(::boost::move(static_cast<MultiallocationChain&>(other)))
+      : MultiallocationChain(::std::move(static_cast<MultiallocationChain&>(other)))
    {}
 
    transform_multiallocation_chain(BOOST_RV_REF(MultiallocationChain) other)
-      : MultiallocationChain(::boost::move(static_cast<MultiallocationChain&>(other)))
+      : MultiallocationChain(::std::move(static_cast<MultiallocationChain&>(other)))
    {}
 
    transform_multiallocation_chain& operator=(BOOST_RV_REF(transform_multiallocation_chain) other)
    {
       return static_cast<MultiallocationChain&>
-         (this->MultiallocationChain::operator=(::boost::move(static_cast<MultiallocationChain&>(other))));
+         (this->MultiallocationChain::operator=(::std::move(static_cast<MultiallocationChain&>(other))));
    }
 /*
    void push_front(const pointer &mem)

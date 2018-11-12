@@ -39,7 +39,7 @@ namespace boost
                   UnaryOperation          fun)
         {
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
-            return std::transform(boost::begin(rng),boost::end(rng),out,fun);
+            return std::transform(std::begin(rng),std::end(rng),out,fun);
         }
 
     } // namespace range
@@ -84,9 +84,9 @@ namespace boost
         {
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-            return boost::range_detail::transform_impl(
-                        boost::begin(rng1), boost::end(rng1),
-                        boost::begin(rng2), boost::end(rng2),
+            return std::range_detail::transform_impl(
+                        std::begin(rng1), std::end(rng1),
+                        std::begin(rng2), std::end(rng2),
                         out, fun);
         }
 

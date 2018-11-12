@@ -128,7 +128,7 @@ namespace boost {
                 const T & operator()(const T & arg) { return arg; }
             };
             typedef ::std::basic_ostream<Ch, Tr> stream_t;
-            typedef boost::base_from_member<boost::shared_ptr<
+            typedef std::base_from_member<std::shared_ptr<
                 basic_altstringbuf<Ch,Tr, Alloc> > > 
                 pbase_type;
             typedef ::std::basic_string<Ch, Tr, Alloc>  string_type;
@@ -139,7 +139,7 @@ namespace boost {
             basic_oaltstringstream() 
                 : pbase_type(new stringbuf_t), stream_t(rdbuf()) 
                 { }
-            basic_oaltstringstream(::boost::shared_ptr<stringbuf_t> buf) 
+            basic_oaltstringstream(::std::shared_ptr<stringbuf_t> buf) 
                 : pbase_type(buf), stream_t(rdbuf()) 
                 { }
             basic_oaltstringstream(stringbuf_t * buf) 

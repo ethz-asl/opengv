@@ -31,7 +31,7 @@ inline Container& insert( Container& on,
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<Range> ));
     BOOST_ASSERT( (void*)&on != (void*)&from &&
                   "cannot copy from a container to itself" );
-    on.insert( before, boost::begin(from), boost::end(from) );
+    on.insert( before, std::begin(from), std::end(from) );
     return on;
 }
 

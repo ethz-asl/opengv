@@ -425,7 +425,7 @@ struct default_operations
     /*
      * for usage in for_each2
      *
-     * Works with boost::units by eliminating the unit
+     * Works with std::units by eliminating the unit
      */
     template< class Fac1 = double >
     struct rel_error
@@ -452,7 +452,7 @@ struct default_operations
      *
      * used in the controller for the rosenbrock4 method
      *
-     * Works with boost::units by eliminating the unit
+     * Works with std::units by eliminating the unit
      */
     template< class Fac1 = double >
     struct default_rel_error

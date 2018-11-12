@@ -28,9 +28,9 @@ template< typename T >
 struct is_arithmetic_impl
 { 
     BOOST_STATIC_CONSTANT(bool, value = 
-        (::boost::type_traits::ice_or< 
-            ::boost::is_integral<T>::value,
-            ::boost::is_float<T>::value
+        (::std::type_traits::ice_or< 
+            ::std::is_integral<T>::value,
+            ::std::is_float<T>::value
         >::value)); 
 };
 
@@ -41,7 +41,7 @@ struct is_arithmetic_impl
 #if defined(__CODEGEARC__)
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_arithmetic,T,__is_arithmetic(T))
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_arithmetic,T,::boost::detail::is_arithmetic_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_arithmetic,T,::std::detail::is_arithmetic_impl<T>::value)
 #endif
 
 } // namespace boost

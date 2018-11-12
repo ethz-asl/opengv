@@ -28,7 +28,7 @@ namespace detail
   template <class RealType, class Policy>
   inline bool verify_sigma(const char* function, RealType sigma, RealType* presult, const Policy& pol)
   {
-     if((sigma <= 0) || (!(boost::math::isfinite)(sigma)))
+     if((sigma <= 0) || (!(std::math::isfinite)(sigma)))
      {
         *presult = policies::raise_domain_error<RealType>(
            function,
@@ -41,7 +41,7 @@ namespace detail
   template <class RealType, class Policy>
   inline bool verify_rayleigh_x(const char* function, RealType x, RealType* presult, const Policy& pol)
   {
-     if((x < 0) || (boost::math::isnan)(x))
+     if((x < 0) || (std::math::isnan)(x))
      {
         *presult = policies::raise_domain_error<RealType>(
            function,
@@ -63,7 +63,7 @@ public:
       : m_sigma(sigma)
    {
       RealType err;
-      detail::verify_sigma("boost::math::rayleigh_distribution<%1%>::rayleigh_distribution", sigma, &err, Policy());
+      detail::verify_sigma("std::math::rayleigh_distribution<%1%>::rayleigh_distribution", sigma, &err, Policy());
    } // rayleigh_distribution
 
    RealType sigma()const
@@ -80,7 +80,7 @@ typedef rayleigh_distribution<double> rayleigh;
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const rayleigh_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(static_cast<RealType>(0), std::numeric_limits<RealType>::has_infinity ? std::numeric_limits<RealType>::infinity() : max_value<RealType>());
 }
 
@@ -88,7 +88,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> support(const rayleigh_distribution<RealType, Policy>& /*dist*/)
 { // Range of supported values for random variable x.
    // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(static_cast<RealType>(0),  max_value<RealType>());
 }
 
@@ -99,7 +99,7 @@ inline RealType pdf(const rayleigh_distribution<RealType, Policy>& dist, const R
 
    RealType sigma = dist.sigma();
    RealType result = 0;
-   static const char* function = "boost::math::pdf(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::pdf(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
@@ -108,7 +108,7 @@ inline RealType pdf(const rayleigh_distribution<RealType, Policy>& dist, const R
    {
       return result;
    }
-   if((boost::math::isinf)(x))
+   if((std::math::isinf)(x))
    {
       return 0;
    }
@@ -124,7 +124,7 @@ inline RealType cdf(const rayleigh_distribution<RealType, Policy>& dist, const R
 
    RealType result = 0;
    RealType sigma = dist.sigma();
-   static const char* function = "boost::math::cdf(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
@@ -133,7 +133,7 @@ inline RealType cdf(const rayleigh_distribution<RealType, Policy>& dist, const R
    {
       return result;
    }
-   result = -boost::math::expm1(-x * x / ( 2 * sigma * sigma), Policy());
+   result = -std::math::expm1(-x * x / ( 2 * sigma * sigma), Policy());
    return result;
 } // cdf
 
@@ -144,7 +144,7 @@ inline RealType quantile(const rayleigh_distribution<RealType, Policy>& dist, co
 
    RealType result = 0;
    RealType sigma = dist.sigma();
-   static const char* function = "boost::math::quantile(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
       return result;
    if(false == detail::check_probability(function, p, &result, Policy()))
@@ -158,7 +158,7 @@ inline RealType quantile(const rayleigh_distribution<RealType, Policy>& dist, co
    {
      return policies::raise_overflow_error<RealType>(function, 0, Policy());
    }
-   result = sqrt(-2 * sigma * sigma * boost::math::log1p(-p, Policy()));
+   result = sqrt(-2 * sigma * sigma * std::math::log1p(-p, Policy()));
    return result;
 } // quantile
 
@@ -169,7 +169,7 @@ inline RealType cdf(const complemented2_type<rayleigh_distribution<RealType, Pol
 
    RealType result = 0;
    RealType sigma = c.dist.sigma();
-   static const char* function = "boost::math::cdf(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
@@ -190,7 +190,7 @@ inline RealType quantile(const complemented2_type<rayleigh_distribution<RealType
 
    RealType result = 0;
    RealType sigma = c.dist.sigma();
-   static const char* function = "boost::math::quantile(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
@@ -217,12 +217,12 @@ inline RealType mean(const rayleigh_distribution<RealType, Policy>& dist)
 {
    RealType result = 0;
    RealType sigma = dist.sigma();
-   static const char* function = "boost::math::mean(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::mean(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
    }
-   using boost::math::constants::root_half_pi;
+   using std::math::constants::root_half_pi;
    return sigma * root_half_pi<RealType>();
 } // mean
 
@@ -231,12 +231,12 @@ inline RealType variance(const rayleigh_distribution<RealType, Policy>& dist)
 {
    RealType result = 0;
    RealType sigma = dist.sigma();
-   static const char* function = "boost::math::variance(const rayleigh_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::variance(const rayleigh_distribution<%1%>&, %1%)";
    if(false == detail::verify_sigma(function, sigma, &result, Policy()))
    {
       return result;
    }
-   using boost::math::constants::four_minus_pi;
+   using std::math::constants::four_minus_pi;
    return four_minus_pi<RealType>() * sigma * sigma / 2;
 } // variance
 
@@ -249,14 +249,14 @@ inline RealType mode(const rayleigh_distribution<RealType, Policy>& dist)
 template <class RealType, class Policy>
 inline RealType median(const rayleigh_distribution<RealType, Policy>& dist)
 {
-   using boost::math::constants::root_ln_four;
+   using std::math::constants::root_ln_four;
    return root_ln_four<RealType>() * dist.sigma();
 }
 
 template <class RealType, class Policy>
 inline RealType skewness(const rayleigh_distribution<RealType, Policy>& /*dist*/)
 {
-  // using namespace boost::math::constants;
+  // using namespace std::math::constants;
   return static_cast<RealType>(0.63111065781893713819189935154422777984404221106391L);
   // Computed using NTL at 150 bit, about 50 decimal digits.
   // return 2 * root_pi<RealType>() * pi_minus_three<RealType>() / pow23_four_minus_pi<RealType>();
@@ -265,7 +265,7 @@ inline RealType skewness(const rayleigh_distribution<RealType, Policy>& /*dist*/
 template <class RealType, class Policy>
 inline RealType kurtosis(const rayleigh_distribution<RealType, Policy>& /*dist*/)
 {
-  // using namespace boost::math::constants;
+  // using namespace std::math::constants;
   return static_cast<RealType>(3.2450893006876380628486604106197544154170667057995L);
   // Computed using NTL at 150 bit, about 50 decimal digits.
   // return 3 - (6 * pi<RealType>() * pi<RealType>() - 24 * pi<RealType>() + 16) /
@@ -275,7 +275,7 @@ inline RealType kurtosis(const rayleigh_distribution<RealType, Policy>& /*dist*/
 template <class RealType, class Policy>
 inline RealType kurtosis_excess(const rayleigh_distribution<RealType, Policy>& /*dist*/)
 {
-  //using namespace boost::math::constants;
+  //using namespace std::math::constants;
   // Computed using NTL at 150 bit, about 50 decimal digits.
   return static_cast<RealType>(0.2450893006876380628486604106197544154170667057995L);
   // return -(6 * pi<RealType>() * pi<RealType>() - 24 * pi<RealType>() + 16) /

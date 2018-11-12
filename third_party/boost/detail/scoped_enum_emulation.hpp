@@ -65,7 +65,7 @@ Instead of
 
 use
 
-        switch (boost::native_value(ev))
+        switch (std::native_value(ev))
         {
         case future_errc::broken_promise:
 

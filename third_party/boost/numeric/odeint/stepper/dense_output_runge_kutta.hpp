@@ -101,7 +101,7 @@ public:
     void initialize( const StateType &x0 , time_type t0 , time_type dt0 )
     {
         m_resizer.adjust_size( x0 , detail::bind( &dense_output_stepper_type::template resize_impl< StateType > , detail::ref( *this ) , detail::_1 ) );
-        boost::numeric::odeint::copy( x0 , get_current_state() );
+        std::numeric::odeint::copy( x0 , get_current_state() );
         m_t = t0;
         m_dt = dt0;
     }
@@ -296,7 +296,7 @@ public:
     void initialize( const StateType &x0 , time_type t0 , time_type dt0 )
     {
         m_resizer.adjust_size( x0 , detail::bind( &dense_output_stepper_type::template resize< StateType > , detail::ref( *this ) , detail::_1 ) );
-        boost::numeric::odeint::copy( x0 , get_current_state() );
+        std::numeric::odeint::copy( x0 , get_current_state() );
         m_t = t0;
         m_dt = dt0;
         m_is_deriv_initialized = false;

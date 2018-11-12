@@ -66,8 +66,8 @@ struct requirement_<void(*)(Model)>
 # endif
 
 #  define BOOST_CONCEPT_ASSERT_FN( ModelFnPtr )             \
-    typedef ::boost::concepts::detail::instantiate<          \
-    &::boost::concepts::requirement_<ModelFnPtr>::failed>    \
+    typedef ::std::concepts::detail::instantiate<          \
+    &::std::concepts::requirement_<ModelFnPtr>::failed>    \
       BOOST_PP_CAT(boost_concept_check,__LINE__)
 
 }}

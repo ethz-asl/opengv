@@ -35,7 +35,7 @@ BOOST_DEDUCED_TYPENAME disable_if<
 upper_bound( ForwardRange& rng, Value val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return std::upper_bound(boost::begin(rng), boost::end(rng), val);
+    return std::upper_bound(std::begin(rng), std::end(rng), val);
 }
 
 /// \overload
@@ -44,7 +44,7 @@ BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
 upper_bound( const ForwardRange& rng, Value val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::upper_bound(boost::begin(rng), boost::end(rng), val);
+    return std::upper_bound(std::begin(rng), std::end(rng), val);
 }
 
 /// \overload
@@ -56,7 +56,7 @@ inline BOOST_DEDUCED_TYPENAME disable_if<
 upper_bound( ForwardRange& rng, Value val, SortPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return std::upper_bound(boost::begin(rng), boost::end(rng), val, pred);
+    return std::upper_bound(std::begin(rng), std::end(rng), val, pred);
 }
 
 /// \overload
@@ -65,7 +65,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
 upper_bound( const ForwardRange& rng, Value val, SortPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::upper_bound(boost::begin(rng), boost::end(rng), val, pred);
+    return std::upper_bound(std::begin(rng), std::end(rng), val, pred);
 }
 
 /// \overload
@@ -78,7 +78,7 @@ upper_bound( ForwardRange& rng, Value val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::
-        pack(std::upper_bound(boost::begin(rng), boost::end(rng), val),
+        pack(std::upper_bound(std::begin(rng), std::end(rng), val),
              rng);
 }
 
@@ -89,7 +89,7 @@ upper_bound( const ForwardRange& rng, Value val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::
-        pack(std::upper_bound(boost::begin(rng), boost::end(rng), val),
+        pack(std::upper_bound(std::begin(rng), std::end(rng), val),
              rng);
 }
 
@@ -104,7 +104,7 @@ upper_bound( ForwardRange& rng, Value val, SortPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::
-        pack(std::upper_bound(boost::begin(rng), boost::end(rng), val, pred),
+        pack(std::upper_bound(std::begin(rng), std::end(rng), val, pred),
              rng);
 }
 
@@ -116,7 +116,7 @@ upper_bound( const ForwardRange& rng, Value val, SortPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::
-        pack(std::upper_bound(boost::begin(rng), boost::end(rng), val, pred),
+        pack(std::upper_bound(std::begin(rng), std::end(rng), val, pred),
              rng);
 }
 

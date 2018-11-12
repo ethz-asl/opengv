@@ -46,10 +46,10 @@ namespace container {
 
 namespace container_swap {
 
-template<class T, bool IsClass = boost::is_class<T>::value >
+template<class T, bool IsClass = std::is_class<T>::value >
 struct has_member_swap
 {
-   static const bool value = boost::container::container_detail::
+   static const bool value = std::container::container_detail::
       has_member_function_callable_with_swap<T, T &>::value;
 };
 
@@ -71,17 +71,17 @@ swap_dispatch(T &left, T &right)   //swap using member swap
 
 template<class T> inline
 typename container_detail::enable_if_c
-      <!container_swap::has_member_swap<T>::value && boost::has_move_emulation_enabled<T>::value, void>::type
+      <!container_swap::has_member_swap<T>::value && std::has_move_emulation_enabled<T>::value, void>::type
    swap_dispatch(T &left, T &right)
 {
-   T temp(boost::move(left)); // may throw
-   left = boost::move(right); // may throw
-   right = boost::move(temp); // may throw
+   T temp(std::move(left)); // may throw
+   left = std::move(right); // may throw
+   right = std::move(temp); // may throw
 }
 
 template<class T> inline
 typename container_detail::enable_if_c
-      <!container_swap::has_member_swap<T>::value && !boost::has_move_emulation_enabled<T>::value, void>::type
+      <!container_swap::has_member_swap<T>::value && !std::has_move_emulation_enabled<T>::value, void>::type
    swap_dispatch(T &left, T &right)
 {
    using std::swap;
@@ -135,7 +135,7 @@ inline T* to_raw_pointer(T* p)
 template <class Pointer>
 inline typename Pointer::element_type*
    to_raw_pointer(const Pointer &p)
-{  return boost::container::container_detail::to_raw_pointer(p.operator->());  }
+{  return std::container::container_detail::to_raw_pointer(p.operator->());  }
 
 
 template<class AllocatorType>
@@ -145,7 +145,7 @@ inline void swap_alloc(AllocatorType &, AllocatorType &, container_detail::false
 
 template<class AllocatorType>
 inline void swap_alloc(AllocatorType &l, AllocatorType &r, container_detail::true_type)
-{  boost::container::swap_dispatch(l, r);   }
+{  std::container::swap_dispatch(l, r);   }
 
 template<class AllocatorType>
 inline void assign_alloc(AllocatorType &, const AllocatorType &, container_detail::false_type)
@@ -163,7 +163,7 @@ inline void move_alloc(AllocatorType &, AllocatorType &, container_detail::false
 
 template<class AllocatorType>
 inline void move_alloc(AllocatorType &l, AllocatorType &r, container_detail::true_type)
-{  l = ::boost::move(r);   }
+{  l = ::std::move(r);   }
 
 //Rounds "orig_size" by excess to round_to bytes
 template<class SizeType>
@@ -229,13 +229,13 @@ namespace container_detail {
 #ifndef BOOST_CONTAINER_VECTOR_ITERATOR_IS_POINTER
 
 template<class Pointer>
-struct are_elements_contiguous<boost::container::container_detail::vector_iterator<Pointer> >
+struct are_elements_contiguous<std::container::container_detail::vector_iterator<Pointer> >
 {
    static const bool value = true;
 };
 
 template<class Pointer>
-struct are_elements_contiguous<boost::container::container_detail::vector_const_iterator<Pointer> >
+struct are_elements_contiguous<std::container::container_detail::vector_const_iterator<Pointer> >
 {
    static const bool value = true;
 };
@@ -247,7 +247,7 @@ struct are_elements_contiguous<boost::container::container_detail::vector_const_
 /////////////////////////
 
 template <class PointedType, class DifferenceType, class OffsetType, std::size_t OffsetAlignment>
-struct are_elements_contiguous< ::boost::interprocess::offset_ptr<PointedType, DifferenceType, OffsetType, OffsetAlignment> >
+struct are_elements_contiguous< ::std::interprocess::offset_ptr<PointedType, DifferenceType, OffsetType, OffsetAlignment> >
 {
    static const bool value = true;
 };
@@ -268,14 +268,14 @@ template <typename I, typename O>
 struct is_memcpy_copy_assignable
 {
    static const bool value = are_contiguous_and_same<I, O>::value &&
-      boost::has_trivial_assign< typename ::std::iterator_traits<I>::value_type >::value;
+      std::has_trivial_assign< typename ::std::iterator_traits<I>::value_type >::value;
 };
 
 template <typename I, typename O>
 struct is_memcpy_copy_constructible
 {
    static const bool value = are_contiguous_and_same<I, O>::value &&
-      boost::has_trivial_copy< typename ::std::iterator_traits<I>::value_type >::value;
+      std::has_trivial_copy< typename ::std::iterator_traits<I>::value_type >::value;
 };
 
 template <typename I, typename O, typename R>
@@ -358,7 +358,7 @@ I memcpy_n_source_dest(I f, typename std::iterator_traits<I>::difference_type n,
 //! <b>Effects</b>:
 //!   \code
 //!   for (; f != l; ++r, ++f)
-//!      allocator_traits::construct(a, &*r, boost::move(*f));
+//!      allocator_traits::construct(a, &*r, std::move(*f));
 //!   \endcode
 //!
 //! <b>Returns</b>: r
@@ -372,7 +372,7 @@ inline typename container_detail::disable_if_memcpy_copy_constructible<I, F, F>:
    F back = r;
    BOOST_TRY{
       while (f != l) {
-         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), boost::move(*f));
+         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), std::move(*f));
          ++f; ++r;
       }
    }
@@ -403,7 +403,7 @@ inline typename container_detail::enable_if_memcpy_copy_constructible<I, F, F>::
 //! <b>Effects</b>:
 //!   \code
 //!   for (; n--; ++r, ++f)
-//!      allocator_traits::construct(a, &*r, boost::move(*f));
+//!      allocator_traits::construct(a, &*r, std::move(*f));
 //!   \endcode
 //!
 //! <b>Returns</b>: r
@@ -417,7 +417,7 @@ inline typename container_detail::disable_if_memcpy_copy_constructible<I, F, F>:
    F back = r;
    BOOST_TRY{
       while (n--) {
-         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), boost::move(*f));
+         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), std::move(*f));
          ++f; ++r;
       }
    }
@@ -448,7 +448,7 @@ inline typename container_detail::enable_if_memcpy_copy_constructible<I, F, F>::
 //! <b>Effects</b>:
 //!   \code
 //!   for (; n--; ++r, ++f)
-//!      allocator_traits::construct(a, &*r, boost::move(*f));
+//!      allocator_traits::construct(a, &*r, std::move(*f));
 //!   \endcode
 //!
 //! <b>Returns</b>: f (after incremented)
@@ -462,7 +462,7 @@ inline typename container_detail::disable_if_memcpy_copy_constructible<I, F, I>:
    F back = r;
    BOOST_TRY{
       while (n--) {
-         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), boost::move(*f));
+         allocator_traits<A>::construct(a, container_detail::to_raw_pointer(&*r), std::move(*f));
          ++f; ++r;
       }
    }
@@ -843,7 +843,7 @@ inline typename container_detail::disable_if_memcpy_copy_assignable<I, F, F>::ty
    move(I f, I l, F r)
 {
    while (f != l) {
-      *r = ::boost::move(*f);
+      *r = ::std::move(*f);
       ++f; ++r;
    }
    return r;
@@ -869,7 +869,7 @@ inline typename container_detail::disable_if_memcpy_copy_assignable<I, F, F>::ty
    move_n(I f, typename std::iterator_traits<I>::difference_type n, F r)
 {
    while (n--) {
-      *r = ::boost::move(*f);
+      *r = ::std::move(*f);
       ++f; ++r;
    }
    return r;
@@ -895,7 +895,7 @@ inline typename container_detail::disable_if_memcpy_copy_assignable<I, F, I>::ty
    move_n_source(I f, typename std::iterator_traits<I>::difference_type n, F r)
 {
    while (n--) {
-      *r = ::boost::move(*f);
+      *r = ::std::move(*f);
       ++f; ++r;
    }
    return f;
@@ -921,7 +921,7 @@ inline typename container_detail::disable_if_memcpy_copy_assignable<I, F, I>::ty
    move_n_source_dest(I f, typename std::iterator_traits<I>::difference_type n, F &r)
 {
    while (n--) {
-      *r = ::boost::move(*f);
+      *r = ::std::move(*f);
       ++f; ++r;
    }
    return f;
@@ -944,8 +944,8 @@ template
    <typename A
    ,typename I>  // I models InputIterator
 inline void destroy_alloc_n(A &a, I f, typename std::iterator_traits<I>::difference_type n
-   ,typename boost::container::container_detail::enable_if_c
-      < !boost::has_trivial_destructor<typename std::iterator_traits<I>::value_type>::value >::type* = 0)
+   ,typename std::container::container_detail::enable_if_c
+      < !std::has_trivial_destructor<typename std::iterator_traits<I>::value_type>::value >::type* = 0)
 {
    while(n--){
       allocator_traits<A>::destroy(a, container_detail::addressof(*f++));
@@ -956,8 +956,8 @@ template
    <typename A
    ,typename I>  // I models InputIterator
 inline void destroy_alloc_n(A &, I, typename std::iterator_traits<I>::difference_type
-   ,typename boost::container::container_detail::enable_if_c
-      < boost::has_trivial_destructor<typename std::iterator_traits<I>::value_type>::value >::type* = 0)
+   ,typename std::container::container_detail::enable_if_c
+      < std::has_trivial_destructor<typename std::iterator_traits<I>::value_type>::value >::type* = 0)
 {}
 
 //////////////////////////////////////////////////////////////////////////////
@@ -978,10 +978,10 @@ inline typename container_detail::disable_if_memcpy_copy_assignable<F, G, void>:
 {
    typename allocator_traits<A>::size_type n = 0;
    for (; n != n_i ; ++short_range_f, ++large_range_f, ++n){
-      boost::container::swap_dispatch(*short_range_f, *large_range_f);
+      std::container::swap_dispatch(*short_range_f, *large_range_f);
    }
-   boost::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
-   boost::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
+   std::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
+   std::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
 }
 
 static const std::size_t DeepSwapAllocNMaxStorage = std::size_t(1) << std::size_t(11); //2K bytes
@@ -999,7 +999,7 @@ inline typename container_detail::enable_if_c
                     , G large_range_f, typename allocator_traits<A>::size_type n_j)
 {
    typedef typename allocator_traits<A>::value_type value_type;
-   typedef typename boost::aligned_storage
+   typedef typename std::aligned_storage
       <MaxTmpBytes, container_detail::alignment_of<value_type>::value>::type storage_type;
    storage_type storage;
 
@@ -1012,8 +1012,8 @@ inline typename container_detail::enable_if_c
    ::memcpy(short_ptr, stora_ptr, n_i_bytes);
    std::advance(large_range_f, n_i);
    std::advance(short_range_f, n_i);
-   boost::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
-   boost::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
+   std::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
+   std::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
 }
 
 template
@@ -1029,7 +1029,7 @@ inline typename container_detail::enable_if_c
                     , G large_range_f, typename allocator_traits<A>::size_type n_j)
 {
    typedef typename allocator_traits<A>::value_type value_type;
-   typedef typename boost::aligned_storage
+   typedef typename std::aligned_storage
       <DeepSwapAllocNMaxStorage, container_detail::alignment_of<value_type>::value>::type storage_type;
    storage_type storage;
    const std::size_t sizeof_storage = sizeof(storage);
@@ -1080,8 +1080,8 @@ inline typename container_detail::enable_if_c
    ::memcpy(short_ptr, stora_ptr, szt_rem);
    std::advance(large_range_f, n_i);
    std::advance(short_range_f, n_i);
-   boost::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
-   boost::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
+   std::container::uninitialized_move_alloc_n(a, large_range_f, n_j - n_i, short_range_f);  // may throw
+   std::container::destroy_alloc_n(a, large_range_f, n_j - n_i);
 }
 
 
@@ -1100,12 +1100,12 @@ void copy_assign_range_alloc_n( A &a, I inp_start, typename allocator_traits<A>:
                               , O out_start, typename allocator_traits<A>::size_type n_o )
 {
    if (n_o < n_i){
-      inp_start = boost::container::copy_n_source_dest(inp_start, n_o, out_start);     // may throw
-      boost::container::uninitialized_copy_alloc_n(a, inp_start, n_i - n_o, out_start);// may throw
+      inp_start = std::container::copy_n_source_dest(inp_start, n_o, out_start);     // may throw
+      std::container::uninitialized_copy_alloc_n(a, inp_start, n_i - n_o, out_start);// may throw
    }
    else{
-      out_start = boost::container::copy_n(inp_start, n_i, out_start);  // may throw
-      boost::container::destroy_alloc_n(a, out_start, n_o - n_i);
+      out_start = std::container::copy_n(inp_start, n_i, out_start);  // may throw
+      std::container::destroy_alloc_n(a, out_start, n_o - n_i);
    }
 }
 
@@ -1124,12 +1124,12 @@ void move_assign_range_alloc_n( A &a, I inp_start, typename allocator_traits<A>:
                               , O out_start, typename allocator_traits<A>::size_type n_o )
 {
    if (n_o < n_i){
-      inp_start = boost::container::move_n_source_dest(inp_start, n_o, out_start);  // may throw
-      boost::container::uninitialized_move_alloc_n(a, inp_start, n_i - n_o, out_start);  // may throw
+      inp_start = std::container::move_n_source_dest(inp_start, n_o, out_start);  // may throw
+      std::container::uninitialized_move_alloc_n(a, inp_start, n_i - n_o, out_start);  // may throw
    }
    else{
-      out_start = boost::container::move_n(inp_start, n_i, out_start);  // may throw
-      boost::container::destroy_alloc_n(a, out_start, n_o - n_i);
+      out_start = std::container::move_n(inp_start, n_i, out_start);  // may throw
+      std::container::destroy_alloc_n(a, out_start, n_o - n_i);
    }
 }
 

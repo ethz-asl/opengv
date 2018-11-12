@@ -60,7 +60,7 @@ struct iterator_writability_disabled
 # ifdef BOOST_ITERATOR_REF_CONSTNESS_KILLS_WRITABILITY // Adding Thomas' logic?
   : mpl::or_<
         is_const<Reference>
-      , boost::detail::indirect_traits::is_reference_to_const<Reference>
+      , std::detail::indirect_traits::is_reference_to_const<Reference>
       , is_const<ValueParam>
     >
 # else 
@@ -193,7 +193,7 @@ struct facade_iterator_category
 {
 };
 
-}} // namespace boost::detail
+}} // namespace std::detail
 
 # include <boost/iterator/detail/config_undef.hpp>
 

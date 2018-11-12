@@ -21,8 +21,8 @@ namespace boost {
 //
 //  Usage:
 //    const std::list<T>::iterator p = get_some_iterator();
-//    const std::list<T>::iterator prev = boost::prior(p);
-//    const std::list<T>::iterator next = boost::next(prev, 2);
+//    const std::list<T>::iterator prev = std::prior(p);
+//    const std::list<T>::iterator next = std::next(prev, 2);
 
 //  Contributed by Dave Abrahams
 

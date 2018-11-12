@@ -36,8 +36,8 @@ inline OutputIterator merge(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::merge(boost::begin(rng1), boost::end(rng1),
-                      boost::begin(rng2), boost::end(rng2), out);
+    return std::merge(std::begin(rng1), std::end(rng1),
+                      std::begin(rng2), std::end(rng2), out);
 }
 
 /// \overload
@@ -50,8 +50,8 @@ inline OutputIterator merge(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::merge(boost::begin(rng1), boost::end(rng1),
-                      boost::begin(rng2), boost::end(rng2), out, pred);
+    return std::merge(std::begin(rng1), std::end(rng1),
+                      std::begin(rng2), std::end(rng2), out, pred);
 }
 
     } // namespace range

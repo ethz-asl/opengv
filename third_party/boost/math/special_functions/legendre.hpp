@@ -33,7 +33,7 @@ namespace detail{
 template <class T, class Policy>
 T legendre_imp(unsigned l, T x, const Policy& pol, bool second = false)
 {
-   static const char* function = "boost::math::legrendre_p<%1%>(unsigned, %1%)";
+   static const char* function = "std::math::legrendre_p<%1%>(unsigned, %1%)";
    // Error handling:
    if((x < -1) || (x > 1))
       return policies::raise_domain_error<T>(
@@ -45,7 +45,7 @@ T legendre_imp(unsigned l, T x, const Policy& pol, bool second = false)
    if(second)
    {
       // A solution of the second kind (Q):
-      p0 = (boost::math::log1p(x, pol) - boost::math::log1p(-x, pol)) / 2;
+      p0 = (std::math::log1p(x, pol) - std::math::log1p(-x, pol)) / 2;
       p1 = x * p0 - 1;
    }
    else
@@ -62,7 +62,7 @@ T legendre_imp(unsigned l, T x, const Policy& pol, bool second = false)
    while(n < l)
    {
       std::swap(p0, p1);
-      p1 = boost::math::legendre_next(n, x, p0, p1);
+      p1 = std::math::legendre_next(n, x, p0, p1);
       ++n;
    }
    return p1;
@@ -76,7 +76,7 @@ inline typename tools::promote_args<T>::type
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   static const char* function = "boost::math::legendre_p<%1%>(unsigned, %1%)";
+   static const char* function = "std::math::legendre_p<%1%>(unsigned, %1%)";
    if(l < 0)
       return policies::checked_narrowing_cast<result_type, Policy>(detail::legendre_imp(-l-1, static_cast<value_type>(x), pol, false), function);
    return policies::checked_narrowing_cast<result_type, Policy>(detail::legendre_imp(l, static_cast<value_type>(x), pol, false), function);
@@ -86,7 +86,7 @@ template <class T>
 inline typename tools::promote_args<T>::type 
    legendre_p(int l, T x)
 {
-   return boost::math::legendre_p(l, x, policies::policy<>());
+   return std::math::legendre_p(l, x, policies::policy<>());
 }
 
 template <class T, class Policy>
@@ -95,14 +95,14 @@ inline typename tools::promote_args<T>::type
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::legendre_imp(l, static_cast<value_type>(x), pol, true), "boost::math::legendre_q<%1%>(unsigned, %1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::legendre_imp(l, static_cast<value_type>(x), pol, true), "std::math::legendre_q<%1%>(unsigned, %1%)");
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type 
    legendre_q(unsigned l, T x)
 {
-   return boost::math::legendre_q(l, x, policies::policy<>());
+   return std::math::legendre_q(l, x, policies::policy<>());
 }
 
 // Recurrence for associated polynomials:
@@ -122,7 +122,7 @@ T legendre_p_imp(int l, int m, T x, T sin_theta_power, const Policy& pol)
    // Error handling:
    if((x < -1) || (x > 1))
       return policies::raise_domain_error<T>(
-      "boost::math::legendre_p<%1%>(int, int, %1%)",
+      "std::math::legendre_p<%1%>(int, int, %1%)",
          "The associated Legendre Polynomial is defined for"
          " -1 <= x <= 1, but got x = %1%.", x, pol);
    // Handle negative arguments first:
@@ -131,15 +131,15 @@ T legendre_p_imp(int l, int m, T x, T sin_theta_power, const Policy& pol)
    if(m < 0)
    {
       int sign = (m&1) ? -1 : 1;
-      return sign * boost::math::tgamma_ratio(static_cast<T>(l+m+1), static_cast<T>(l+1-m), pol) * legendre_p_imp(l, -m, x, sin_theta_power, pol);
+      return sign * std::math::tgamma_ratio(static_cast<T>(l+m+1), static_cast<T>(l+1-m), pol) * legendre_p_imp(l, -m, x, sin_theta_power, pol);
    }
    // Special cases:
    if(m > l)
       return 0;
    if(m == 0)
-      return boost::math::legendre_p(l, x, pol);
+      return std::math::legendre_p(l, x, pol);
 
-   T p0 = boost::math::double_factorial<T>(2 * m - 1, pol) * sin_theta_power;
+   T p0 = std::math::double_factorial<T>(2 * m - 1, pol) * sin_theta_power;
 
    if(m&1)
       p0 *= -1;
@@ -153,7 +153,7 @@ T legendre_p_imp(int l, int m, T x, T sin_theta_power, const Policy& pol)
    while(n < l)
    {
       std::swap(p0, p1);
-      p1 = boost::math::legendre_next(n, m, x, p0, p1);
+      p1 = std::math::legendre_next(n, m, x, p0, p1);
       ++n;
    }
    return p1;
@@ -182,7 +182,7 @@ template <class T>
 inline typename tools::promote_args<T>::type
    legendre_p(int l, int m, T x)
 {
-   return boost::math::legendre_p(l, m, x, policies::policy<>());
+   return std::math::legendre_p(l, m, x, policies::policy<>());
 }
 
 } // namespace math

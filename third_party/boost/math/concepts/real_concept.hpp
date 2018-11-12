@@ -15,7 +15,7 @@
 // That this is the minimum set is confirmed by use as a type
 // in tests of all functions & distributions, for example:
 //   test_spots(0.F); & test_spots(0.);  for float and double, but also
-//   test_spots(boost::math::concepts::real_concept(0.));
+//   test_spots(std::math::concepts::real_concept(0.));
 // NTL quad_float type is an example of a type meeting the requirements,
 // but note minor additions are needed - see ntl.diff and documentation
 // "Using With NTL - a High-Precision Floating-Point Library".
@@ -75,8 +75,8 @@ public:
    real_concept(unsigned long long c) : m_value(static_cast<real_concept_base_type>(c)){}
    real_concept(long long c) : m_value(static_cast<real_concept_base_type>(c)){}
 #elif defined(BOOST_HAS_LONG_LONG)
-   real_concept(boost::ulong_long_type c) : m_value(static_cast<real_concept_base_type>(c)){}
-   real_concept(boost::long_long_type c) : m_value(static_cast<real_concept_base_type>(c)){}
+   real_concept(std::ulong_long_type c) : m_value(static_cast<real_concept_base_type>(c)){}
+   real_concept(std::long_long_type c) : m_value(static_cast<real_concept_base_type>(c)){}
 #elif defined(BOOST_HAS_MS_INT64)
    real_concept(unsigned __int64 c) : m_value(static_cast<real_concept_base_type>(c)){}
    real_concept(__int64 c) : m_value(static_cast<real_concept_base_type>(c)){}
@@ -102,8 +102,8 @@ public:
    real_concept& operator=(long c) { m_value = c; return *this; }
    real_concept& operator=(unsigned long c) { m_value = c; return *this; }
 #ifdef BOOST_HAS_LONG_LONG
-   real_concept& operator=(boost::long_long_type c) { m_value = static_cast<real_concept_base_type>(c); return *this; }
-   real_concept& operator=(boost::ulong_long_type c) { m_value = static_cast<real_concept_base_type>(c); return *this; }
+   real_concept& operator=(std::long_long_type c) { m_value = static_cast<real_concept_base_type>(c); return *this; }
+   real_concept& operator=(std::ulong_long_type c) { m_value = static_cast<real_concept_base_type>(c); return *this; }
 #endif
    real_concept& operator=(float c) { m_value = c; return *this; }
    real_concept& operator=(double c) { m_value = c; return *this; }
@@ -253,40 +253,40 @@ inline real_concept tanh(real_concept a)
 //
 template <class Policy>
 inline int iround(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::iround(v.value(), pol); }
+{ return std::math::iround(v.value(), pol); }
 inline int iround(const concepts::real_concept& v)
-{ return boost::math::iround(v.value(), policies::policy<>()); }
+{ return std::math::iround(v.value(), policies::policy<>()); }
 template <class Policy>
 inline long lround(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::lround(v.value(), pol); }
+{ return std::math::lround(v.value(), pol); }
 inline long lround(const concepts::real_concept& v)
-{ return boost::math::lround(v.value(), policies::policy<>()); }
+{ return std::math::lround(v.value(), policies::policy<>()); }
 
 #ifdef BOOST_HAS_LONG_LONG
 template <class Policy>
-inline boost::long_long_type llround(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::llround(v.value(), pol); }
-inline boost::long_long_type llround(const concepts::real_concept& v)
-{ return boost::math::llround(v.value(), policies::policy<>()); }
+inline std::long_long_type llround(const concepts::real_concept& v, const Policy& pol)
+{ return std::math::llround(v.value(), pol); }
+inline std::long_long_type llround(const concepts::real_concept& v)
+{ return std::math::llround(v.value(), policies::policy<>()); }
 #endif
 
 template <class Policy>
 inline int itrunc(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::itrunc(v.value(), pol); }
+{ return std::math::itrunc(v.value(), pol); }
 inline int itrunc(const concepts::real_concept& v)
-{ return boost::math::itrunc(v.value(), policies::policy<>()); }
+{ return std::math::itrunc(v.value(), policies::policy<>()); }
 template <class Policy>
 inline long ltrunc(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::ltrunc(v.value(), pol); }
+{ return std::math::ltrunc(v.value(), pol); }
 inline long ltrunc(const concepts::real_concept& v)
-{ return boost::math::ltrunc(v.value(), policies::policy<>()); }
+{ return std::math::ltrunc(v.value(), policies::policy<>()); }
 
 #ifdef BOOST_HAS_LONG_LONG
 template <class Policy>
-inline boost::long_long_type lltrunc(const concepts::real_concept& v, const Policy& pol)
-{ return boost::math::lltrunc(v.value(), pol); }
-inline boost::long_long_type lltrunc(const concepts::real_concept& v)
-{ return boost::math::lltrunc(v.value(), policies::policy<>()); }
+inline std::long_long_type lltrunc(const concepts::real_concept& v, const Policy& pol)
+{ return std::math::lltrunc(v.value(), pol); }
+inline std::long_long_type lltrunc(const concepts::real_concept& v)
+{ return std::math::lltrunc(v.value(), policies::policy<>()); }
 #endif
 
 // Streaming:

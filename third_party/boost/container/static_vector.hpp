@@ -46,7 +46,7 @@ class static_storage_allocator
 
    static const std::size_t internal_capacity = N;
 
-   typedef boost::container::container_detail::version_type<static_storage_allocator, 0>   version;
+   typedef std::container::container_detail::version_type<static_storage_allocator, 0>   version;
 
    friend bool operator==(const static_storage_allocator &, const static_storage_allocator &) BOOST_CONTAINER_NOEXCEPT
    {  return false;  }
@@ -55,8 +55,8 @@ class static_storage_allocator
    {  return true;  }
 
    private:
-   typename boost::aligned_storage
-      <sizeof(T)*N, boost::alignment_of<T>::value>::type storage;
+   typename std::aligned_storage
+      <sizeof(T)*N, std::alignment_of<T>::value>::type storage;
 };
 
 }  //namespace container_detail {
@@ -68,8 +68,8 @@ class static_storage_allocator
 /**
  * @brief A variable-size array container with fixed capacity.
  *
- * static_vector is a sequence container like boost::container::vector with contiguous storage that can
- * change in size, along with the static allocation, low overhead, and fixed capacity of boost::array.
+ * static_vector is a sequence container like std::container::vector with contiguous storage that can
+ * change in size, along with the static allocation, low overhead, and fixed capacity of std::array.
  *
  * A static_vector is a sequence that supports random access to elements, constant time insertion and
  * removal of elements at the end, and linear time insertion and removal of elements at the beginning or 
@@ -239,7 +239,7 @@ public:
     template <std::size_t C>
 // TEMPORARY WORKAROUND
 #if defined(BOOST_NO_RVALUE_REFERENCES)
-    static_vector & operator=(::boost::rv< static_vector<value_type, C> > const& other)
+    static_vector & operator=(::std::rv< static_vector<value_type, C> > const& other)
 #else
     static_vector & operator=(static_vector<value_type, C> const& other)
 #endif
@@ -253,13 +253,13 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     static_vector(BOOST_RV_REF(static_vector) other)
-        : base_t(boost::move(static_cast<base_t&>(other)))
+        : base_t(std::move(static_cast<base_t&>(other)))
     {}
 
     //! @pre <tt>other.size() <= capacity()</tt>
@@ -269,14 +269,14 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     template <std::size_t C>
     static_vector(BOOST_RV_REF_BEG static_vector<value_type, C> BOOST_RV_REF_END other)
-        : base_t(boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)))
+        : base_t(std::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)))
     {}
 
     //! @brief Move assignment. Moves Values stored in the other static_vector to this one.
@@ -284,14 +284,14 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     static_vector & operator=(BOOST_RV_REF(static_vector) other)
     {
-        base_t::operator=(boost::move(static_cast<base_t&>(other)));
+        base_t::operator=(std::move(static_cast<base_t&>(other)));
         return *this;
     }
 
@@ -302,15 +302,15 @@ public:
     //! @param other    The static_vector which content will be moved to this one.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws.
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     template <std::size_t C>
     static_vector & operator=(BOOST_RV_REF_BEG static_vector<value_type, C> BOOST_RV_REF_END other)
     {
-        base_t::operator=(boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)));
+        base_t::operator=(std::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)));
         return *this;
     }
 
@@ -330,8 +330,8 @@ public:
     //! @param other    The static_vector which content will be swapped with this one's content.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
     //!
     //! @par Complexity
     //!   Linear O(N).
@@ -344,8 +344,8 @@ public:
     //! @param other    The static_vector which content will be swapped with this one's content.
     //!
     //! @par Throws
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
-    //!   @li If \c boost::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c true and Value's move constructor or move assignment throws,
+    //!   @li If \c std::has_nothrow_move<Value>::value is \c false and Value's copy constructor or copy assignment throws,
     //!
     //! @par Complexity
     //!   Linear O(N).
@@ -1046,7 +1046,7 @@ inline void swap(static_vector<V, C1> & x, static_vector<V, C2> & y
 
 #endif // BOOST_CONTAINER_DOXYGEN_INVOKED
 
-}} // namespace boost::container
+}} // namespace std::container
 
 #include <boost/container/detail/config_end.hpp>
 

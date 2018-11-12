@@ -35,7 +35,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E::difference_type difference_type;
         typedef typename E::value_type value_type;
         typedef typename E::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<E>,
+        typedef typename std::mpl::if_<std::is_const<E>,
                                           typename E::const_reference,
                                           typename E::reference>::type reference;
         typedef E referred_type;
@@ -157,11 +157,11 @@ namespace boost { namespace numeric { namespace ublas {
 
         // Iterator types
         typedef typename E::const_iterator1 const_iterator1;
-        typedef typename boost::mpl::if_<boost::is_const<E>,
+        typedef typename std::mpl::if_<std::is_const<E>,
                                           typename E::const_iterator1,
                                           typename E::iterator1>::type iterator1;
         typedef typename E::const_iterator2 const_iterator2;
-        typedef typename boost::mpl::if_<boost::is_const<E>,
+        typedef typename std::mpl::if_<std::is_const<E>,
                                           typename E::const_iterator2,
                                           typename E::iterator2>::type iterator2;
 
@@ -1227,12 +1227,12 @@ namespace boost { namespace numeric { namespace ublas {
     class matrix_unary2:
         public matrix_expression<matrix_unary2<E, F> > {
 
-        typedef typename boost::mpl::if_<boost::is_same<F, scalar_identity<typename E::value_type> >,
+        typedef typename std::mpl::if_<std::is_same<F, scalar_identity<typename E::value_type> >,
                                           E,
                                           const E>::type expression_type;
         typedef F functor_type;
     public:
-        typedef typename boost::mpl::if_<boost::is_const<expression_type>,
+        typedef typename std::mpl::if_<std::is_const<expression_type>,
                                           typename E::const_closure_type,
                                           typename E::closure_type>::type expression_closure_type;
     private:
@@ -1245,16 +1245,16 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E::difference_type difference_type;
         typedef typename F::result_type value_type;
         typedef value_type const_reference;
-        typedef typename boost::mpl::if_<boost::is_same<F, scalar_identity<value_type> >,
+        typedef typename std::mpl::if_<std::is_same<F, scalar_identity<value_type> >,
                                           typename E::reference,
                                           value_type>::type reference;
 
         typedef const self_type const_closure_type;
         typedef self_type closure_type;
-        typedef typename boost::mpl::if_<boost::is_same<typename E::orientation_category,
+        typedef typename std::mpl::if_<std::is_same<typename E::orientation_category,
                                                          row_major_tag>,
                                           column_major_tag,
-                typename boost::mpl::if_<boost::is_same<typename E::orientation_category,
+                typename std::mpl::if_<std::is_same<typename E::orientation_category,
                                                          column_major_tag>,
                                           row_major_tag,
                                           typename E::orientation_category>::type>::type orientation_category;
@@ -1292,7 +1292,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
         BOOST_UBLAS_INLINE
         reference operator () (size_type i, size_type j) {
-            BOOST_STATIC_ASSERT ((boost::is_same<functor_type, scalar_identity<value_type > >::value));
+            BOOST_STATIC_ASSERT ((std::is_same<functor_type, scalar_identity<value_type > >::value));
             return e_ (j, i);
         }
 
@@ -3555,8 +3555,8 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         mvb.expression2 ().begin (), mvb.expression2 ().end ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
                                         mvb.expression2 ().begin (), mvb.expression2 ().end ());
 #endif
 #endif
@@ -3573,8 +3573,8 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         mvb.expression2 ().begin (), mvb.expression2 ().end (), sparse_bidirectional_iterator_tag ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
                                         mvb.expression2 ().begin (), mvb.expression2 ().end (), sparse_bidirectional_iterator_tag ());
 #endif
 #endif
@@ -3946,8 +3946,8 @@ namespace boost { namespace numeric { namespace ublas {
                                         it2_.begin (), it2_.end ());
 #else
                 return functor_type::apply (mvb.expression1 ().begin (), mvb.expression1 ().end (),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()));
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()));
 #endif
 #endif
             }
@@ -3964,8 +3964,8 @@ namespace boost { namespace numeric { namespace ublas {
                                         it2_.begin (), it2_.end (), sparse_bidirectional_iterator_tag ());
 #else
                 return functor_type::apply (mvb.expression1 ().begin (), mvb.expression1 ().end (),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
 #endif
 #endif
             }
@@ -4374,10 +4374,10 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         it2_.begin (), it2_.end (), packed_random_access_iterator_tag ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()), packed_random_access_iterator_tag ());
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()), packed_random_access_iterator_tag ());
 #endif
 #endif
             }
@@ -4393,10 +4393,10 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         it2_.begin (), it2_.end (), sparse_bidirectional_iterator_tag ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
 #endif
 #endif
             }
@@ -4600,10 +4600,10 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         it2_.begin (), it2_.end (), packed_random_access_iterator_tag ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()), packed_random_access_iterator_tag ());
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()), packed_random_access_iterator_tag ());
 #endif
 #endif
             }
@@ -4619,10 +4619,10 @@ namespace boost { namespace numeric { namespace ublas {
                 return functor_type::apply (it1_.begin (), it1_.end (),
                                         it2_.begin (), it2_.end (), sparse_bidirectional_iterator_tag ());
 #else
-                return functor_type::apply (boost::numeric::ublas::begin (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::end (it1_, iterator1_tag ()),
-                                        boost::numeric::ublas::begin (it2_, iterator2_tag ()),
-                                        boost::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
+                return functor_type::apply (std::numeric::ublas::begin (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::end (it1_, iterator1_tag ()),
+                                        std::numeric::ublas::begin (it2_, iterator2_tag ()),
+                                        std::numeric::ublas::end (it2_, iterator2_tag ()), sparse_bidirectional_iterator_tag ());
 #endif
 #endif
             }

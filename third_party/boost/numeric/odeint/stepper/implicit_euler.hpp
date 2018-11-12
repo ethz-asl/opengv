@@ -52,13 +52,13 @@ public:
 
     typedef ValueType value_type;
     typedef value_type time_type;
-    typedef boost::numeric::ublas::vector< value_type > state_type;
+    typedef std::numeric::ublas::vector< value_type > state_type;
     typedef state_wrapper< state_type > wrapped_state_type;
     typedef state_type deriv_type;
     typedef state_wrapper< deriv_type > wrapped_deriv_type;
-    typedef boost::numeric::ublas::matrix< value_type > matrix_type;
+    typedef std::numeric::ublas::matrix< value_type > matrix_type;
     typedef state_wrapper< matrix_type > wrapped_matrix_type;
-    typedef boost::numeric::ublas::permutation_matrix< size_t > pmatrix_type;
+    typedef std::numeric::ublas::permutation_matrix< size_t > pmatrix_type;
     typedef state_wrapper< pmatrix_type > wrapped_pmatrix_type;
     typedef Resizer resizer_type;
     typedef stepper_tag stepper_category;
@@ -93,7 +93,7 @@ public:
 
         jacobi_func( x , m_jacobi.m_v  , t );
         m_jacobi.m_v *= dt;
-        m_jacobi.m_v -= boost::numeric::ublas::identity_matrix< value_type >( x.size() );
+        m_jacobi.m_v -= std::numeric::ublas::identity_matrix< value_type >( x.size() );
 
         solve( m_b.m_v , m_jacobi.m_v );
 
@@ -101,7 +101,7 @@ public:
 
         // iterate Newton until some precision is reached
         // ToDo: maybe we should apply only one Newton step -> linear implicit one-step scheme
-        while( boost::numeric::ublas::norm_2( m_b.m_v ) > m_epsilon )
+        while( std::numeric::ublas::norm_2( m_b.m_v ) > m_epsilon )
         {
             deriv_func( m_x.m_v , m_dxdt.m_v , t );
             m_b.m_v = x - m_x.m_v + dt*m_dxdt.m_v;
@@ -109,7 +109,7 @@ public:
             // simplified version, only the first Jacobian is used
             //            jacobi( m_x , m_jacobi , t );
             //            m_jacobi *= dt;
-            //            m_jacobi -= boost::numeric::ublas::identity_matrix< value_type >( x.size() );
+            //            m_jacobi -= std::numeric::ublas::identity_matrix< value_type >( x.size() );
 
             solve( m_b.m_v , m_jacobi.m_v );
 
@@ -142,9 +142,9 @@ private:
 
     void solve( state_type &x , matrix_type &m )
     {
-        int res = boost::numeric::ublas::lu_factorize( m , m_pm.m_v );
+        int res = std::numeric::ublas::lu_factorize( m , m_pm.m_v );
         if( res != 0 ) exit(0);
-        boost::numeric::ublas::lu_substitute( m , m_pm.m_v , x );
+        std::numeric::ublas::lu_substitute( m , m_pm.m_v , x );
     }
 
 private:

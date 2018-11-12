@@ -215,19 +215,19 @@ T hypergeometric_pdf_lanczos_imp(T /*dummy*/, unsigned x, unsigned r, unsigned n
 }
 
 template <class T, class Policy>
-T hypergeometric_pdf_lanczos_imp(T /*dummy*/, unsigned x, unsigned r, unsigned n, unsigned N, const boost::math::lanczos::undefined_lanczos&, const Policy& pol)
+T hypergeometric_pdf_lanczos_imp(T /*dummy*/, unsigned x, unsigned r, unsigned n, unsigned N, const std::math::lanczos::undefined_lanczos&, const Policy& pol)
 {
    BOOST_MATH_STD_USING
    return exp(
-      boost::math::lgamma(T(n + 1), pol)
-      + boost::math::lgamma(T(r + 1), pol)
-      + boost::math::lgamma(T(N - n + 1), pol)
-      + boost::math::lgamma(T(N - r + 1), pol)
-      - boost::math::lgamma(T(N + 1), pol)
-      - boost::math::lgamma(T(x + 1), pol)
-      - boost::math::lgamma(T(n - x + 1), pol)
-      - boost::math::lgamma(T(r - x + 1), pol)
-      - boost::math::lgamma(T(N - n - r + x + 1), pol));
+      std::math::lgamma(T(n + 1), pol)
+      + std::math::lgamma(T(r + 1), pol)
+      + std::math::lgamma(T(N - n + 1), pol)
+      + std::math::lgamma(T(N - r + 1), pol)
+      - std::math::lgamma(T(N + 1), pol)
+      - std::math::lgamma(T(x + 1), pol)
+      - std::math::lgamma(T(n - x + 1), pol)
+      - std::math::lgamma(T(r - x + 1), pol)
+      - std::math::lgamma(T(N - n - r + x + 1), pol));
 }
 
 template <class T>
@@ -246,15 +246,15 @@ inline T integer_power(const T& x, int ex)
    case 3:
       return x * x * x;
    case 4:
-      return boost::math::pow<4>(x);
+      return std::math::pow<4>(x);
    case 5:
-      return boost::math::pow<5>(x);
+      return std::math::pow<5>(x);
    case 6:
-      return boost::math::pow<6>(x);
+      return std::math::pow<6>(x);
    case 7:
-      return boost::math::pow<7>(x);
+      return std::math::pow<7>(x);
    case 8:
-      return boost::math::pow<8>(x);
+      return std::math::pow<8>(x);
    }
    BOOST_MATH_STD_USING
 #ifdef __SUNPRO_CC
@@ -392,19 +392,19 @@ template <class T, class Policy>
 T hypergeometric_pdf_factorial_imp(unsigned x, unsigned r, unsigned n, unsigned N, const Policy&)
 {
    BOOST_MATH_STD_USING
-   BOOST_ASSERT(N <= boost::math::max_factorial<T>::value);
-   T result = boost::math::unchecked_factorial<T>(n);
+   BOOST_ASSERT(N <= std::math::max_factorial<T>::value);
+   T result = std::math::unchecked_factorial<T>(n);
    T num[3] = {
-      boost::math::unchecked_factorial<T>(r),
-      boost::math::unchecked_factorial<T>(N - n),
-      boost::math::unchecked_factorial<T>(N - r)
+      std::math::unchecked_factorial<T>(r),
+      std::math::unchecked_factorial<T>(N - n),
+      std::math::unchecked_factorial<T>(N - r)
    };
    T denom[5] = {
-      boost::math::unchecked_factorial<T>(N),
-      boost::math::unchecked_factorial<T>(x),
-      boost::math::unchecked_factorial<T>(n - x),
-      boost::math::unchecked_factorial<T>(r - x),
-      boost::math::unchecked_factorial<T>(N - n - r + x)
+      std::math::unchecked_factorial<T>(N),
+      std::math::unchecked_factorial<T>(x),
+      std::math::unchecked_factorial<T>(n - x),
+      std::math::unchecked_factorial<T>(r - x),
+      std::math::unchecked_factorial<T>(N - n - r + x)
    };
    int i = 0;
    int j = 0;
@@ -441,7 +441,7 @@ inline typename tools::promote_args<T>::type
       policies::assert_undefined<> >::type forwarding_policy;
 
    value_type result;
-   if(N <= boost::math::max_factorial<value_type>::value)
+   if(N <= std::math::max_factorial<value_type>::value)
    {
       //
       // If N is small enough then we can evaluate the PDF via the factorials
@@ -450,7 +450,7 @@ inline typename tools::promote_args<T>::type
       //
       result = detail::hypergeometric_pdf_factorial_imp<value_type>(x, r, n, N, forwarding_policy());
    }
-   else if(N <= boost::math::prime(boost::math::max_prime - 1))
+   else if(N <= std::math::prime(std::math::max_prime - 1))
    {
       //
       // If N is no larger than the largest prime number in our lookup table
@@ -479,7 +479,7 @@ inline typename tools::promote_args<T>::type
       result = 0;
    }
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(result, "boost::math::hypergeometric_pdf<%1%>(%1%,%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(result, "std::math::hypergeometric_pdf<%1%>(%1%,%1%,%1%,%1%)");
 }
 
 }}} // namespaces

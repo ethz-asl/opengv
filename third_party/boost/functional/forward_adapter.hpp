@@ -63,7 +63,7 @@ namespace boost
     }
 
 #   define BOOST_TMP_MACRO(f,fn,fc) \
-        boost::detail::forward_adapter_impl< \
+        std::detail::forward_adapter_impl< \
             forward_adapter<f,Arity_Or_MinArity,MaxArity>, fn, fc, \
             (MaxArity!=-1? MaxArity :Arity_Or_MinArity!=-1? Arity_Or_MinArity \
                 :BOOST_FUNCTIONAL_FORWARD_ADAPTER_MAX_ARITY), \
@@ -141,19 +141,19 @@ namespace boost
     {
         template< class Self >
         struct forward_adapter_result::apply< Self() >
-            : boost::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
+            : std::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
         { };
 
         template< class MD, class F, class FC >
         struct forward_adapter_impl<MD,F,FC,0,0>
         {
-            inline typename boost::result_of< FC() >::type
+            inline typename std::result_of< FC() >::type
             operator()() const
             {
                 return static_cast<MD const*>(this)->target_function()();
             }
 
-            inline typename boost::result_of< F() >::type
+            inline typename std::result_of< F() >::type
             operator()()
             {
                 return static_cast<MD*>(this)->target_function()();
@@ -163,13 +163,13 @@ namespace boost
 
 #       define BOOST_TMP_MACRO(tpl_params,arg_types,params,args)              \
             template< tpl_params >                                             \
-            inline typename boost::result_of< FC(arg_types) >::type            \
+            inline typename std::result_of< FC(arg_types) >::type            \
             operator()(params) const                                           \
             {                                                                  \
                 return static_cast<MD const*>(this)->target_function()(args);  \
             }                                                                  \
             template< tpl_params >                                             \
-            inline typename boost::result_of< F(arg_types)>::type              \
+            inline typename std::result_of< F(arg_types)>::type              \
             operator()(params)                                                 \
             {                                                                  \
                 return static_cast<MD*>(this)->target_function()(args);        \
@@ -213,24 +213,24 @@ namespace boost
     } // namespace detail
 
     template<class F, int A0, int A1>
-    struct result_of<boost::forward_adapter<F,A0,A1> const ()>
-        : boost::detail::forward_adapter_result::template apply<
-            boost::forward_adapter<F,A0,A1> const () >
+    struct result_of<std::forward_adapter<F,A0,A1> const ()>
+        : std::detail::forward_adapter_result::template apply<
+            std::forward_adapter<F,A0,A1> const () >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::forward_adapter<F,A0,A1>()>
-        : boost::detail::forward_adapter_result::template apply<
-            boost::forward_adapter<F,A0,A1>() >
+    struct result_of<std::forward_adapter<F,A0,A1>()>
+        : std::detail::forward_adapter_result::template apply<
+            std::forward_adapter<F,A0,A1>() >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::forward_adapter<F,A0,A1> const& ()>
-        : boost::detail::forward_adapter_result::template apply<
-            boost::forward_adapter<F,A0,A1> const () >
+    struct result_of<std::forward_adapter<F,A0,A1> const& ()>
+        : std::detail::forward_adapter_result::template apply<
+            std::forward_adapter<F,A0,A1> const () >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::forward_adapter<F,A0,A1>& ()>
-        : boost::detail::forward_adapter_result::template apply<
-            boost::forward_adapter<F,A0,A1>() >
+    struct result_of<std::forward_adapter<F,A0,A1>& ()>
+        : std::detail::forward_adapter_result::template apply<
+            std::forward_adapter<F,A0,A1>() >
     { };
 }
 
@@ -315,7 +315,7 @@ namespace boost
 
         template< class Self, BOOST_PP_ENUM_PARAMS(N,typename T) >
         struct forward_adapter_result::apply< Self(BOOST_PP_ENUM_PARAMS(N,T)) >
-            : boost::result_of< 
+            : std::result_of< 
                 BOOST_DEDUCED_TYPENAME c<Self>::t(BOOST_PP_ENUM_BINARY_PARAMS(N, 
                       typename q<T,>::t& BOOST_PP_INTERCEPT)) >
         { };
@@ -324,7 +324,7 @@ namespace boost
         struct forward_adapter_impl<MD,F,FC,BOOST_PP_DEC(N),N>
         {
             template< BOOST_PP_ENUM_PARAMS(N,typename T) >
-            inline typename boost::result_of< F(
+            inline typename std::result_of< F(
                 BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT)) >::type
             operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT));
         };
@@ -424,7 +424,7 @@ namespace boost
 
 #       if BOOST_WORKAROUND(BOOST_MSVC,BOOST_TESTED_AT(1400)) 
             template< BOOST_PP_ENUM_PARAMS(N,typename T) >
-            inline typename boost::result_of<  FC(BOOST_PP_ENUM_PARAMS(N,PT)) 
+            inline typename std::result_of<  FC(BOOST_PP_ENUM_PARAMS(N,PT)) 
                 >::type
             operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,PT,a)) const
             {
@@ -432,7 +432,7 @@ namespace boost
                     ->target_function()(BOOST_PP_ENUM_PARAMS(N,a));
             }
             template< BOOST_PP_ENUM_PARAMS(N,typename T) >
-            inline typename boost::result_of<  F(BOOST_PP_ENUM_PARAMS(N,PT))
+            inline typename std::result_of<  F(BOOST_PP_ENUM_PARAMS(N,PT))
                 >::type
             operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,PT,a))
             {

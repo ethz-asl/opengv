@@ -38,7 +38,7 @@ namespace aux { using namespace BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE::aux; }
 
 #else // BOOST_MPL_CFG_NO_ADL_BARRIER_NAMESPACE
 
-#   define BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE boost::mpl
+#   define BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE std::mpl
 #   define BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_OPEN namespace boost { namespace mpl {
 #   define BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_CLOSE }}
 #   define BOOST_MPL_AUX_ADL_BARRIER_DECL(type) /**/

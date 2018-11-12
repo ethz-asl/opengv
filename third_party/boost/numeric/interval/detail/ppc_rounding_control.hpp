@@ -24,7 +24,7 @@ namespace interval_lib {
 namespace detail {
 
 typedef union {
-   ::boost::long_long_type imode;
+   ::std::long_long_type imode;
   double dmode;
 } rounding_mode_struct;
 

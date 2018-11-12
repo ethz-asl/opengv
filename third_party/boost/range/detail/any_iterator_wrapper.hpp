@@ -175,7 +175,7 @@ namespace boost
 
             virtual bool equal(const any_single_pass_iterator_interface<Reference, Buffer>& other) const
             {
-                return m_it == boost::polymorphic_downcast<const any_single_pass_iterator_wrapper*>(&other)->m_it;
+                return m_it == std::polymorphic_downcast<const any_single_pass_iterator_wrapper*>(&other)->m_it;
             }
 
             virtual Reference dereference() const
@@ -260,7 +260,7 @@ namespace boost
 
             virtual bool equal(const any_single_pass_iterator_interface<Reference, Buffer>& other) const
             {
-                return m_it == boost::polymorphic_downcast<const any_forward_iterator_wrapper*>(&other)->m_it;
+                return m_it == std::polymorphic_downcast<const any_forward_iterator_wrapper*>(&other)->m_it;
             }
 
             virtual Reference dereference() const
@@ -350,7 +350,7 @@ namespace boost
 
             virtual bool equal(const any_single_pass_iterator_interface<Reference, Buffer>& other) const
             {
-                return m_it == boost::polymorphic_downcast<const any_bidirectional_iterator_wrapper*>(&other)->m_it;
+                return m_it == std::polymorphic_downcast<const any_bidirectional_iterator_wrapper*>(&other)->m_it;
             }
 
             virtual Reference dereference() const
@@ -444,7 +444,7 @@ namespace boost
 
             virtual bool equal(const any_single_pass_iterator_interface<Reference, Buffer>& other) const
             {
-                return m_it == boost::polymorphic_downcast<const any_random_access_iterator_wrapper*>(&other)->m_it;
+                return m_it == std::polymorphic_downcast<const any_random_access_iterator_wrapper*>(&other)->m_it;
             }
 
             virtual void decrement()
@@ -464,7 +464,7 @@ namespace boost
 
             virtual Difference distance_to(const any_random_access_iterator_interface<Reference, Difference, Buffer>& other) const
             {
-                return boost::polymorphic_downcast<const any_random_access_iterator_wrapper*>(&other)->m_it - m_it;
+                return std::polymorphic_downcast<const any_random_access_iterator_wrapper*>(&other)->m_it - m_it;
             }
 
         private:

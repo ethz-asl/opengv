@@ -52,11 +52,11 @@ template<class T> T * addressof( T & v )
 {
 #if (defined( __BORLANDC__ ) && BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT( 0x610 ) ) ) || defined( __SUNPRO_CC )
 
-    return boost::detail::addressof_impl<T>::f( v, 0 );
+    return std::detail::addressof_impl<T>::f( v, 0 );
 
 #else
 
-    return boost::detail::addressof_impl<T>::f( boost::detail::addr_impl_ref<T>( v ), 0 );
+    return std::detail::addressof_impl<T>::f( std::detail::addr_impl_ref<T>( v ), 0 );
 
 #endif
 }

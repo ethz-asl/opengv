@@ -48,8 +48,8 @@ template<class T> struct checked_deleter
 
     void operator()(T * x) const
     {
-        // boost:: disables ADL
-        boost::checked_delete(x);
+        // std:: disables ADL
+        std::checked_delete(x);
     }
 };
 
@@ -60,7 +60,7 @@ template<class T> struct checked_array_deleter
 
     void operator()(T * x) const
     {
-        boost::checked_array_delete(x);
+        std::checked_array_delete(x);
     }
 };
 

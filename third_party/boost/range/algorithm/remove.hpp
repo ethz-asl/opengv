@@ -31,7 +31,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type
 remove(ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return std::remove(boost::begin(rng),boost::end(rng),val);
+    return std::remove(std::begin(rng),std::end(rng),val);
 }
 
 /// \overload
@@ -40,7 +40,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
 remove(const ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::remove(boost::begin(rng),boost::end(rng),val);
+    return std::remove(std::begin(rng),std::end(rng),val);
 }
 
 // range_return overloads
@@ -52,7 +52,7 @@ remove(ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::pack(
-        std::remove(boost::begin(rng), boost::end(rng), val),
+        std::remove(std::begin(rng), std::end(rng), val),
         rng);
 }
 
@@ -63,7 +63,7 @@ remove(const ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::pack(
-        std::remove(boost::begin(rng), boost::end(rng), val),
+        std::remove(std::begin(rng), std::end(rng), val),
         rng);
 }
 

@@ -29,7 +29,7 @@ namespace boost
         // return T.
         //
         // This is an implementation artifact used to pick intelligent default
-        // values when the user specified boost::use_default as a template
+        // values when the user specified std::use_default as a template
         // parameter.
         template<
             class T,
@@ -120,15 +120,15 @@ namespace boost
 
             template<class WrappedRange>
             any_range(WrappedRange& wrapped_range)
-            : base_type(boost::begin(wrapped_range),
-                        boost::end(wrapped_range))
+            : base_type(std::begin(wrapped_range),
+                        std::end(wrapped_range))
             {
             }
 
             template<class WrappedRange>
             any_range(const WrappedRange& wrapped_range)
-            : base_type(boost::begin(wrapped_range),
-                        boost::end(wrapped_range))
+            : base_type(std::begin(wrapped_range),
+                        std::end(wrapped_range))
             {
             }
 
@@ -145,7 +145,7 @@ namespace boost
                               , OtherDifference
                               , Buffer
                             >& other)
-            : base_type(boost::begin(other), boost::end(other))
+            : base_type(std::begin(other), std::end(other))
             {
             }
 

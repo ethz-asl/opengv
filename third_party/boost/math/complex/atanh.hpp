@@ -39,13 +39,13 @@ std::complex<T> atanh(const std::complex<T>& z)
    // See also: https://svn.boost.org/trac/boost/ticket/7291
    //
    
-   static const T pi = boost::math::constants::pi<T>();
+   static const T pi = std::math::constants::pi<T>();
    static const T half_pi = pi / 2;
    static const T one = static_cast<T>(1.0L);
    static const T two = static_cast<T>(2.0L);
    static const T four = static_cast<T>(4.0L);
    static const T zero = static_cast<T>(0);
-   static const T log_two = boost::math::constants::ln_two<T>();
+   static const T log_two = std::math::constants::ln_two<T>();
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -63,20 +63,20 @@ std::complex<T> atanh(const std::complex<T>& z)
    //
    // Begin by handling the special cases specified in C99:
    //
-   if((boost::math::isnan)(x))
+   if((std::math::isnan)(x))
    {
-      if((boost::math::isnan)(y))
+      if((std::math::isnan)(y))
          return std::complex<T>(x, x);
-      else if((boost::math::isinf)(y))
-         return std::complex<T>(0, ((boost::math::signbit)(z.imag()) ? -half_pi : half_pi));
+      else if((std::math::isinf)(y))
+         return std::complex<T>(0, ((std::math::signbit)(z.imag()) ? -half_pi : half_pi));
       else
          return std::complex<T>(x, x);
    }
-   else if((boost::math::isnan)(y))
+   else if((std::math::isnan)(y))
    {
       if(x == 0)
          return std::complex<T>(x, y);
-      if((boost::math::isinf)(x))
+      if((std::math::isinf)(x))
          return std::complex<T>(0, y);
       else
          return std::complex<T>(y, y);
@@ -91,15 +91,15 @@ std::complex<T> atanh(const std::complex<T>& z)
       // 
       // real(atanh(z)) == log1p(4*x / ((x-1)*(x-1) + y^2))
       // 
-      real = boost::math::log1p(four * x / (mxm1*mxm1 + yy));
+      real = std::math::log1p(four * x / (mxm1*mxm1 + yy));
       real /= four;
-      if((boost::math::signbit)(z.real()))
-         real = (boost::math::changesign)(real);
+      if((std::math::signbit)(z.real()))
+         real = (std::math::changesign)(real);
 
       imag = std::atan2((y * two), (mxm1*(one+x) - yy));
       imag /= two;
       if(z.imag() < 0)
-         imag = (boost::math::changesign)(imag);
+         imag = (std::math::changesign)(imag);
    }
    else
    {
@@ -108,31 +108,31 @@ std::complex<T> atanh(const std::complex<T>& z)
       // underflow or overflow in the main formulas.
       //
       // Begin by working out the real part, we need to approximate
-      //    real = boost::math::log1p(4x / ((x-1)^2 + y^2))
+      //    real = std::math::log1p(4x / ((x-1)^2 + y^2))
       // without either overflow or underflow in the squared terms.
       //
       T mxm1 = one - x;
       if(x >= safe_upper)
       {
          // x-1 = x to machine precision:
-         if((boost::math::isinf)(x) || (boost::math::isinf)(y))
+         if((std::math::isinf)(x) || (std::math::isinf)(y))
          {
             real = 0;
          }
          else if(y >= safe_upper)
          {
             // Big x and y: divide through by x*y:
-            real = boost::math::log1p((four/y) / (x/y + y/x));
+            real = std::math::log1p((four/y) / (x/y + y/x));
          }
          else if(y > one)
          {
             // Big x: divide through by x:
-            real = boost::math::log1p(four / (x + y*y/x));
+            real = std::math::log1p(four / (x + y*y/x));
          }
          else
          {
             // Big x small y, as above but neglect y^2/x:
-            real = boost::math::log1p(four/x);
+            real = std::math::log1p(four/x);
          }
       }
       else if(y >= safe_upper)
@@ -140,7 +140,7 @@ std::complex<T> atanh(const std::complex<T>& z)
          if(x > one)
          {
             // Big y, medium x, divide through by y:
-            real = boost::math::log1p((four*x/y) / (y + mxm1*mxm1/y));
+            real = std::math::log1p((four*x/y) / (y + mxm1*mxm1/y));
          }
          else
          {
@@ -154,14 +154,14 @@ std::complex<T> atanh(const std::complex<T>& z)
          T div = mxm1*mxm1;
          if(y > safe_lower)
             div += y*y;
-         real = boost::math::log1p(four*x/div);
+         real = std::math::log1p(four*x/div);
       }
       else
-         real = boost::math::changesign(two * (std::log(y) - log_two));
+         real = std::math::changesign(two * (std::log(y) - log_two));
 
       real /= four;
-      if((boost::math::signbit)(z.real()))
-         real = (boost::math::changesign)(real);
+      if((std::math::signbit)(z.real()))
+         real = (std::math::changesign)(real);
 
       //
       // Now handle imaginary part, this is much easier,
@@ -200,8 +200,8 @@ std::complex<T> atanh(const std::complex<T>& z)
             imag = std::atan2(two*y, mxm1*(one+x));
       }
       imag /= two;
-      if((boost::math::signbit)(z.imag()))
-         imag = (boost::math::changesign)(imag);
+      if((std::math::signbit)(z.imag()))
+         imag = (std::math::changesign)(imag);
    }
    return std::complex<T>(real, imag);
 #ifdef BOOST_MSVC

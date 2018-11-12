@@ -21,13 +21,13 @@ namespace boost{ namespace math{ namespace tools{
 // Simple series summation come first:
 //
 template <class Functor, class U, class V>
-inline typename Functor::result_type sum_series(Functor& func, const U& factor, boost::uintmax_t& max_terms, const V& init_value)
+inline typename Functor::result_type sum_series(Functor& func, const U& factor, std::uintmax_t& max_terms, const V& init_value)
 {
    BOOST_MATH_STD_USING
 
    typedef typename Functor::result_type result_type;
 
-   boost::uintmax_t counter = max_terms;
+   std::uintmax_t counter = max_terms;
 
    result_type result = init_value;
    result_type next_term;
@@ -44,14 +44,14 @@ inline typename Functor::result_type sum_series(Functor& func, const U& factor, 
 }
 
 template <class Functor, class U>
-inline typename Functor::result_type sum_series(Functor& func, const U& factor, boost::uintmax_t& max_terms)
+inline typename Functor::result_type sum_series(Functor& func, const U& factor, std::uintmax_t& max_terms)
 {
    typename Functor::result_type init_value = 0;
    return sum_series(func, factor, max_terms, init_value);
 }
 
 template <class Functor, class U>
-inline typename Functor::result_type sum_series(Functor& func, int bits, boost::uintmax_t& max_terms, const U& init_value)
+inline typename Functor::result_type sum_series(Functor& func, int bits, std::uintmax_t& max_terms, const U& init_value)
 {
    BOOST_MATH_STD_USING
    typedef typename Functor::result_type result_type;
@@ -64,13 +64,13 @@ inline typename Functor::result_type sum_series(Functor& func, int bits)
 {
    BOOST_MATH_STD_USING
    typedef typename Functor::result_type result_type;
-   boost::uintmax_t iters = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t iters = (std::numeric_limits<std::uintmax_t>::max)();
    result_type init_val = 0;
    return sum_series(func, bits, iters, init_val);
 }
 
 template <class Functor>
-inline typename Functor::result_type sum_series(Functor& func, int bits, boost::uintmax_t& max_terms)
+inline typename Functor::result_type sum_series(Functor& func, int bits, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING
    typedef typename Functor::result_type result_type;
@@ -82,7 +82,7 @@ template <class Functor, class U>
 inline typename Functor::result_type sum_series(Functor& func, int bits, const U& init_value)
 {
    BOOST_MATH_STD_USING
-   boost::uintmax_t iters = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t iters = (std::numeric_limits<std::uintmax_t>::max)();
    return sum_series(func, bits, iters, init_value);
 }
 
@@ -122,13 +122,13 @@ inline typename Functor::result_type kahan_sum_series(Functor& func, int bits)
 }
 
 template <class Functor>
-inline typename Functor::result_type kahan_sum_series(Functor& func, int bits, boost::uintmax_t& max_terms)
+inline typename Functor::result_type kahan_sum_series(Functor& func, int bits, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING
 
    typedef typename Functor::result_type result_type;
 
-   boost::uintmax_t counter = max_terms;
+   std::uintmax_t counter = max_terms;
 
    result_type factor = ldexp(result_type(1), bits);
    result_type result = func();

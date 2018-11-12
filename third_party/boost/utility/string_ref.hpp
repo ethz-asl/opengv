@@ -111,7 +111,7 @@ namespace boost {
 
         const charT& at(size_t pos) const {
             if ( pos >= len_ )
-                BOOST_THROW_EXCEPTION( std::out_of_range ( "boost::string_ref::at" ) );
+                BOOST_THROW_EXCEPTION( std::out_of_range ( "std::string_ref::at" ) );
             return ptr_[pos];
             }
 
@@ -526,10 +526,10 @@ namespace boost {
 #if 0
 namespace std {
     // Hashing
-    template<> struct hash<boost::string_ref>;
-    template<> struct hash<boost::u16string_ref>;
-    template<> struct hash<boost::u32string_ref>;
-    template<> struct hash<boost::wstring_ref>;
+    template<> struct hash<std::string_ref>;
+    template<> struct hash<std::u16string_ref>;
+    template<> struct hash<std::u32string_ref>;
+    template<> struct hash<std::wstring_ref>;
 }
 #endif
 

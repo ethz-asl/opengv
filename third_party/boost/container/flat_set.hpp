@@ -85,12 +85,12 @@ class flat_set
    typedef Key                                                                         value_type;
    typedef Compare                                                                     key_compare;
    typedef Compare                                                                     value_compare;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::stored_allocator_type)              stored_allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::iterator)                           iterator;
@@ -163,7 +163,7 @@ class flat_set
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_set(BOOST_RV_REF(flat_set) mx)
-      : m_flat_tree(boost::move(mx.m_flat_tree))
+      : m_flat_tree(std::move(mx.m_flat_tree))
    {}
 
    //! <b>Effects</b>: Copy constructs a set using the specified allocator.
@@ -178,7 +178,7 @@ class flat_set
    //!
    //! <b>Complexity</b>: Constant if a == mx.get_allocator(), linear otherwise
    flat_set(BOOST_RV_REF(flat_set) mx, const allocator_type &a)
-      : m_flat_tree(boost::move(mx.m_flat_tree), a)
+      : m_flat_tree(std::move(mx.m_flat_tree), a)
    {}
 
    //! <b>Effects</b>: Makes *this a copy of x.
@@ -191,7 +191,7 @@ class flat_set
    //!
    //! <b>Complexity</b>: Linear in x.size().
    flat_set& operator=(BOOST_RV_REF(flat_set) mx)
-   {  m_flat_tree = boost::move(mx.m_flat_tree);   return *this;  }
+   {  m_flat_tree = std::move(mx.m_flat_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -411,7 +411,7 @@ class flat_set
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    std::pair<iterator,bool> emplace(Args&&... args)
-   {  return m_flat_tree.emplace_unique(boost::forward<Args>(args)...); }
+   {  return m_flat_tree.emplace_unique(std::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type Key constructed with
    //!   std::forward<Args>(args)... in the container if and only if there is
@@ -427,7 +427,7 @@ class flat_set
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    iterator emplace_hint(const_iterator hint, Args&&... args)
-   {  return m_flat_tree.emplace_hint_unique(hint, boost::forward<Args>(args)...); }
+   {  return m_flat_tree.emplace_hint_unique(hint, std::forward<Args>(args)...); }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
@@ -681,11 +681,11 @@ class flat_set
    private:
    template<class KeyType>
    std::pair<iterator, bool> priv_insert(BOOST_FWD_REF(KeyType) x)
-   {  return m_flat_tree.insert_unique(::boost::forward<KeyType>(x));  }
+   {  return m_flat_tree.insert_unique(::std::forward<KeyType>(x));  }
 
    template<class KeyType>
    iterator priv_insert(const_iterator p, BOOST_FWD_REF(KeyType) x)
-   {  return m_flat_tree.insert_unique(p, ::boost::forward<KeyType>(x)); }
+   {  return m_flat_tree.insert_unique(p, ::std::forward<KeyType>(x)); }
    /// @endcond
 };
 
@@ -730,7 +730,7 @@ inline void swap(flat_set<Key,Compare,Allocator>& x, flat_set<Key,Compare,Alloca
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class Key, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::flat_set<Key, C, Allocator> >
+struct has_trivial_destructor_after_move<std::container::flat_set<Key, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value &&has_trivial_destructor_after_move<C>::value;
 };
@@ -790,12 +790,12 @@ class flat_multiset
    typedef Key                                                                         value_type;
    typedef Compare                                                                     key_compare;
    typedef Compare                                                                     value_compare;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::stored_allocator_type)              stored_allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::iterator)                           iterator;
@@ -850,7 +850,7 @@ class flat_multiset
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_multiset(BOOST_RV_REF(flat_multiset) mx)
-      : m_flat_tree(boost::move(mx.m_flat_tree))
+      : m_flat_tree(std::move(mx.m_flat_tree))
    {}
 
    //! <b>Effects</b>: Copy constructs a flat_multiset using the specified allocator.
@@ -865,7 +865,7 @@ class flat_multiset
    //!
    //! <b>Complexity</b>: Constant if a == mx.get_allocator(), linear otherwise
    flat_multiset(BOOST_RV_REF(flat_multiset) mx, const allocator_type &a)
-      : m_flat_tree(boost::move(mx.m_flat_tree), a)
+      : m_flat_tree(std::move(mx.m_flat_tree), a)
    {}
 
    //! <b>Effects</b>: Makes *this a copy of x.
@@ -878,7 +878,7 @@ class flat_multiset
    //!
    //! <b>Complexity</b>: Linear in x.size().
    flat_multiset& operator=(BOOST_RV_REF(flat_multiset) mx)
-   {  m_flat_tree = boost::move(mx.m_flat_tree);   return *this;  }
+   {  m_flat_tree = std::move(mx.m_flat_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -1087,7 +1087,7 @@ class flat_multiset
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    iterator emplace(Args&&... args)
-   {  return m_flat_tree.emplace_equal(boost::forward<Args>(args)...); }
+   {  return m_flat_tree.emplace_equal(std::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type Key constructed with
    //!   std::forward<Args>(args)... in the container.
@@ -1102,7 +1102,7 @@ class flat_multiset
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    iterator emplace_hint(const_iterator hint, Args&&... args)
-   {  return m_flat_tree.emplace_hint_equal(hint, boost::forward<Args>(args)...); }
+   {  return m_flat_tree.emplace_hint_equal(hint, std::forward<Args>(args)...); }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
@@ -1343,11 +1343,11 @@ class flat_multiset
    private:
    template <class KeyType>
    iterator priv_insert(BOOST_FWD_REF(KeyType) x)
-   {  return m_flat_tree.insert_equal(::boost::forward<KeyType>(x));  }
+   {  return m_flat_tree.insert_equal(::std::forward<KeyType>(x));  }
 
    template <class KeyType>
    iterator priv_insert(const_iterator p, BOOST_FWD_REF(KeyType) x)
-   {  return m_flat_tree.insert_equal(p, ::boost::forward<KeyType>(x)); }
+   {  return m_flat_tree.insert_equal(p, ::std::forward<KeyType>(x)); }
    /// @endcond
 };
 
@@ -1392,7 +1392,7 @@ inline void swap(flat_multiset<Key,Compare,Allocator>& x, flat_multiset<Key,Comp
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class Key, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::flat_multiset<Key, C, Allocator> >
+struct has_trivial_destructor_after_move<std::container::flat_multiset<Key, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };

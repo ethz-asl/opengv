@@ -70,57 +70,57 @@ namespace boost
     std::size_t hash_value(std::pair<A, B> const& v)
     {
         std::size_t seed = 0;
-        boost::hash_combine(seed, v.first);
-        boost::hash_combine(seed, v.second);
+        std::hash_combine(seed, v.first);
+        std::hash_combine(seed, v.second);
         return seed;
     }
 
     template <class T, class A>
     std::size_t hash_value(std::vector<T, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class T, class A>
     std::size_t hash_value(std::list<T, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class T, class A>
     std::size_t hash_value(std::deque<T, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class K, class C, class A>
     std::size_t hash_value(std::set<K, C, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class K, class C, class A>
     std::size_t hash_value(std::multiset<K, C, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class K, class T, class C, class A>
     std::size_t hash_value(std::map<K, T, C, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class K, class T, class C, class A>
     std::size_t hash_value(std::multimap<K, T, C, A> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 
     template <class T>
     std::size_t hash_value(std::complex<T> const& v)
     {
-        boost::hash<T> hasher;
+        std::hash<T> hasher;
         std::size_t seed = hasher(v.imag());
         seed ^= hasher(v.real()) + (seed<<6) + (seed>>2);
         return seed;
@@ -130,33 +130,33 @@ namespace boost
     template <class T, std::size_t N>
     std::size_t hash_value(std::array<T, N> const& v)
     {
-        return boost::hash_range(v.begin(), v.end());
+        return std::hash_range(v.begin(), v.end());
     }
 #endif
 
 #if !defined(BOOST_NO_CXX11_HDR_TUPLE)
     namespace hash_detail {
         template <std::size_t I, typename T>
-        inline typename boost::enable_if_c<(I == std::tuple_size<T>::value),
+        inline typename std::enable_if_c<(I == std::tuple_size<T>::value),
                 void>::type
             hash_combine_tuple(std::size_t&, T const&)
         {
         }
 
         template <std::size_t I, typename T>
-        inline typename boost::enable_if_c<(I < std::tuple_size<T>::value),
+        inline typename std::enable_if_c<(I < std::tuple_size<T>::value),
                 void>::type
             hash_combine_tuple(std::size_t& seed, T const& v)
         {
-            boost::hash_combine(seed, std::get<I>(v));
-            boost::hash_detail::hash_combine_tuple<I + 1>(seed, v);
+            std::hash_combine(seed, std::get<I>(v));
+            std::hash_detail::hash_combine_tuple<I + 1>(seed, v);
         }
 
         template <typename T>
         inline std::size_t hash_tuple(T const& v)
         {
             std::size_t seed = 0;
-            boost::hash_detail::hash_combine_tuple<0>(seed, v);
+            std::hash_detail::hash_combine_tuple<0>(seed, v);
             return seed;
         }
     }
@@ -165,13 +165,13 @@ namespace boost
     template <typename... T>
     inline std::size_t hash_value(std::tuple<T...> const& v)
     {
-        return boost::hash_detail::hash_tuple(v);
+        return std::hash_detail::hash_tuple(v);
     }
 #else
 
     inline std::size_t hash_value(std::tuple<> const& v)
     {
-        return boost::hash_detail::hash_tuple(v);
+        return std::hash_detail::hash_tuple(v);
     }
 
 #   define BOOST_HASH_TUPLE_F(z, n, _)                                      \
@@ -182,7 +182,7 @@ namespace boost
         BOOST_PP_ENUM_PARAMS_Z(z, n, A)                                     \
     > const& v)                                                             \
     {                                                                       \
-        return boost::hash_detail::hash_tuple(v);                           \
+        return std::hash_detail::hash_tuple(v);                           \
     }
 
     BOOST_PP_REPEAT_FROM_TO(1, 11, BOOST_HASH_TUPLE_F, _)
@@ -194,12 +194,12 @@ namespace boost
 #if !defined(BOOST_NO_CXX11_SMART_PTR)
     template <typename T>
     inline std::size_t hash_value(std::shared_ptr<T> const& x) {
-        return boost::hash_value(x.get());
+        return std::hash_value(x.get());
     }
 
     template <typename T, typename Deleter>
     inline std::size_t hash_value(std::unique_ptr<T, Deleter> const& x) {
-        return boost::hash_value(x.get());
+        return std::hash_value(x.get());
     }
 #endif
 
@@ -239,14 +239,14 @@ namespace boost
 #endif
                 {
                     const int size = sizeof(v) / sizeof(*v);
-                    return boost::hash_range(v, v + size);
+                    return std::hash_range(v, v + size);
                 }
             };
         };
 
         template <class T>
         struct call_hash
-            : public call_hash_impl<boost::is_array<T>::value>
+            : public call_hash_impl<std::is_array<T>::value>
                 ::BOOST_NESTED_TEMPLATE inner<T>
         {
         };
@@ -254,7 +254,7 @@ namespace boost
 #endif // BOOST_NO_FUNCTION_TEMPLATE_ORDERING
 
     //
-    // boost::hash
+    // std::hash
     //
 
 
@@ -282,14 +282,14 @@ namespace boost
     {
         std::size_t operator()(const T* val) const
         {
-            return boost::hash_range(val, val+n);
+            return std::hash_range(val, val+n);
         }
     };
 #endif
 
 #else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
-    // On compilers without partial specialization, boost::hash<T>
+    // On compilers without partial specialization, std::hash<T>
     // has already been declared to deal with pointers, so just
     // need to supply the non-pointer version of hash_impl.
 
@@ -361,7 +361,7 @@ namespace boost
         
         template <class T>
         struct hash_impl_msvc2
-            : public hash_impl_msvc<boost::is_const<T>::value>
+            : public hash_impl_msvc<std::is_const<T>::value>
                     ::BOOST_NESTED_TEMPLATE inner<T> {};
         
         template <>

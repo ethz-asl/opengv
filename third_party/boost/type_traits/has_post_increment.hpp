@@ -12,21 +12,21 @@
 #define BOOST_TT_TRAIT_NAME has_post_increment
 #define BOOST_TT_TRAIT_OP ++
 #define BOOST_TT_FORBIDDEN_IF\
-   ::boost::type_traits::ice_or<\
+   ::std::type_traits::ice_or<\
       /* bool */\
-      ::boost::is_same< bool, Lhs_nocv >::value,\
+      ::std::is_same< bool, Lhs_nocv >::value,\
       /* void* */\
-      ::boost::type_traits::ice_and<\
-         ::boost::is_pointer< Lhs_noref >::value,\
-         ::boost::is_void< Lhs_noptr >::value\
+      ::std::type_traits::ice_and<\
+         ::std::is_pointer< Lhs_noref >::value,\
+         ::std::is_void< Lhs_noptr >::value\
       >::value,\
       /* (fundamental or pointer) and const */\
-      ::boost::type_traits::ice_and<\
-         ::boost::type_traits::ice_or<\
-            ::boost::is_fundamental< Lhs_nocv >::value,\
-            ::boost::is_pointer< Lhs_noref >::value\
+      ::std::type_traits::ice_and<\
+         ::std::type_traits::ice_or<\
+            ::std::is_fundamental< Lhs_nocv >::value,\
+            ::std::is_pointer< Lhs_noref >::value\
          >::value,\
-         ::boost::is_const< Lhs_noref >::value\
+         ::std::is_const< Lhs_noref >::value\
       >::value\
    >::value
 

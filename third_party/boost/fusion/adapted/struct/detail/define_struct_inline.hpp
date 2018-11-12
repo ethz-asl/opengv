@@ -74,7 +74,7 @@
     struct value_of<                                                            \
                BOOST_FUSION_ITERATOR_NAME(NAME)<boost_fusion_detail_Sq, N>      \
            >                                                                    \
-        : boost::mpl::identity<                                                 \
+        : std::mpl::identity<                                                 \
               typename boost_fusion_detail_Sq::t##N##_type                      \
           >                                                                     \
     {                                                                           \
@@ -121,17 +121,17 @@
 
 #define BOOST_FUSION_MAKE_VALUE_AT_SPECS(Z, N, DATA)                            \
     template <typename boost_fusion_detail_Sq>                                  \
-    struct value_at<boost_fusion_detail_Sq, boost::mpl::int_<N> >               \
+    struct value_at<boost_fusion_detail_Sq, std::mpl::int_<N> >               \
     {                                                                           \
         typedef typename boost_fusion_detail_Sq::t##N##_type type;              \
     };
 
 #define BOOST_FUSION_MAKE_AT_SPECS(R, DATA, N, ATTRIBUTE)                       \
     template <typename boost_fusion_detail_Sq>                                  \
-    struct at<boost_fusion_detail_Sq, boost::mpl::int_<N> >                     \
+    struct at<boost_fusion_detail_Sq, std::mpl::int_<N> >                     \
     {                                                                           \
-        typedef typename boost::mpl::if_<                                       \
-            boost::is_const<boost_fusion_detail_Sq>,                            \
+        typedef typename std::mpl::if_<                                       \
+            std::is_const<boost_fusion_detail_Sq>,                            \
             typename boost_fusion_detail_Sq::t##N##_type const&,                \
             typename boost_fusion_detail_Sq::t##N##_type&                       \
         >::type type;                                                           \
@@ -153,9 +153,9 @@
 
 #define BOOST_FUSION_DEFINE_STRUCT_INLINE_IMPL(NAME, ATTRIBUTES)                \
     BOOST_FUSION_DEFINE_STRUCT_INLINE_ITERATOR(NAME, ATTRIBUTES)                \
-    struct NAME : boost::fusion::sequence_facade<                               \
+    struct NAME : std::fusion::sequence_facade<                               \
                       NAME,                                                     \
-                      boost::fusion::random_access_traversal_tag                \
+                      std::fusion::random_access_traversal_tag                \
                   >                                                             \
     {                                                                           \
         BOOST_FUSION_DEFINE_STRUCT_INLINE_MEMBERS(NAME, ATTRIBUTES)             \
@@ -170,11 +170,11 @@
         BOOST_FUSION_ADAPT_STRUCT_UNPACK_TEMPLATE_PARAMS_IMPL(                  \
             (0)TEMPLATE_PARAMS_SEQ)                                             \
     >                                                                           \
-    struct NAME : boost::fusion::sequence_facade<                               \
+    struct NAME : std::fusion::sequence_facade<                               \
                       NAME<                                                     \
                           BOOST_PP_SEQ_ENUM(TEMPLATE_PARAMS_SEQ)                \
                       >,                                                        \
-                      boost::fusion::random_access_traversal_tag                \
+                      std::fusion::random_access_traversal_tag                \
                   >                                                             \
     {                                                                           \
         BOOST_FUSION_DEFINE_STRUCT_INLINE_MEMBERS(NAME, ATTRIBUTES)             \
@@ -210,12 +210,12 @@
                                                                                 \
     template <typename boost_fusion_detail_Seq, int N>                          \
     struct BOOST_FUSION_ITERATOR_NAME(NAME)                                     \
-        : boost::fusion::iterator_facade<                                       \
+        : std::fusion::iterator_facade<                                       \
               BOOST_FUSION_ITERATOR_NAME(NAME)<boost_fusion_detail_Seq, N>,     \
-              boost::fusion::random_access_traversal_tag                        \
+              std::fusion::random_access_traversal_tag                        \
           >                                                                     \
     {                                                                           \
-        typedef boost::mpl::int_<N> index;                                      \
+        typedef std::mpl::int_<N> index;                                      \
         typedef boost_fusion_detail_Seq sequence_type;                          \
                                                                                 \
         BOOST_FUSION_ITERATOR_NAME(NAME)(boost_fusion_detail_Seq& seq)          \
@@ -269,7 +269,7 @@
         >                                                                       \
         struct distance                                                         \
         {                                                                       \
-            typedef typename boost::mpl::minus<                                 \
+            typedef typename std::mpl::minus<                                 \
                 typename boost_fusion_detail_It2::index,                        \
                 typename boost_fusion_detail_It1::index                         \
             >::type type;                                                       \
@@ -327,13 +327,13 @@
     template <typename boost_fusion_detail_Seq>                                 \
     NAME(const boost_fusion_detail_Seq& rhs)                                    \
     {                                                                           \
-        boost::fusion::copy(rhs, *this);                                        \
+        std::fusion::copy(rhs, *this);                                        \
     }                                                                           \
                                                                                 \
     template <typename boost_fusion_detail_Seq>                                 \
     NAME& operator=(const boost_fusion_detail_Seq& rhs)                         \
     {                                                                           \
-        boost::fusion::copy(rhs, *this);                                        \
+        std::fusion::copy(rhs, *this);                                        \
         return *this;                                                           \
     }                                                                           \
                                                                                 \
@@ -364,12 +364,12 @@
     };                                                                          \
                                                                                 \
     template <typename boost_fusion_detail_Sq>                                  \
-    struct size : boost::mpl::int_<ATTRIBUTES_SEQ_SIZE>                         \
+    struct size : std::mpl::int_<ATTRIBUTES_SEQ_SIZE>                         \
     {                                                                           \
     };                                                                          \
                                                                                 \
     template <typename boost_fusion_detail_Sq>                                  \
-    struct empty : boost::mpl::bool_<ATTRIBUTES_SEQ_SIZE == 0>                  \
+    struct empty : std::mpl::bool_<ATTRIBUTES_SEQ_SIZE == 0>                  \
     {                                                                           \
     };                                                                          \
                                                                                 \
@@ -379,7 +379,7 @@
     >                                                                           \
     struct value_at : value_at<                                                 \
                           boost_fusion_detail_Sq,                               \
-                          boost::mpl::int_<boost_fusion_detail_N::value>        \
+                          std::mpl::int_<boost_fusion_detail_N::value>        \
                       >                                                         \
     {                                                                           \
     };                                                                          \
@@ -395,7 +395,7 @@
     >                                                                           \
     struct at : at<                                                             \
                     boost_fusion_detail_Sq,                                     \
-                    boost::mpl::int_<boost_fusion_detail_N::value>              \
+                    std::mpl::int_<boost_fusion_detail_N::value>              \
                 >                                                               \
     {                                                                           \
     };                                                                          \

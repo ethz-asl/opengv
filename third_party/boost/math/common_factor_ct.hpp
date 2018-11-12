@@ -162,7 +162,7 @@ namespace detail
 template < static_gcd_type Value1, static_gcd_type Value2 >
 struct static_gcd : public mpl::integral_c<static_gcd_type, (detail::static_gcd_helper_t<Value1, Value2>::value) >
 {
-};  // boost::math::static_gcd
+};  // std::math::static_gcd
 
 
 //  Compile-time least common multiple evaluator class declaration  ----------//
@@ -170,7 +170,7 @@ struct static_gcd : public mpl::integral_c<static_gcd_type, (detail::static_gcd_
 template < static_gcd_type Value1, static_gcd_type Value2 >
 struct static_lcm : public mpl::integral_c<static_gcd_type, (detail::static_lcm_helper_t<Value1, Value2>::value) >
 {
-};  // boost::math::static_lcm
+};  // std::math::static_lcm
 
 
 }  // namespace math

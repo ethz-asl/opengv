@@ -21,7 +21,7 @@
 //             vc-stlport.
 //  20 Jan 01  Moved BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS to config.hpp.
 //             Removed unused BOOST_EXPLICIT_TARGET macro. Moved
-//             boost::detail::type to boost/type.hpp. Made it compile with
+//             std::detail::type to boost/type.hpp. Made it compile with
 //             stock gcc again (Dave Abrahams)
 //  29 Nov 00  Remove nested namespace cast, cleanup spacing before Formal
 //             Review (Beman Dawes)
@@ -61,7 +61,7 @@
 //  FLC: This macro is repeated in boost/cast.hpp but only locally (is undefined at the bottom)
 //       so is OK to reproduce it here.
 # if defined(BOOST_MSVC) && BOOST_MSVC < 1300
-#  define BOOST_EXPLICIT_DEFAULT_TARGET , ::boost::type<Target>* = 0
+#  define BOOST_EXPLICIT_DEFAULT_TARGET , ::std::type<Target>* = 0
 # else
 #  define BOOST_EXPLICIT_DEFAULT_TARGET
 # endif
@@ -111,11 +111,11 @@ namespace boost
       // long / unsigned long long. Not intended to be full
       // numeric_limits replacements, but good enough for numeric_cast<>
       template <>
-      struct fixed_numeric_limits_base< ::boost::long_long_type, false>
+      struct fixed_numeric_limits_base< ::std::long_long_type, false>
       {
           BOOST_STATIC_CONSTANT(bool, is_specialized = true);
           BOOST_STATIC_CONSTANT(bool, is_signed = true);
-          static  ::boost::long_long_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
+          static  ::std::long_long_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
           {
 #  ifdef LONGLONG_MAX
               return LONGLONG_MAX;
@@ -124,7 +124,7 @@ namespace boost
 #  endif
           }
 
-          static  ::boost::long_long_type min BOOST_PREVENT_MACRO_SUBSTITUTION ()
+          static  ::std::long_long_type min BOOST_PREVENT_MACRO_SUBSTITUTION ()
           {
 #  ifdef LONGLONG_MIN
               return LONGLONG_MIN;
@@ -135,11 +135,11 @@ namespace boost
       };
 
       template <>
-      struct fixed_numeric_limits_base< ::boost::ulong_long_type, false>
+      struct fixed_numeric_limits_base< ::std::ulong_long_type, false>
       {
           BOOST_STATIC_CONSTANT(bool, is_specialized = true);
           BOOST_STATIC_CONSTANT(bool, is_signed = false);
-          static  ::boost::ulong_long_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
+          static  ::std::ulong_long_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
           {
 #  ifdef ULONGLONG_MAX
               return ULONGLONG_MAX;
@@ -148,7 +148,7 @@ namespace boost
 #  endif
           }
 
-          static  ::boost::ulong_long_type min BOOST_PREVENT_MACRO_SUBSTITUTION () { return 0; }
+          static  ::std::ulong_long_type min BOOST_PREVENT_MACRO_SUBSTITUTION () { return 0; }
       };
 # endif
     } // namespace detail

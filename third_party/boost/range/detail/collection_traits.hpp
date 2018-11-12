@@ -74,14 +74,14 @@ namespace boost {
         struct collection_traits
         {
         private:
-            typedef BOOST_STRING_TYPENAME ::boost::mpl::eval_if< 
-                    ::boost::algorithm::detail::is_pair<T>, 
+            typedef BOOST_STRING_TYPENAME ::std::mpl::eval_if< 
+                    ::std::algorithm::detail::is_pair<T>, 
                         detail::pair_container_traits_selector<T>,
-                        BOOST_STRING_TYPENAME ::boost::mpl::eval_if< 
-                        ::boost::is_array<T>, 
+                        BOOST_STRING_TYPENAME ::std::mpl::eval_if< 
+                        ::std::is_array<T>, 
                             detail::array_container_traits_selector<T>,
-                            BOOST_STRING_TYPENAME ::boost::mpl::eval_if<
-                            ::boost::is_pointer<T>,
+                            BOOST_STRING_TYPENAME ::std::mpl::eval_if<
+                            ::std::is_pointer<T>,
                                 detail::pointer_container_traits_selector<T>,
                                 detail::default_container_traits_selector<T>
                             >

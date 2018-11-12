@@ -18,7 +18,7 @@ namespace detail{
 // this version is for 80-bit long double's and smaller:
 //
 template <class T, class Policy>
-T erf_inv_imp(const T& p, const T& q, const Policy&, const boost::mpl::int_<64>*)
+T erf_inv_imp(const T& p, const T& q, const Policy&, const std::mpl::int_<64>*)
 {
    BOOST_MATH_STD_USING // for ADL of std names.
 
@@ -277,12 +277,12 @@ T erf_inv_imp(const T& p, const T& q, const Policy&, const boost::mpl::int_<64>*
 template <class T, class Policy>
 struct erf_roots
 {
-   boost::math::tuple<T,T,T> operator()(const T& guess)
+   std::math::tuple<T,T,T> operator()(const T& guess)
    {
       BOOST_MATH_STD_USING
       T derivative = sign * (2 / sqrt(constants::pi<T>())) * exp(-(guess * guess));
       T derivative2 = -2 * guess * derivative;
-      return boost::math::make_tuple(((sign > 0) ? static_cast<T>(boost::math::erf(guess, Policy()) - target) : static_cast<T>(boost::math::erfc(guess, Policy())) - target), derivative, derivative2);
+      return std::math::make_tuple(((sign > 0) ? static_cast<T>(std::math::erf(guess, Policy()) - target) : static_cast<T>(std::math::erfc(guess, Policy())) - target), derivative, derivative2);
    }
    erf_roots(T z, int s) : target(z), sign(s) {}
 private:
@@ -291,7 +291,7 @@ private:
 };
 
 template <class T, class Policy>
-T erf_inv_imp(const T& p, const T& q, const Policy& pol, const boost::mpl::int_<0>*)
+T erf_inv_imp(const T& p, const T& q, const Policy& pol, const std::mpl::int_<0>*)
 {
    //
    // Generic version, get a guess that's accurate to 64-bits (10^-19)
@@ -304,7 +304,7 @@ T erf_inv_imp(const T& p, const T& q, const Policy& pol, const boost::mpl::int_<
    //
    if(policies::digits<T, Policy>() > 64)
    {
-      boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+      std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
       if(p <= 0.5)
       {
          result = tools::halley_iterate(detail::erf_roots<typename remove_cv<T>::type, Policy>(p, 1), guess, static_cast<T>(0), tools::max_value<T>(), (policies::digits<T, Policy>() * 2) / 3, max_iter);
@@ -313,7 +313,7 @@ T erf_inv_imp(const T& p, const T& q, const Policy& pol, const boost::mpl::int_<
       {
          result = tools::halley_iterate(detail::erf_roots<typename remove_cv<T>::type, Policy>(q, -1), guess, static_cast<T>(0), tools::max_value<T>(), (policies::digits<T, Policy>() * 2) / 3, max_iter);
       }
-      policies::check_root_iterations<T>("boost::math::erf_inv<%1%>", max_iter, pol);
+      policies::check_root_iterations<T>("std::math::erf_inv<%1%>", max_iter, pol);
    }
    else
    {
@@ -333,25 +333,25 @@ struct erf_inv_initializer
       }
       static void do_init()
       {
-         boost::math::erf_inv(static_cast<T>(0.25), Policy());
-         boost::math::erf_inv(static_cast<T>(0.55), Policy());
-         boost::math::erf_inv(static_cast<T>(0.95), Policy());
-         boost::math::erfc_inv(static_cast<T>(1e-15), Policy());
+         std::math::erf_inv(static_cast<T>(0.25), Policy());
+         std::math::erf_inv(static_cast<T>(0.55), Policy());
+         std::math::erf_inv(static_cast<T>(0.95), Policy());
+         std::math::erfc_inv(static_cast<T>(1e-15), Policy());
          if(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130)) != 0)
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130)), Policy());
+            std::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130)), Policy());
 
          // Some compilers choke on constants that would underflow, even in code that isn't instantiated
          // so try and filter these cases out in the preprocessor:
 #if LDBL_MAX_10_EXP >= 800
          if(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800)) != 0)
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800)), Policy());
+            std::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800)), Policy());
          if(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900)) != 0)
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900)), Policy());
+            std::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900)), Policy());
 #else
          if(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800)) != 0)
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800)), Policy());
+            std::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800)), Policy());
          if(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900)) != 0)
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900)), Policy());
+            std::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900)), Policy());
 #endif
       }
       void force_instantiate()const{}
@@ -376,7 +376,7 @@ typename tools::promote_args<T>::type erfc_inv(T z, const Policy& pol)
    //
    // Begin by testing for domain errors, and other special cases:
    //
-   static const char* function = "boost::math::erfc_inv<%1%>(%1%, %1%)";
+   static const char* function = "std::math::erfc_inv<%1%>(%1%, %1%)";
    if((z < 0) || (z > 2))
       policies::raise_domain_error<result_type>(function, "Argument outside range [0,2] in inverse erfc function (got p=%1%).", z, pol);
    if(z == 0)
@@ -440,7 +440,7 @@ typename tools::promote_args<T>::type erf_inv(T z, const Policy& pol)
    //
    // Begin by testing for domain errors, and other special cases:
    //
-   static const char* function = "boost::math::erf_inv<%1%>(%1%, %1%)";
+   static const char* function = "std::math::erf_inv<%1%>(%1%, %1%)";
    if((z < -1) || (z > 1))
       policies::raise_domain_error<result_type>(function, "Argument outside range [-1, 1] in inverse erf function (got p=%1%).", z, pol);
    if(z == 1)

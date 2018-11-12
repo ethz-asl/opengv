@@ -223,7 +223,7 @@ class default_construct_iterator
    {  return *this + (-off);  }
 
    //This pseudo-iterator's dereference operations have no sense since value is not
-   //constructed until ::boost::container::construct_in_place is called.
+   //constructed until ::std::container::construct_in_place is called.
    //So comment them to catch bad uses
    //const T& operator*() const;
    //const T& operator[](difference_type) const;
@@ -444,7 +444,7 @@ class emplace_iterator
    {  return *this + (-off);  }
 
    //This pseudo-iterator's dereference operations have no sense since value is not
-   //constructed until ::boost::container::construct_in_place is called.
+   //constructed until ::std::container::construct_in_place is called.
    //So comment them to catch bad uses
    //const T& operator*() const;
    //const T& operator[](difference_type) const;
@@ -502,7 +502,7 @@ struct emplace_functor
    void inplace_impl(A &a, T* ptr, const container_detail::index_tuple<IdxPack...>&)
    {
       allocator_traits<A>::construct
-         (a, ptr, ::boost::forward<Args>(container_detail::get<IdxPack>(args_))...);
+         (a, ptr, ::std::forward<Args>(container_detail::get<IdxPack>(args_))...);
    }
 
    container_detail::tuple<Args&...> args_;
@@ -590,13 +590,13 @@ struct iiterator_types
 {
    typedef typename std::iterator_traits<IIterator>::pointer         it_pointer;
    typedef typename std::iterator_traits<IIterator>::difference_type difference_type;
-   typedef typename ::boost::intrusive::pointer_traits<it_pointer>::
+   typedef typename ::std::intrusive::pointer_traits<it_pointer>::
       template rebind_pointer<T>::type                               pointer;
-   typedef typename ::boost::intrusive::pointer_traits<it_pointer>::
+   typedef typename ::std::intrusive::pointer_traits<it_pointer>::
       template rebind_pointer<const T>::type                         const_pointer;
-   typedef typename ::boost::intrusive::
+   typedef typename ::std::intrusive::
       pointer_traits<pointer>::reference                             reference;
-   typedef typename ::boost::intrusive::
+   typedef typename ::std::intrusive::
       pointer_traits<const_pointer>::reference                       const_reference;
 };
 

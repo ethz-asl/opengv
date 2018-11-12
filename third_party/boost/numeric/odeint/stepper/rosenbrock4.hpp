@@ -132,11 +132,11 @@ private:
 public:
 
     typedef Value value_type;
-    typedef boost::numeric::ublas::vector< value_type > state_type;
+    typedef std::numeric::ublas::vector< value_type > state_type;
     typedef state_type deriv_type;
     typedef value_type time_type;
-    typedef boost::numeric::ublas::matrix< value_type > matrix_type;
-    typedef boost::numeric::ublas::permutation_matrix< size_t > pmatrix_type;
+    typedef std::numeric::ublas::matrix< value_type > matrix_type;
+    typedef std::numeric::ublas::permutation_matrix< size_t > pmatrix_type;
     typedef Resizer resizer_type;
     typedef Coefficients rosenbrock_coefficients;
     typedef stepper_tag stepper_category;
@@ -186,12 +186,12 @@ public:
         jacobi_func( x , m_jac.m_v , t , m_dfdt.m_v );
 
         m_jac.m_v *= -1.0;
-        m_jac.m_v += 1.0 / m_coef.gamma / dt * boost::numeric::ublas::identity_matrix< value_type >( n );
-        boost::numeric::ublas::lu_factorize( m_jac.m_v , m_pm.m_v );
+        m_jac.m_v += 1.0 / m_coef.gamma / dt * std::numeric::ublas::identity_matrix< value_type >( n );
+        std::numeric::ublas::lu_factorize( m_jac.m_v , m_pm.m_v );
 
         for( size_t i=0 ; i<n ; ++i )
             m_g1.m_v[i] = m_dxdt.m_v[i] + dt * m_coef.d1 * m_dfdt.m_v[i];
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g1.m_v );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g1.m_v );
 
 
         for( size_t i=0 ; i<n ; ++i )
@@ -199,7 +199,7 @@ public:
         deriv_func( m_xtmp.m_v , m_dxdtnew.m_v , t + m_coef.c2 * dt );
         for( size_t i=0 ; i<n ; ++i )
             m_g2.m_v[i] = m_dxdtnew.m_v[i] + dt * m_coef.d2 * m_dfdt.m_v[i] + m_coef.c21 * m_g1.m_v[i] / dt;
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g2.m_v );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g2.m_v );
 
 
         for( size_t i=0 ; i<n ; ++i )
@@ -207,7 +207,7 @@ public:
         deriv_func( m_xtmp.m_v , m_dxdtnew.m_v , t + m_coef.c3 * dt );
         for( size_t i=0 ; i<n ; ++i )
             m_g3.m_v[i] = m_dxdtnew.m_v[i] + dt * m_coef.d3 * m_dfdt.m_v[i] + ( m_coef.c31 * m_g1.m_v[i] + m_coef.c32 * m_g2.m_v[i] ) / dt;
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g3.m_v );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g3.m_v );
 
 
         for( size_t i=0 ; i<n ; ++i )
@@ -215,7 +215,7 @@ public:
         deriv_func( m_xtmp.m_v , m_dxdtnew.m_v , t + m_coef.c4 * dt );
         for( size_t i=0 ; i<n ; ++i )
             m_g4.m_v[i] = m_dxdtnew.m_v[i] + dt * m_coef.d4 * m_dfdt.m_v[i] + ( m_coef.c41 * m_g1.m_v[i] + m_coef.c42 * m_g2.m_v[i] + m_coef.c43 * m_g3.m_v[i] ) / dt;
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g4.m_v );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g4.m_v );
 
 
         for( size_t i=0 ; i<n ; ++i )
@@ -223,14 +223,14 @@ public:
         deriv_func( m_xtmp.m_v , m_dxdtnew.m_v , t + dt );
         for( size_t i=0 ; i<n ; ++i )
             m_g5.m_v[i] = m_dxdtnew.m_v[i] + ( m_coef.c51 * m_g1.m_v[i] + m_coef.c52 * m_g2.m_v[i] + m_coef.c53 * m_g3.m_v[i] + m_coef.c54 * m_g4.m_v[i] ) / dt;
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g5.m_v );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , m_g5.m_v );
 
         for( size_t i=0 ; i<n ; ++i )
             m_xtmp.m_v[i] += m_g5.m_v[i];
         deriv_func( m_xtmp.m_v , m_dxdtnew.m_v , t + dt );
         for( size_t i=0 ; i<n ; ++i )
             xerr[i] = m_dxdtnew.m_v[i] + ( m_coef.c61 * m_g1.m_v[i] + m_coef.c62 * m_g2.m_v[i] + m_coef.c63 * m_g3.m_v[i] + m_coef.c64 * m_g4.m_v[i] + m_coef.c65 * m_g5.m_v[i] ) / dt;
-        boost::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , xerr );
+        std::numeric::ublas::lu_substitute( m_jac.m_v , m_pm.m_v , xerr );
 
         for( size_t i=0 ; i<n ; ++i )
             xout[i] = m_xtmp.m_v[i] + xerr[i];

@@ -169,7 +169,7 @@ public:
         if(_alpha == result_type(1)) {
             return _exp(eng) * _beta;
         } else if(_alpha > result_type(1)) {
-            // Can we have a boost::mathconst please?
+            // Can we have a std::mathconst please?
             const result_type pi = result_type(3.14159265358979323846);
             for(;;) {
                 result_type y = tan(pi * uniform_01<RealType>()(eng));

@@ -848,7 +848,7 @@ class private_adaptive_node_pool_impl
    }
 
    private:
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <void_pointer>::template rebind_pointer<segment_manager_base_type>::type   segment_mngr_base_ptr_t;
    const size_type m_max_free_blocks;
    const size_type m_real_node_size;

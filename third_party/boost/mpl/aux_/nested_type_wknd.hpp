@@ -35,7 +35,7 @@ template< typename T > struct nested_type_wknd
 /**/
 #else
 #   define BOOST_MPL_AUX_NESTED_TYPE_WKND(T) \
-    ::boost::mpl::aux::nested_type_wknd<T> \
+    ::std::mpl::aux::nested_type_wknd<T> \
 /**/
 #endif
 

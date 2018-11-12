@@ -167,7 +167,7 @@ namespace boost { namespace numeric { namespace ublas {
             const size_type elementM = layout_type::index_M (i, j);
             const size_type elementm = layout_type::index_m (i, j);
             // optimise: check the storage_type and index directly if element always exists
-            if (boost::is_convertible<typename array_type::storage_category, packed_tag>::value) {
+            if (std::is_convertible<typename array_type::storage_category, packed_tag>::value) {
                 return & (data () [elementM] [elementm]);
             }
             else {
@@ -183,7 +183,7 @@ namespace boost { namespace numeric { namespace ublas {
         const_reference operator () (size_type i, size_type j) const {
             const_pointer p = find_element (i, j);
             // optimise: check the storage_type and index directly if element always exists
-            if (boost::is_convertible<typename array_type::storage_category, packed_tag>::value) {
+            if (std::is_convertible<typename array_type::storage_category, packed_tag>::value) {
                 BOOST_UBLAS_CHECK (p, internal_logic () );
                 return *p;
             }

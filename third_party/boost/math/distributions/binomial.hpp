@@ -102,7 +102,7 @@ namespace boost
         template <class RealType, class Policy>
         inline bool check_N(const char* function, const RealType& N, RealType* result, const Policy& pol)
         {
-           if((N < 0) || !(boost::math::isfinite)(N))
+           if((N < 0) || !(std::math::isfinite)(N))
            {
                *result = policies::raise_domain_error<RealType>(
                   function,
@@ -114,7 +114,7 @@ namespace boost
         template <class RealType, class Policy>
         inline bool check_success_fraction(const char* function, const RealType& p, RealType* result, const Policy& pol)
         {
-           if((p < 0) || (p > 1) || !(boost::math::isfinite)(p))
+           if((p < 0) || (p > 1) || !(std::math::isfinite)(p))
            {
                *result = policies::raise_domain_error<RealType>(
                   function,
@@ -136,7 +136,7 @@ namespace boost
         {
            if(check_dist(function, N, p, result, pol) == false)
               return false;
-           if((k < 0) || !(boost::math::isfinite)(k))
+           if((k < 0) || !(std::math::isfinite)(k))
            {
                *result = policies::raise_domain_error<RealType>(
                   function,
@@ -173,7 +173,7 @@ namespace boost
             // kurtosis:
             // T k = (1 - 6 * sf * (1 - sf) ) / (n * sf * (1 - sf));
             // Get the inverse of a std normal distribution:
-            T x = boost::math::erfc_inv(p > q ? 2 * q : 2 * p, pol) * constants::root_two<T>();
+            T x = std::math::erfc_inv(p > q ? 2 * q : 2 * p, pol) * constants::root_two<T>();
             // Set the sign:
             if(p < 0.5)
                x = -x;
@@ -207,7 +207,7 @@ namespace boost
         RealType trials = dist.trials();
         RealType success_fraction = dist.success_fraction();
         if(false == binomial_detail::check_dist_and_prob(
-           "boost::math::quantile(binomial_distribution<%1%> const&, %1%)",
+           "std::math::quantile(binomial_distribution<%1%> const&, %1%)",
            trials,
            success_fraction,
            p,
@@ -261,7 +261,7 @@ namespace boost
            factor = 2; // trials largish, but in far tails.
 
         typedef typename Policy::discrete_quantile_type discrete_quantile_type;
-        boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+        std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
         return detail::inverse_discrete_quantile(
             dist,
             p,
@@ -287,7 +287,7 @@ namespace boost
         // with equal probability of 'heads' or 'tails.
          RealType r;
          binomial_detail::check_dist(
-            "boost::math::binomial_distribution<%1%>::binomial_distribution",
+            "std::math::binomial_distribution<%1%>::binomial_distribution",
             m_n,
             m_p,
             &r, Policy());
@@ -319,7 +319,7 @@ namespace boost
          RealType probability,
          interval_type t = clopper_pearson_exact_interval)
       {
-        static const char* function = "boost::math::binomial_distribution<%1%>::find_lower_bound_on_p";
+        static const char* function = "std::math::binomial_distribution<%1%>::find_lower_bound_on_p";
         // Error checks:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
@@ -344,7 +344,7 @@ namespace boost
          RealType probability,
          interval_type t = clopper_pearson_exact_interval)
       {
-        static const char* function = "boost::math::binomial_distribution<%1%>::find_upper_bound_on_p";
+        static const char* function = "std::math::binomial_distribution<%1%>::find_upper_bound_on_p";
         // Error checks:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
@@ -371,7 +371,7 @@ namespace boost
          RealType p,     // success fraction
          RealType alpha) // risk level
       {
-        static const char* function = "boost::math::binomial_distribution<%1%>::find_minimum_number_of_trials";
+        static const char* function = "std::math::binomial_distribution<%1%>::find_minimum_number_of_trials";
         // Error checks:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
@@ -390,7 +390,7 @@ namespace boost
          RealType p,     // success fraction
          RealType alpha) // risk level
       {
-        static const char* function = "boost::math::binomial_distribution<%1%>::find_maximum_number_of_trials";
+        static const char* function = "std::math::binomial_distribution<%1%>::find_maximum_number_of_trials";
         // Error checks:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
@@ -417,7 +417,7 @@ namespace boost
       template <class RealType, class Policy>
       const std::pair<RealType, RealType> range(const binomial_distribution<RealType, Policy>& dist)
       { // Range of permissible values for random variable k.
-        using boost::math::tools::max_value;
+        using std::math::tools::max_value;
         return std::pair<RealType, RealType>(static_cast<RealType>(0), dist.trials());
       }
 
@@ -452,7 +452,7 @@ namespace boost
         // Error check:
         RealType result = 0; // initialization silences some compiler warnings
         if(false == binomial_detail::check_dist_and_k(
-           "boost::math::pdf(binomial_distribution<%1%> const&, %1%)",
+           "std::math::pdf(binomial_distribution<%1%> const&, %1%)",
            n,
            dist.success_fraction(),
            k,
@@ -496,7 +496,7 @@ namespace boost
         //           = p^k (1-p)^(n-k) / (beta(k+1, n-k+1) * (n+1))
         //           = ibeta_derivative(k+1, n-k+1, p) / (n+1)
         //
-        using boost::math::ibeta_derivative; // a, b, x
+        using std::math::ibeta_derivative; // a, b, x
         return ibeta_derivative(k+1, n-k+1, dist.success_fraction(), Policy()) / (n+1);
 
       } // pdf
@@ -530,7 +530,7 @@ namespace boost
         // Error check:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
-           "boost::math::cdf(binomial_distribution<%1%> const&, %1%)",
+           "std::math::cdf(binomial_distribution<%1%> const&, %1%)",
            n,
            p,
            k,
@@ -604,7 +604,7 @@ namespace boost
         // Error checks:
         RealType result = 0;
         if(false == binomial_detail::check_dist_and_k(
-           "boost::math::cdf(binomial_distribution<%1%> const&, %1%)",
+           "std::math::cdf(binomial_distribution<%1%> const&, %1%)",
            n,
            p,
            k,

@@ -55,7 +55,7 @@ RealType cdf_imp(const cauchy_distribution<RealType, Policy>& dist, const RealTy
    // to get the result.
    //
    BOOST_MATH_STD_USING // for ADL of std functions
-   static const char* function = "boost::math::cdf(cauchy<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(cauchy<%1%>&, %1%)";
    RealType result = 0;
    RealType location = dist.location();
    RealType scale = dist.scale();
@@ -102,7 +102,7 @@ RealType quantile_imp(
    // mid-point of the distribution.  This is either added or subtracted
    // from the location parameter depending on whether `complement` is true.
    //
-   static const char* function = "boost::math::quantile(cauchy<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(cauchy<%1%>&, %1%)";
    BOOST_MATH_STD_USING // for ADL of std functions
 
    RealType result = 0;
@@ -155,7 +155,7 @@ public:
    cauchy_distribution(RealType location = 0, RealType scale = 1)
       : m_a(location), m_hg(scale)
    {
-    static const char* function = "boost::math::cauchy_distribution<%1%>::cauchy_distribution";
+    static const char* function = "std::math::cauchy_distribution<%1%>::cauchy_distribution";
      RealType result;
      detail::check_location(function, location, &result, Policy());
      detail::check_scale(function, scale, &result, Policy());
@@ -186,7 +186,7 @@ inline const std::pair<RealType, RealType> range(const cauchy_distribution<RealT
   }
   else
   { // Can only use max_value.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>()); // - to + max.
   }
 }
@@ -201,7 +201,7 @@ inline const std::pair<RealType, RealType> support(const cauchy_distribution<Rea
   }
   else
   { // Can only use max_value.
-     using boost::math::tools::max_value;
+     using std::math::tools::max_value;
      return std::pair<RealType, RealType>(-tools::max_value<RealType>(), max_value<RealType>()); // - to + max.
   }
 }
@@ -211,19 +211,19 @@ inline RealType pdf(const cauchy_distribution<RealType, Policy>& dist, const Rea
 {  
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::pdf(cauchy<%1%>&, %1%)";
+   static const char* function = "std::math::pdf(cauchy<%1%>&, %1%)";
    RealType result = 0;
    RealType location = dist.location();
    RealType scale = dist.scale();
-   if(false == detail::check_scale("boost::math::pdf(cauchy<%1%>&, %1%)", scale, &result, Policy()))
+   if(false == detail::check_scale("std::math::pdf(cauchy<%1%>&, %1%)", scale, &result, Policy()))
    {
       return result;
    }
-   if(false == detail::check_location("boost::math::pdf(cauchy<%1%>&, %1%)", location, &result, Policy()))
+   if(false == detail::check_location("std::math::pdf(cauchy<%1%>&, %1%)", location, &result, Policy()))
    {
       return result;
    }
-   if((boost::math::isinf)(x))
+   if((std::math::isinf)(x))
    {
      return 0; // pdf + and - infinity is zero.
    }
@@ -274,7 +274,7 @@ inline RealType mean(const cauchy_distribution<RealType, Policy>&)
    BOOST_STATIC_ASSERT(assert_type::value == 0);
 
    return policies::raise_domain_error<RealType>(
-      "boost::math::mean(cauchy<%1%>&)",
+      "std::math::mean(cauchy<%1%>&)",
       "The Cauchy distribution does not have a mean: "
       "the only possible return value is %1%.",
       std::numeric_limits<RealType>::quiet_NaN(), Policy());
@@ -288,7 +288,7 @@ inline RealType variance(const cauchy_distribution<RealType, Policy>& /*dist*/)
    BOOST_STATIC_ASSERT(assert_type::value == 0);
 
    return policies::raise_domain_error<RealType>(
-      "boost::math::variance(cauchy<%1%>&)",
+      "std::math::variance(cauchy<%1%>&)",
       "The Cauchy distribution does not have a variance: "
       "the only possible return value is %1%.",
       std::numeric_limits<RealType>::quiet_NaN(), Policy());
@@ -313,7 +313,7 @@ inline RealType skewness(const cauchy_distribution<RealType, Policy>& /*dist*/)
    BOOST_STATIC_ASSERT(assert_type::value == 0);
 
    return policies::raise_domain_error<RealType>(
-      "boost::math::skewness(cauchy<%1%>&)",
+      "std::math::skewness(cauchy<%1%>&)",
       "The Cauchy distribution does not have a skewness: "
       "the only possible return value is %1%.",
       std::numeric_limits<RealType>::quiet_NaN(), Policy()); // infinity?
@@ -327,7 +327,7 @@ inline RealType kurtosis(const cauchy_distribution<RealType, Policy>& /*dist*/)
    BOOST_STATIC_ASSERT(assert_type::value == 0);
 
    return policies::raise_domain_error<RealType>(
-      "boost::math::kurtosis(cauchy<%1%>&)",
+      "std::math::kurtosis(cauchy<%1%>&)",
       "The Cauchy distribution does not have a kurtosis: "
       "the only possible return value is %1%.",
       std::numeric_limits<RealType>::quiet_NaN(), Policy());
@@ -341,7 +341,7 @@ inline RealType kurtosis_excess(const cauchy_distribution<RealType, Policy>& /*d
    BOOST_STATIC_ASSERT(assert_type::value == 0);
 
    return policies::raise_domain_error<RealType>(
-      "boost::math::kurtosis_excess(cauchy<%1%>&)",
+      "std::math::kurtosis_excess(cauchy<%1%>&)",
       "The Cauchy distribution does not have a kurtosis: "
       "the only possible return value is %1%.",
       std::numeric_limits<RealType>::quiet_NaN(), Policy());

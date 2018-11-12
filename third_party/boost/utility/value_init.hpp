@@ -15,9 +15,9 @@
 #ifndef BOOST_UTILITY_VALUE_INIT_21AGO2002_HPP
 #define BOOST_UTILITY_VALUE_INIT_21AGO2002_HPP
 
-// Note: The implementation of boost::value_initialized had to deal with the
+// Note: The implementation of std::value_initialized had to deal with the
 // fact that various compilers haven't fully implemented value-initialization.
-// The constructor of boost::value_initialized<T> works around these compiler
+// The constructor of std::value_initialized<T> works around these compiler
 // issues, by clearing the bytes of T, before constructing the T object it
 // contains. More details on these issues are at libs/utility/value_init.htm
 
@@ -142,7 +142,7 @@ class initialized
 
     void swap(initialized & arg)
     {
-      ::boost::swap( this->data(), arg.data() );
+      ::std::swap( this->data(), arg.data() );
     }
 
     operator T const &() const

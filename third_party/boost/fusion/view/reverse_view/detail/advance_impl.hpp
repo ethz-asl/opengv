@@ -37,7 +37,7 @@ namespace boost { namespace fusion {
                 static type
                 call(Iterator const& i)
                 {
-                    return type(boost::fusion::advance<negative_dist>(i.first));
+                    return type(std::fusion::advance<negative_dist>(i.first));
                 }
             };
         };

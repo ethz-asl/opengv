@@ -107,7 +107,7 @@ template<
     >
 struct transform_iter
     : transform_iter_impl<
-          ::boost::is_same<Iterator,LastIterator>::value
+          ::std::is_same<Iterator,LastIterator>::value
         >::template result_< Iterator,LastIterator,F >
 {
 };

@@ -163,7 +163,7 @@ namespace boost {
         // remove the bind of ONE argument then clear()
         if(argN<1 || argN > num_args_ || bound_.size()==0 || !bound_[argN-1] ) {
             if( exceptions() & io::out_of_range_bit)
-                boost::throw_exception(io::out_of_range(argN, 1, num_args_+1 ) ); 
+                std::throw_exception(io::out_of_range(argN, 1, num_args_+1 ) ); 
             else return *this;
         }
         bound_[argN-1]=false;
@@ -221,7 +221,7 @@ namespace boost {
         if( cur_arg_ < num_args_)
             if( exceptions() & io::too_few_args_bit )
                 // not enough variables supplied
-                boost::throw_exception(io::too_few_args(cur_arg_, num_args_)); 
+                std::throw_exception(io::too_few_args(cur_arg_, num_args_)); 
 
         unsigned long i;
         string_type res;
@@ -280,7 +280,7 @@ namespace detail {
             self.clear(); // needed because we will modify cur_arg_
         if(argN<1 || argN > self.num_args_) {
             if( self.exceptions() & io::out_of_range_bit )
-                boost::throw_exception(io::out_of_range(argN, 1, self.num_args_+1 ) );
+                std::throw_exception(io::out_of_range(argN, 1, self.num_args_+1 ) );
             else return self;
         }
         if(self.bound_.size()==0) 
@@ -313,7 +313,7 @@ namespace detail {
         // this is a permanent change, clear or reset won't cancel that.
         if(itemN<1 || itemN > static_cast<signed int>(self.items_.size() )) {
             if( self.exceptions() & io::out_of_range_bit ) 
-                boost::throw_exception(io::out_of_range(itemN, 1, static_cast<int>(self.items_.size()) ));
+                std::throw_exception(io::out_of_range(itemN, 1, static_cast<int>(self.items_.size()) ));
             else return self;
         }
         self.items_[itemN-1].fmtstate_. template apply_manip<T> ( manipulator );

@@ -24,7 +24,7 @@ inline std::complex<T> asinh(const std::complex<T>& x)
    // to say asin is specified in terms of asinh), this is consistent
    // with C99 though:
    //
-   return ::boost::math::detail::mult_i(::boost::math::asin(::boost::math::detail::mult_minus_i(x)));
+   return ::std::math::detail::mult_i(::std::math::asin(::std::math::detail::mult_minus_i(x)));
 }
 
 } } // namespaces

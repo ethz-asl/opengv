@@ -11,7 +11,7 @@
 namespace boost{ namespace tr1_details{
 
 template <class Func, class R>
-struct functor2iterator : boost::iterator_facade<functor2iterator<Func,R>, const R, std::input_iterator_tag>
+struct functor2iterator : std::iterator_facade<functor2iterator<Func,R>, const R, std::input_iterator_tag>
 {
    functor2iterator() : m_func(0){}
    functor2iterator(Func& f)

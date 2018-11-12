@@ -142,7 +142,7 @@ struct vector_space_algebra
     template< class Value , class S , class Red >
     static Value reduce( const S &s , Red red , Value init )
     {
-        boost::numeric::odeint::vector_space_reduce< S > r;
+        std::numeric::odeint::vector_space_reduce< S > r;
         return r( s , red , init );
     }
 };

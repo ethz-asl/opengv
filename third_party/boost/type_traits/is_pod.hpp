@@ -39,9 +39,9 @@ template <typename T> struct is_pod_impl
 { 
     BOOST_STATIC_CONSTANT(
         bool, value =
-        (::boost::type_traits::ice_or<
-            ::boost::is_scalar<T>::value,
-            ::boost::is_void<T>::value,
+        (::std::type_traits::ice_or<
+            ::std::is_scalar<T>::value,
+            ::std::is_void<T>::value,
             BOOST_INTERNAL_IS_POD(T)
          >::value));
 };
@@ -63,9 +63,9 @@ struct is_pod_helper
     {
         BOOST_STATIC_CONSTANT(
             bool, value =
-            (::boost::type_traits::ice_or<
-                ::boost::is_scalar<T>::value,
-                ::boost::is_void<T>::value,
+            (::std::type_traits::ice_or<
+                ::std::is_scalar<T>::value,
+                ::std::is_void<T>::value,
                 BOOST_INTERNAL_IS_POD(T)
             >::value));
     };
@@ -74,19 +74,19 @@ struct is_pod_helper
 template <bool b>
 struct bool_to_yes_no_type
 {
-    typedef ::boost::type_traits::no_type type;
+    typedef ::std::type_traits::no_type type;
 };
 
 template <>
 struct bool_to_yes_no_type<true>
 {
-    typedef ::boost::type_traits::yes_type type;
+    typedef ::std::type_traits::yes_type type;
 };
 
 template <typename ArrayType>
 struct is_pod_array_helper
 {
-    enum { is_pod = ::boost::is_POD<ArrayType>::value }; // MSVC workaround
+    enum { is_pod = ::std::is_POD<ArrayType>::value }; // MSVC workaround
     typedef typename bool_to_yes_no_type<is_pod>::type type;
     type instance() const;
 };
@@ -101,7 +101,7 @@ struct is_pod_helper<true>
     {
         static T& help();
         BOOST_STATIC_CONSTANT(bool, value =
-            sizeof(is_POD_array(help()).instance()) == sizeof(::boost::type_traits::yes_type)
+            sizeof(is_POD_array(help()).instance()) == sizeof(::std::type_traits::yes_type)
             );
     };
 };
@@ -111,8 +111,8 @@ template <typename T> struct is_pod_impl
 { 
    BOOST_STATIC_CONSTANT(
        bool, value = (
-           ::boost::detail::is_pod_helper<
-              ::boost::is_array<T>::value
+           ::std::detail::is_pod_helper<
+              ::std::is_array<T>::value
            >::template result_<T>::value
            )
        );
@@ -131,10 +131,10 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,void const volatile,true)
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_pod,T,::boost::detail::is_pod_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_pod,T,::std::detail::is_pod_impl<T>::value)
 // is_POD is the old depricated name for this trait, do not use this as it may
 // be removed in future without warning!!
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_POD,T,::boost::is_pod<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_POD,T,::std::is_pod<T>::value)
 
 } // namespace boost
 

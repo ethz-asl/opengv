@@ -28,20 +28,20 @@ namespace boost
 /// \pre ForwardRange is a model of the ForwardRangeConcept
 /// \pre UnaryPredicate is a model of the UnaryPredicateConcept
 template< class ForwardRange, class UnaryPredicate >
-inline BOOST_DEDUCED_TYPENAME boost::range_iterator<ForwardRange>::type
+inline BOOST_DEDUCED_TYPENAME std::range_iterator<ForwardRange>::type
 remove_if(ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return std::remove_if(boost::begin(rng), boost::end(rng), pred);
+    return std::remove_if(std::begin(rng), std::end(rng), pred);
 }
 
 /// \overload
 template< class ForwardRange, class UnaryPredicate >
-inline BOOST_DEDUCED_TYPENAME boost::range_iterator<const ForwardRange>::type
+inline BOOST_DEDUCED_TYPENAME std::range_iterator<const ForwardRange>::type
 remove_if(const ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::remove_if(boost::begin(rng), boost::end(rng), pred);
+    return std::remove_if(std::begin(rng), std::end(rng), pred);
 }
 
 // range_return overloads
@@ -53,7 +53,7 @@ remove_if(ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::pack(
-        std::remove_if(boost::begin(rng), boost::end(rng), pred),
+        std::remove_if(std::begin(rng), std::end(rng), pred),
         rng);
 }
 
@@ -64,7 +64,7 @@ remove_if(const ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::pack(
-        std::remove_if(boost::begin(rng), boost::end(rng), pred),
+        std::remove_if(std::begin(rng), std::end(rng), pred),
         rng);
 }
 

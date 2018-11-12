@@ -13,7 +13,7 @@
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
- * 14 Apr 2012 - (mtc) Added support for boost::hash
+ * 14 Apr 2012 - (mtc) Added support for std::hash
  * 28 Dec 2010 - (mtc) Added cbegin and cend (and crbegin and crend) for C++Ox compatibility.
  * 10 Mar 2010 - (mtc) fill method added, matching resolution of the standard library working group.
  *      See <http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-defects.html#776> or Trac issue #3168
@@ -35,8 +35,8 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400)  
 # pragma warning(push)  
 # pragma warning(disable:4996) // 'std::equal': Function call with parameters that may be unsafe
-# pragma warning(disable:4510) // boost::array<T,N>' : default constructor could not be generated 
-# pragma warning(disable:4610) // warning C4610: class 'boost::array<T,N>' can never be instantiated - user defined constructor required 
+# pragma warning(disable:4510) // std::array<T,N>' : default constructor could not be generated 
+# pragma warning(disable:4610) // warning C4610: class 'std::array<T,N>' can never be instantiated - user defined constructor required 
 #endif
 
 #include <cstddef>
@@ -164,7 +164,7 @@ namespace boost {
         // swap (note: linear complexity)
         void swap (array<T,N>& y) {
             for (size_type i = 0; i < N; ++i)
-                boost::swap(elems[i],y.elems[i]);
+                std::swap(elems[i],y.elems[i]);
         }
 
         // direct access to data (read-only)
@@ -192,7 +192,7 @@ namespace boost {
         static void rangecheck (size_type i) {
             if (i >= size()) {
                 std::out_of_range e("array<>: index out of range");
-                boost::throw_exception(e);
+                std::throw_exception(e);
             }
         }
 
@@ -323,7 +323,7 @@ namespace boost {
         // check range (may be private because it is static)
         static reference failed_rangecheck () {
                 std::out_of_range e("attempt to access element of an empty array");
-                boost::throw_exception(e);
+                std::throw_exception(e);
 #if defined(BOOST_NO_EXCEPTIONS) || (!defined(BOOST_MSVC) && !defined(__PATHSCALE__))
                 //
                 // We need to return something here to keep
@@ -371,7 +371,7 @@ namespace boost {
 
 #if defined(__SUNPRO_CC)
 //  Trac ticket #4757; the Sun Solaris compiler can't handle
-//  syntax like 'T(&get_c_array(boost::array<T,N>& arg))[N]'
+//  syntax like 'T(&get_c_array(std::array<T,N>& arg))[N]'
 //  
 //  We can't just use this for all compilers, because the 
 //      borland compilers can't handle this form. 
@@ -382,30 +382,30 @@ namespace boost {
        };
     }
     
-   // Specific for boost::array: simply returns its elems data member.
+   // Specific for std::array: simply returns its elems data member.
    template <typename T, std::size_t N>
-   typename detail::c_array<T,N>::type& get_c_array(boost::array<T,N>& arg)
+   typename detail::c_array<T,N>::type& get_c_array(std::array<T,N>& arg)
    {
        return arg.elems;
    }
 
-   // Specific for boost::array: simply returns its elems data member.
+   // Specific for std::array: simply returns its elems data member.
    template <typename T, std::size_t N>
-   typename const detail::c_array<T,N>::type& get_c_array(const boost::array<T,N>& arg)
+   typename const detail::c_array<T,N>::type& get_c_array(const std::array<T,N>& arg)
    {
        return arg.elems;
    }
 #else
-// Specific for boost::array: simply returns its elems data member.
+// Specific for std::array: simply returns its elems data member.
     template <typename T, std::size_t N>
-    T(&get_c_array(boost::array<T,N>& arg))[N]
+    T(&get_c_array(std::array<T,N>& arg))[N]
     {
         return arg.elems;
     }
     
     // Const version.
     template <typename T, std::size_t N>
-    const T(&get_c_array(const boost::array<T,N>& arg))[N]
+    const T(&get_c_array(const std::array<T,N>& arg))[N]
     {
         return arg.elems;
     }
@@ -433,7 +433,7 @@ namespace boost {
     template<class T, std::size_t N>
     std::size_t hash_value(const array<T,N>& arr)
     {
-        return boost::hash_range(arr.begin(), arr.end());
+        return std::hash_range(arr.begin(), arr.end());
     }
 
 } /* namespace boost */

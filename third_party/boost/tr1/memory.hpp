@@ -40,17 +40,17 @@ class weak_count;
 
 namespace std{ namespace tr1{
 
-   using ::boost::bad_weak_ptr;
-   using ::boost::shared_ptr;
+   using ::std::bad_weak_ptr;
+   using ::std::shared_ptr;
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x0582)
-   using ::boost::swap;
+   using ::std::swap;
 #endif
-   using ::boost::static_pointer_cast;
-   using ::boost::dynamic_pointer_cast;
-   using ::boost::const_pointer_cast;
-   using ::boost::get_deleter;
-   using ::boost::weak_ptr;
-   using ::boost::enable_shared_from_this;
+   using ::std::static_pointer_cast;
+   using ::std::dynamic_pointer_cast;
+   using ::std::const_pointer_cast;
+   using ::std::get_deleter;
+   using ::std::weak_ptr;
+   using ::std::enable_shared_from_this;
 
 } }
 #include <boost/shared_ptr.hpp>

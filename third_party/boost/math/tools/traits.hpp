@@ -5,7 +5,7 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 /*
-This header defines two traits classes, both in namespace boost::math::tools.
+This header defines two traits classes, both in namespace std::math::tools.
 
 is_distribution<D>::value is true iff D has overloaded "cdf" and
 "quantile" functions, plus member typedefs value_type and policy_type.  
@@ -96,13 +96,13 @@ struct is_scaled_distribution_helper<D, true>
 template <class D>
 struct is_scaled_distribution_imp
 {
-   BOOST_STATIC_CONSTANT(bool, value = (::boost::math::tools::detail::is_scaled_distribution_helper<D, ::boost::math::tools::detail::is_distribution_imp<D>::value>::value));
+   BOOST_STATIC_CONSTANT(bool, value = (::std::math::tools::detail::is_scaled_distribution_helper<D, ::std::math::tools::detail::is_distribution_imp<D>::value>::value));
 };
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_distribution,T,::boost::math::tools::detail::is_distribution_imp<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_scaled_distribution,T,::boost::math::tools::detail::is_scaled_distribution_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_distribution,T,::std::math::tools::detail::is_distribution_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_scaled_distribution,T,::std::math::tools::detail::is_scaled_distribution_imp<T>::value)
 
 }}}
 

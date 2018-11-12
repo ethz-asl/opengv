@@ -21,12 +21,12 @@ namespace boost { namespace fusion
         {
             template <typename T0, typename T1 = void_>
             struct apply
-                : boost::result_of<F(T0, T1)>
+                : std::result_of<F(T0, T1)>
             {};
 
             template <typename T0>
             struct apply<T0, void_>
-                : boost::result_of<F(T0)>
+                : std::result_of<F(T0)>
             {};
         };
     }

@@ -36,7 +36,7 @@ namespace detail {
 namespace symplectic_euler_coef {
 
 template< class Value >
-struct coef_a_type : public boost::array< Value , 1 >
+struct coef_a_type : public std::array< Value , 1 >
 {
     coef_a_type( void )
     {
@@ -45,7 +45,7 @@ struct coef_a_type : public boost::array< Value , 1 >
 };
 
 template< class Value >
-struct coef_b_type : public boost::array< Value , 1 >
+struct coef_b_type : public std::array< Value , 1 >
 {
     coef_b_type( void )
     {

@@ -177,7 +177,7 @@ public :
         if( same_instance( dxdt_in , dxdt_out ) )
         {
             m_dxdt_tmp_resizer.adjust_size( in , detail::bind( &stepper_type::template resize_dxdt_tmp_impl<StateIn> , detail::ref( *this ) , detail::_1 ) );
-            boost::numeric::odeint::copy( dxdt_in , m_dxdt_tmp.m_v );
+            std::numeric::odeint::copy( dxdt_in , m_dxdt_tmp.m_v );
             do_step_impl( system , in , dxdt_in , t , out , dxdt_out , dt );
             //error estimate
             stepper_base_type::m_algebra.for_each7( xerr , m_dxdt_tmp.m_v , m_k3.m_v , m_k4.m_v , m_k5.m_v , m_k6.m_v , dxdt_out ,

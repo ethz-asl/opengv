@@ -42,7 +42,7 @@ struct is_unsigned_values
 template <class T>
 struct is_ununsigned_helper
 {
-   BOOST_STATIC_CONSTANT(bool, value = (::boost::detail::is_unsigned_values<T>::minus_one > ::boost::detail::is_unsigned_values<T>::zero));
+   BOOST_STATIC_CONSTANT(bool, value = (::std::detail::is_unsigned_values<T>::minus_one > ::std::detail::is_unsigned_values<T>::zero));
 };
 
 template <bool integral_type>
@@ -69,9 +69,9 @@ template <class T>
 struct is_unsigned_imp
 {
    typedef is_ununsigned_select_helper< 
-      ::boost::type_traits::ice_or<
-         ::boost::is_integral<T>::value,
-         ::boost::is_enum<T>::value>::value 
+      ::std::type_traits::ice_or<
+         ::std::is_integral<T>::value,
+         ::std::is_enum<T>::value>::value 
    > selector;
    typedef typename selector::template rebind<T> binder;
    typedef typename binder::type type;
@@ -125,7 +125,7 @@ template <> struct is_unsigned_imp<const volatile wchar_t> : public true_type{};
 #if defined( __CODEGEARC__ )
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_unsigned,T,__is_unsigned(T))
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_unsigned,T,::boost::detail::is_unsigned_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_unsigned,T,::std::detail::is_unsigned_imp<T>::value)
 #endif
 
 } // namespace boost

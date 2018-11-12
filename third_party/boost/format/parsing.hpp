@@ -105,7 +105,7 @@ namespace detail {
                                       std::size_t pos, std::size_t size)
     {
         if(exceptions & io::bad_format_string_bit)
-            boost::throw_exception(io::bad_format_string(pos, size) );
+            std::throw_exception(io::bad_format_string(pos, size) );
     }
     
 
@@ -361,13 +361,13 @@ namespace detail {
     {
         // quick-parsing of the format-string to count arguments mark (arg_mark, '%')
         // returns : upper bound on the number of format items in the format strings
-        using namespace boost::io;
+        using namespace std::io;
         typename String::size_type i1=0;
         int num_items=0;
         while( (i1=buf.find(arg_mark,i1)) != String::npos ) {
             if( i1+1 >= buf.size() ) {
                 if(exceptions & bad_format_string_bit)
-                    boost::throw_exception(bad_format_string(i1, buf.size() )); // must not end in ".. %"
+                    std::throw_exception(bad_format_string(i1, buf.size() )); // must not end in ".. %"
                 else {
                   ++num_items;
                   break;
@@ -475,7 +475,7 @@ namespace detail {
         if( !ordered_args) {
             if(max_argN >= 0 ) {  // dont mix positional with non-positionnal directives
                 if(exceptions() & io::bad_format_string_bit)
-                    boost::throw_exception(io::bad_format_string(max_argN, 0));
+                    std::throw_exception(io::bad_format_string(max_argN, 0));
                 // else do nothing. => positionnal arguments are processed as non-positionnal
             }
             // set things like it would have been with positional directives :

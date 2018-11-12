@@ -249,7 +249,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type
 search_n(ForwardRange& rng, Integer count, const Value& value)
 {
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<ForwardRange>));
-    return range_detail::search_n_impl(boost::begin(rng),boost::end(rng), count, value);
+    return range_detail::search_n_impl(std::begin(rng),std::end(rng), count, value);
 }
 
 /// \overload
@@ -258,7 +258,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
 search_n(const ForwardRange& rng, Integer count, const Value& value)
 {
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<const ForwardRange>));
-    return range_detail::search_n_impl(boost::begin(rng), boost::end(rng), count, value);
+    return range_detail::search_n_impl(std::begin(rng), std::end(rng), count, value);
 }
 
 /// \overload
@@ -271,7 +271,7 @@ search_n(ForwardRange& rng, Integer count, const Value& value,
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<ForwardRange>));
     BOOST_RANGE_CONCEPT_ASSERT((BinaryPredicateConcept<BinaryPredicate,
         BOOST_DEDUCED_TYPENAME range_value<ForwardRange>::type, const Value&>));
-    return range_detail::search_n_pred_impl(boost::begin(rng), boost::end(rng),
+    return range_detail::search_n_pred_impl(std::begin(rng), std::end(rng),
         count, value, binary_pred);
 }
 
@@ -285,7 +285,7 @@ search_n(const ForwardRange& rng, Integer count, const Value& value,
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<const ForwardRange>));
     BOOST_RANGE_CONCEPT_ASSERT((BinaryPredicateConcept<BinaryPredicate,
         BOOST_DEDUCED_TYPENAME range_value<const ForwardRange>::type, const Value&>));
-    return range_detail::search_n_pred_impl(boost::begin(rng), boost::end(rng),
+    return range_detail::search_n_pred_impl(std::begin(rng), std::end(rng),
         count, value, binary_pred);
 }
 
@@ -299,7 +299,7 @@ search_n(ForwardRange& rng, Integer count, const Value& value)
 {
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<ForwardRange>));
     return range_return<ForwardRange,re>::
-        pack(range_detail::search_n_impl(boost::begin(rng),boost::end(rng),
+        pack(range_detail::search_n_impl(std::begin(rng),std::end(rng),
                            count, value),
              rng);
 }
@@ -312,7 +312,7 @@ search_n(const ForwardRange& rng, Integer count, const Value& value)
 {
     BOOST_RANGE_CONCEPT_ASSERT((ForwardRangeConcept<const ForwardRange>));
     return range_return<const ForwardRange,re>::
-        pack(range_detail::search_n_impl(boost::begin(rng), boost::end(rng),
+        pack(range_detail::search_n_impl(std::begin(rng), std::end(rng),
                            count, value),
              rng);
 }
@@ -329,8 +329,8 @@ search_n(ForwardRange& rng, Integer count, const Value& value,
         BOOST_DEDUCED_TYPENAME range_value<ForwardRange>::type,
         const Value&>));
     return range_return<ForwardRange,re>::
-        pack(range_detail::search_n_pred_impl(boost::begin(rng),
-                                              boost::end(rng),
+        pack(range_detail::search_n_pred_impl(std::begin(rng),
+                                              std::end(rng),
                            count, value, pred),
              rng);
 }
@@ -347,8 +347,8 @@ search_n(const ForwardRange& rng, Integer count, const Value& value,
         BOOST_DEDUCED_TYPENAME range_value<const ForwardRange>::type,
         const Value&>));
     return range_return<const ForwardRange,re>::
-        pack(range_detail::search_n_pred_impl(boost::begin(rng),
-                                              boost::end(rng),
+        pack(range_detail::search_n_pred_impl(std::begin(rng),
+                                              std::end(rng),
                            count, value, pred),
              rng);
 }

@@ -44,7 +44,7 @@ namespace boost
 
 #define BOOST_ASSERT(expr) ((expr) \
   ? ((void)0) \
-  : ::boost::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+  : ::std::assertion_failed(#expr, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 
 #else
 # include <assert.h> // .h to support old libraries w/o <cassert> - effect is the same
@@ -73,7 +73,7 @@ namespace boost
 
   #define BOOST_ASSERT_MSG(expr, msg) ((expr) \
     ? ((void)0) \
-    : ::boost::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
+    : ::std::assertion_failed_msg(#expr, msg, BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 
 #else
   #ifndef BOOST_ASSERT_HPP
@@ -115,7 +115,7 @@ namespace boost
 
   #define BOOST_ASSERT_MSG(expr, msg) ((expr) \
     ? ((void)0) \
-    : ::boost::assertion::detail::assertion_failed_msg(#expr, msg, \
+    : ::std::assertion::detail::assertion_failed_msg(#expr, msg, \
           BOOST_CURRENT_FUNCTION, __FILE__, __LINE__))
 #endif
 

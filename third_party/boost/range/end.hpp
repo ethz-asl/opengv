@@ -126,7 +126,7 @@ namespace boost
         inline BOOST_DEDUCED_TYPENAME range_iterator<const T>::type
         const_end( const T& r )
         {
-            return boost::range_adl_barrier::end( r );
+            return std::range_adl_barrier::end( r );
         }
     } // namespace range_adl_barrier
     using namespace range_adl_barrier;

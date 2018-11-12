@@ -23,15 +23,15 @@ namespace boost
 
         template< class F, class R >
         struct transformed_range :
-            public boost::iterator_range<
-                      boost::transform_iterator< F,
+            public std::iterator_range<
+                      std::transform_iterator< F,
                           BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                                               >
                                          >
         {
         private:
-            typedef boost::iterator_range<
-                      boost::transform_iterator< F,
+            typedef std::iterator_range<
+                      std::transform_iterator< F,
                         BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                                               >
                                          >
@@ -42,8 +42,8 @@ namespace boost
             typedef R source_range_type;
 
             transformed_range( F f, R& r )
-                : base( boost::make_transform_iterator( boost::begin(r), f ),
-                        boost::make_transform_iterator( boost::end(r), f ) )
+                : base( std::make_transform_iterator( std::begin(r), f ),
+                        std::make_transform_iterator( std::end(r), f ) )
 
             { }
         };

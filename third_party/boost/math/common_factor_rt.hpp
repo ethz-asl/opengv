@@ -55,7 +55,7 @@ public:
     result_type  operator ()( first_argument_type const &a,
      second_argument_type const &b ) const;
 
-};  // boost::math::gcd_evaluator
+};  // std::math::gcd_evaluator
 
 
 //  Least common multiple evaluator class declaration  -----------------------//
@@ -71,7 +71,7 @@ public:
     result_type  operator ()( first_argument_type const &a,
      second_argument_type const &b ) const;
 
-};  // boost::math::lcm_evaluator
+};  // std::math::lcm_evaluator
 
 
 //  Implementation details  --------------------------------------------------//
@@ -312,7 +312,7 @@ namespace detail
     BOOST_PRIVATE_GCD_UF( unsigned long );
 
 #ifdef BOOST_HAS_LONG_LONG
-    BOOST_PRIVATE_GCD_UF( boost::ulong_long_type );
+    BOOST_PRIVATE_GCD_UF( std::ulong_long_type );
 #elif defined(BOOST_HAS_MS_INT64)
     BOOST_PRIVATE_GCD_UF( unsigned __int64 );
 #endif
@@ -340,7 +340,7 @@ namespace detail
 #endif
 
 #ifdef BOOST_HAS_LONG_LONG
-    BOOST_PRIVATE_GCD_SF( boost::long_long_type, boost::ulong_long_type );
+    BOOST_PRIVATE_GCD_SF( std::long_long_type, std::ulong_long_type );
 #elif defined(BOOST_HAS_MS_INT64)
     BOOST_PRIVATE_GCD_SF( __int64, unsigned __int64 );
 #endif

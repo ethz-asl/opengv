@@ -73,7 +73,7 @@ namespace boost { namespace fusion
         template <class Function, class Sequence> struct invoke_function_object
         {
             typedef typename detail::invoke_function_object_impl<
-                typename boost::remove_reference<Function>::type, Sequence
+                typename std::remove_reference<Function>::type, Sequence
                 >::result_type type;
         };
     }
@@ -83,7 +83,7 @@ namespace boost { namespace fusion
     invoke_function_object(Function f, Sequence & s)
     {
         return detail::invoke_function_object_impl<
-                typename boost::remove_reference<Function>::type,Sequence
+                typename std::remove_reference<Function>::type,Sequence
             >::call(f,s);
     }
 
@@ -92,7 +92,7 @@ namespace boost { namespace fusion
     invoke_function_object(Function f, Sequence const & s)
     {
         return detail::invoke_function_object_impl<
-                typename boost::remove_reference<Function>::type,Sequence const
+                typename std::remove_reference<Function>::type,Sequence const
             >::call(f,s);
     }
 
@@ -112,7 +112,7 @@ namespace boost { namespace fusion
         {
         public:
 
-            typedef typename boost::result_of<
+            typedef typename std::result_of<
 #define M(z,j,data)                                                             \
         typename result_of::at_c<Sequence,j>::type
                 Function (BOOST_PP_ENUM(N,M,~)) >::type result_type;
@@ -148,7 +148,7 @@ namespace boost { namespace fusion
         private:
             typedef invoke_function_object_param_types<Sequence,N> seq;
         public:
-            typedef typename boost::result_of<
+            typedef typename std::result_of<
                 Function (BOOST_PP_ENUM_PARAMS(N,typename seq::T))
                 >::type result_type;
 

@@ -53,13 +53,13 @@ template <class T, class Policy>
 inline typename tools::promote_args<T>::type cos_pi(T x, const Policy& pol)
 {
    typedef typename tools::promote_args<T>::type result_type;
-   return boost::math::detail::cos_pi_imp<result_type>(x, pol);
+   return std::math::detail::cos_pi_imp<result_type>(x, pol);
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type cos_pi(T x)
 {
-   return boost::math::cos_pi(x, policies::policy<>());
+   return std::math::cos_pi(x, policies::policy<>());
 }
 
 } // namespace math

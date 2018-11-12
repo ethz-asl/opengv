@@ -177,33 +177,33 @@ public:
 
     template<typename Range1, typename Range2>
     join_iterator(Range1& r1, Range2& r2, join_iterator_begin_tag)
-        : m_section(boost::empty(r1) ? 1u : 0u)
-        , m_it(boost::empty(r1) ? 1u : 0u, boost::begin(r1), boost::begin(r2))
-        , m_link(link_t(boost::end(r1), boost::begin(r2)))
+        : m_section(std::empty(r1) ? 1u : 0u)
+        , m_it(std::empty(r1) ? 1u : 0u, std::begin(r1), std::begin(r2))
+        , m_link(link_t(std::end(r1), std::begin(r2)))
     {
     }
 
     template<typename Range1, typename Range2>
     join_iterator(const Range1& r1, const Range2& r2, join_iterator_begin_tag)
-        : m_section(boost::empty(r1) ? 1u : 0u)
-        , m_it(boost::empty(r1) ? 1u : 0u, boost::const_begin(r1), boost::const_begin(r2))
-        , m_link(link_t(boost::const_end(r1), boost::const_begin(r2)))
+        : m_section(std::empty(r1) ? 1u : 0u)
+        , m_it(std::empty(r1) ? 1u : 0u, std::const_begin(r1), std::const_begin(r2))
+        , m_link(link_t(std::const_end(r1), std::const_begin(r2)))
     {
     }
 
     template<typename Range1, typename Range2>
     join_iterator(Range1& r1, Range2& r2, join_iterator_end_tag)
         : m_section(1u)
-        , m_it(1u, boost::end(r1), boost::end(r2))
-        , m_link(link_t(boost::end(r1), boost::begin(r2)))
+        , m_it(1u, std::end(r1), std::end(r2))
+        , m_link(link_t(std::end(r1), std::begin(r2)))
     {
     }
 
     template<typename Range1, typename Range2>
     join_iterator(const Range1& r1, const Range2& r2, join_iterator_end_tag)
         : m_section(1u)
-        , m_it(1u, boost::const_end(r1), boost::const_end(r2))
-        , m_link(link_t(boost::const_end(r1), boost::const_begin(r2)))
+        , m_it(1u, std::const_end(r1), std::const_end(r2))
+        , m_link(link_t(std::const_end(r1), std::const_begin(r2)))
     {
     }
 
@@ -229,7 +229,7 @@ private:
         {
             if (m_it.it2() == m_link.first2)
             {
-                m_it.it1() = boost::prior(m_link.last1);
+                m_it.it1() = std::prior(m_link.last1);
                 m_section = 0u;
             }
             else
@@ -334,7 +334,7 @@ private:
     iterator_union m_it;
     link_t m_link;
 
-    friend class ::boost::iterator_core_access;
+    friend class ::std::iterator_core_access;
 };
 
     } // namespace range_detail

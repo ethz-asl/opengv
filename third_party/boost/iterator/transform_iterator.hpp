@@ -72,10 +72,10 @@ namespace boost
 
   template <class UnaryFunc, class Iterator, class Reference, class Value>
   class transform_iterator
-    : public boost::detail::transform_iterator_base<UnaryFunc, Iterator, Reference, Value>::type
+    : public std::detail::transform_iterator_base<UnaryFunc, Iterator, Reference, Value>::type
   {
     typedef typename
-    boost::detail::transform_iterator_base<UnaryFunc, Iterator, Reference, Value>::type
+    std::detail::transform_iterator_base<UnaryFunc, Iterator, Reference, Value>::type
     super_t;
 
     friend class iterator_core_access;

@@ -19,9 +19,9 @@ namespace boost{ namespace math{
 template <class T, class Policy>
 T binomial_coefficient(unsigned n, unsigned k, const Policy& pol)
 {
-   BOOST_STATIC_ASSERT(!boost::is_integral<T>::value);
+   BOOST_STATIC_ASSERT(!std::is_integral<T>::value);
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::binomial_coefficient<%1%>(unsigned, unsigned)";
+   static const char* function = "std::math::binomial_coefficient<%1%>(unsigned, unsigned)";
    if(k > n)
       return policies::raise_domain_error<T>(
          function, 
@@ -62,7 +62,7 @@ T binomial_coefficient(unsigned n, unsigned k, const Policy& pol)
 template <>
 inline float binomial_coefficient<float, policies::policy<> >(unsigned n, unsigned k, const policies::policy<>& pol)
 {
-   return policies::checked_narrowing_cast<float, policies::policy<> >(binomial_coefficient<double>(n, k, pol), "boost::math::binomial_coefficient<%1%>(unsigned,unsigned)");
+   return policies::checked_narrowing_cast<float, policies::policy<> >(binomial_coefficient<double>(n, k, pol), "std::math::binomial_coefficient<%1%>(unsigned,unsigned)");
 }
 
 template <class T>

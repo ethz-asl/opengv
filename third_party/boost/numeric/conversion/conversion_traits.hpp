@@ -30,7 +30,7 @@ struct conversion_traits
 #endif
 } ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif
 //

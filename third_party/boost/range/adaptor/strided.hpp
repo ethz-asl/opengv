@@ -27,16 +27,16 @@ namespace boost
                 strided_iterator<BaseIterator, Category>
               , BaseIterator
               , use_default
-              , boost::forward_traversal_tag
+              , std::forward_traversal_tag
             >
         {
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
 
             typedef iterator_adaptor<
                         strided_iterator<BaseIterator, Category>
                       , BaseIterator
                       , use_default
-                      , boost::forward_traversal_tag
+                      , std::forward_traversal_tag
                     > super_t;
 
         public:
@@ -90,7 +90,7 @@ namespace boost
               , bidirectional_traversal_tag
             >
         {
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
 
             typedef iterator_adaptor<
                         strided_iterator<BaseIterator, bidirectional_traversal_tag>
@@ -161,7 +161,7 @@ namespace boost
                       , random_access_traversal_tag
                     >
         {
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
 
             typedef iterator_adaptor<
                         strided_iterator<BaseIterator, random_access_traversal_tag>
@@ -289,8 +289,8 @@ namespace boost
         public:
             template<class Difference>
             strided_range(Difference stride, Rng& rng)
-                : super_t(make_strided_iterator(boost::begin(rng), boost::begin(rng), boost::end(rng), stride),
-                          make_strided_iterator(boost::begin(rng), boost::end(rng), boost::end(rng), stride))
+                : super_t(make_strided_iterator(std::begin(rng), std::begin(rng), std::end(rng), stride),
+                          make_strided_iterator(std::begin(rng), std::end(rng), std::end(rng), stride))
             {
                 BOOST_ASSERT( stride >= 0 );
             }

@@ -74,10 +74,10 @@ namespace function_detector {
    public : \
       static const int check = NotFound + (sizeof(Test<T>(0, 0)) - sizeof(NotFoundType));\
    };\
-}}} //namespace boost::container::function_detector {
+}}} //namespace std::container::function_detector {
 
 #define BOOST_CONTAINER_DETECT_FUNCTION(Class, InstantiationKey, ReturnType, Identifier, Params) \
-    ::boost::container::function_detector::DetectMember_##InstantiationKey_##Identifier< Class,\
+    ::std::container::function_detector::DetectMember_##InstantiationKey_##Identifier< Class,\
                                          ReturnType (Class::*)Params,\
                                          ReturnType (Class::*)Params const,\
                                          ReturnType (*)Params \

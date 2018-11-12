@@ -27,7 +27,7 @@ namespace boost { namespace math {
       logistic_distribution(RealType location=0, RealType scale=1) // Constructor.
         : m_location(location), m_scale(scale) 
       {
-        static const char* function = "boost::math::logistic_distribution<%1%>::logistic_distribution";
+        static const char* function = "std::math::logistic_distribution<%1%>::logistic_distribution";
         
         RealType result;
         detail::check_scale(function, scale, &result, Policy());
@@ -55,7 +55,7 @@ namespace boost { namespace math {
     template <class RealType, class Policy>
     inline const std::pair<RealType, RealType> range(const logistic_distribution<RealType, Policy>& /* dist */)
     { // Range of permissible values for random variable x.
-      using boost::math::tools::max_value;
+      using std::math::tools::max_value;
       return std::pair<RealType, RealType>(
          std::numeric_limits<RealType>::has_infinity ? -std::numeric_limits<RealType>::infinity() : -max_value<RealType>(), 
          std::numeric_limits<RealType>::has_infinity ? std::numeric_limits<RealType>::infinity() : max_value<RealType>());
@@ -65,7 +65,7 @@ namespace boost { namespace math {
     inline const std::pair<RealType, RealType> support(const logistic_distribution<RealType, Policy>& /* dist */)
     { // Range of supported values for random variable x.
       // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-      using boost::math::tools::max_value;
+      using std::math::tools::max_value;
       return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>()); // - to + infinity
     }
     
@@ -76,8 +76,8 @@ namespace boost { namespace math {
        RealType scale = dist.scale();
        RealType location = dist.location();
 
-       static const char* function = "boost::math::pdf(const logistic_distribution<%1%>&, %1%)";
-       if((boost::math::isinf)(x))
+       static const char* function = "std::math::pdf(const logistic_distribution<%1%>&, %1%)";
+       if((std::math::isinf)(x))
        {
           return 0; // pdf + and - infinity is zero.
        }
@@ -112,7 +112,7 @@ namespace boost { namespace math {
        RealType scale = dist.scale();
        RealType location = dist.location();
        RealType result = 0; // of checks.
-       static const char* function = "boost::math::cdf(const logistic_distribution<%1%>&, %1%)";
+       static const char* function = "std::math::cdf(const logistic_distribution<%1%>&, %1%)";
        if(false == detail::check_scale(function, scale, &result, Policy()))
        {
           return result;
@@ -122,7 +122,7 @@ namespace boost { namespace math {
           return result;
        }
 
-       if((boost::math::isinf)(x))
+       if((std::math::isinf)(x))
        {
           if(x < 0) return 0; // -infinity
           return 1; // + infinity
@@ -148,7 +148,7 @@ namespace boost { namespace math {
        RealType location = dist.location();
        RealType scale = dist.scale();
 
-       static const char* function = "boost::math::quantile(const logistic_distribution<%1%>&, %1%)";
+       static const char* function = "std::math::quantile(const logistic_distribution<%1%>&, %1%)";
 
        RealType result = 0;
        if(false == detail::check_scale(function, scale, &result, Policy()))
@@ -184,9 +184,9 @@ namespace boost { namespace math {
        RealType location = c.dist.location();
        RealType scale = c.dist.scale();
        RealType x = c.param;
-       static const char* function = "boost::math::cdf(const complement(logistic_distribution<%1%>&), %1%)";
+       static const char* function = "std::math::cdf(const complement(logistic_distribution<%1%>&), %1%)";
 
-       if((boost::math::isinf)(x))
+       if((std::math::isinf)(x))
        {
           if(x < 0) return 1; // cdf complement -infinity is unity.
           return 0; // cdf complement +infinity is zero
@@ -212,7 +212,7 @@ namespace boost { namespace math {
        BOOST_MATH_STD_USING
        RealType scale = c.dist.scale();
        RealType location = c.dist.location();
-       static const char* function = "boost::math::quantile(const complement(logistic_distribution<%1%>&), %1%)";
+       static const char* function = "std::math::quantile(const complement(logistic_distribution<%1%>&), %1%)";
        RealType result = 0;
        if(false == detail::check_scale(function, scale, &result, Policy()))
           return result;
@@ -221,7 +221,7 @@ namespace boost { namespace math {
        RealType q = c.param;
        if(false == detail::check_probability(function, q, &result, Policy()))
           return result;
-       using boost::math::tools::max_value;
+       using std::math::tools::max_value;
 
        if(q == 1)
        {
@@ -253,7 +253,7 @@ namespace boost { namespace math {
     {
       BOOST_MATH_STD_USING
       RealType scale = dist.scale();
-      return boost::math::constants::pi<RealType>()*boost::math::constants::pi<RealType>()*scale*scale/3;
+      return std::math::constants::pi<RealType>()*std::math::constants::pi<RealType>()*scale*scale/3;
     } // RealType variance(const logistic_distribution<RealType, Policy>& dist)
     
     template <class RealType, class Policy>

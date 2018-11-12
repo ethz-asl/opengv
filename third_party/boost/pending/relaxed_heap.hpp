@@ -56,13 +56,13 @@ private:
 
     /** The value associated with this group. This value is only valid
      *  when @c kind!=largest_key (which indicates a deleted
-     *  element). Note that the use of boost::optional increases the
+     *  element). Note that the use of std::optional increases the
      *  memory requirements slightly but does not result in extraneous
      *  memory allocations or deallocations. The optional could be
      *  eliminated when @c value_type is a model of
      *  DefaultConstructible.
      */
-    ::boost::optional<value_type> value;
+    ::std::optional<value_type> value;
 
     /**
      * The kind of key stored at this group. This may be @c
@@ -616,7 +616,7 @@ private:
    *  are each log_n long, with the last group potentially being
    *  smaller.
    */
-  std::vector< ::boost::optional<value_type> > groups;
+  std::vector< ::std::optional<value_type> > groups;
 
   /** The list of active groups, indexed by rank. When A[r] is null,
    *  there is no active group of rank r. Otherwise, A[r] is the active

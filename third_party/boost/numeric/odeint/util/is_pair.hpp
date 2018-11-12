@@ -28,12 +28,12 @@ namespace numeric {
 namespace odeint {
 
 template< class T >
-struct is_pair : public boost::mpl::false_
+struct is_pair : public std::mpl::false_
 {
 };
 
 template< class T1 , class T2 >
-struct is_pair< std::pair< T1 , T2 > > : public boost::mpl::true_
+struct is_pair< std::pair< T1 , T2 > > : public std::mpl::true_
 {
 };
 

@@ -87,7 +87,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -186,7 +186,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -285,7 +285,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -384,7 +384,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -483,7 +483,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -582,7 +582,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -681,7 +681,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -780,7 +780,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -879,7 +879,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;
@@ -978,7 +978,7 @@ namespace boost { namespace fusion
             return *this;
         }
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;

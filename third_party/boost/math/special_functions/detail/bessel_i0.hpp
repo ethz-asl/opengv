@@ -100,7 +100,7 @@ T bessel_i0(T x)
     T value, factor, r;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
     if (x < 0)
     {

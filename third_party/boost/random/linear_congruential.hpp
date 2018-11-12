@@ -188,7 +188,7 @@ public:
     { detail::generate_from_int(*this, first, last); }
 
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z)
+    void discard(std::uintmax_t z)
     {
         typedef const_mod<IntType, m> mod_type;
         IntType b_inv = mod_type::invert(a-1);
@@ -202,7 +202,7 @@ public:
             // we're storing the intermediate result / b_gcd
             IntType a_zm1_over_gcd = 0;
             IntType a_km1_over_gcd = (a - 1) / b_gcd;
-            boost::uintmax_t exponent = z;
+            std::uintmax_t exponent = z;
             while(exponent != 0) {
                 if(exponent % 2 == 1) {
                     a_zm1_over_gcd =
@@ -347,7 +347,7 @@ typedef linear_congruential_engine<uint32_t, 48271, 0, 2147483647> minstd_rand;
 class rand48 
 {
 public:
-    typedef boost::uint32_t result_type;
+    typedef std::uint32_t result_type;
 
     BOOST_STATIC_CONSTANT(bool, has_fixed_range = false);
     /**
@@ -402,7 +402,7 @@ public:
     uint32_t operator()() { return static_cast<uint32_t>(lcf() >> 17); }
     
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z) { lcf.discard(z); }
+    void discard(std::uintmax_t z) { lcf.discard(z); }
   
     /** Fills a range with random values */
     template<class Iter>
@@ -447,7 +447,7 @@ private:
         0xB, uint64_t(1)<<48> lcf_t;
     lcf_t lcf;
 
-    static boost::uint64_t cnv(boost::uint32_t x)
+    static std::uint64_t cnv(std::uint32_t x)
     { return (static_cast<uint64_t>(x) << 16) | 0x330e; }
     /// \endcond
 };

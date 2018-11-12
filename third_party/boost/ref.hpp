@@ -40,7 +40,7 @@ public:
 
 #else
 
-    explicit reference_wrapper(T& t): t_(boost::addressof(t)) {}
+    explicit reference_wrapper(T& t): t_(std::addressof(t)) {}
 
 #endif
 
@@ -161,7 +161,7 @@ class is_reference_wrapper
              sizeof(detail::is_reference_wrapper_test(type<T>()))
             == sizeof(detail::yes_reference_wrapper_t)));
     
-    typedef ::boost::mpl::bool_<value> type;
+    typedef ::std::mpl::bool_<value> type;
 };
 
 template <typename T>

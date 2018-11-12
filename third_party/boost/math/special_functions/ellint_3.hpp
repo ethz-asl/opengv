@@ -45,10 +45,10 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
     T value, x, y, z, p, t;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
-    static const char* function = "boost::math::ellint_3<%1%>(%1%,%1%,%1%)";
+    static const char* function = "std::math::ellint_3<%1%>(%1%,%1%,%1%)";
 
     if (abs(k) > 1)
     {
@@ -99,7 +99,7 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
           // v > 1:
           T vcr = sqrt(-vc);
           T arg = vcr * tan(phi);
-          return (boost::math::log1p(arg, pol) - boost::math::log1p(-arg, pol)) / (2 * vcr);
+          return (std::math::log1p(arg, pol) - std::math::log1p(-arg, pol)) / (2 * vcr);
        }
     }
 
@@ -182,10 +182,10 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
     }
     else
     {
-       T rphi = boost::math::tools::fmod_workaround(T(fabs(phi)), T(constants::pi<T>() / 2));
+       T rphi = std::math::tools::fmod_workaround(T(fabs(phi)), T(constants::pi<T>() / 2));
        T m = floor((2 * fabs(phi)) / constants::pi<T>());
        int sign = 1;
-       if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
+       if(std::math::tools::fmod_workaround(m, T(2)) > 0.5)
        {
           m += 1;
           sign = -1;
@@ -219,9 +219,9 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol)
 {
     // Note arg vc = 1-v, possibly without cancellation errors
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::ellint_pi<%1%>(%1%,%1%)";
+    static const char* function = "std::math::ellint_pi<%1%>(%1%,%1%)";
 
     if (abs(k) >= 1)
     {
@@ -237,7 +237,7 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol)
 
     if(v == 0)
     {
-       return (k == 0) ? boost::math::constants::pi<T>() / 2 : ellint_k_imp(k, pol);
+       return (k == 0) ? std::math::constants::pi<T>() / 2 : ellint_k_imp(k, pol);
     }
 
     if(v < 0)
@@ -247,7 +247,7 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol)
        T Nm1 = (1 - k2) / (1 - v);
        T p2 = sqrt(-v * (k2 - v) / (1 - v));
 
-       T result = boost::math::detail::ellint_pi_imp(N, k, Nm1, pol);
+       T result = std::math::detail::ellint_pi_imp(N, k, Nm1, pol);
 
        result *= sqrt(Nm1 * (1 - k2 / N));
        result += ellint_k_imp(k, pol) * k2 / p2;
@@ -267,7 +267,7 @@ T ellint_pi_imp(T v, T k, T vc, const Policy& pol)
 template <class T1, class T2, class T3>
 inline typename tools::promote_args<T1, T2, T3>::type ellint_3(T1 k, T2 v, T3 phi, const mpl::false_&)
 {
-   return boost::math::ellint_3(k, v, phi, policies::policy<>());
+   return std::math::ellint_3(k, v, phi, policies::policy<>());
 }
 
 template <class T1, class T2, class Policy>
@@ -280,7 +280,7 @@ inline typename tools::promote_args<T1, T2>::type ellint_3(T1 k, T2 v, const Pol
          static_cast<value_type>(v), 
          static_cast<value_type>(k),
          static_cast<value_type>(1-v),
-         pol), "boost::math::ellint_3<%1%>(%1%,%1%)");
+         pol), "std::math::ellint_3<%1%>(%1%,%1%)");
 }
 
 } // namespace detail
@@ -296,7 +296,7 @@ inline typename tools::promote_args<T1, T2, T3>::type ellint_3(T1 k, T2 v, T3 ph
          static_cast<value_type>(phi), 
          static_cast<value_type>(k),
          static_cast<value_type>(1-v),
-         pol), "boost::math::ellint_3<%1%>(%1%,%1%,%1%)");
+         pol), "std::math::ellint_3<%1%>(%1%,%1%,%1%)");
 }
 
 template <class T1, class T2, class T3>

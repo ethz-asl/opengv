@@ -76,7 +76,7 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 
    #define BOOST_CONTAINER_PP_PARAM_INIT(z, n, data) \
-   BOOST_PP_CAT(m_p, n) (::boost::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ))           \
+   BOOST_PP_CAT(m_p, n) (::std::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ))           \
    //!
 
 #else //BOOST_NO_CXX11_RVALUE_REFERENCES
@@ -133,7 +133,7 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
                : t_(t)
             {}
             T &t_;
-            T && get() {  return ::boost::move(t_);   }
+            T && get() {  return ::std::move(t_);   }
          };
 
          template<class T>
@@ -143,7 +143,7 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
                : t_(t)
             {}
             T &t_;
-            T && get()  { return ::boost::move(t_); }
+            T && get()  { return ::std::move(t_); }
          };
 
       }  //namespace container_detail {
@@ -151,7 +151,7 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
       }  //namespace boost {
 
       #define BOOST_CONTAINER_PP_PARAM_DEFINE(z, n, data)  \
-         ::boost::container::container_detail::ref_holder<BOOST_PP_CAT(P, n)> BOOST_PP_CAT(m_p, n);  \
+         ::std::container::container_detail::ref_holder<BOOST_PP_CAT(P, n)> BOOST_PP_CAT(m_p, n);  \
       //!
 
    #else //BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG
@@ -177,7 +177,7 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
 #else //!defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
 
    #define BOOST_CONTAINER_PP_MEMBER_FORWARD(z, n, data) \
-   ::boost::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(this->m_p, n) ) \
+   ::std::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(this->m_p, n) ) \
    //!
 
 #endif   //!defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && defined(BOOST_MOVE_MSVC_10_MEMBER_RVALUE_REF_BUG)
@@ -190,11 +190,11 @@ const BOOST_PP_CAT(Q, n) & BOOST_PP_CAT(q, n) \
 
 
 #define BOOST_CONTAINER_PP_PARAM_FORWARD(z, n, data) \
-::boost::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ) \
+::std::forward< BOOST_PP_CAT(P, n) >( BOOST_PP_CAT(p, n) ) \
 //!
 
 #define BOOST_CONTAINER_PP_DECLVAL(z, n, data) \
-::boost::move_detail::declval< BOOST_PP_CAT(P, n) >() \
+::std::move_detail::declval< BOOST_PP_CAT(P, n) >() \
 //!
 
 #define BOOST_CONTAINER_PP_MEMBER_IT_FORWARD(z, n, data) \
@@ -218,7 +218,7 @@ BOOST_PP_CAT(*this->m_p, n) \
 //!
 
 #define BOOST_CONTAINER_PP_FWD_TYPE(z, n, data) \
-   typename ::boost::move_detail::forward_type< BOOST_PP_CAT(P, n) >::type \
+   typename ::std::move_detail::forward_type< BOOST_PP_CAT(P, n) >::type \
 //!
 
 #include <boost/container/detail/config_end.hpp>

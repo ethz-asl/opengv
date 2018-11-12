@@ -26,15 +26,15 @@ namespace detail
 
 struct big_int_type
 {
-   operator boost::uintmax_t()const;
+   operator std::uintmax_t()const;
 };
 
 template <class T>
 struct largest_cbrt_int_type
 {
    typedef typename mpl::if_<
-      boost::is_convertible<big_int_type, T>,
-      boost::uintmax_t,
+      std::is_convertible<big_int_type, T>,
+      std::uintmax_t,
       unsigned int
    >::type type;
 };
@@ -69,9 +69,9 @@ T cbrt_imp(T z, const Policy& pol)
       static_cast<T>(1.5874010519681994747517056392723),   // 2^2/3
    };
 
-   if(!(boost::math::isfinite)(z))
+   if(!(std::math::isfinite)(z))
    {
-      return policies::raise_domain_error("boost::math::cbrt<%1%>(%1%)", "Argument to function must be finite but got %1%.", z, pol);
+      return policies::raise_domain_error("std::math::cbrt<%1%>(%1%)", "Argument to function must be finite but got %1%.", z, pol);
    }
 
    int i_exp, sign(1);

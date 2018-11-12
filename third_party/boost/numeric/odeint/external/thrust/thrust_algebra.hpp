@@ -44,17 +44,17 @@ struct thrust_algebra
     template< class StateType , class Operation >
     static void for_each1( StateType &s , Operation op )
     {
-        thrust::for_each( boost::begin(s) , boost::begin(s) , op );
+        thrust::for_each( std::begin(s) , std::begin(s) , op );
     }
 
     template< class StateType1 , class StateType2 , class Operation >
     static void for_each2( StateType1 &s1 , StateType2 &s2 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ) ) ,
                                 op);
     }
 
@@ -62,12 +62,12 @@ struct thrust_algebra
     static void for_each3( StateType1 &s1 , StateType2 &s2 , StateType3 &s3 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ,
-                                boost::end(s3) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ,
+                                std::end(s3) ) ) ,
                                 op);
     }
 
@@ -77,14 +77,14 @@ struct thrust_algebra
             Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ,
-                        boost::begin(s4) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ,
-                                boost::end(s3) ,
-                                boost::end(s4) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ,
+                        std::begin(s4) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ,
+                                std::end(s3) ,
+                                std::end(s4) ) ) ,
                                 op);
     }
 
@@ -94,16 +94,16 @@ struct thrust_algebra
             StateType5 &s5 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ,
-                        boost::begin(s4) ,
-                        boost::begin(s5) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ,
-                                boost::end(s3) ,
-                                boost::end(s4) ,
-                                boost::end(s5) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ,
+                        std::begin(s4) ,
+                        std::begin(s5) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ,
+                                std::end(s3) ,
+                                std::end(s4) ,
+                                std::end(s5) ) ) ,
                                 op);
     }
 
@@ -113,18 +113,18 @@ struct thrust_algebra
             StateType5 &s5 , StateType6 &s6 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ,
-                        boost::begin(s4) ,
-                        boost::begin(s5) ,
-                        boost::begin(s6) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ,
-                                boost::end(s3) ,
-                                boost::end(s4) ,
-                                boost::end(s5) ,
-                                boost::end(s6) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ,
+                        std::begin(s4) ,
+                        std::begin(s5) ,
+                        std::begin(s6) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ,
+                                std::end(s3) ,
+                                std::end(s4) ,
+                                std::end(s5) ,
+                                std::end(s6) ) ) ,
                                 op);
     }
 
@@ -134,20 +134,20 @@ struct thrust_algebra
             StateType5 &s5 , StateType6 &s6 , StateType7 &s7 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ,
-                        boost::begin(s4) ,
-                        boost::begin(s5) ,
-                        boost::begin(s6) ,
-                        boost::begin(s7) ) ) ,
-                        thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                                boost::end(s2) ,
-                                boost::end(s3) ,
-                                boost::end(s4) ,
-                                boost::end(s5) ,
-                                boost::end(s6) ,
-                                boost::end(s7) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ,
+                        std::begin(s4) ,
+                        std::begin(s5) ,
+                        std::begin(s6) ,
+                        std::begin(s7) ) ) ,
+                        thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                                std::end(s2) ,
+                                std::end(s3) ,
+                                std::end(s4) ,
+                                std::end(s5) ,
+                                std::end(s6) ,
+                                std::end(s7) ) ) ,
                                 op);
     }
 
@@ -157,22 +157,22 @@ struct thrust_algebra
             StateType5 &s5 , StateType6 &s6 , StateType7 &s7 , StateType8 &s8 , Operation op )
     {
         thrust::for_each(
-                thrust::make_zip_iterator( thrust::make_tuple( boost::begin(s1) ,
-                        boost::begin(s2) ,
-                        boost::begin(s3) ,
-                        boost::begin(s4) ,
-                        boost::begin(s5) ,
-                        boost::begin(s6) ,
-                        boost::begin(s7) ,
-                        boost::begin(s8) ) ) ,
-                thrust::make_zip_iterator( thrust::make_tuple( boost::end(s1) ,
-                        boost::end(s2) ,
-                        boost::end(s3) ,
-                        boost::end(s4) ,
-                        boost::end(s5) ,
-                        boost::end(s6) ,
-                        boost::end(s7) ,
-                        boost::end(s8) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::begin(s1) ,
+                        std::begin(s2) ,
+                        std::begin(s3) ,
+                        std::begin(s4) ,
+                        std::begin(s5) ,
+                        std::begin(s6) ,
+                        std::begin(s7) ,
+                        std::begin(s8) ) ) ,
+                thrust::make_zip_iterator( thrust::make_tuple( std::end(s1) ,
+                        std::end(s2) ,
+                        std::end(s3) ,
+                        std::end(s4) ,
+                        std::end(s5) ,
+                        std::end(s6) ,
+                        std::end(s7) ,
+                        std::end(s8) ) ) ,
                 op);
     }
 
@@ -180,7 +180,7 @@ struct thrust_algebra
     template< class Value , class S , class Red >
     Value reduce( const S &s , Red red , Value init)
     {
-        return thrust::reduce( boost::begin( s ) , boost::end( s ) , init , red );
+        return thrust::reduce( std::begin( s ) , std::end( s ) , init , red );
     }
 
 

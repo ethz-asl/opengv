@@ -107,7 +107,7 @@ sac::Ransac<sac_problems::absolute_pose::AbsolutePoseSacProblem> ransac;
 
 // create an AbsolutePoseSacProblem
 // (algorithm is selectable: KNEIP, GAO, or EPNP)
-boost::shared_ptr<sac_problems::absolute_pose::AbsolutePoseSacProblem>
+std::shared_ptr<sac_problems::absolute_pose::AbsolutePoseSacProblem>
     absposeproblem_ptr(
     new sac_problems::absolute_pose::AbsolutePoseSacProblem(
     adapter, sac_problems::absolute_pose::AbsolutePoseSacProblem::KNEIP ) );
@@ -171,7 +171,7 @@ absolute_pose::NoncentralAbsoluteAdapter adapter(
 sac::Ransac<sac_problems::absolute_pose::AbsolutePoseSacProblem> ransac;
 
 // create a absolute-pose sample consensus problem (using GP3P as an algorithm)
-boost::shared_ptr<sac_problems::absolute_pose::AbsolutePoseSacProblem>
+std::shared_ptr<sac_problems::absolute_pose::AbsolutePoseSacProblem>
     absposeproblem_ptr(
     new sac_problems::absolute_pose::AbsolutePoseSacProblem(
     adapter, sac_problems::absolute_pose::AbsolutePoseSacProblem::GP3P ) );
@@ -251,7 +251,7 @@ sac::Ransac<sac_problems::relative_pose::CentralRelativePoseSacProblem> ransac;
 
 // create a CentralRelativePoseSacProblem
 // (set algorithm to STEWENIUS, NISTER, SEVENPT, or EIGHTPT)
-boost::shared_ptr<sac_problems::relative_pose::CentralRelativePoseSacProblem>
+std::shared_ptr<sac_problems::relative_pose::CentralRelativePoseSacProblem>
     relposeproblem_ptr(
     new sac_problems::relative_pose::CentralRelativePoseSacProblem(
     adapter,
@@ -325,7 +325,7 @@ sac::Ransac<sac_problems::relative_pose::NoncentralRelativePoseSacProblem>
     ransac;
 
 // create a NoncentralRelativePoseSacProblem
-boost::shared_ptr<
+std::shared_ptr<
     sac_problems::relative_pose::NoncentralRelativePoseSacProblem>
     relposeproblem_ptr(
     new sac_problems::relative_pose::NoncentralRelativePoseSacProblem(
@@ -405,7 +405,7 @@ point_cloud::PointCloudAdapter adapter(
 sac::Ransac<sac_problems::point_cloud::PointCloudSacProblem> ransac;
 
 // create the sample consensus problem
-boost::shared_ptr<sac_problems::point_cloud::PointCloudSacProblem>
+std::shared_ptr<sac_problems::point_cloud::PointCloudSacProblem>
     relposeproblem_ptr(
     new sac_problems::point_cloud::PointCloudSacProblem(adapter) );
 

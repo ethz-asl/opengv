@@ -23,6 +23,6 @@ struct false_result
     };
 };
 
-}} // namespace boost::type_traits
+}} // namespace std::type_traits
 
 #endif // BOOST_TT_DETAIL_FALSE_RESULT_HPP_INCLUDED

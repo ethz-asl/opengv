@@ -127,8 +127,8 @@ public:
         template<class IntervalRange, class WeightRange>
         param_type(const IntervalRange& intervals_arg,
                    const WeightRange& weights_arg)
-          : _intervals(boost::begin(intervals_arg), boost::end(intervals_arg)),
-            _weights(boost::begin(weights_arg), boost::end(weights_arg))
+          : _intervals(std::begin(intervals_arg), std::end(intervals_arg)),
+            _weights(std::begin(weights_arg), std::end(weights_arg))
         {
             if(_intervals.size() < 2) {
                 _intervals.clear();
@@ -318,7 +318,7 @@ public:
     piecewise_constant_distribution(const IntervalsRange& intervals_arg,
                                     const WeightsRange& weights_arg)
       : _bins(weights_arg),
-        _intervals(boost::begin(intervals_arg), boost::end(intervals_arg))
+        _intervals(std::begin(intervals_arg), std::end(intervals_arg))
     {
         if(_intervals.size() < 2) {
             _intervals.clear();

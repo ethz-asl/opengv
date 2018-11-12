@@ -54,7 +54,7 @@ namespace boost {
                 return allocator.max_size();
             }
             pointer allocate(size_type count, const void* value = 0) {
-                std::size_t a1 = boost::alignment_of<T>::value;
+                std::size_t a1 = std::alignment_of<T>::value;
                 std::size_t n1 = count * sizeof(Y) + a1 - 1;
                 char*  p1 = A3(allocator).allocate(n1 + size, value);
                 char*  p2 = p1 + n1;
@@ -65,7 +65,7 @@ namespace boost {
                 return  reinterpret_cast<Y*>(p1);
             }
             void deallocate(pointer memory, size_type count) {
-                std::size_t a1 = boost::alignment_of<T>::value;
+                std::size_t a1 = std::alignment_of<T>::value;
                 std::size_t n1 = count * sizeof(Y) + a1 - 1;
                 char*  p1 = reinterpret_cast<char*>(memory);
                 A3(allocator).deallocate(p1, n1 + size);
@@ -126,7 +126,7 @@ namespace boost {
                 return allocator.max_size();
             }
             pointer allocate(size_type count, const void* value = 0) {
-                std::size_t a1 = boost::alignment_of<T>::value;
+                std::size_t a1 = std::alignment_of<T>::value;
                 std::size_t n1 = count * sizeof(Y) + a1 - 1;
                 char*  p1 = A3(allocator).allocate(n1 + N1, value);
                 char*  p2 = p1 + n1;
@@ -137,7 +137,7 @@ namespace boost {
                 return  reinterpret_cast<Y*>(p1);
             }
             void deallocate(pointer memory, size_type count) {
-                std::size_t a1 = boost::alignment_of<T>::value;
+                std::size_t a1 = std::alignment_of<T>::value;
                 std::size_t n1 = count * sizeof(Y) + a1 - 1;
                 char*  p1 = reinterpret_cast<char*>(memory);
                 A3(allocator).deallocate(p1, n1 + N1);

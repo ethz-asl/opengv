@@ -31,7 +31,7 @@ struct template_arity_impl<true>
 
 template< typename F >
 struct template_arity
-    : template_arity_impl< ::boost::mpl::aux::has_rebind<F>::value >
+    : template_arity_impl< ::std::mpl::aux::has_rebind<F>::value >
         ::template result_<F>
 {
 };

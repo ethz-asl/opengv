@@ -40,7 +40,7 @@ T chebyshev_coefficient(unsigned n, unsigned m)
    if(r & 1)
       result = -result;
    result /= n - r;
-   result *= boost::math::binomial_coefficient<T>(n - r, r);
+   result *= std::math::binomial_coefficient<T>(n - r, r);
    result *= ldexp(1.0f, m);
    return result;
 }
@@ -128,7 +128,7 @@ public:
    {
       for(unsigned i = 0; i < p.size(); ++i)
       {
-         m_data.push_back(boost::math::tools::real_cast<T>(p[i]));
+         m_data.push_back(std::math::tools::real_cast<T>(p[i]));
       }
    }
 
@@ -145,7 +145,7 @@ public:
    }
    T evaluate(T z)const
    {
-      return boost::math::tools::evaluate_polynomial(&m_data[0], z, m_data.size());;
+      return std::math::tools::evaluate_polynomial(&m_data[0], z, m_data.size());;
    }
    std::vector<T> chebyshev()const
    {

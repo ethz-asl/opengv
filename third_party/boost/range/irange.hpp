@@ -32,18 +32,18 @@ namespace boost
         // loop on many compilers.
         template<typename Integer>
         class integer_iterator
-            : public boost::iterator_facade<
+            : public std::iterator_facade<
                         integer_iterator<Integer>,
                         Integer,
-                        boost::random_access_traversal_tag,
+                        std::random_access_traversal_tag,
                         Integer,
                         std::ptrdiff_t
                     >
         {
-            typedef boost::iterator_facade<
+            typedef std::iterator_facade<
                         integer_iterator<Integer>,
                         Integer,
-                        boost::random_access_traversal_tag,
+                        std::random_access_traversal_tag,
                         Integer,
                         std::ptrdiff_t
                     > base_t;
@@ -86,7 +86,7 @@ namespace boost
                 return m_value;
             }
 
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
             value_type m_value;
         };
 
@@ -104,18 +104,18 @@ namespace boost
         // is the solution.
         template<typename Integer>
         class integer_iterator_with_step
-            : public boost::iterator_facade<
+            : public std::iterator_facade<
                         integer_iterator_with_step<Integer>,
                         Integer,
-                        boost::random_access_traversal_tag,
+                        std::random_access_traversal_tag,
                         Integer,
                         std::ptrdiff_t
                     >
         {
-            typedef boost::iterator_facade<
+            typedef std::iterator_facade<
                         integer_iterator_with_step<Integer>,
                         Integer,
-                        boost::random_access_traversal_tag,
+                        std::random_access_traversal_tag,
                         Integer,
                         std::ptrdiff_t
                     > base_t;
@@ -162,7 +162,7 @@ namespace boost
                 return m_first + (m_step * m_step_size);
             }
 
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
             value_type m_first;
             value_type m_step;
             difference_type m_step_size;

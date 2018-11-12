@@ -42,7 +42,7 @@ struct same_size_impl
 {
     static bool same_size( const State1 &x1 , const State2 &x2 )
     {
-        return ( boost::size( x1 ) == boost::size( x2 ) );
+        return ( std::size( x1 ) == std::size( x2 ) );
     }
 };
 
@@ -67,13 +67,13 @@ struct same_size_fusion
     }
 
     template< class S1 , class S2 >
-    bool same_size_op( const S1 &x1 , const S2 &x2 , boost::true_type ) const
+    bool same_size_op( const S1 &x1 , const S2 &x2 , std::true_type ) const
     {
         return same_size( x1 , x2 );
     }
 
     template< class S1 , class S2 >
-    bool same_size_op( const S1 &x1 , const S2 &x2 , boost::false_type ) const
+    bool same_size_op( const S1 &x1 , const S2 &x2 , std::false_type ) const
     {
         return true;
     }
@@ -84,14 +84,14 @@ struct same_size_fusion
 
 
 template< class FusionSeq >
-struct same_size_impl< FusionSeq , FusionSeq , typename boost::enable_if< typename boost::fusion::traits::is_sequence< FusionSeq >::type >::type >
+struct same_size_impl< FusionSeq , FusionSeq , typename std::enable_if< typename std::fusion::traits::is_sequence< FusionSeq >::type >::type >
 {
     static bool same_size( const FusionSeq &x1 , const FusionSeq &x2 )
     {
-        typedef boost::fusion::vector< const FusionSeq& , const FusionSeq& > Sequences;
+        typedef std::fusion::vector< const FusionSeq& , const FusionSeq& > Sequences;
         Sequences sequences( x1 , x2 );
-        return boost::fusion::all( boost::fusion::zip_view< Sequences >( sequences ) ,
-                                   boost::fusion::make_fused( detail::same_size_fusion() ) );
+        return std::fusion::all( std::fusion::zip_view< Sequences >( sequences ) ,
+                                   std::fusion::make_fused( detail::same_size_fusion() ) );
     }
 };
 

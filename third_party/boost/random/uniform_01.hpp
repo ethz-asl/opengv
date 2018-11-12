@@ -40,7 +40,7 @@ namespace random {
  *
  * Note: The current implementation is buggy, because it may not fill
  * all of the mantissa with random bits. I'm unsure how to fill a
- * (to-be-invented) @c boost::bigfloat class with random bits efficiently.
+ * (to-be-invented) @c std::bigfloat class with random bits efficiently.
  * It's probably time for a traits class.
  */
 template<class RealType = double>
@@ -121,7 +121,7 @@ public:
 template<class UniformRandomNumberGenerator, class RealType>
 class backward_compatible_uniform_01
 {
-  typedef boost::random::detail::ptr_helper<UniformRandomNumberGenerator> traits;
+  typedef std::random::detail::ptr_helper<UniformRandomNumberGenerator> traits;
 public:
   typedef UniformRandomNumberGenerator base_type;
   typedef RealType result_type;
@@ -235,7 +235,7 @@ class uniform_01
   : public detail::select_uniform_01<UniformRandomNumberGenerator>::BOOST_NESTED_TEMPLATE apply<RealType>::type
 {
   typedef typename detail::select_uniform_01<UniformRandomNumberGenerator>::BOOST_NESTED_TEMPLATE apply<RealType>::type impl_type;
-  typedef boost::random::detail::ptr_helper<UniformRandomNumberGenerator> traits;
+  typedef std::random::detail::ptr_helper<UniformRandomNumberGenerator> traits;
 public:
 
   uniform_01() {}

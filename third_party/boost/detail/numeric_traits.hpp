@@ -26,7 +26,7 @@
 //      are supplied.
 //
 //      6. Handling of numbers whose range of representation is at least as
-//      great as boost::intmax_t can cause some differences to be
+//      great as std::intmax_t can cause some differences to be
 //      unrepresentable in difference_type:
 //
 //        Number    difference_type
@@ -119,7 +119,7 @@ namespace boost { namespace detail {
 #endif
 
   // Template class integer_traits<Integer> -- traits of various integer types
-  // This should probably be rolled into boost::integer_traits one day, but I
+  // This should probably be rolled into std::integer_traits one day, but I
   // need it to work without <limits>
   template <class Integer>
   struct integer_traits
@@ -142,7 +142,7 @@ namespace boost { namespace detail {
       if_true<(int(x::is_signed)
               && (!int(x::is_bounded)
                  // digits is the number of no-sign bits
-                  || (int(x::digits) + 1 >= digit_traits<boost::intmax_t>::digits)))>::template then<
+                  || (int(x::digits) + 1 >= digit_traits<std::intmax_t>::digits)))>::template then<
         Integer,
           
       typename if_true<(int(x::digits) + 1 < digit_traits<signed int>::digits)>::template then<
@@ -155,7 +155,7 @@ namespace boost { namespace detail {
         intmax_t
       >::type>::type>::type difference_type;
 #else
-      BOOST_STATIC_ASSERT(boost::is_integral<Integer>::value);
+      BOOST_STATIC_ASSERT(std::is_integral<Integer>::value);
 
       typedef typename
       if_true<(sizeof(Integer) >= sizeof(intmax_t))>::template then<

@@ -21,7 +21,7 @@ If this macro is left undefined by the user, it has a default value of 5
 When specified by the user, this macro must be a non-negative integer number.
 
 @See @RefSect{getting_started, Getting Started},
-@RefClass{boost::overloaded_function}.
+@RefClass{std::overloaded_function}.
 */
 #ifndef BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_CONFIG_ARITY_MAX 
 #   define BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_CONFIG_ARITY_MAX 5
@@ -37,7 +37,7 @@ equal than 2 (because at least two distinct functions need to be specified in
 order to define an overload).
 
 @See @RefSect{getting_started, Getting Started},
-@RefClass{boost::overloaded_function}.
+@RefClass{std::overloaded_function}.
 */
 #ifndef BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_CONFIG_OVERLOAD_MAX
 #   define BOOST_FUNCTIONAL_OVERLOADED_FUNCTION_CONFIG_OVERLOAD_MAX 5

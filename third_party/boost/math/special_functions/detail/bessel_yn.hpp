@@ -26,9 +26,9 @@ T bessel_yn(int n, T x, const Policy& pol)
     BOOST_MATH_STD_USING
     T value, factor, current, prev;
 
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::bessel_yn<%1%>(%1%,%1%)";
+    static const char* function = "std::math::bessel_yn<%1%>(%1%,%1%)";
 
     if ((x == 0) && (n == 0))
     {
@@ -58,7 +58,7 @@ T bessel_yn(int n, T x, const Policy& pol)
        T scale = 1;
        value = bessel_yn_small_z(n, x, &scale, pol);
        if(tools::max_value<T>() * fabs(scale) < fabs(value))
-          return boost::math::sign(scale) * boost::math::sign(value) * policies::raise_overflow_error<T>(function, 0, pol);
+          return std::math::sign(scale) * std::math::sign(value) * policies::raise_overflow_error<T>(function, 0, pol);
        value /= scale;
     }
     else if (n == 0)
@@ -75,7 +75,7 @@ T bessel_yn(int n, T x, const Policy& pol)
        current = bessel_y1(x, pol);
        int k = 1;
        BOOST_ASSERT(k < n);
-       policies::check_series_iterations<T>("boost::math::bessel_y_n<%1%>(%1%,%1%)", n, pol);
+       policies::check_series_iterations<T>("std::math::bessel_y_n<%1%>(%1%,%1%)", n, pol);
        do
        {
            T fact = 2 * k / x;

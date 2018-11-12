@@ -37,7 +37,7 @@
         const T one_over_z        (T(1) / z);
         const T one_over_z_squared(one_over_z * one_over_z);
 
-        const T z_pow_third     (boost::math::cbrt(z));
+        const T z_pow_third     (std::math::cbrt(z));
         const T z_pow_two_thirds(z_pow_third * z_pow_third);
 
         // Implement the top line of Eq. 10.4.105.
@@ -73,8 +73,8 @@
             case 10U:{ guess = T(-12.8287767528657572004); break; }
             default:
             {
-              const T t(((boost::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 1)) / 8U);
-              guess = -boost::math::detail::airy_zero::equation_as_10_4_105(t);
+              const T t(((std::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 1)) / 8U);
+              guess = -std::math::detail::airy_zero::equation_as_10_4_105(t);
               break;
             }
           }
@@ -88,12 +88,12 @@
         public:
           function_object_ai_and_ai_prime(const Policy pol) : my_pol(pol) { }
 
-          boost::math::tuple<T, T> operator()(const T& x) const
+          std::math::tuple<T, T> operator()(const T& x) const
           {
             // Return a tuple containing both Ai(x) and Ai'(x).
-            return boost::math::make_tuple(
-              boost::math::detail::airy_ai_imp      (x, my_pol),
-              boost::math::detail::airy_ai_prime_imp(x, my_pol));
+            return std::math::make_tuple(
+              std::math::detail::airy_ai_imp      (x, my_pol),
+              std::math::detail::airy_ai_prime_imp(x, my_pol));
           }
 
         private:
@@ -124,8 +124,8 @@
             case 10U:{ guess = T(-12.3864171385827387456); break; }
             default:
             {
-              const T t(((boost::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 3)) / 8U);
-              guess = -boost::math::detail::airy_zero::equation_as_10_4_105(t);
+              const T t(((std::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 3)) / 8U);
+              guess = -std::math::detail::airy_zero::equation_as_10_4_105(t);
               break;
             }
           }
@@ -139,12 +139,12 @@
         public:
           function_object_bi_and_bi_prime(const Policy pol) : my_pol(pol) { }
 
-          boost::math::tuple<T, T> operator()(const T& x) const
+          std::math::tuple<T, T> operator()(const T& x) const
           {
             // Return a tuple containing both Bi(x) and Bi'(x).
-            return boost::math::make_tuple(
-              boost::math::detail::airy_bi_imp      (x, my_pol),
-              boost::math::detail::airy_bi_prime_imp(x, my_pol));
+            return std::math::make_tuple(
+              std::math::detail::airy_bi_imp      (x, my_pol),
+              std::math::detail::airy_bi_prime_imp(x, my_pol));
           }
 
         private:

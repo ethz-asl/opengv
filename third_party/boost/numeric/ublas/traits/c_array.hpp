@@ -105,6 +105,6 @@ namespace boost { namespace numeric { namespace ublas {
 
 
 
-}}} // Namespace boost::numeric::ublas
+}}} // Namespace std::numeric::ublas
 
 #endif

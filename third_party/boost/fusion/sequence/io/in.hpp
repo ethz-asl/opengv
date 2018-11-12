@@ -27,7 +27,7 @@ namespace boost { namespace fusion
     {
         template <typename Sequence>
         inline typename
-            boost::enable_if<
+            std::enable_if<
                fusion::traits::is_sequence<Sequence>
               , std::istream&
             >::type

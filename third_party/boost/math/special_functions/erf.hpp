@@ -31,7 +31,7 @@ struct erf_asympt_series_t
    erf_asympt_series_t(T z) : xx(2 * -z * z), tk(1)
    {
       BOOST_MATH_STD_USING
-      result = -exp(-z * z) / sqrt(boost::math::constants::pi<T>());
+      result = -exp(-z * z) / sqrt(std::math::constants::pi<T>());
       result /= z;
    }
 
@@ -133,9 +133,9 @@ T erf_imp(T z, bool invert, const Policy& pol, const Tag& t)
    if(!invert && (z > detail::erf_asymptotic_limit<T, Policy>()))
    {
       detail::erf_asympt_series_t<T> s(z);
-      boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-      result = boost::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, 1);
-      policies::check_series_iterations<T>("boost::math::erf<%1%>(%1%, %1%)", max_iter, pol);
+      std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+      result = std::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, 1);
+      policies::check_series_iterations<T>("std::math::erf<%1%>(%1%, %1%)", max_iter, pol);
    }
    else
    {
@@ -144,7 +144,7 @@ T erf_imp(T z, bool invert, const Policy& pol, const Tag& t)
       {
          // Compute P:
          result = z * exp(-x);
-         result /= sqrt(boost::math::constants::pi<T>());
+         result /= sqrt(std::math::constants::pi<T>());
          if(result != 0)
             result *= 2 * detail::lower_gamma_series(T(0.5f), x, pol);
       }
@@ -153,14 +153,14 @@ T erf_imp(T z, bool invert, const Policy& pol, const Tag& t)
          // Compute Q:
          invert = !invert;
          result = tgamma_small_upper_part(T(0.5f), x, pol);
-         result /= sqrt(boost::math::constants::pi<T>());
+         result /= sqrt(std::math::constants::pi<T>());
       }
       else
       {
          // Compute Q:
          invert = !invert;
          result = z * exp(-x);
-         result /= sqrt(boost::math::constants::pi<T>());
+         result /= sqrt(std::math::constants::pi<T>());
          result *= upper_gamma_fraction(T(0.5f), x, policies::get_epsilon<T, Policy>());
       }
    }
@@ -996,34 +996,34 @@ struct erf_initializer
       static void do_init(const mpl::int_<0>&){}
       static void do_init(const mpl::int_<53>&)
       {
-         boost::math::erf(static_cast<T>(1e-12), Policy());
-         boost::math::erf(static_cast<T>(0.25), Policy());
-         boost::math::erf(static_cast<T>(1.25), Policy());
-         boost::math::erf(static_cast<T>(2.25), Policy());
-         boost::math::erf(static_cast<T>(4.25), Policy());
-         boost::math::erf(static_cast<T>(5.25), Policy());
+         std::math::erf(static_cast<T>(1e-12), Policy());
+         std::math::erf(static_cast<T>(0.25), Policy());
+         std::math::erf(static_cast<T>(1.25), Policy());
+         std::math::erf(static_cast<T>(2.25), Policy());
+         std::math::erf(static_cast<T>(4.25), Policy());
+         std::math::erf(static_cast<T>(5.25), Policy());
       }
       static void do_init(const mpl::int_<64>&)
       {
-         boost::math::erf(static_cast<T>(1e-12), Policy());
-         boost::math::erf(static_cast<T>(0.25), Policy());
-         boost::math::erf(static_cast<T>(1.25), Policy());
-         boost::math::erf(static_cast<T>(2.25), Policy());
-         boost::math::erf(static_cast<T>(4.25), Policy());
-         boost::math::erf(static_cast<T>(5.25), Policy());
+         std::math::erf(static_cast<T>(1e-12), Policy());
+         std::math::erf(static_cast<T>(0.25), Policy());
+         std::math::erf(static_cast<T>(1.25), Policy());
+         std::math::erf(static_cast<T>(2.25), Policy());
+         std::math::erf(static_cast<T>(4.25), Policy());
+         std::math::erf(static_cast<T>(5.25), Policy());
       }
       static void do_init(const mpl::int_<113>&)
       {
-         boost::math::erf(static_cast<T>(1e-22), Policy());
-         boost::math::erf(static_cast<T>(0.25), Policy());
-         boost::math::erf(static_cast<T>(1.25), Policy());
-         boost::math::erf(static_cast<T>(2.125), Policy());
-         boost::math::erf(static_cast<T>(2.75), Policy());
-         boost::math::erf(static_cast<T>(3.25), Policy());
-         boost::math::erf(static_cast<T>(5.25), Policy());
-         boost::math::erf(static_cast<T>(7.25), Policy());
-         boost::math::erf(static_cast<T>(11.25), Policy());
-         boost::math::erf(static_cast<T>(12.5), Policy());
+         std::math::erf(static_cast<T>(1e-22), Policy());
+         std::math::erf(static_cast<T>(0.25), Policy());
+         std::math::erf(static_cast<T>(1.25), Policy());
+         std::math::erf(static_cast<T>(2.125), Policy());
+         std::math::erf(static_cast<T>(2.75), Policy());
+         std::math::erf(static_cast<T>(3.25), Policy());
+         std::math::erf(static_cast<T>(5.25), Policy());
+         std::math::erf(static_cast<T>(7.25), Policy());
+         std::math::erf(static_cast<T>(11.25), Policy());
+         std::math::erf(static_cast<T>(12.5), Policy());
       }
       void force_instantiate()const{}
    };
@@ -1082,7 +1082,7 @@ inline typename tools::promote_args<T>::type erf(T z, const Policy& /* pol */)
       static_cast<value_type>(z),
       false,
       forwarding_policy(),
-      tag_type()), "boost::math::erf<%1%>(%1%, %1%)");
+      tag_type()), "std::math::erf<%1%>(%1%, %1%)");
 }
 
 template <class T, class Policy>
@@ -1128,19 +1128,19 @@ inline typename tools::promote_args<T>::type erfc(T z, const Policy& /* pol */)
       static_cast<value_type>(z),
       true,
       forwarding_policy(),
-      tag_type()), "boost::math::erfc<%1%>(%1%, %1%)");
+      tag_type()), "std::math::erfc<%1%>(%1%, %1%)");
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type erf(T z)
 {
-   return boost::math::erf(z, policies::policy<>());
+   return std::math::erf(z, policies::policy<>());
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type erfc(T z)
 {
-   return boost::math::erfc(z, policies::policy<>());
+   return std::math::erfc(z, policies::policy<>());
 }
 
 } // namespace math

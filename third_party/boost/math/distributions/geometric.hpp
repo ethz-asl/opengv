@@ -69,7 +69,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_success_fraction(const char* function, const RealType& p, RealType* result, const Policy& pol)
       {
-        if( !(boost::math::isfinite)(p) || (p < 0) || (p > 1) )
+        if( !(std::math::isfinite)(p) || (p < 0) || (p > 1) )
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -92,7 +92,7 @@ namespace boost
         {
           return false;
         }
-        if( !(boost::math::isfinite)(k) || (k < 0) )
+        if( !(std::math::isfinite)(k) || (k < 0) )
         { // Check k failures.
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -145,7 +145,7 @@ namespace boost
         RealType trials,
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
-        static const char* function = "boost::math::geometric<%1%>::find_lower_bound_on_p";
+        static const char* function = "std::math::geometric<%1%>::find_lower_bound_on_p";
         RealType result = 0;  // of error checks.
         RealType successes = 1;
         RealType failures = trials - successes;
@@ -170,7 +170,7 @@ namespace boost
         RealType trials,
         RealType alpha) // alpha 0.05 equivalent to 95% for one-sided test.
       {
-        static const char* function = "boost::math::geometric<%1%>::find_upper_bound_on_p";
+        static const char* function = "std::math::geometric<%1%>::find_upper_bound_on_p";
         RealType result = 0;  // of error checks.
         RealType successes = 1;
         RealType failures = trials - successes;
@@ -203,7 +203,7 @@ namespace boost
         RealType p,     // success fraction 0 <= p <= 1.
         RealType alpha) // risk level threshold 0 <= alpha <= 1.
       {
-        static const char* function = "boost::math::geometric<%1%>::find_minimum_number_of_trials";
+        static const char* function = "std::math::geometric<%1%>::find_minimum_number_of_trials";
         // Error checks:
         RealType result = 0;
         if(false == geometric_detail::check_dist_and_k(
@@ -221,7 +221,7 @@ namespace boost
         RealType p,     // success fraction 0 <= p <= 1.
         RealType alpha) // risk level threshold 0 <= alpha <= 1.
       {
-        static const char* function = "boost::math::geometric<%1%>::find_maximum_number_of_trials";
+        static const char* function = "std::math::geometric<%1%>::find_maximum_number_of_trials";
         // Error checks:
         RealType result = 0;
         if(false == geometric_detail::check_dist_and_k(
@@ -244,7 +244,7 @@ namespace boost
     template <class RealType, class Policy>
     inline const std::pair<RealType, RealType> range(const geometric_distribution<RealType, Policy>& /* dist */)
     { // Range of permissible values for random variable k.
-       using boost::math::tools::max_value;
+       using std::math::tools::max_value;
        return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // max_integer?
     }
 
@@ -252,7 +252,7 @@ namespace boost
     inline const std::pair<RealType, RealType> support(const geometric_distribution<RealType, Policy>& /* dist */)
     { // Range of supported values for random variable k.
        // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-       using boost::math::tools::max_value;
+       using std::math::tools::max_value;
        return std::pair<RealType, RealType>(static_cast<RealType>(0),  max_value<RealType>()); // max_integer?
     }
 
@@ -314,7 +314,7 @@ namespace boost
     { // Probability Density/Mass Function.
       BOOST_FPU_EXCEPTION_GUARD
       BOOST_MATH_STD_USING  // For ADL of math functions.
-      static const char* function = "boost::math::pdf(const geometric_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::pdf(const geometric_distribution<%1%>&, %1%)";
 
       RealType p = dist.success_fraction();
       RealType result = 0;
@@ -350,7 +350,7 @@ namespace boost
     template <class RealType, class Policy>
     inline RealType cdf(const geometric_distribution<RealType, Policy>& dist, const RealType& k)
     { // Cumulative Distribution Function of geometric.
-      static const char* function = "boost::math::cdf(const geometric_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::cdf(const geometric_distribution<%1%>&, %1%)";
 
       // k argument may be integral, signed, or unsigned, or floating point.
       // If necessary, it has already been promoted from an integral type.
@@ -372,8 +372,8 @@ namespace boost
       //RealType q = 1 - p;  // Bad for small p
       //RealType probability = 1 - std::pow(q, k+1);
 
-      RealType z = boost::math::log1p(-p) * (k+1);
-      RealType probability = -boost::math::expm1(z);
+      RealType z = std::math::log1p(-p) * (k+1);
+      RealType probability = -std::math::expm1(z);
 
       return probability;
     } // cdf Cumulative Distribution Function geometric.
@@ -382,7 +382,7 @@ namespace boost
       inline RealType cdf(const complemented2_type<geometric_distribution<RealType, Policy>, RealType>& c)
       { // Complemented Cumulative Distribution Function geometric.
       BOOST_MATH_STD_USING
-      static const char* function = "boost::math::cdf(const geometric_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::cdf(const geometric_distribution<%1%>&, %1%)";
       // k argument may be integral, signed, or unsigned, or floating point.
       // If necessary, it has already been promoted from an integral type.
       RealType const& k = c.param;
@@ -398,7 +398,7 @@ namespace boost
       {
         return result;
       }
-      RealType z = boost::math::log1p(-p) * (k+1);
+      RealType z = std::math::log1p(-p) * (k+1);
       RealType probability = exp(z);
       return probability;
     } // cdf Complemented Cumulative Distribution Function geometric.
@@ -411,7 +411,7 @@ namespace boost
       // Inverse cumulative Distribution Function or Quantile (percentile / 100) of geometric Probability.
       // k argument may be integral, signed, or unsigned, or floating point.
 
-      static const char* function = "boost::math::quantile(const geometric_distribution<%1%>&, %1%)";
+      static const char* function = "std::math::quantile(const geometric_distribution<%1%>&, %1%)";
       BOOST_MATH_STD_USING // ADL of std functions.
 
       RealType success_fraction = dist.success_fraction();
@@ -448,7 +448,7 @@ namespace boost
       }
    
       // log(1-x) /log(1-success_fraction) -1; but use log1p in case success_fraction is small
-      result = boost::math::log1p(-x) / boost::math::log1p(-success_fraction) -1;
+      result = std::math::log1p(-x) / std::math::log1p(-success_fraction) -1;
       // Subtract a few epsilons here too?
       // to make sure it doesn't slip over, so ceil would be one too many.
       return result;
@@ -459,7 +459,7 @@ namespace boost
     {  // Quantile or Percent Point Binomial function.
        // Return the number of expected failures k for a given
        // complement of the probability Q = 1 - P.
-       static const char* function = "boost::math::quantile(const geometric_distribution<%1%>&, %1%)";
+       static const char* function = "std::math::quantile(const geometric_distribution<%1%>&, %1%)";
        BOOST_MATH_STD_USING
        // Error checks:
        RealType x = c.param;
@@ -481,7 +481,7 @@ namespace boost
           // since the probability of zero failures may be non-zero,
           return 0; // but zero is the best we can do:
        }
-       if (-x <= boost::math::powm1(dist.success_fraction(), dist.successes(), Policy()))
+       if (-x <= std::math::powm1(dist.success_fraction(), dist.successes(), Policy()))
        {  // q <= cdf(complement(dist, 0)) == pdf(dist, 0)
           return 0; //
        }
@@ -496,7 +496,7 @@ namespace boost
           // unless #define BOOST_MATH_THROW_ON_OVERFLOW_ERROR
        }
        // log(x) /log(1-success_fraction) -1; but use log1p in case success_fraction is small
-       result = log(x) / boost::math::log1p(-success_fraction) -1;
+       result = log(x) / std::math::log1p(-success_fraction) -1;
       return result;
 
     } // quantile complement

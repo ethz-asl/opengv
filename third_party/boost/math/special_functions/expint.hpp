@@ -66,7 +66,7 @@ T expint_1_rational(const T& z, const mpl::int_<53>&)
          / tools::evaluate_polynomial(Q, z);
       result += z - log(z) - Y;
    }
-   else if(z < -boost::math::tools::log_min_value<T>())
+   else if(z < -std::math::tools::log_min_value<T>())
    {
       // Maximum Deviation Found (interpolated):      1.444e-17
       // Max error found at double precision:         3.119e-17
@@ -142,7 +142,7 @@ T expint_1_rational(const T& z, const mpl::int_<64>&)
          / tools::evaluate_polynomial(Q, z);
       result += z - log(z) - Y;
    }
-   else if(z < -boost::math::tools::log_min_value<T>())
+   else if(z < -std::math::tools::log_min_value<T>())
    {
       // Maximum Deviation Found (interpolated):     2.220e-20
       // Max error found at long double precision:   1.346e-19
@@ -278,7 +278,7 @@ T expint_1_rational(const T& z, const mpl::int_<113>&)
          / tools::evaluate_polynomial(Q, recip);
       result *= exp(-z) * recip;
    }
-   else if(z < -boost::math::tools::log_min_value<T>())
+   else if(z < -std::math::tools::log_min_value<T>())
    {
       // Max error in interpolated form:             4.413e-35
       // Max error found at long double precision:   8.928e-35
@@ -361,13 +361,13 @@ inline T expint_as_fraction(unsigned n, T z, const Policy& pol)
 {
    BOOST_MATH_STD_USING
    BOOST_MATH_INSTRUMENT_VARIABLE(z)
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
    expint_fraction<T> f(n, z);
    T result = tools::continued_fraction_b(
       f, 
-      boost::math::policies::get_epsilon<T, Policy>(),
+      std::math::policies::get_epsilon<T, Policy>(),
       max_iter);
-   policies::check_series_iterations<T>("boost::math::expint_continued_fraction<%1%>(unsigned,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::expint_continued_fraction<%1%>(unsigned,%1%)", max_iter, pol);
    BOOST_MATH_INSTRUMENT_VARIABLE(result)
    BOOST_MATH_INSTRUMENT_VARIABLE(max_iter)
    result = exp(-z) / result;
@@ -400,7 +400,7 @@ template <class T, class Policy>
 inline T expint_as_series(unsigned n, T z, const Policy& pol)
 {
    BOOST_MATH_STD_USING
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 
    BOOST_MATH_INSTRUMENT_VARIABLE(z)
 
@@ -418,12 +418,12 @@ inline T expint_as_series(unsigned n, T z, const Policy& pol)
    }
    BOOST_MATH_INSTRUMENT_VARIABLE(result)
    result += pow(-z, static_cast<T>(n - 1)) 
-      * (boost::math::digamma(static_cast<T>(n)) - log(z)) / fact;
+      * (std::math::digamma(static_cast<T>(n)) - log(z)) / fact;
    BOOST_MATH_INSTRUMENT_VARIABLE(result)
 
    expint_series<T> s(k, z, x_k, denom, fact);
    result = tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, result);
-   policies::check_series_iterations<T>("boost::math::expint_series<%1%>(unsigned,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::expint_series<%1%>(unsigned,%1%)", max_iter, pol);
    BOOST_MATH_INSTRUMENT_VARIABLE(result)
    BOOST_MATH_INSTRUMENT_VARIABLE(max_iter)
    return result;
@@ -433,7 +433,7 @@ template <class T, class Policy, class Tag>
 T expint_imp(unsigned n, T z, const Policy& pol, const Tag& tag)
 {
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::expint<%1%>(unsigned, %1%)";
+   static const char* function = "std::math::expint<%1%>(unsigned, %1%)";
    if(z < 0)
       return policies::raise_domain_error<T>(function, "Function requires z >= 0 but got %1%.", z, pol);
    if(z == 0)
@@ -494,16 +494,16 @@ T expint_i_as_series(T z, const Policy& pol)
    T result = log(z); // (log(z) - log(1 / z)) / 2;
    result += constants::euler<T>();
    expint_i_series<T> s(z);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
    result = tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, result);
-   policies::check_series_iterations<T>("boost::math::expint_i_series<%1%>(%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::expint_i_series<%1%>(%1%)", max_iter, pol);
    return result;
 }
 
 template <class T, class Policy, class Tag>
 T expint_i_imp(T z, const Policy& pol, const Tag& tag)
 {
-   static const char* function = "boost::math::expint<%1%>(%1%)";
+   static const char* function = "std::math::expint<%1%>(%1%)";
    if(z < 0)
       return -expint_imp(1, T(-z), pol, tag);
    if(z == 0)
@@ -515,7 +515,7 @@ template <class T, class Policy>
 T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
 {
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::expint<%1%>(%1%)";
+   static const char* function = "std::math::expint<%1%>(%1%)";
    if(z < 0)
       return -expint_imp(1, T(-z), pol, tag);
    if(z == 0)
@@ -563,7 +563,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
       result *= t;
       if(fabs(t) < 0.1)
       {
-         result += boost::math::log1p(t / r);
+         result += std::math::log1p(t / r);
       }
       else
       {
@@ -729,7 +729,7 @@ template <class T, class Policy>
 T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
 {
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::expint<%1%>(%1%)";
+   static const char* function = "std::math::expint<%1%>(%1%)";
    if(z < 0)
       return -expint_imp(1, T(-z), pol, tag);
    if(z == 0)
@@ -780,7 +780,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
       result *= t;
       if(fabs(t) < 0.1)
       {
-         result += boost::math::log1p(t / r);
+         result += std::math::log1p(t / r);
       }
       else
       {
@@ -1022,7 +1022,7 @@ void expint_i_imp_113a(T& result, const T& z)
    result *= t;
    if(fabs(t) < 0.1)
    {
-      result += boost::math::log1p(t / r);
+      result += std::math::log1p(t / r);
    }
    else
    {
@@ -1373,7 +1373,7 @@ template <class T, class Policy>
 T expint_i_imp(T z, const Policy& pol, const mpl::int_<113>& tag)
 {
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::expint<%1%>(%1%)";
+   static const char* function = "std::math::expint<%1%>(%1%)";
    if(z < 0)
       return -expint_imp(1, T(-z), pol, tag);
    if(z == 0)
@@ -1485,31 +1485,31 @@ struct expint_i_initializer
       static void do_init(const mpl::int_<0>&){}
       static void do_init(const mpl::int_<53>&)
       {
-         boost::math::expint(T(5));
-         boost::math::expint(T(7));
-         boost::math::expint(T(18));
-         boost::math::expint(T(38));
-         boost::math::expint(T(45));
+         std::math::expint(T(5));
+         std::math::expint(T(7));
+         std::math::expint(T(18));
+         std::math::expint(T(38));
+         std::math::expint(T(45));
       }
       static void do_init(const mpl::int_<64>&)
       {
-         boost::math::expint(T(5));
-         boost::math::expint(T(7));
-         boost::math::expint(T(18));
-         boost::math::expint(T(38));
-         boost::math::expint(T(45));
+         std::math::expint(T(5));
+         std::math::expint(T(7));
+         std::math::expint(T(18));
+         std::math::expint(T(38));
+         std::math::expint(T(45));
       }
       static void do_init(const mpl::int_<113>&)
       {
-         boost::math::expint(T(5));
-         boost::math::expint(T(7));
-         boost::math::expint(T(17));
-         boost::math::expint(T(25));
-         boost::math::expint(T(40));
-         boost::math::expint(T(50));
-         boost::math::expint(T(80));
-         boost::math::expint(T(200));
-         boost::math::expint(T(220));
+         std::math::expint(T(5));
+         std::math::expint(T(7));
+         std::math::expint(T(17));
+         std::math::expint(T(25));
+         std::math::expint(T(40));
+         std::math::expint(T(50));
+         std::math::expint(T(80));
+         std::math::expint(T(200));
+         std::math::expint(T(220));
       }
       void force_instantiate()const{}
    };
@@ -1535,19 +1535,19 @@ struct expint_1_initializer
       static void do_init(const mpl::int_<0>&){}
       static void do_init(const mpl::int_<53>&)
       {
-         boost::math::expint(1, T(0.5));
-         boost::math::expint(1, T(2));
+         std::math::expint(1, T(0.5));
+         std::math::expint(1, T(2));
       }
       static void do_init(const mpl::int_<64>&)
       {
-         boost::math::expint(1, T(0.5));
-         boost::math::expint(1, T(2));
+         std::math::expint(1, T(0.5));
+         std::math::expint(1, T(2));
       }
       static void do_init(const mpl::int_<113>&)
       {
-         boost::math::expint(1, T(0.5));
-         boost::math::expint(1, T(2));
-         boost::math::expint(1, T(6));
+         std::math::expint(1, T(0.5));
+         std::math::expint(1, T(2));
+         std::math::expint(1, T(6));
       }
       void force_instantiate()const{}
    };
@@ -1597,14 +1597,14 @@ inline typename tools::promote_args<T>::type
    return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::expint_i_imp(
       static_cast<value_type>(z),
       forwarding_policy(),
-      tag_type()), "boost::math::expint<%1%>(%1%)");
+      tag_type()), "std::math::expint<%1%>(%1%)");
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type
 expint_forwarder(unsigned n, T z, const mpl::false_&)
 {
-   return boost::math::expint(n, z, policies::policy<>());
+   return std::math::expint(n, z, policies::policy<>());
 }
 
 } // namespace detail
@@ -1646,7 +1646,7 @@ inline typename tools::promote_args<T>::type
       n,
       static_cast<value_type>(z),
       forwarding_policy(),
-      tag_type()), "boost::math::expint<%1%>(unsigned, %1%)");
+      tag_type()), "std::math::expint<%1%>(unsigned, %1%)");
 }
 
 template <class T, class U>

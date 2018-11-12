@@ -38,7 +38,7 @@ inline T spherical_harmonic_prefix(unsigned n, unsigned m, T theta, const Policy
 
    T leg = detail::legendre_p_imp(n, m, x, static_cast<T>(pow(fabs(sin_theta), T(m))), pol);
    
-   T prefix = boost::math::tgamma_delta_ratio(static_cast<T>(n - m + 1), static_cast<T>(2 * m), pol);
+   T prefix = std::math::tgamma_delta_ratio(static_cast<T>(n - m + 1), static_cast<T>(2 * m), pol);
    prefix *= (2 * n + 1) / (4 * constants::pi<T>());
    prefix = sqrt(prefix);
    return prefix * leg;
@@ -61,7 +61,7 @@ T spherical_harmonic_r(unsigned n, int m, T theta, T phi, const Policy& pol)
    if(m&1)
    {
       // Check phase if theta is outside [0, PI]:
-      T mod = boost::math::tools::fmod_workaround(theta, T(2 * constants::pi<T>()));
+      T mod = std::math::tools::fmod_workaround(theta, T(2 * constants::pi<T>()));
       if(mod < 0)
          mod += 2 * constants::pi<T>();
       if(mod > constants::pi<T>())
@@ -88,7 +88,7 @@ T spherical_harmonic_i(unsigned n, int m, T theta, T phi, const Policy& pol)
    if(m&1)
    {
       // Check phase if theta is outside [0, PI]:
-      T mod = boost::math::tools::fmod_workaround(theta, T(2 * constants::pi<T>()));
+      T mod = std::math::tools::fmod_workaround(theta, T(2 * constants::pi<T>()));
       if(mod < 0)
          mod += 2 * constants::pi<T>();
       if(mod > constants::pi<T>())
@@ -119,7 +119,7 @@ std::complex<T> spherical_harmonic(unsigned n, int m, U theta, U phi, const Poli
    if(m&1)
    {
       // Check phase if theta is outside [0, PI]:
-      U mod = boost::math::tools::fmod_workaround(theta, U(2 * constants::pi<U>()));
+      U mod = std::math::tools::fmod_workaround(theta, U(2 * constants::pi<U>()));
       if(mod < 0)
          mod += 2 * constants::pi<U>();
       if(mod > constants::pi<U>())
@@ -141,7 +141,7 @@ std::complex<T> spherical_harmonic(unsigned n, int m, U theta, U phi, const Poli
       r = -r;
    if(i_sign)
       i = -i;
-   static const char* function = "boost::math::spherical_harmonic<%1%>(int, int, %1%, %1%)";
+   static const char* function = "std::math::spherical_harmonic<%1%>(int, int, %1%, %1%)";
    return std::complex<T>(policies::checked_narrowing_cast<T, Policy>(r, function), policies::checked_narrowing_cast<T, Policy>(i, function));
 }
 
@@ -160,7 +160,7 @@ template <class T1, class T2>
 inline std::complex<typename tools::promote_args<T1, T2>::type> 
    spherical_harmonic(unsigned n, int m, T1 theta, T2 phi)
 {
-   return boost::math::spherical_harmonic(n, m, theta, phi, policies::policy<>());
+   return std::math::spherical_harmonic(n, m, theta, phi, policies::policy<>());
 }
 
 template <class T1, class T2, class Policy>
@@ -176,7 +176,7 @@ template <class T1, class T2>
 inline typename tools::promote_args<T1, T2>::type 
    spherical_harmonic_r(unsigned n, int m, T1 theta, T2 phi)
 {
-   return boost::math::spherical_harmonic_r(n, m, theta, phi, policies::policy<>());
+   return std::math::spherical_harmonic_r(n, m, theta, phi, policies::policy<>());
 }
 
 template <class T1, class T2, class Policy>
@@ -185,14 +185,14 @@ inline typename tools::promote_args<T1, T2>::type
 {
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::spherical_harmonic_i(n, m, static_cast<value_type>(theta), static_cast<value_type>(phi), pol), "boost::math::spherical_harmonic_i<%1%>(unsigned, int, %1%, %1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::spherical_harmonic_i(n, m, static_cast<value_type>(theta), static_cast<value_type>(phi), pol), "std::math::spherical_harmonic_i<%1%>(unsigned, int, %1%, %1%)");
 }
 
 template <class T1, class T2>
 inline typename tools::promote_args<T1, T2>::type 
    spherical_harmonic_i(unsigned n, int m, T1 theta, T2 phi)
 {
-   return boost::math::spherical_harmonic_i(n, m, theta, phi, policies::policy<>());
+   return std::math::spherical_harmonic_i(n, m, theta, phi, policies::policy<>());
 }
 
 } // namespace math

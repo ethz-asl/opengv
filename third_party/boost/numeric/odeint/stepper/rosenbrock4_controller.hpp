@@ -85,21 +85,21 @@ public:
 
 
     template< class System >
-    boost::numeric::odeint::controlled_step_result
+    std::numeric::odeint::controlled_step_result
     try_step( System sys , state_type &x , time_type &t , time_type &dt )
     {
         m_xnew_resizer.adjust_size( x , detail::bind( &controller_type::template resize_m_xnew< state_type > , detail::ref( *this ) , detail::_1 ) );
-        boost::numeric::odeint::controlled_step_result res = try_step( sys , x , t , m_xnew.m_v , dt );
+        std::numeric::odeint::controlled_step_result res = try_step( sys , x , t , m_xnew.m_v , dt );
         if( res == success )
         {
-            boost::numeric::odeint::copy( m_xnew.m_v , x );
+            std::numeric::odeint::copy( m_xnew.m_v , x );
         }
         return res;
     }
 
 
     template< class System >
-    boost::numeric::odeint::controlled_step_result
+    std::numeric::odeint::controlled_step_result
     try_step( System sys , const state_type &x , time_type &t , state_type &xout , time_type &dt )
     {
         BOOST_USING_STD_MIN();

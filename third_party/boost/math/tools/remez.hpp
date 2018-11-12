@@ -31,7 +31,7 @@ namespace detail{
 template <class T>
 struct remez_error_function
 {
-   typedef boost::function1<T, T const &> function_type;
+   typedef std::function1<T, T const &> function_type;
 public:
    remez_error_function(
       function_type f_, 
@@ -104,9 +104,9 @@ template <class T>
 class remez_minimax
 {
 public:
-   typedef boost::function1<T, T const &> function_type;
-   typedef boost::numeric::ublas::vector<T> vector_type;
-   typedef boost::numeric::ublas::matrix<T> matrix_type;
+   typedef std::function1<T, T const &> function_type;
+   typedef std::numeric::ublas::vector<T> vector_type;
+   typedef std::numeric::ublas::matrix<T> matrix_type;
 
    remez_minimax(function_type f, unsigned oN, unsigned oD, T a, T b, bool pin = true, bool rel_err = false, int sk = 0, int bits = 0);
    remez_minimax(function_type f, unsigned oN, unsigned oD, T a, T b, bool pin, bool rel_err, int sk, int bits, const vector_type& points);
@@ -250,7 +250,7 @@ void remez_minimax<T>::init_chebyshev()
    //
    // Now go ahead and solve the expression to get our solution:
    //
-   vector_type l_solution = boost::math::tools::solve(A, b);
+   vector_type l_solution = std::math::tools::solve(A, b);
    // need to add a "fake" error term:
    l_solution.resize(unknowns);
    l_solution[unknowns-1] = 0;
@@ -315,12 +315,12 @@ void remez_minimax<T>::reset(
    if(bits == 0)
    {
       // don't bother about more than float precision:
-      m_precision = (std::min)(24, (boost::math::policies::digits<T, boost::math::policies::policy<> >() / 2) - 2);
+      m_precision = (std::min)(24, (std::math::policies::digits<T, std::math::policies::policy<> >() / 2) - 2);
    }
    else
    {
       // can't be more accurate than half the bits of T:
-      m_precision = (std::min)(bits, (boost::math::policies::digits<T, boost::math::policies::policy<> >() / 2) - 2);
+      m_precision = (std::min)(bits, (std::math::policies::digits<T, std::math::policies::policy<> >() / 2) - 2);
    }
    m_max_change_history[0] = m_max_change_history[1] = 1;
    init_chebyshev();
@@ -376,12 +376,12 @@ void remez_minimax<T>::reset(
    if(bits == 0)
    {
       // don't bother about more than float precision:
-      m_precision = (std::min)(24, (boost::math::policies::digits<T, boost::math::policies::policy<> >() / 2) - 2);
+      m_precision = (std::min)(24, (std::math::policies::digits<T, std::math::policies::policy<> >() / 2) - 2);
    }
    else
    {
       // can't be more accurate than half the bits of T:
-      m_precision = (std::min)(bits, (boost::math::policies::digits<T, boost::math::policies::policy<> >() / 2) - 2);
+      m_precision = (std::min)(bits, (std::math::policies::digits<T, std::math::policies::policy<> >() / 2) - 2);
    }
    m_max_change_history[0] = m_max_change_history[1] = 1;
    // do one iteration whatever:
@@ -476,7 +476,7 @@ T remez_minimax<T>::iterate()
       //
       // Now go ahead and solve the expression to get our solution:
       //
-      solution = boost::math::tools::solve(A, b);
+      solution = std::math::tools::solve(A, b);
 
       err_err = (Elast != 0) ? T(fabs((fabs(solution[unknowns-1]) - fabs(Elast)) / fabs(Elast))) : T(1);
    }while(orderD && (convergence_count++ < 80) && (err_err > 0.001));
@@ -568,7 +568,7 @@ T remez_minimax<T>::iterate()
    for(unsigned i = 1; i < control_points.size(); ++i)
    {
       eps_tolerance<T> tol(m_precision);
-      boost::uintmax_t max_iter = 1000;
+      std::uintmax_t max_iter = 1000;
       std::pair<T, T> p = toms748_solve(
          Err, 
          control_points[i-1], 
@@ -637,13 +637,13 @@ T remez_minimax<T>::iterate()
 template <class T>
 polynomial<T> remez_minimax<T>::numerator()const
 {
-   boost::scoped_array<T> a(new T[orderN + 1]);
+   std::scoped_array<T> a(new T[orderN + 1]);
    if(pinned)
       a[0] = 0;
    unsigned terms = pinned ? orderN : orderN + 1;
    for(unsigned i = 0; i < terms; ++i)
       a[pinned ? i+1 : i] = solution[i];
-   return boost::math::tools::polynomial<T>(&a[0], orderN);
+   return std::math::tools::polynomial<T>(&a[0], orderN);
 }
 
 template <class T>
@@ -651,11 +651,11 @@ polynomial<T> remez_minimax<T>::denominator()const
 {
    unsigned terms = orderD + 1;
    unsigned offsetD = pinned ? orderN : (orderN + 1);
-   boost::scoped_array<T> a(new T[terms]);
+   std::scoped_array<T> a(new T[terms]);
    a[0] = 1;
    for(unsigned i = 0; i < orderD; ++i)
       a[i+1] = solution[i + offsetD];
-   return boost::math::tools::polynomial<T>(&a[0], orderD);
+   return std::math::tools::polynomial<T>(&a[0], orderD);
 }
 
 

@@ -32,7 +32,7 @@ namespace detail {
 template<class Engine, class T>
 T generate_uniform_real(
     Engine& eng, T min_value, T max_value,
-    boost::mpl::false_  /** is_integral<Engine::result_type> */)
+    std::mpl::false_  /** is_integral<Engine::result_type> */)
 {
     for(;;) {
         typedef T result_type;
@@ -49,7 +49,7 @@ T generate_uniform_real(
 template<class Engine, class T>
 T generate_uniform_real(
     Engine& eng, T min_value, T max_value,
-    boost::mpl::true_  /** is_integral<Engine::result_type> */)
+    std::mpl::true_  /** is_integral<Engine::result_type> */)
 {
     for(;;) {
         typedef T result_type;
@@ -68,7 +68,7 @@ inline T generate_uniform_real(Engine& eng, T min_value, T max_value)
 {
     typedef typename Engine::result_type base_result;
     return generate_uniform_real(eng, min_value, max_value,
-        boost::is_integral<base_result>());
+        std::is_integral<base_result>());
 }
 
 }

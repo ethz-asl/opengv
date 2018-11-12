@@ -14,6 +14,6 @@ struct any_conversion_eater
     any_conversion_eater(T const&);
 };
 
-}} // namespace boost::detail
+}} // namespace std::detail
 
 #endif // ANY_CONVERSION_EATER_DWA20031117_HPP

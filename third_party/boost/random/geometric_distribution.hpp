@@ -39,7 +39,7 @@ namespace random {
  * @xmlwarning
  * This distribution has been updated to match the C++ standard.
  * Its behavior has changed from the original
- * boost::geometric_distribution.  A backwards compatible
+ * std::geometric_distribution.  A backwards compatible
  * wrapper is provided in namespace boost.
  * @endxmlwarning
  */
@@ -155,7 +155,7 @@ public:
     {
         using std::log;
         using std::floor;
-        RealType x = RealType(1) - boost::uniform_01<RealType>()(eng);
+        RealType x = RealType(1) - std::uniform_01<RealType>()(eng);
         return IntType(floor(log(x) / _log_1mp));
     }
 

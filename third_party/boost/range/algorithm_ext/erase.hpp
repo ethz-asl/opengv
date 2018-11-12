@@ -28,7 +28,7 @@ inline Container& erase( Container& on,
       iterator_range<BOOST_DEDUCED_TYPENAME Container::iterator> to_erase )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<Container> ));
-    on.erase( boost::begin(to_erase), boost::end(to_erase) );
+    on.erase( std::begin(to_erase), std::end(to_erase) );
     return on;
 }
 
@@ -37,8 +37,8 @@ inline Container& remove_erase( Container& on, const T& val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<Container> ));
     on.erase(
-        std::remove(boost::begin(on), boost::end(on), val),
-        boost::end(on));
+        std::remove(std::begin(on), std::end(on), val),
+        std::end(on));
     return on;
 }
 
@@ -47,8 +47,8 @@ inline Container& remove_erase_if( Container& on, Pred pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<Container> ));
     on.erase(
-        std::remove_if(boost::begin(on), boost::end(on), pred),
-        boost::end(on));
+        std::remove_if(std::begin(on), std::end(on), pred),
+        std::end(on));
     return on;
 }
 

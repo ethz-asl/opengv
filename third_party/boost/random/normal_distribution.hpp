@@ -150,14 +150,14 @@ public:
         using std::cos;
 
         if(!_valid) {
-            _r1 = boost::uniform_01<RealType>()(eng);
-            _r2 = boost::uniform_01<RealType>()(eng);
+            _r1 = std::uniform_01<RealType>()(eng);
+            _r2 = std::uniform_01<RealType>()(eng);
             _cached_rho = sqrt(-result_type(2) * log(result_type(1)-_r2));
             _valid = true;
         } else {
             _valid = false;
         }
-        // Can we have a boost::mathconst please?
+        // Can we have a std::mathconst please?
         const result_type pi = result_type(3.14159265358979323846);
 
         return _cached_rho * (_valid ?

@@ -111,7 +111,7 @@ namespace boost {
 
   // Normal old-style properties; second case also handles chaining of bundled property accesses
   template <typename Tag, typename T, typename Base>
-  struct lookup_one_property_internal<boost::property<Tag, T, Base>, Tag> {
+  struct lookup_one_property_internal<std::property<Tag, T, Base>, Tag> {
     BOOST_STATIC_CONSTANT(bool, found = true);
     typedef property<Tag, T, Base> prop;
     typedef T type;
@@ -124,18 +124,18 @@ namespace boost {
   };
 
   template <typename Tag, typename T, typename Base, typename PropName>
-  struct lookup_one_property_internal<boost::property<Tag, T, Base>, PropName>: lookup_one_property_internal<Base, PropName> {
+  struct lookup_one_property_internal<std::property<Tag, T, Base>, PropName>: lookup_one_property_internal<Base, PropName> {
     private:
     typedef lookup_one_property_internal<Base, PropName> base_type;
     public:
     template <typename PL>
-    static typename lazy_enable_if<is_same<PL, boost::property<Tag, T, Base> >,
+    static typename lazy_enable_if<is_same<PL, std::property<Tag, T, Base> >,
                                    add_reference<typename base_type::type> >::type
     lookup(PL& prop, const PropName& tag) {
       return base_type::lookup(prop.m_base, tag);
     }
     template <typename PL>
-    static typename lazy_enable_if<is_same<PL, boost::property<Tag, T, Base> >,
+    static typename lazy_enable_if<is_same<PL, std::property<Tag, T, Base> >,
                                    add_reference<const typename base_type::type> >::type
     lookup(const PL& prop, const PropName& tag) {
       return base_type::lookup(prop.m_base, tag);
@@ -176,9 +176,9 @@ namespace boost {
   // switch BGL back to using class types for properties at some point.
 
   template <class P>
-  struct has_property : boost::mpl::true_ {};
+  struct has_property : std::mpl::true_ {};
   template <>
-  struct has_property<no_property> : boost::mpl::false_ {};
+  struct has_property<no_property> : std::mpl::false_ {};
 
 } // namespace boost
 
@@ -252,11 +252,11 @@ namespace detail {
   struct remove_first_property {
     template <typename F>
     struct result {
-      typedef typename boost::function_traits<F>::arg1_type a1;
-      typedef typename boost::remove_reference<a1>::type non_ref;
+      typedef typename std::function_traits<F>::arg1_type a1;
+      typedef typename std::remove_reference<a1>::type non_ref;
       typedef typename non_ref::next_type nx;
-      typedef typename boost::mpl::if_<boost::is_const<non_ref>, boost::add_const<nx>, nx>::type with_const;
-      typedef typename boost::add_reference<with_const>::type type;
+      typedef typename std::mpl::if_<std::is_const<non_ref>, std::add_const<nx>, nx>::type with_const;
+      typedef typename std::add_reference<with_const>::type type;
     };
     template <typename Prop>
     typename Prop::next_type& operator()(Prop& p) const {return p.m_base;}

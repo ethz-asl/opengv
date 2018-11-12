@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// free_funcs.hpp :  implementation of the free functions of boost::format
+// free_funcs.hpp :  implementation of the free functions of std::format
 // ----------------------------------------------------------------------------
 
 //  Copyright Samuel Krempp 2003. Use, modification, and distribution are
@@ -24,7 +24,7 @@ namespace boost {
         return f.str();
     }
     namespace io {
-         using ::boost::str; // keep compatibility with when it was defined in this N.S.
+         using ::std::str; // keep compatibility with when it was defined in this N.S.
     }   // - namespace io
 
 #ifndef  BOOST_NO_TEMPLATE_STD_STREAM
@@ -40,14 +40,14 @@ namespace boost {
 #endif
         // effect: "return os << str(f);" but we can do it faster
     {
-        typedef boost::basic_format<Ch, Tr, Alloc>   format_t;
+        typedef std::basic_format<Ch, Tr, Alloc>   format_t;
         if(f.items_.size()==0) 
             os << f.prefix_;
         else {
             if(f.cur_arg_ < f.num_args_)
                 if( f.exceptions() & io::too_few_args_bit )
                     // not enough variables supplied
-                    boost::throw_exception(io::too_few_args(f.cur_arg_, f.num_args_)); 
+                    std::throw_exception(io::too_few_args(f.cur_arg_, f.num_args_)); 
             if(f.style_ & format_t::special_needs) 
                 os << f.str();
             else {

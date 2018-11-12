@@ -32,7 +32,7 @@ inline ForwardRange&
                const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    std::replace_if(boost::begin(rng), boost::end(rng), pred, val);
+    std::replace_if(std::begin(rng), std::end(rng), pred, val);
     return rng;
 }
 
@@ -43,7 +43,7 @@ inline const ForwardRange&
                const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    std::replace_if(boost::begin(rng), boost::end(rng), pred, val);
+    std::replace_if(std::begin(rng), std::end(rng), pred, val);
     return rng;
 }
 

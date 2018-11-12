@@ -42,9 +42,9 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
 
-            return ::boost::range_detail::for_each_impl(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2), fn);
+            return ::std::range_detail::for_each_impl(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2), fn);
         }
 
         template<class SinglePassRange1, class SinglePassRange2, class Fn2>
@@ -53,9 +53,9 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange2> ));
 
-            return ::boost::range_detail::for_each_impl(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2), fn);
+            return ::std::range_detail::for_each_impl(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2), fn);
         }
 
         template<class SinglePassRange1, class SinglePassRange2, class Fn2>
@@ -64,9 +64,9 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
 
-            return ::boost::range_detail::for_each_impl(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2), fn);
+            return ::std::range_detail::for_each_impl(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2), fn);
         }
 
         template<class SinglePassRange1, class SinglePassRange2, class Fn2>
@@ -75,9 +75,9 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange2> ));
 
-            return ::boost::range_detail::for_each_impl(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2), fn);
+            return ::std::range_detail::for_each_impl(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2), fn);
         }
     } // namespace range
     using range::for_each;

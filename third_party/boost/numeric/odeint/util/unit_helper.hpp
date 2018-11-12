@@ -46,9 +46,9 @@ namespace detail {
     
 #ifndef __CUDACC__
     template<class Unit , class T>
-    struct get_unit_value_impl< boost::units::quantity< Unit , T> >
+    struct get_unit_value_impl< std::units::quantity< Unit , T> >
     {
-        static T value( const boost::units::quantity< Unit , T> &t )
+        static T value( const std::units::quantity< Unit , T> &t )
         {
             return t.value();
         }
@@ -71,11 +71,11 @@ namespace detail {
 
 #ifndef __CUDACC__
     template<class Unit , class T , class V>
-    struct set_unit_value_impl<boost::units::quantity<Unit , T> , V>
+    struct set_unit_value_impl<std::units::quantity<Unit , T> , V>
     {
-        static void set_value(boost::units::quantity<Unit , T> &t , const V &v)
+        static void set_value(std::units::quantity<Unit , T> &t , const V &v)
         {
-            t = boost::units::quantity<Unit , T>::from_value(v);
+            t = std::units::quantity<Unit , T>::from_value(v);
         }
     };
 #endif
@@ -109,7 +109,7 @@ namespace detail {
 
 #ifndef __CUDACC__
     template< class Unit , class Y >
-    struct unit_value_type< boost::units::quantity< Unit , Y > >
+    struct unit_value_type< std::units::quantity< Unit , Y > >
     {
         typedef Y type;
     };
@@ -132,14 +132,14 @@ namespace detail {
 
 #ifndef __CUDACC__
     template< typename Unit , typename Value >
-    struct inverse_time< boost::units::quantity< Unit , Value > >
+    struct inverse_time< std::units::quantity< Unit , Value > >
     {
-        typedef boost::units::quantity< Unit , Value > time_type;
-        typedef typename boost::units::get_dimension< time_type >::type dimension;
-        typedef typename boost::units::get_system< time_type >::type system;
-        typedef typename boost::mpl::divides< boost::units::dimensionless_type , dimension >::type inv_dimension;
-        typedef boost::units::unit< inv_dimension , system > inv_unit;
-        typedef boost::units::quantity< inv_unit , Value > type;
+        typedef std::units::quantity< Unit , Value > time_type;
+        typedef typename std::units::get_dimension< time_type >::type dimension;
+        typedef typename std::units::get_system< time_type >::type system;
+        typedef typename std::mpl::divides< std::units::dimensionless_type , dimension >::type inv_dimension;
+        typedef std::units::unit< inv_dimension , system > inv_unit;
+        typedef std::units::quantity< inv_unit , Value > type;
     };
 #endif
 

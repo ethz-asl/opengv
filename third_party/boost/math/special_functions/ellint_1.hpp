@@ -41,10 +41,10 @@ template <typename T, typename Policy>
 T ellint_f_imp(T phi, T k, const Policy& pol)
 {
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
-    static const char* function = "boost::math::ellint_f<%1%>(%1%,%1%)";
+    static const char* function = "std::math::ellint_f<%1%>(%1%,%1%)";
     BOOST_MATH_INSTRUMENT_VARIABLE(phi);
     BOOST_MATH_INSTRUMENT_VARIABLE(k);
     BOOST_MATH_INSTRUMENT_VARIABLE(function);
@@ -88,12 +88,12 @@ T ellint_f_imp(T phi, T k, const Policy& pol)
        // so rewritten to use fmod instead:
        //
        BOOST_MATH_INSTRUMENT_CODE("pi/2 = " << constants::pi<T>() / 2);
-       T rphi = boost::math::tools::fmod_workaround(phi, T(constants::pi<T>() / 2));
+       T rphi = std::math::tools::fmod_workaround(phi, T(constants::pi<T>() / 2));
        BOOST_MATH_INSTRUMENT_VARIABLE(rphi);
        T m = floor((2 * phi) / constants::pi<T>());
        BOOST_MATH_INSTRUMENT_VARIABLE(m);
        int s = 1;
-       if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
+       if(std::math::tools::fmod_workaround(m, T(2)) > 0.5)
        {
           m += 1;
           s = -1;
@@ -120,9 +120,9 @@ template <typename T, typename Policy>
 T ellint_k_imp(T k, const Policy& pol)
 {
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::ellint_k<%1%>(%1%)";
+    static const char* function = "std::math::ellint_k<%1%>(%1%)";
 
     if (abs(k) > 1)
     {
@@ -147,13 +147,13 @@ inline typename tools::promote_args<T>::type ellint_1(T k, const Policy& pol, co
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_k_imp(static_cast<value_type>(k), pol), "boost::math::ellint_1<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_k_imp(static_cast<value_type>(k), pol), "std::math::ellint_1<%1%>(%1%)");
 }
 
 template <class T1, class T2>
 inline typename tools::promote_args<T1, T2>::type ellint_1(T1 k, T2 phi, const mpl::false_&)
 {
-   return boost::math::ellint_1(k, phi, policies::policy<>());
+   return std::math::ellint_1(k, phi, policies::policy<>());
 }
 
 }
@@ -171,7 +171,7 @@ inline typename tools::promote_args<T1, T2>::type ellint_1(T1 k, T2 phi, const P
 {
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_f_imp(static_cast<value_type>(phi), static_cast<value_type>(k), pol), "boost::math::ellint_1<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_f_imp(static_cast<value_type>(phi), static_cast<value_type>(k), pol), "std::math::ellint_1<%1%>(%1%,%1%)");
 }
 
 template <class T1, class T2>

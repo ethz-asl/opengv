@@ -80,13 +80,13 @@ namespace boost { namespace fusion
         template <class Self, class Seq>
         struct result< Self const (Seq) >
             : result_of::invoke_function_object<func_const_fwd_t, 
-                typename boost::remove_reference<Seq>::type >
+                typename std::remove_reference<Seq>::type >
         { };
 
         template <class Self, class Seq>
         struct result< Self(Seq) >
             : result_of::invoke_function_object<func_fwd_t,
-                typename boost::remove_reference<Seq>::type >
+                typename std::remove_reference<Seq>::type >
         { };
     };
 

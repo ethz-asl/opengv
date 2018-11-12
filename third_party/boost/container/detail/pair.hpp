@@ -117,7 +117,7 @@ struct pair
 
    //pair move constructor
    pair(BOOST_RV_REF(pair) p)
-      : first(::boost::move(p.first)), second(::boost::move(p.second))
+      : first(::std::move(p.first)), second(::std::move(p.second))
    {}
 
    template <class D, class S>
@@ -127,7 +127,7 @@ struct pair
 
    template <class D, class S>
    pair(BOOST_RV_REF_BEG pair<D, S> BOOST_RV_REF_END p)
-      : first(::boost::move(p.first)), second(::boost::move(p.second))
+      : first(::std::move(p.first)), second(::std::move(p.second))
    {}
 
    //pair from two values
@@ -138,8 +138,8 @@ struct pair
 
    template<class U, class V>
    pair(BOOST_FWD_REF(U) u, BOOST_FWD_REF(V) v)
-      : first(::boost::forward<U>(u))
-      , second(::boost::forward<V>(v))
+      : first(::std::forward<U>(u))
+      , second(::std::forward<V>(v))
    {}
 
    //And now compatibility with std::pair
@@ -153,12 +153,12 @@ struct pair
    {}
 
    pair(BOOST_RV_REF_BEG std::pair<T1, T2> BOOST_RV_REF_END p)
-      : first(::boost::move(p.first)), second(::boost::move(p.second))
+      : first(::std::move(p.first)), second(::std::move(p.second))
    {}
 
    template <class D, class S>
    pair(BOOST_RV_REF_BEG std::pair<D, S> BOOST_RV_REF_END p)
-      : first(::boost::move(p.first)), second(::boost::move(p.second))
+      : first(::std::move(p.first)), second(::std::move(p.second))
    {}
 
    //piecewise_construct missing
@@ -171,7 +171,7 @@ struct pair
    template<class U>
    pair(BOOST_CONTAINER_PP_PARAM(U, u), typename container_detail::disable_if
          < container_detail::is_pair< typename container_detail::remove_ref_const<U>::type >, pair_nat>::type* = 0)
-      : first(::boost::forward<U>(u))
+      : first(::std::forward<U>(u))
       , second()
    {}
 
@@ -179,8 +179,8 @@ struct pair
 
    template<class U, class V, class ...Args>
    pair(U &&u, V &&v)
-      : first(::boost::forward<U>(u))
-      , second(::boost::forward<V>(v), ::boost::forward<Args>(args)...)
+      : first(::std::forward<U>(u))
+      , second(::std::forward<V>(v), ::std::forward<Args>(args)...)
    {}
 
    #else
@@ -189,7 +189,7 @@ struct pair
    template<class U, BOOST_PP_ENUM_PARAMS(n, class P)>                                        \
    pair(BOOST_CONTAINER_PP_PARAM(U, u)                                                          \
        ,BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_LIST, _))                                  \
-      : first(::boost::forward<U>(u))                             \
+      : first(::std::forward<U>(u))                             \
       , second(BOOST_PP_ENUM(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _))                        \
    {}                                                                                         \
    //!
@@ -208,15 +208,15 @@ struct pair
    //pair move assignment
    pair& operator=(BOOST_RV_REF(pair) p)
    {
-      first  = ::boost::move(p.first);
-      second = ::boost::move(p.second);
+      first  = ::std::move(p.first);
+      second = ::std::move(p.second);
       return *this;
    }
 
    template <class D, class S>
-   typename ::boost::container::container_detail::enable_if_c
-      < !(::boost::container::container_detail::is_same<T1, D>::value &&
-          ::boost::container::container_detail::is_same<T2, S>::value)
+   typename ::std::container::container_detail::enable_if_c
+      < !(::std::container::container_detail::is_same<T1, D>::value &&
+          ::std::container::container_detail::is_same<T2, S>::value)
       , pair &>::type
       operator=(const pair<D, S>&p)
    {
@@ -226,14 +226,14 @@ struct pair
    }
 
    template <class D, class S>
-   typename ::boost::container::container_detail::enable_if_c
-      < !(::boost::container::container_detail::is_same<T1, D>::value &&
-          ::boost::container::container_detail::is_same<T2, S>::value)
+   typename ::std::container::container_detail::enable_if_c
+      < !(::std::container::container_detail::is_same<T1, D>::value &&
+          ::std::container::container_detail::is_same<T2, S>::value)
       , pair &>::type
       operator=(BOOST_RV_REF_BEG pair<D, S> BOOST_RV_REF_END p)
    {
-      first  = ::boost::move(p.first);
-      second = ::boost::move(p.second);
+      first  = ::std::move(p.first);
+      second = ::std::move(p.second);
       return *this;
    }
 
@@ -248,24 +248,24 @@ struct pair
    template <class D, class S>
    pair& operator=(const std::pair<D, S> &p)
    {
-      first  = ::boost::move(p.first);
-      second = ::boost::move(p.second);
+      first  = ::std::move(p.first);
+      second = ::std::move(p.second);
       return *this;
    }
 
    //std::pair move assignment
    pair& operator=(BOOST_RV_REF_BEG std::pair<T1, T2> BOOST_RV_REF_END p)
    {
-      first  = ::boost::move(p.first);
-      second = ::boost::move(p.second);
+      first  = ::std::move(p.first);
+      second = ::std::move(p.second);
       return *this;
    }
 
    template <class D, class S>
    pair& operator=(BOOST_RV_REF_BEG std::pair<D, S> BOOST_RV_REF_END p)
    {
-      first  = ::boost::move(p.first);
-      second = ::boost::move(p.second);
+      first  = ::std::move(p.first);
+      second = ::std::move(p.second);
       return *this;
    }
 
@@ -325,7 +325,7 @@ template<class T>
 struct is_enum;
 
 template<class T, class U>
-struct is_enum< ::boost::container::container_detail::pair<T, U> >
+struct is_enum< ::std::container::container_detail::pair<T, U> >
 {
    static const bool value = false;
 };
@@ -333,15 +333,15 @@ struct is_enum< ::boost::container::container_detail::pair<T, U> >
 //This specialization is needed to avoid instantiation of pair in
 //is_class, and allow recursive maps.
 template <class T1, class T2>
-struct is_class< ::boost::container::container_detail::pair<T1, T2> >
-   : public ::boost::true_type
+struct is_class< ::std::container::container_detail::pair<T1, T2> >
+   : public ::std::true_type
 {};
 
 #ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
 
 template<class T1, class T2>
-struct has_move_emulation_enabled< ::boost::container::container_detail::pair<T1, T2> >
-   : ::boost::true_type
+struct has_move_emulation_enabled< ::std::container::container_detail::pair<T1, T2> >
+   : ::std::true_type
 {};
 
 #endif

@@ -55,7 +55,7 @@ public:
     { return 0; }
     /** Returns the largest value that the generator can produce. */
     static result_type max BOOST_PREVENT_MACRO_SUBSTITUTION ()
-    { return boost::low_bits_mask_t<w>::sig_bits; }
+    { return std::low_bits_mask_t<w>::sig_bits; }
 
     /**
      * Constructs an @c independent_bits_engine using the
@@ -181,9 +181,9 @@ public:
     { detail::generate_from_int(*this, first, last); }
 
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z)
+    void discard(std::uintmax_t z)
     {
-        for(boost::uintmax_t i = 0; i < z; ++i) {
+        for(std::uintmax_t i = 0; i < z; ++i) {
             (*this)();
         }
     }

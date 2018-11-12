@@ -61,7 +61,7 @@ struct make_converter_from
 
 } ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif
 

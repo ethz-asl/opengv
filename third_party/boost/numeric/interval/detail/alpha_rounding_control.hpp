@@ -25,7 +25,7 @@ namespace interval_lib {
 namespace detail {
 #if defined(__GNUC__ )
     typedef union {
-    ::boost::long_long_type imode;
+    ::std::long_long_type imode;
     double dmode;
     } rounding_mode_struct;
 

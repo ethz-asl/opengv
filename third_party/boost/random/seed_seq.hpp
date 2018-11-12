@@ -38,7 +38,7 @@ namespace random {
  */
 class seed_seq {
 public:
-    typedef boost::uint_least32_t result_type;
+    typedef std::uint_least32_t result_type;
 
     /** Initializes a seed_seq to hold an empty sequence. */
     seed_seq() {}
@@ -53,7 +53,7 @@ public:
     /** Initializes the sequence from Boost.Range range. */
     template<class Range>
     explicit seed_seq(const Range& range)
-      : v(boost::begin(range), boost::end(range)) {}
+      : v(std::begin(range), std::end(range)) {}
 
     /**
      * Fills a range with 32-bit values based on the stored sequence.

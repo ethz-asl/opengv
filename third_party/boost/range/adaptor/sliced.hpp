@@ -28,13 +28,13 @@ namespace boost
         };
 
         template< class RandomAccessRange >
-        class sliced_range : public boost::iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<RandomAccessRange>::type >
+        class sliced_range : public std::iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<RandomAccessRange>::type >
         {
-            typedef boost::iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<RandomAccessRange>::type > base_t;
+            typedef std::iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<RandomAccessRange>::type > base_t;
         public:
             template<typename Rng, typename T, typename U>
             sliced_range(Rng& rng, T t, U u)
-                : base_t(boost::make_iterator_range(rng, t, u - boost::size(rng)))
+                : base_t(std::make_iterator_range(rng, t, u - std::size(rng)))
             {
             }
         };
@@ -44,7 +44,7 @@ namespace boost
         slice( RandomAccessRange& rng, std::size_t t, std::size_t u )
         {
             BOOST_ASSERT( t <= u && "error in slice indices" );
-            BOOST_ASSERT( static_cast<std::size_t>(boost::size(rng)) >= u &&
+            BOOST_ASSERT( static_cast<std::size_t>(std::size(rng)) >= u &&
                           "second slice index out of bounds" );
 
             return sliced_range<RandomAccessRange>(rng, t, u);
@@ -55,7 +55,7 @@ namespace boost
         slice( const RandomAccessRange& rng, std::size_t t, std::size_t u )
         {
             BOOST_ASSERT( t <= u && "error in slice indices" );
-            BOOST_ASSERT( static_cast<std::size_t>(boost::size(rng)) >= u &&
+            BOOST_ASSERT( static_cast<std::size_t>(std::size(rng)) >= u &&
                           "second slice index out of bounds" );
 
             return sliced_range<const RandomAccessRange>(rng, t, u);

@@ -17,7 +17,7 @@ template <class T, class Policy>
 std::complex<T> hankel_imp(T v, T x, const bessel_no_int_tag&, const Policy& pol, int sign)
 {
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::cyl_hankel_1<%1%>(%1%,%1%)";
+   static const char* function = "std::math::cyl_hankel_1<%1%>(%1%,%1%)";
 
    if(x < 0)
    {
@@ -104,7 +104,7 @@ inline std::complex<typename detail::bessel_traits<T1, T2, Policy>::result_type>
    typedef typename detail::bessel_traits<T1, T2, Policy>::result_type result_type;
    typedef typename detail::bessel_traits<T1, T2, Policy>::optimisation_tag tag_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::hankel_imp<value_type>(v, static_cast<value_type>(x), tag_type(), pol, 1), "boost::math::cyl_hankel_1<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::hankel_imp<value_type>(v, static_cast<value_type>(x), tag_type(), pol, 1), "std::math::cyl_hankel_1<%1%>(%1%,%1%)");
 }
 
 template <class T1, class T2>
@@ -120,7 +120,7 @@ inline std::complex<typename detail::bessel_traits<T1, T2, Policy>::result_type>
    typedef typename detail::bessel_traits<T1, T2, Policy>::result_type result_type;
    typedef typename detail::bessel_traits<T1, T2, Policy>::optimisation_tag tag_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::hankel_imp<value_type>(v, static_cast<value_type>(x), tag_type(), pol, -1), "boost::math::cyl_hankel_1<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::hankel_imp<value_type>(v, static_cast<value_type>(x), tag_type(), pol, -1), "std::math::cyl_hankel_1<%1%>(%1%,%1%)");
 }
 
 template <class T1, class T2>
@@ -142,7 +142,7 @@ inline std::complex<typename detail::bessel_traits<T1, T2, Policy>::result_type>
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::sph_hankel_imp<value_type>(static_cast<value_type>(v), static_cast<value_type>(x), forwarding_policy(), 1), "boost::math::sph_hankel_1<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::sph_hankel_imp<value_type>(static_cast<value_type>(v), static_cast<value_type>(x), forwarding_policy(), 1), "std::math::sph_hankel_1<%1%>(%1%,%1%)");
 }
 
 template <class T1, class T2>
@@ -164,7 +164,7 @@ inline std::complex<typename detail::bessel_traits<T1, T2, Policy>::result_type>
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::sph_hankel_imp<value_type>(static_cast<value_type>(v), static_cast<value_type>(x), forwarding_policy(), -1), "boost::math::sph_hankel_1<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<std::complex<result_type>, Policy>(detail::sph_hankel_imp<value_type>(static_cast<value_type>(v), static_cast<value_type>(x), forwarding_policy(), -1), "std::math::sph_hankel_1<%1%>(%1%,%1%)");
 }
 
 template <class T1, class T2>

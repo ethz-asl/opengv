@@ -124,11 +124,11 @@ namespace boost {
 
     template<typename T>
     struct remove_volatile {
-        typedef boost::detail::remove_volatile_impl_typeof<
-            boost::is_pointer<T>::value,
-            boost::is_array<T>::value,
-            boost::is_const<T>::value,
-            boost::is_volatile<T>::value
+        typedef std::detail::remove_volatile_impl_typeof<
+            std::is_pointer<T>::value,
+            std::is_array<T>::value,
+            std::is_const<T>::value,
+            std::is_volatile<T>::value
         > remove_volatile_type;
         typedef typename 
             remove_volatile_type::template inner<

@@ -13,6 +13,6 @@ namespace type_traits {
 
 template <class T> struct wrap {};
 
-}} // namespace boost::type_traits
+}} // namespace std::type_traits
 
 #endif // BOOST_TT_DETAIL_WRAP_HPP_INCLUDED

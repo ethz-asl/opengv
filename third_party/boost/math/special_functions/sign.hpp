@@ -110,7 +110,7 @@ template<class T> int (signbit)(T x)
 { 
    typedef typename detail::fp_traits<T>::type traits;
    typedef typename traits::method method;
-   // typedef typename boost::is_floating_point<T>::type fp_tag;
+   // typedef typename std::is_floating_point<T>::type fp_tag;
    typedef typename tools::promote_args<T>::type result_type;
    return detail::signbit_impl(static_cast<result_type>(x), method());
 }
@@ -118,14 +118,14 @@ template<class T> int (signbit)(T x)
 template <class T>
 inline int sign BOOST_NO_MACRO_EXPAND(const T& z)
 {
-   return (z == 0) ? 0 : (boost::math::signbit)(z) ? -1 : 1;
+   return (z == 0) ? 0 : (std::math::signbit)(z) ? -1 : 1;
 }
 
 template <class T> typename tools::promote_args<T>::type (changesign)(const T& x)
 { //!< \brief return unchanged binary pattern of x, except for change of sign bit. 
    typedef typename detail::fp_traits<T>::sign_change_type traits;
    typedef typename traits::method method;
-   // typedef typename boost::is_floating_point<T>::type fp_tag;
+   // typedef typename std::is_floating_point<T>::type fp_tag;
    typedef typename tools::promote_args<T>::type result_type;
 
    return detail::changesign_impl(static_cast<result_type>(x), method());
@@ -137,8 +137,8 @@ inline typename tools::promote_args<T, U>::type
 {
    BOOST_MATH_STD_USING
    typedef typename tools::promote_args<T, U>::type result_type;
-   return (boost::math::signbit)(static_cast<result_type>(x)) != (boost::math::signbit)(static_cast<result_type>(y)) 
-      ? (boost::math::changesign)(static_cast<result_type>(x)) : static_cast<result_type>(x);
+   return (std::math::signbit)(static_cast<result_type>(x)) != (std::math::signbit)(static_cast<result_type>(y)) 
+      ? (std::math::changesign)(static_cast<result_type>(x)) : static_cast<result_type>(x);
 }
 
 } // namespace math

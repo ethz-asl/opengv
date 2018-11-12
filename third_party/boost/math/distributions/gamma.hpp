@@ -28,7 +28,7 @@ inline bool check_gamma_shape(
       RealType shape,
       RealType* result, const Policy& pol)
 {
-   if((shape <= 0) || !(boost::math::isfinite)(shape))
+   if((shape <= 0) || !(std::math::isfinite)(shape))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -44,7 +44,7 @@ inline bool check_gamma_x(
       RealType const& x,
       RealType* result, const Policy& pol)
 {
-   if((x < 0) || !(boost::math::isfinite)(x))
+   if((x < 0) || !(std::math::isfinite)(x))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -77,7 +77,7 @@ public:
       : m_shape(shape), m_scale(scale)
    {
       RealType result;
-      detail::check_gamma("boost::math::gamma_distribution<%1%>::gamma_distribution", scale, shape, &result, Policy());
+      detail::check_gamma("std::math::gamma_distribution<%1%>::gamma_distribution", scale, shape, &result, Policy());
    }
 
    RealType shape()const
@@ -102,7 +102,7 @@ private:
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const gamma_distribution<RealType, Policy>& /* dist */)
 { // Range of permissible values for random variable x.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>());
 }
 
@@ -110,8 +110,8 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> support(const gamma_distribution<RealType, Policy>& /* dist */)
 { // Range of supported values for random variable x.
    // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-   using boost::math::tools::max_value;
-   using boost::math::tools::min_value;
+   using std::math::tools::max_value;
+   using std::math::tools::min_value;
    return std::pair<RealType, RealType>(min_value<RealType>(),  max_value<RealType>());
 }
 
@@ -120,7 +120,7 @@ inline RealType pdf(const gamma_distribution<RealType, Policy>& dist, const Real
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::pdf(const gamma_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::pdf(const gamma_distribution<%1%>&, %1%)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -144,7 +144,7 @@ inline RealType cdf(const gamma_distribution<RealType, Policy>& dist, const Real
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::cdf(const gamma_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(const gamma_distribution<%1%>&, %1%)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -155,7 +155,7 @@ inline RealType cdf(const gamma_distribution<RealType, Policy>& dist, const Real
    if(false == detail::check_gamma_x(function, x, &result, Policy()))
       return result;
 
-   result = boost::math::gamma_p(shape, x / scale, Policy());
+   result = std::math::gamma_p(shape, x / scale, Policy());
    return result;
 } // cdf
 
@@ -164,7 +164,7 @@ inline RealType quantile(const gamma_distribution<RealType, Policy>& dist, const
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::quantile(const gamma_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const gamma_distribution<%1%>&, %1%)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -188,7 +188,7 @@ inline RealType cdf(const complemented2_type<gamma_distribution<RealType, Policy
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::quantile(const gamma_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const gamma_distribution<%1%>&, %1%)";
 
    RealType shape = c.dist.shape();
    RealType scale = c.dist.scale();
@@ -209,7 +209,7 @@ inline RealType quantile(const complemented2_type<gamma_distribution<RealType, P
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::quantile(const gamma_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const gamma_distribution<%1%>&, %1%)";
 
    RealType shape = c.dist.shape();
    RealType scale = c.dist.scale();
@@ -234,7 +234,7 @@ inline RealType mean(const gamma_distribution<RealType, Policy>& dist)
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::mean(const gamma_distribution<%1%>&)";
+   static const char* function = "std::math::mean(const gamma_distribution<%1%>&)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -252,7 +252,7 @@ inline RealType variance(const gamma_distribution<RealType, Policy>& dist)
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::variance(const gamma_distribution<%1%>&)";
+   static const char* function = "std::math::variance(const gamma_distribution<%1%>&)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -270,7 +270,7 @@ inline RealType mode(const gamma_distribution<RealType, Policy>& dist)
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::mode(const gamma_distribution<%1%>&)";
+   static const char* function = "std::math::mode(const gamma_distribution<%1%>&)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -299,7 +299,7 @@ inline RealType skewness(const gamma_distribution<RealType, Policy>& dist)
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::skewness(const gamma_distribution<%1%>&)";
+   static const char* function = "std::math::skewness(const gamma_distribution<%1%>&)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();
@@ -317,7 +317,7 @@ inline RealType kurtosis_excess(const gamma_distribution<RealType, Policy>& dist
 {
    BOOST_MATH_STD_USING  // for ADL of std functions
 
-   static const char* function = "boost::math::kurtosis_excess(const gamma_distribution<%1%>&)";
+   static const char* function = "std::math::kurtosis_excess(const gamma_distribution<%1%>&)";
 
    RealType shape = dist.shape();
    RealType scale = dist.scale();

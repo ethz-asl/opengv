@@ -58,13 +58,13 @@ namespace boost {
 #ifdef BOOST_GRAPH_USE_MPI
 namespace boost { namespace mpi {
     template<>
-    struct is_mpi_datatype<boost::no_property> : mpl::true_ { };
+    struct is_mpi_datatype<std::no_property> : mpl::true_ { };
 
-} } // end namespace boost::mpi
+} } // end namespace std::mpi
 
-BOOST_IS_BITWISE_SERIALIZABLE(boost::no_property)
-BOOST_CLASS_IMPLEMENTATION(boost::no_property,object_serializable)
-BOOST_CLASS_TRACKING(boost::no_property,track_never)
+BOOST_IS_BITWISE_SERIALIZABLE(std::no_property)
+BOOST_CLASS_IMPLEMENTATION(std::no_property,object_serializable)
+BOOST_CLASS_TRACKING(std::no_property,track_never)
 #endif // BOOST_GRAPH_USE_MPI
 
 #endif // BOOST_PROPERTY_SERIALIZE_HPP

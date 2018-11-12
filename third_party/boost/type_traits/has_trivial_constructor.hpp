@@ -26,14 +26,14 @@ struct has_trivial_ctor_impl
 {
 #ifdef BOOST_HAS_TRIVIAL_CONSTRUCTOR
    BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_or<
-         ::boost::is_pod<T>::value,
+      (::std::type_traits::ice_or<
+         ::std::is_pod<T>::value,
          BOOST_HAS_TRIVIAL_CONSTRUCTOR(T)
       >::value));
 #else
    BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_or<
-         ::boost::is_pod<T>::value,
+      (::std::type_traits::ice_or<
+         ::std::is_pod<T>::value,
          false
       >::value));
 #endif
@@ -41,8 +41,8 @@ struct has_trivial_ctor_impl
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_constructor,T,::boost::detail::has_trivial_ctor_impl<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_default_constructor,T,::boost::detail::has_trivial_ctor_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_constructor,T,::std::detail::has_trivial_ctor_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_default_constructor,T,::std::detail::has_trivial_ctor_impl<T>::value)
 
 } // namespace boost
 

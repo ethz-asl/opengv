@@ -1170,15 +1170,15 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::value_type value_type;
         typedef typename M::value_type const_reference;
 #ifndef BOOST_UBLAS_STRICT_HERMITIAN
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::value_type,
                                           typename M::reference>::type reference;
 #else
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::value_type,
                                           hermitian_matrix_element<self_type> >::type reference;
 #endif
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef const self_type const_closure_type;
@@ -1390,11 +1390,11 @@ namespace boost { namespace numeric { namespace ublas {
     private:
         // Use matrix iterator
         typedef typename M::const_iterator1 const_subiterator1_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator1,
                                           typename M::iterator1>::type subiterator1_type;
         typedef typename M::const_iterator2 const_subiterator2_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator2,
                                           typename M::iterator2>::type subiterator2_type;
 

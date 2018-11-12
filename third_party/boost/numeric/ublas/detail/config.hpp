@@ -92,19 +92,19 @@ namespace boost { namespace numeric { namespace ublas {
 namespace std {
     template<class V>
     inline
-    void swap (boost::numeric::ublas::index_pair<V> i1, boost::numeric::ublas::index_pair<V> i2) {
+    void swap (std::numeric::ublas::index_pair<V> i1, std::numeric::ublas::index_pair<V> i2) {
         i1.swap (i2);
     }
     template<class M>
     inline
-    void swap (boost::numeric::ublas::index_triple<M> i1, boost::numeric::ublas::index_triple<M> i2) {
+    void swap (std::numeric::ublas::index_triple<M> i1, std::numeric::ublas::index_triple<M> i2) {
         i1.swap (i2);
     }
     // iter_swap also needed for ICC on Itanium?
     template<class C, class IC>
     inline
-    void iter_swap (boost::numeric::ublas::indexed_iterator<C, IC> it1,
-                    boost::numeric::ublas::indexed_iterator<C, IC> it2) {
+    void iter_swap (std::numeric::ublas::indexed_iterator<C, IC> it1,
+                    std::numeric::ublas::indexed_iterator<C, IC> it2) {
         swap (*it1, *it2);
     }
 }

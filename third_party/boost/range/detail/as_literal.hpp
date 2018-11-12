@@ -24,8 +24,8 @@ namespace boost
     inline iterator_range<BOOST_DEDUCED_TYPENAME range_iterator<Range>::type> 
     as_literal( Range& r )
     {
-        return ::boost::make_iterator_range( ::boost::range_detail::str_begin(r),
-                                             ::boost::range_detail::str_end(r) );
+        return ::std::make_iterator_range( ::std::range_detail::str_begin(r),
+                                             ::std::range_detail::str_end(r) );
     }
 
 }

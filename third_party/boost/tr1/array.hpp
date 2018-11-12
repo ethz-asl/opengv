@@ -25,11 +25,11 @@
 
 namespace std{ namespace tr1{
 
-using ::boost::array;
+using ::std::array;
 
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x0582)
 // [6.1.3.2] Tuple creation functions
-using ::boost::swap;
+using ::std::swap;
 #endif
 
 #if !defined(BOOST_TR1_USE_OLD_TUPLE)
@@ -41,12 +41,12 @@ template <class T> struct tuple_size; // forward declaration
 template <int I, class T> struct tuple_element; // forward declaration
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T, size_t N>
-struct tuple_size< ::boost::array<T, N> >
-   : public ::boost::integral_constant< ::std::size_t, N>{};
+struct tuple_size< ::std::array<T, N> >
+   : public ::std::integral_constant< ::std::size_t, N>{};
 
 
 template <int I, class T, size_t N>
-struct tuple_element<I, ::boost::array<T, N> >
+struct tuple_element<I, ::std::array<T, N> >
 {
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x570))
    BOOST_STATIC_ASSERT(I < (int)N);
@@ -56,7 +56,7 @@ struct tuple_element<I, ::boost::array<T, N> >
 };
 #endif
 template <int I, class T, size_t N>
-T& get( ::boost::array<T, N>& a)
+T& get( ::std::array<T, N>& a)
 {
    BOOST_STATIC_ASSERT(I < N);
    BOOST_STATIC_ASSERT(I >= 0);
@@ -74,9 +74,9 @@ const T& get(const array<T, N>& a)
 #if !defined(BOOST_TR1_USE_OLD_TUPLE)
 }} namespace std{ namespace tr1{
 
-   using ::boost::fusion::tuple_size;
-   using ::boost::fusion::tuple_element;
-   using ::boost::fusion::get;
+   using ::std::fusion::tuple_size;
+   using ::std::fusion::tuple_element;
+   using ::std::fusion::get;
 
 #endif
 

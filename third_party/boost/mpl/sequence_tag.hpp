@@ -109,8 +109,8 @@ template<
     >
 struct sequence_tag
     : aux::sequence_tag_impl<
-          ::boost::mpl::aux::has_tag<Sequence>::value
-        , ::boost::mpl::aux::has_begin<Sequence>::value
+          ::std::mpl::aux::has_tag<Sequence>::value
+        , ::std::mpl::aux::has_begin<Sequence>::value
         >::template result2_<Sequence>
 {
 };

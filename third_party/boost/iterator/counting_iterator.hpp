@@ -29,7 +29,7 @@ namespace detail
   struct is_numeric_impl
   {
       // For a while, this wasn't true, but we rely on it below. This is a regression assert.
-      BOOST_STATIC_ASSERT(::boost::is_integral<char>::value);
+      BOOST_STATIC_ASSERT(::std::is_integral<char>::value);
       
 # ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
       
@@ -40,11 +40,11 @@ namespace detail
 #  if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x551))
       BOOST_STATIC_CONSTANT(
           bool, value = (
-              boost::is_convertible<int,T>::value
-           && boost::is_convertible<T,int>::value
+              std::is_convertible<int,T>::value
+           && std::is_convertible<T,int>::value
       ));
 #  else
-    BOOST_STATIC_CONSTANT(bool, value = ::boost::is_arithmetic<T>::value);
+    BOOST_STATIC_CONSTANT(bool, value = ::std::is_arithmetic<T>::value);
 #  endif
       
 # endif
@@ -52,16 +52,16 @@ namespace detail
 
   template <class T>
   struct is_numeric
-    : mpl::bool_<(::boost::detail::is_numeric_impl<T>::value)>
+    : mpl::bool_<(::std::detail::is_numeric_impl<T>::value)>
   {};
 
 #  if defined(BOOST_HAS_LONG_LONG)
   template <>
-  struct is_numeric< ::boost::long_long_type>
+  struct is_numeric< ::std::long_long_type>
     : mpl::true_ {};
   
   template <>
-  struct is_numeric< ::boost::ulong_long_type>
+  struct is_numeric< ::std::ulong_long_type>
     : mpl::true_ {};
 #  endif
 
@@ -73,7 +73,7 @@ namespace detail
   template <class T>
   struct numeric_difference
   {
-      typedef typename boost::detail::numeric_traits<T>::difference_type type;
+      typedef typename std::detail::numeric_traits<T>::difference_type type;
   };
 
   BOOST_STATIC_ASSERT(is_numeric<int>::value);
@@ -210,6 +210,6 @@ make_counting_iterator(Incrementable x)
 }
 
 
-} // namespace boost::iterator
+} // namespace std::iterator
 
 #endif // COUNTING_ITERATOR_DWA200348_HPP

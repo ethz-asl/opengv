@@ -48,7 +48,7 @@ namespace boost
 
             // Utility metafunction for argument transform
             template< typename T > struct x  { typedef T const& t; };
-            template< typename T > struct x< boost::reference_wrapper<T> >
+            template< typename T > struct x< std::reference_wrapper<T> >
             { typedef T& t; };
             template< typename T > struct x<T&>       : x<T> { };
             template< typename T > struct x<T const&> : x<T> { };
@@ -67,7 +67,7 @@ namespace boost
     }
 
 #   define BOOST_TMP_MACRO(f,fn,fc) \
-        boost::detail::lightweight_forward_adapter_impl< \
+        std::detail::lightweight_forward_adapter_impl< \
             lightweight_forward_adapter<f,Arity_Or_MinArity,MaxArity>, fn, fc, \
             (MaxArity!=-1? MaxArity :Arity_Or_MinArity!=-1? Arity_Or_MinArity \
                 :BOOST_FUNCTIONAL_LIGHTWEIGHT_FORWARD_ADAPTER_MAX_ARITY), \
@@ -146,20 +146,20 @@ namespace boost
     {
         template< class Self >
         struct lightweight_forward_adapter_result::apply< Self() >
-            : boost::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
+            : std::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
         { };
 
         template< class MD, class F, class FC >
         struct lightweight_forward_adapter_impl<MD,F,FC,0,0>
             : lightweight_forward_adapter_result
         {
-            inline typename boost::result_of< FC() >::type
+            inline typename std::result_of< FC() >::type
             operator()() const
             {
                 return static_cast<MD const*>(this)->target_function()();
             }
 
-            inline typename boost::result_of< F() >::type
+            inline typename std::result_of< F() >::type
             operator()()
             {
                 return static_cast<MD*>(this)->target_function()();
@@ -175,24 +175,24 @@ namespace boost
     } // namespace detail
 
     template<class F, int A0, int A1>
-    struct result_of<boost::lightweight_forward_adapter<F,A0,A1> const ()>
-        : boost::detail::lightweight_forward_adapter_result::template apply<
-            boost::lightweight_forward_adapter<F,A0,A1> const () >
+    struct result_of<std::lightweight_forward_adapter<F,A0,A1> const ()>
+        : std::detail::lightweight_forward_adapter_result::template apply<
+            std::lightweight_forward_adapter<F,A0,A1> const () >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::lightweight_forward_adapter<F,A0,A1>()>
-        : boost::detail::lightweight_forward_adapter_result::template apply<
-            boost::lightweight_forward_adapter<F,A0,A1>() >
+    struct result_of<std::lightweight_forward_adapter<F,A0,A1>()>
+        : std::detail::lightweight_forward_adapter_result::template apply<
+            std::lightweight_forward_adapter<F,A0,A1>() >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::lightweight_forward_adapter<F,A0,A1> const& ()>
-        : boost::detail::lightweight_forward_adapter_result::template apply<
-            boost::lightweight_forward_adapter<F,A0,A1> const () >
+    struct result_of<std::lightweight_forward_adapter<F,A0,A1> const& ()>
+        : std::detail::lightweight_forward_adapter_result::template apply<
+            std::lightweight_forward_adapter<F,A0,A1> const () >
     { };
     template<class F, int A0, int A1>
-    struct result_of<boost::lightweight_forward_adapter<F,A0,A1>& ()>
-        : boost::detail::lightweight_forward_adapter_result::template apply<
-            boost::lightweight_forward_adapter<F,A0,A1>() >
+    struct result_of<std::lightweight_forward_adapter<F,A0,A1>& ()>
+        : std::detail::lightweight_forward_adapter_result::template apply<
+            std::lightweight_forward_adapter<F,A0,A1>() >
     { };
 }
 
@@ -204,7 +204,7 @@ namespace boost
         template< class Self, BOOST_PP_ENUM_PARAMS(N,typename T) >
         struct lightweight_forward_adapter_result::apply<
             Self (BOOST_PP_ENUM_PARAMS(N,T)) >
-            : boost::result_of<
+            : std::result_of<
                 BOOST_DEDUCED_TYPENAME c<Self>::t (BOOST_PP_ENUM_BINARY_PARAMS(N,
                     typename x<T,>::t BOOST_PP_INTERCEPT)) >
         { };
@@ -214,7 +214,7 @@ namespace boost
             : lightweight_forward_adapter_result
         {
             template< BOOST_PP_ENUM_PARAMS(N,typename T) >
-            inline typename boost::result_of< F(BOOST_PP_ENUM_BINARY_PARAMS(N,
+            inline typename std::result_of< F(BOOST_PP_ENUM_BINARY_PARAMS(N,
                 T,const& BOOST_PP_INTERCEPT)) >::type
             operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT));
         };

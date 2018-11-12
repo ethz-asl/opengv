@@ -202,7 +202,7 @@ namespace boost { namespace numeric { namespace ublas {
          // Serialization
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /* file_version */){
-            ar & serialization::make_nvp("base", boost::serialization::base_object< std::map<I, T /*, ALLOC */> >(*this));
+            ar & serialization::make_nvp("base", std::serialization::base_object< std::map<I, T /*, ALLOC */> >(*this));
         }
     };
 

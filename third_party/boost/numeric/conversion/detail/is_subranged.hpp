@@ -227,7 +227,7 @@ namespace boost { namespace numeric { namespace convdetail
     typedef typename selected::type type ;
   } ;
 
-} } } // namespace boost::numeric::convdetail
+} } } // namespace std::numeric::convdetail
 
 #endif
 

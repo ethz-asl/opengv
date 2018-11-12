@@ -47,7 +47,7 @@ public:
         }
         catch(...)
         {
-            boost::checked_array_delete(p);
+            std::checked_array_delete(p);
             throw;
         }
 
@@ -57,8 +57,8 @@ public:
 
         if(pn == 0)
         {
-            boost::checked_array_delete(p);
-            boost::throw_exception(std::bad_alloc());
+            std::checked_array_delete(p);
+            std::throw_exception(std::bad_alloc());
         }
 
 #endif
@@ -68,7 +68,7 @@ public:
     {
         if(--*pn == 0)
         {
-            boost::checked_array_delete(px);
+            std::checked_array_delete(px);
             delete pn;
         }
     }

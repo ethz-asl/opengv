@@ -51,7 +51,7 @@ namespace boost { namespace numeric { namespace boundsdetail
     typedef typename mpl::if_<is_int,impl_int,impl_float>::type type ;
   } ;
 
-} } } // namespace boost::numeric::boundsdetail.
+} } } // namespace std::numeric::boundsdetail.
 
 #endif
 //

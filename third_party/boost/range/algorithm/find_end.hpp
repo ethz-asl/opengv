@@ -38,8 +38,8 @@ find_end(ForwardRange1 & rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_end(boost::begin(rng1),boost::end(rng1),
-                         boost::begin(rng2),boost::end(rng2));
+    return std::find_end(std::begin(rng1),std::end(rng1),
+                         std::begin(rng2),std::end(rng2));
 }
 
 /// \overload
@@ -50,8 +50,8 @@ find_end(const ForwardRange1 & rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_end(boost::begin(rng1),boost::end(rng1),
-                         boost::begin(rng2),boost::end(rng2));
+    return std::find_end(std::begin(rng1),std::end(rng1),
+                         std::begin(rng2),std::end(rng2));
 }
 
 /// \overload
@@ -65,8 +65,8 @@ find_end(ForwardRange1 & rng1, const ForwardRange2& rng2, BinaryPredicate pred)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_end(boost::begin(rng1),boost::end(rng1),
-                         boost::begin(rng2),boost::end(rng2),pred);
+    return std::find_end(std::begin(rng1),std::end(rng1),
+                         std::begin(rng2),std::end(rng2),pred);
 }
 
 /// \overload
@@ -77,8 +77,8 @@ find_end(const ForwardRange1& rng1, const ForwardRange2& rng2, BinaryPredicate p
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_end(boost::begin(rng1),boost::end(rng1),
-                         boost::begin(rng2),boost::end(rng2),pred);
+    return std::find_end(std::begin(rng1),std::end(rng1),
+                         std::begin(rng2),std::end(rng2),pred);
 }
 
 /// \overload
@@ -93,8 +93,8 @@ find_end(ForwardRange1& rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<ForwardRange1,re>::
-        pack(std::find_end(boost::begin(rng1), boost::end(rng1),
-                           boost::begin(rng2), boost::end(rng2)),
+        pack(std::find_end(std::begin(rng1), std::end(rng1),
+                           std::begin(rng2), std::end(rng2)),
              rng1);
 }
 
@@ -107,8 +107,8 @@ find_end(const ForwardRange1& rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<const ForwardRange1,re>::
-        pack(std::find_end(boost::begin(rng1), boost::end(rng1),
-                           boost::begin(rng2), boost::end(rng2)),
+        pack(std::find_end(std::begin(rng1), std::end(rng1),
+                           std::begin(rng2), std::end(rng2)),
              rng1);
 }
 
@@ -125,8 +125,8 @@ find_end(ForwardRange1& rng1, const ForwardRange2& rng2, BinaryPredicate pred)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<ForwardRange1,re>::
-        pack(std::find_end(boost::begin(rng1), boost::end(rng1),
-                           boost::begin(rng2), boost::end(rng2), pred),
+        pack(std::find_end(std::begin(rng1), std::end(rng1),
+                           std::begin(rng2), std::end(rng2), pred),
              rng1);
 }
 
@@ -140,8 +140,8 @@ find_end(const ForwardRange1& rng1, const ForwardRange2& rng2, BinaryPredicate p
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<const ForwardRange1,re>::
-        pack(std::find_end(boost::begin(rng1), boost::end(rng1),
-                           boost::begin(rng2), boost::end(rng2), pred),
+        pack(std::find_end(std::begin(rng1), std::end(rng1),
+                           std::begin(rng2), std::end(rng2), pred),
              rng1);
 }
 

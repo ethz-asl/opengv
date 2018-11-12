@@ -25,7 +25,7 @@
   || defined(BOOST_IO_STD) || defined( BOOST_IO_NEEDS_USING_DECLARATION ) \
     || defined(BOOST_NO_TEMPLATE_STD_STREAM) \
     || defined(BOOST_FORMAT_STREAMBUF_DEFINED) || defined(BOOST_FORMAT_OSTREAM_DEFINED)
-#error "boost::format uses a local macro that is already defined."
+#error "std::format uses a local macro that is already defined."
 #endif
 
 // specific workarounds. each header can define BOOS_IO_STD if it 

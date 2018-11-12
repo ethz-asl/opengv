@@ -102,7 +102,7 @@ template<class T> struct sp_typeid_< T const volatile >: sp_typeid_< T >
 
 } // namespace boost
 
-#define BOOST_SP_TYPEID(T) (boost::detail::sp_typeid_<T>::ti_)
+#define BOOST_SP_TYPEID(T) (std::detail::sp_typeid_<T>::ti_)
 
 #else
 

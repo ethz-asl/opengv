@@ -31,17 +31,17 @@ struct has_trivial_copy_impl
    BOOST_STATIC_CONSTANT(bool, value = BOOST_HAS_TRIVIAL_COPY(T));
 #else
    BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_and<
-         ::boost::is_pod<T>::value,
-         ::boost::type_traits::ice_not< ::boost::is_volatile<T>::value >::value
+      (::std::type_traits::ice_and<
+         ::std::is_pod<T>::value,
+         ::std::type_traits::ice_not< ::std::is_volatile<T>::value >::value
       >::value));
 #endif
 };
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_copy,T,::boost::detail::has_trivial_copy_impl<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_copy_constructor,T,::boost::detail::has_trivial_copy_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_copy,T,::std::detail::has_trivial_copy_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_copy_constructor,T,::std::detail::has_trivial_copy_impl<T>::value)
 
 BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_copy,void,false)
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS

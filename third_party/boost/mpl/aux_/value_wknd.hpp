@@ -48,7 +48,7 @@ template<> struct value_wknd<int>
 #else
 #   define BOOST_MPL_AUX_VALUE_WKND(C) C
 #   define BOOST_MPL_AUX_MSVC_VALUE_WKND(C) \
-    ::boost::mpl::aux::value_wknd< C > \
+    ::std::mpl::aux::value_wknd< C > \
 /**/
 #endif
 

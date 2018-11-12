@@ -20,7 +20,7 @@ namespace boost { namespace numeric
     ,float_to_float
   } ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif
 //

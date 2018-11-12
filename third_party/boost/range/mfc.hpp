@@ -135,7 +135,7 @@ namespace boost { namespace range_detail_microsoft {
         { }
 
         explicit mfc_ptr_array_iterator(ArrayT& arr, INT_PTR index) :
-            super_t(index), m_parr(boost::addressof(arr))
+            super_t(index), m_parr(std::addressof(arr))
         { }
 
     template< class, class > friend struct mfc_ptr_array_iterator;
@@ -368,7 +368,7 @@ namespace boost { namespace range_detail_microsoft {
         { }
 
         explicit mfc_map_iterator(MapT const& map, POSITION pos) :
-            m_pmap(boost::addressof(map)), m_posNext(pos)
+            m_pmap(std::addressof(map)), m_posNext(pos)
         {
             increment();
         }
@@ -468,7 +468,7 @@ namespace boost { namespace range_detail_microsoft {
         { }
 
         explicit mfc_cpair_map_iterator(MapT& map, PairT *pp) :
-            m_pmap(boost::addressof(map)), m_pp(pp)
+            m_pmap(std::addressof(map)), m_pp(pp)
         { }
 
     template< class, class > friend struct mfc_cpair_map_iterator;
@@ -753,13 +753,13 @@ namespace boost { namespace range_detail_microsoft {
         template< class Iterator, class X >
         Iterator begin(X& x)
         {
-            return Iterator(boost::begin<BaseClass>(x), fun<X>());
+            return Iterator(std::begin<BaseClass>(x), fun<X>());
         }
 
         template< class Iterator, class X >
         Iterator end(X& x)
         {
-            return Iterator(boost::end<BaseClass>(x), fun<X>());
+            return Iterator(std::end<BaseClass>(x), fun<X>());
         }
     };
 
@@ -831,7 +831,7 @@ namespace boost { namespace range_detail_microsoft {
 #endif // defined(BOOST_RANGE_MFC_HAS_LEGACY_STRING)
 
 
-} } // namespace boost::range_detail_microsoft
+} } // namespace std::range_detail_microsoft
 
 
 
@@ -843,27 +843,27 @@ namespace boost { namespace range_detail_microsoft {
 // arrays
 //
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CByteArray
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CDWordArray
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CStringArray
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CUIntArray
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CWordArray
 )
 
@@ -871,27 +871,27 @@ BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
 // lists
 //
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CObList
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CPtrList
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CStringList
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CObArray
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CPtrArray
 )
 
@@ -899,37 +899,37 @@ BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
 // maps
 //
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapPtrToWord
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapPtrToPtr
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapStringToOb
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapStringToPtr
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapStringToString
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapWordToOb
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMapWordToPtr
 )
 
@@ -937,32 +937,32 @@ BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
 // templates
 //
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CArray, 2
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CList, 2
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CMap, 4
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CTypedPtrArray, 2
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CTypedPtrList, 2
 )
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     BOOST_PP_NIL, CTypedPtrMap, 3
 )
 
@@ -972,7 +972,7 @@ BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
 #if defined(BOOST_RANGE_MFC_HAS_LEGACY_STRING)
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         BOOST_PP_NIL, CString
     )
 

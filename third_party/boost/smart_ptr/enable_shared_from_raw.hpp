@@ -20,12 +20,12 @@
 
 namespace boost
 {
-template<typename T> boost::shared_ptr<T> shared_from_raw(T *);
-template<typename T> boost::weak_ptr<T> weak_from_raw(T *);
+template<typename T> std::shared_ptr<T> shared_from_raw(T *);
+template<typename T> std::weak_ptr<T> weak_from_raw(T *);
 
 namespace detail
 {
-template< class X, class Y > inline void sp_enable_shared_from_this( boost::shared_ptr<X> * ppx, Y const * py, boost::enable_shared_from_raw const * pe );
+template< class X, class Y > inline void sp_enable_shared_from_this( std::shared_ptr<X> * ppx, Y const * py, std::enable_shared_from_raw const * pe );
 
 } // namespace detail
 
@@ -67,9 +67,9 @@ public:
 #else
 private:
     template<class Y> friend class shared_ptr;
-    template<typename T> friend boost::shared_ptr<T> shared_from_raw(T *);
-    template<typename T> friend boost::weak_ptr<T> weak_from_raw(T *);
-    template< class X, class Y > friend inline void detail::sp_enable_shared_from_this( boost::shared_ptr<X> * ppx, Y const * py, boost::enable_shared_from_raw const * pe );
+    template<typename T> friend std::shared_ptr<T> shared_from_raw(T *);
+    template<typename T> friend std::weak_ptr<T> weak_from_raw(T *);
+    template< class X, class Y > friend inline void detail::sp_enable_shared_from_this( std::shared_ptr<X> * ppx, Y const * py, std::enable_shared_from_raw const * pe );
 #endif
 
     shared_ptr<void> shared_from_this()
@@ -97,7 +97,7 @@ private:
         {
             BOOST_ASSERT( ppx->unique() ); // no weak_ptrs should exist either, but there's no way to check that
 
-            detail::esft2_deleter_wrapper * pd = boost::get_deleter<detail::esft2_deleter_wrapper>( shared_this_ );
+            detail::esft2_deleter_wrapper * pd = std::get_deleter<detail::esft2_deleter_wrapper>( shared_this_ );
             BOOST_ASSERT( pd != 0 );
 
             pd->set_deleter( *ppx );
@@ -113,24 +113,24 @@ private:
 };
 
 template<typename T>
-boost::shared_ptr<T> shared_from_raw(T *p)
+std::shared_ptr<T> shared_from_raw(T *p)
 {
     BOOST_ASSERT(p != 0);
-    return boost::shared_ptr<T>(p->enable_shared_from_raw::shared_from_this(), p);
+    return std::shared_ptr<T>(p->enable_shared_from_raw::shared_from_this(), p);
 }
 
 template<typename T>
-boost::weak_ptr<T> weak_from_raw(T *p)
+std::weak_ptr<T> weak_from_raw(T *p)
 {
     BOOST_ASSERT(p != 0);
-    boost::weak_ptr<T> result;
+    std::weak_ptr<T> result;
     result._internal_aliasing_assign(p->enable_shared_from_raw::weak_this_, p);
     return result;
 }
 
 namespace detail
 {
-    template< class X, class Y > inline void sp_enable_shared_from_this( boost::shared_ptr<X> * ppx, Y const * py, boost::enable_shared_from_raw const * pe )
+    template< class X, class Y > inline void sp_enable_shared_from_this( std::shared_ptr<X> * ppx, Y const * py, std::enable_shared_from_raw const * pe )
     {
         if( pe != 0 )
         {

@@ -26,7 +26,7 @@ namespace boost { namespace fusion
     namespace detail
     {
         template<typename Tag1, typename Tag2,
-            bool Tag1Stricter = boost::is_convertible<Tag2,Tag1>::value>
+            bool Tag1Stricter = std::is_convertible<Tag2,Tag1>::value>
         struct stricter_traversal
         {
             typedef Tag1 type;

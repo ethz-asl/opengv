@@ -38,7 +38,7 @@ namespace boost { namespace numeric { namespace ublas {
         return me().size1();
     }
 
-}}} // Namespace boost::numeric::ublas
+}}} // Namespace std::numeric::ublas
 
 
 #endif // BOOST_NUMERIC_UBLAS_OPERATION_NUM_ROWS_HPP

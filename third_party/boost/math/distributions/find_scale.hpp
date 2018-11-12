@@ -11,12 +11,12 @@
 #include <boost/math/distributions/fwd.hpp> // for all distribution signatures.
 #include <boost/math/distributions/complement.hpp>
 #include <boost/math/policies/policy.hpp>
-// using boost::math::policies::policy;
+// using std::math::policies::policy;
 #include <boost/math/tools/traits.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/policies/error_handling.hpp>
-// using boost::math::complement; // will be needed by users who want complement,
+// using std::math::complement; // will be needed by users who want complement,
 // but NOT placed here to avoid putting it in global scope.
 
 namespace boost
@@ -40,22 +40,22 @@ namespace boost
       )
     {
 #if !defined(BOOST_NO_SFINAE) && !BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x590))
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_distribution<Dist>::value); 
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_scaled_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_scaled_distribution<Dist>::value); 
 #endif
-      static const char* function = "boost::math::find_scale<Dist, Policy>(%1%, %1%, %1%, Policy)";
+      static const char* function = "std::math::find_scale<Dist, Policy>(%1%, %1%, %1%, Policy)";
 
-      if(!(boost::math::isfinite)(p) || (p < 0) || (p > 1))
+      if(!(std::math::isfinite)(p) || (p < 0) || (p > 1))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "Probability parameter was %1%, but must be >= 0 and <= 1!", p, pol);
       }
-      if(!(boost::math::isfinite)(z))
+      if(!(std::math::isfinite)(z))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale z parameter was %1%, but must be finite!", z, pol);
       }
-      if(!(boost::math::isfinite)(location))
+      if(!(std::math::isfinite)(location))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale location parameter was %1%, but must be finite!", location, pol);
@@ -112,27 +112,27 @@ namespace boost
       //  << endl;
 
 #if !defined(BOOST_NO_SFINAE) && !BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x590))
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_distribution<Dist>::value); 
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_scaled_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_scaled_distribution<Dist>::value); 
 #endif
-      static const char* function = "boost::math::find_scale<Dist, Policy>(complement(%1%, %1%, %1%, Policy))";
+      static const char* function = "std::math::find_scale<Dist, Policy>(complement(%1%, %1%, %1%, Policy))";
 
       // Checks on arguments, as not complemented version,
       // Explicit policy.
       typename Dist::value_type q = c.param1;
-      if(!(boost::math::isfinite)(q) || (q < 0) || (q > 1))
+      if(!(std::math::isfinite)(q) || (q < 0) || (q > 1))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "Probability parameter was %1%, but must be >= 0 and <= 1!", q, c.param3);
       }
       typename Dist::value_type z = c.dist;
-      if(!(boost::math::isfinite)(z))
+      if(!(std::math::isfinite)(z))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale z parameter was %1%, but must be finite!", z, c.param3);
       }
       typename Dist::value_type location = c.param2;
-      if(!(boost::math::isfinite)(location))
+      if(!(std::math::isfinite)(location))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale location parameter was %1%, but must be finite!", location, c.param3);
@@ -166,27 +166,27 @@ namespace boost
       //  << endl;
 
 #if !defined(BOOST_NO_SFINAE) && !BOOST_WORKAROUND(__SUNPRO_CC, BOOST_TESTED_AT(0x590))
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_distribution<Dist>::value); 
-      BOOST_STATIC_ASSERT(::boost::math::tools::is_scaled_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_distribution<Dist>::value); 
+      BOOST_STATIC_ASSERT(::std::math::tools::is_scaled_distribution<Dist>::value); 
 #endif
-      static const char* function = "boost::math::find_scale<Dist, Policy>(complement(%1%, %1%, %1%, Policy))";
+      static const char* function = "std::math::find_scale<Dist, Policy>(complement(%1%, %1%, %1%, Policy))";
 
       // Checks on arguments, as not complemented version,
       // default policy policies::policy<>().
       typename Dist::value_type q = c.param1;
-      if(!(boost::math::isfinite)(q) || (q < 0) || (q > 1))
+      if(!(std::math::isfinite)(q) || (q < 0) || (q > 1))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "Probability parameter was %1%, but must be >= 0 and <= 1!", q, policies::policy<>());
       }
       typename Dist::value_type z = c.dist;
-      if(!(boost::math::isfinite)(z))
+      if(!(std::math::isfinite)(z))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale z parameter was %1%, but must be finite!", z, policies::policy<>());
       }
       typename Dist::value_type location = c.param2;
-      if(!(boost::math::isfinite)(location))
+      if(!(std::math::isfinite)(location))
       {
         return policies::raise_domain_error<typename Dist::value_type>(
           function, "find_scale location parameter was %1%, but must be finite!", location, policies::policy<>());

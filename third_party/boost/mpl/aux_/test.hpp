@@ -23,7 +23,7 @@
 
 int main()
 {
-    return boost::report_errors();
+    return std::report_errors();
 }
 
 using namespace boost;

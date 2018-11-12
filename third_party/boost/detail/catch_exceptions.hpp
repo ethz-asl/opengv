@@ -124,7 +124,7 @@ namespace boost
       { detail::report_exception( out, "unknown exception", "" ); }
 #endif // BOOST_NO_EXCEPTIONS
 
-    if ( exception_thrown ) result = boost::exit_exception_failure;
+    if ( exception_thrown ) result = std::exit_exception_failure;
 
     if ( result != 0 && result != exit_success )
     {

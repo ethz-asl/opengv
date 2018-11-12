@@ -27,32 +27,32 @@ namespace boost {
 template <class Iterator>
 struct iterator_value
 {
-    typedef typename boost::detail::iterator_traits<Iterator>::value_type type;
+    typedef typename std::detail::iterator_traits<Iterator>::value_type type;
 };
   
 template <class Iterator>
 struct iterator_reference
 {
-    typedef typename boost::detail::iterator_traits<Iterator>::reference type;
+    typedef typename std::detail::iterator_traits<Iterator>::reference type;
 };
   
   
 template <class Iterator>
 struct iterator_pointer
 {
-    typedef typename boost::detail::iterator_traits<Iterator>::pointer type;
+    typedef typename std::detail::iterator_traits<Iterator>::pointer type;
 };
   
 template <class Iterator>
 struct iterator_difference
 {
-    typedef typename boost::detail::iterator_traits<Iterator>::difference_type type;
+    typedef typename std::detail::iterator_traits<Iterator>::difference_type type;
 };
 
 template <class Iterator>
 struct BOOST_ITERATOR_CATEGORY
 {
-    typedef typename boost::detail::iterator_traits<Iterator>::iterator_category type;
+    typedef typename std::detail::iterator_traits<Iterator>::iterator_category type;
 };
 
 # if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
@@ -87,6 +87,6 @@ struct BOOST_ITERATOR_CATEGORY<int>
 };
 # endif
 
-} // namespace boost::iterator
+} // namespace std::iterator
 
 #endif // ITERATOR_TRAITS_DWA200347_HPP

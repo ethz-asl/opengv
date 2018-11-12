@@ -31,7 +31,7 @@ replace(ForwardRange& rng, const Value& what,
         const Value& with_what)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    std::replace(boost::begin(rng), boost::end(rng), what, with_what);
+    std::replace(std::begin(rng), std::end(rng), what, with_what);
     return rng;
 }
 
@@ -42,7 +42,7 @@ replace(const ForwardRange& rng, const Value& what,
         const Value& with_what)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    std::replace(boost::begin(rng), boost::end(rng), what, with_what);
+    std::replace(std::begin(rng), std::end(rng), what, with_what);
     return rng;
 }
 

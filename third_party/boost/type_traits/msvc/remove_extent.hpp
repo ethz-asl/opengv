@@ -32,8 +32,8 @@ namespace boost {
 
     template<typename T>
     struct remove_extent {
-        typedef typename boost::detail::remove_extent_impl_typeof<
-            boost::is_array<T>::value                
+        typedef typename std::detail::remove_extent_impl_typeof<
+            std::is_array<T>::value                
         >::template inner<T,remove_extent<T> >::type type;
         BOOST_MPL_AUX_LAMBDA_SUPPORT(1,remove_extent,T)
     };

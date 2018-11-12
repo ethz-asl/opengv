@@ -22,7 +22,7 @@
 namespace boost { namespace numeric { namespace ublas {
 
     namespace detail {
-        using namespace boost::numeric::ublas;
+        using namespace std::numeric::ublas;
 
         // Matrix resizing algorithm
         template <class L, class T, class M>
@@ -979,10 +979,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef const self_type const_closure_type;
@@ -1140,11 +1140,11 @@ namespace boost { namespace numeric { namespace ublas {
         // Iterator types
    private:
         typedef typename M::const_iterator1 const_subiterator1_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator1,
                                           typename M::iterator1>::type subiterator1_type;
         typedef typename M::const_iterator2 const_subiterator2_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator2,
                                           typename M::iterator2>::type subiterator2_type;
 
@@ -1830,17 +1830,17 @@ namespace boost { namespace numeric { namespace ublas {
 
     template <class M, class TRI>
     struct vector_temporary_traits< triangular_adaptor<M, TRI> >
-    : vector_temporary_traits< typename boost::remove_const<M>::type > {} ;
+    : vector_temporary_traits< typename std::remove_const<M>::type > {} ;
     template <class M, class TRI>
     struct vector_temporary_traits< const triangular_adaptor<M, TRI> >
-    : vector_temporary_traits< typename boost::remove_const<M>::type > {} ;
+    : vector_temporary_traits< typename std::remove_const<M>::type > {} ;
 
     template <class M, class TRI>
     struct matrix_temporary_traits< triangular_adaptor<M, TRI> >
-    : matrix_temporary_traits< typename boost::remove_const<M>::type > {};
+    : matrix_temporary_traits< typename std::remove_const<M>::type > {};
     template <class M, class TRI>
     struct matrix_temporary_traits< const triangular_adaptor<M, TRI> >
-    : matrix_temporary_traits< typename boost::remove_const<M>::type > {};
+    : matrix_temporary_traits< typename std::remove_const<M>::type > {};
 
 
     template<class E1, class E2>

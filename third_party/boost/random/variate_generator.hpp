@@ -51,7 +51,7 @@ template<class Engine, class Distribution>
 class variate_generator
 {
 private:
-    typedef boost::random::detail::ptr_helper<Engine> helper_type;
+    typedef std::random::detail::ptr_helper<Engine> helper_type;
 public:
     typedef typename helper_type::value_type engine_value_type;
     typedef Engine engine_type;

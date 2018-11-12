@@ -11,8 +11,8 @@
 
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
-// using boost::math::isfinite;
-// using boost::math::isnan;
+// using std::math::isfinite;
+// using std::math::isnan;
 
 namespace boost{ namespace math{ namespace detail
 {
@@ -20,7 +20,7 @@ namespace boost{ namespace math{ namespace detail
 template <class RealType, class Policy>
 inline bool check_probability(const char* function, RealType const& prob, RealType* result, const Policy& pol)
 {
-   if((prob < 0) || (prob > 1) || !(boost::math::isfinite)(prob))
+   if((prob < 0) || (prob > 1) || !(std::math::isfinite)(prob))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -33,7 +33,7 @@ inline bool check_probability(const char* function, RealType const& prob, RealTy
 template <class RealType, class Policy>
 inline bool check_df(const char* function, RealType const& df, RealType* result, const Policy& pol)
 { //  df > 0 but NOT +infinity allowed.
-   if((df <= 0) || !(boost::math::isfinite)(df))
+   if((df <= 0) || !(std::math::isfinite)(df))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -46,7 +46,7 @@ inline bool check_df(const char* function, RealType const& df, RealType* result,
 template <class RealType, class Policy>
 inline bool check_df_gt0_to_inf(const char* function, RealType const& df, RealType* result, const Policy& pol)
 {  // df > 0 or +infinity are allowed.
-   if( (df <= 0) || (boost::math::isnan)(df) )
+   if( (df <= 0) || (std::math::isnan)(df) )
    { // is bad df <= 0 or NaN or -infinity.
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -64,7 +64,7 @@ inline bool check_scale(
       RealType* result,
       const Policy& pol)
 {
-   if((scale <= 0) || !(boost::math::isfinite)(scale))
+   if((scale <= 0) || !(std::math::isfinite)(scale))
    { // Assume scale == 0 is NOT valid for any distribution.
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -81,7 +81,7 @@ inline bool check_location(
       RealType* result,
       const Policy& pol)
 {
-   if(!(boost::math::isfinite)(location))
+   if(!(std::math::isfinite)(location))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -98,7 +98,7 @@ inline bool check_x(
       RealType* result,
       const Policy& pol)
 {
-   if(!(boost::math::isfinite)(x))
+   if(!(std::math::isfinite)(x))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -139,7 +139,7 @@ inline bool check_positive_x(
       RealType* result,
       const Policy& pol)
 {
-   if(!(boost::math::isfinite)(x) || (x < 0))
+   if(!(std::math::isfinite)(x) || (x < 0))
    {
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -159,7 +159,7 @@ inline bool check_non_centrality(
       RealType* result,
       const Policy& pol)
 {
-   if((ncp < 0) || !(boost::math::isfinite)(ncp))
+   if((ncp < 0) || !(std::math::isfinite)(ncp))
    { // Assume scale == 0 is NOT valid for any distribution.
       *result = policies::raise_domain_error<RealType>(
          function,
@@ -176,7 +176,7 @@ inline bool check_finite(
       RealType* result,
       const Policy& pol)
 {
-   if(!(boost::math::isfinite)(x))
+   if(!(std::math::isfinite)(x))
    { // Assume scale == 0 is NOT valid for any distribution.
       *result = policies::raise_domain_error<RealType>(
          function,

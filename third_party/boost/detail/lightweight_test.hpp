@@ -60,7 +60,7 @@
 //
 //    Returns the error count
 //
-//  int boost::report_errors()
+//  int std::report_errors()
 //
 
 #include <iostream>
@@ -183,21 +183,21 @@ inline int report_errors()
 
 } // namespace boost
 
-#define BOOST_TEST(expr) ((expr)? (void)0: ::boost::detail::test_failed_impl(#expr, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION))
-#define BOOST_ERROR(msg) ::boost::detail::error_impl(msg, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
-#define BOOST_TEST_EQ(expr1,expr2) ( ::boost::detail::test_eq_impl(#expr1, #expr2, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, expr1, expr2) )
-#define BOOST_TEST_NE(expr1,expr2) ( ::boost::detail::test_ne_impl(#expr1, #expr2, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, expr1, expr2) )
+#define BOOST_TEST(expr) ((expr)? (void)0: ::std::detail::test_failed_impl(#expr, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION))
+#define BOOST_ERROR(msg) ::std::detail::error_impl(msg, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION)
+#define BOOST_TEST_EQ(expr1,expr2) ( ::std::detail::test_eq_impl(#expr1, #expr2, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, expr1, expr2) )
+#define BOOST_TEST_NE(expr1,expr2) ( ::std::detail::test_ne_impl(#expr1, #expr2, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, expr1, expr2) )
 #ifndef BOOST_NO_EXCEPTIONS
    #define BOOST_TEST_THROWS( EXPR, EXCEP )                    \
       try {                                                    \
          EXPR;                                                 \
-         ::boost::detail::throw_failed_impl                    \
+         ::std::detail::throw_failed_impl                    \
          (#EXCEP, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION); \
       }                                                        \
       catch(EXCEP const&) {                                    \
       }                                                        \
       catch(...) {                                             \
-         ::boost::detail::throw_failed_impl                    \
+         ::std::detail::throw_failed_impl                    \
          (#EXCEP, __FILE__, __LINE__, BOOST_CURRENT_FUNCTION); \
       }                                                        \
    //

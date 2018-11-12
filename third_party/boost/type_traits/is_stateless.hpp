@@ -28,18 +28,18 @@ template <typename T>
 struct is_stateless_impl
 {
   BOOST_STATIC_CONSTANT(bool, value = 
-    (::boost::type_traits::ice_and<
-       ::boost::has_trivial_constructor<T>::value,
-       ::boost::has_trivial_copy<T>::value,
-       ::boost::has_trivial_destructor<T>::value,
-       ::boost::is_class<T>::value,
-       ::boost::is_empty<T>::value
+    (::std::type_traits::ice_and<
+       ::std::has_trivial_constructor<T>::value,
+       ::std::has_trivial_copy<T>::value,
+       ::std::has_trivial_destructor<T>::value,
+       ::std::is_class<T>::value,
+       ::std::is_empty<T>::value
      >::value));
 };
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_stateless,T,::boost::detail::is_stateless_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_stateless,T,::std::detail::is_stateless_impl<T>::value)
 
 } // namespace boost
 

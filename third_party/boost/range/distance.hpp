@@ -26,7 +26,7 @@ namespace boost
     inline BOOST_DEDUCED_TYPENAME range_difference<T>::type 
     distance( const T& r )
     {
-        return std::distance( boost::begin( r ), boost::end( r ) );
+        return std::distance( std::begin( r ), std::end( r ) );
     }
 
 } // namespace 'boost'

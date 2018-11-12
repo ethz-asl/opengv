@@ -133,7 +133,7 @@ namespace boost {
     // named "type" that produces the default for TYPE.  See
     // boost/iterator_adaptors.hpp for an example usage.  Also,
     // applications of this macro must be placed in namespace
-    // boost::detail.
+    // std::detail.
 
 #define BOOST_NAMED_TEMPLATE_PARAM(TYPE) \
     struct get_##TYPE##_from_named { \

@@ -21,7 +21,7 @@ struct sign_mixture
                                   ,BOOST_DEDUCED_TYPENAME remove_cv<S>::type
                                 >::type {} ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif
 //

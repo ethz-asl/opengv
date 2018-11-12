@@ -85,7 +85,7 @@ struct node_alloc_holder
    typedef container_detail::integral_constant<unsigned, 1>       allocator_v1;
    typedef container_detail::integral_constant<unsigned, 2>       allocator_v2;
    typedef container_detail::integral_constant<unsigned,
-      boost::container::container_detail::
+      std::container::container_detail::
          version<NodeAlloc>::value>                   alloc_version;
    typedef typename ICont::iterator                   icont_iterator;
    typedef typename ICont::const_iterator             icont_citerator;
@@ -112,7 +112,7 @@ struct node_alloc_holder
    {}
 
    explicit node_alloc_holder(BOOST_RV_REF(node_alloc_holder) x)
-      : members_(boost::move(x.node_alloc()))
+      : members_(std::move(x.node_alloc()))
    {  this->icont().swap(x.icont());  }
 
    //Constructors for associative containers
@@ -130,7 +130,7 @@ struct node_alloc_holder
 
    //helpers for move assignments
    explicit node_alloc_holder(BOOST_RV_REF(node_alloc_holder) x, const Pred &c)
-      : members_(boost::move(x.node_alloc()), c)
+      : members_(std::move(x.node_alloc()), c)
    {  this->icont().swap(x.icont());  }
 
    void copy_assign_alloc(const node_alloc_holder &x)
@@ -168,7 +168,7 @@ struct node_alloc_holder
       Deallocator node_deallocator(p, this->node_alloc());
       allocator_traits<NodeAlloc>::construct
          ( this->node_alloc()
-         , container_detail::addressof(p->m_data), boost::forward<Args>(args)...);
+         , container_detail::addressof(p->m_data), std::forward<Args>(args)...);
       node_deallocator.release();
       //This does not throw
       typedef typename Node::hook_type hook_type;
@@ -204,7 +204,7 @@ struct node_alloc_holder
    {
       NodePtr p = this->allocate_one();
       Deallocator node_deallocator(p, this->node_alloc());
-      ::boost::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), it);
+      ::std::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), it);
       node_deallocator.release();
       //This does not throw
       typedef typename Node::hook_type hook_type;
@@ -233,7 +233,7 @@ struct node_alloc_holder
          /*
          NodePtr p = this->allocate_one();
          Deallocator node_deallocator(p, this->node_alloc());
-         ::boost::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), it);
+         ::std::container::construct_in_place(this->node_alloc(), container_detail::addressof(p->m_data), it);
          node_deallocator.release();
          //This does not throw
          typedef typename Node::hook_type hook_type;
@@ -256,7 +256,7 @@ struct node_alloc_holder
                ++itbeg;
                //This can throw
                Deallocator node_deallocator(p, nalloc);
-               boost::container::construct_in_place(nalloc, container_detail::addressof(p->m_data), beg);
+               std::container::construct_in_place(nalloc, container_detail::addressof(p->m_data), beg);
                ++beg;
                node_deallocator.release();
                //This does not throw
@@ -283,7 +283,7 @@ struct node_alloc_holder
       typename NodeAlloc::multiallocation_chain chain;
       allocator_destroyer_and_chain_builder<NodeAlloc> builder(this->node_alloc(), chain);
       this->icont().clear_and_dispose(builder);
-      //BOOST_STATIC_ASSERT((::boost::has_move_emulation_enabled<typename NodeAlloc::multiallocation_chain>::value == true));
+      //BOOST_STATIC_ASSERT((::std::has_move_emulation_enabled<typename NodeAlloc::multiallocation_chain>::value == true));
       if(!chain.empty())
          this->node_alloc().deallocate_individual(chain);
    }
@@ -340,13 +340,13 @@ struct node_alloc_holder
 
       template<class ConvertibleToAlloc>
       explicit members_holder(BOOST_FWD_REF(ConvertibleToAlloc) c2alloc)
-         :  NodeAlloc(boost::forward<ConvertibleToAlloc>(c2alloc))
+         :  NodeAlloc(std::forward<ConvertibleToAlloc>(c2alloc))
          , m_icont()
       {}
 
       template<class ConvertibleToAlloc>
       members_holder(BOOST_FWD_REF(ConvertibleToAlloc) c2alloc, const Pred &c)
-         :  NodeAlloc(boost::forward<ConvertibleToAlloc>(c2alloc))
+         :  NodeAlloc(std::forward<ConvertibleToAlloc>(c2alloc))
          , m_icont(typename ICont::value_compare(c))
       {}
 

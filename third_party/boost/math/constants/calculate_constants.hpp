@@ -33,7 +33,7 @@ inline T constant_pi<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl::int
    T D = 0.25f;
 
    T lim;
-   lim = boost::math::tools::epsilon<T>();
+   lim = std::math::tools::epsilon<T>();
 
    unsigned k = 1;
 
@@ -48,7 +48,7 @@ inline T constant_pi<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl::int
       B = A - result;
       B = ldexp(B, 1);
       result = A - B;
-      bool neg = boost::math::sign(result) < 0;
+      bool neg = std::math::sign(result) < 0;
       if(neg)
          result = -result;
       if(result <= lim)
@@ -679,8 +679,8 @@ inline T constant_catalan<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl
          break;
       }
    }
-   return boost::math::constants::pi<T, boost::math::policies::policy<> >()
-      * log(2 + boost::math::constants::root_three<T, boost::math::policies::policy<> >())
+   return std::math::constants::pi<T, std::math::policies::policy<> >()
+      * log(2 + std::math::constants::root_three<T, std::math::policies::policy<> >())
        / 8
       + 3 * sum / 8;
 }
@@ -744,7 +744,7 @@ T khinchin(int digits)
       if(term < lim)
          break;
    }
-   return exp(sum / boost::math::constants::ln_two<T, boost::math::policies::policy<> >());
+   return exp(sum / std::math::constants::ln_two<T, std::math::policies::policy<> >());
 }
 
 }
@@ -804,7 +804,7 @@ T zeta_series_derivative_2(unsigned digits)
    // Derivative of the series part, evaluated at 2:
    BOOST_MATH_STD_USING
    int n = digits * 301 * 13 / 10000;
-   boost::math::itrunc((std::numeric_limits<T>::digits10 + 1) * 1.3);
+   std::math::itrunc((std::numeric_limits<T>::digits10 + 1) * 1.3);
    T d = pow(3 + sqrt(T(8)), n);
    d = (d + 1 / d) / 2;
    T b = -1;
@@ -852,7 +852,7 @@ template <class T>
 inline T zeta_series_derivative_lead_2()
 {
    // derivative of lead part at 2:
-   return -2 * boost::math::constants::ln_two<T>();
+   return -2 * std::math::constants::ln_two<T>();
 }
 
 template <class T>
@@ -875,9 +875,9 @@ inline T constant_glaisher<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mp
    int n = N ? (std::min)(N, tools::digits<T>()) : tools::digits<T>();
    T v = detail::zeta_derivative_2<T>(n);
    v *= 6;
-   v /= boost::math::constants::pi<T, forwarding_policy>() * boost::math::constants::pi<T, forwarding_policy>();
-   v -= boost::math::constants::euler<T, forwarding_policy>();
-   v -= log(2 * boost::math::constants::pi<T, forwarding_policy>());
+   v /= std::math::constants::pi<T, forwarding_policy>() * std::math::constants::pi<T, forwarding_policy>();
+   v -= std::math::constants::euler<T, forwarding_policy>();
+   v -= log(2 * std::math::constants::pi<T, forwarding_policy>());
    v /= -12;
    return exp(v);
 

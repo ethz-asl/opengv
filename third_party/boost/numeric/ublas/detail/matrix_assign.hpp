@@ -1209,7 +1209,7 @@ namespace detail {
                                               typename E::const_iterator1::iterator_category,
                                               typename E::const_iterator2::iterator_category>::storage_category storage_category;
         // give preference to matrix M's orientation if known
-        typedef typename boost::mpl::if_<boost::is_same<typename M::orientation_category, unknown_orientation_tag>,
+        typedef typename std::mpl::if_<std::is_same<typename M::orientation_category, unknown_orientation_tag>,
                                           typename E::orientation_category ,
                                           typename M::orientation_category >::type orientation_category;
         typedef basic_full<typename M::size_type> unrestricted;
@@ -1224,7 +1224,7 @@ namespace detail {
                                               typename E::const_iterator1::iterator_category,
                                               typename E::const_iterator2::iterator_category>::storage_category storage_category;
         // give preference to matrix M's orientation if known
-        typedef typename boost::mpl::if_<boost::is_same<typename M::orientation_category, unknown_orientation_tag>,
+        typedef typename std::mpl::if_<std::is_same<typename M::orientation_category, unknown_orientation_tag>,
                                           typename E::orientation_category ,
                                           typename M::orientation_category >::type orientation_category;
         matrix_assign<F, conformant_restrict_type> (m, e, storage_category (), orientation_category ());
@@ -1608,7 +1608,7 @@ namespace detail {
                                             typename E::const_iterator1::iterator_category,
                                             typename E::const_iterator2::iterator_category>::storage_category storage_category;
         // give preference to matrix M's orientation if known
-        typedef typename boost::mpl::if_<boost::is_same<typename M::orientation_category, unknown_orientation_tag>,
+        typedef typename std::mpl::if_<std::is_same<typename M::orientation_category, unknown_orientation_tag>,
                                           typename E::orientation_category ,
                                           typename M::orientation_category >::type orientation_category;
         typedef basic_full<typename M::size_type> unrestricted;
@@ -1622,7 +1622,7 @@ namespace detail {
                                             typename E::const_iterator1::iterator_category,
                                             typename E::const_iterator2::iterator_category>::storage_category storage_category;
         // give preference to matrix M's orientation if known
-        typedef typename boost::mpl::if_<boost::is_same<typename M::orientation_category, unknown_orientation_tag>,
+        typedef typename std::mpl::if_<std::is_same<typename M::orientation_category, unknown_orientation_tag>,
                                           typename E::orientation_category ,
                                           typename M::orientation_category >::type orientation_category;
         matrix_swap<F, conformant_restrict_type> (m, e, storage_category (), orientation_category ());

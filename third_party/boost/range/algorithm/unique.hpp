@@ -32,8 +32,8 @@ unique( ForwardRange& rng )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::
-        pack( std::unique( boost::begin(rng),
-                           boost::end(rng)), rng );
+        pack( std::unique( std::begin(rng),
+                           std::end(rng)), rng );
 }
 
 /// \overload
@@ -43,8 +43,8 @@ unique( const ForwardRange& rng )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::
-        pack( std::unique( boost::begin(rng),
-                           boost::end(rng)), rng );
+        pack( std::unique( std::begin(rng),
+                           std::end(rng)), rng );
 }
 /// \overload
 template< range_return_value re, class ForwardRange, class BinaryPredicate >
@@ -53,7 +53,7 @@ unique( ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     return range_return<ForwardRange,re>::
-        pack(std::unique(boost::begin(rng), boost::end(rng), pred),
+        pack(std::unique(std::begin(rng), std::end(rng), pred),
              rng);
 }
 /// \overload
@@ -63,7 +63,7 @@ unique( const ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     return range_return<const ForwardRange,re>::
-        pack(std::unique(boost::begin(rng), boost::end(rng), pred),
+        pack(std::unique(std::begin(rng), std::end(rng), pred),
              rng);
 }
 
@@ -73,7 +73,7 @@ inline BOOST_DEDUCED_TYPENAME range_return<ForwardRange, return_begin_found>::ty
 unique( ForwardRange& rng )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return ::boost::range::unique<return_begin_found>(rng);
+    return ::std::range::unique<return_begin_found>(rng);
 }
 /// \overload
 template< class ForwardRange >
@@ -81,7 +81,7 @@ inline BOOST_DEDUCED_TYPENAME range_return<const ForwardRange, return_begin_foun
 unique( const ForwardRange& rng )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return ::boost::range::unique<return_begin_found>(rng);
+    return ::std::range::unique<return_begin_found>(rng);
 }
 /// \overload
 template< class ForwardRange, class BinaryPredicate >
@@ -89,7 +89,7 @@ inline BOOST_DEDUCED_TYPENAME range_return<ForwardRange, return_begin_found>::ty
 unique( ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return ::boost::range::unique<return_begin_found>(rng);
+    return ::std::range::unique<return_begin_found>(rng);
 }
 /// \overload
 template< class ForwardRange, class BinaryPredicate >
@@ -97,7 +97,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
 unique( const ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return ::boost::range::unique<return_begin_found>(rng, pred);
+    return ::std::range::unique<return_begin_found>(rng, pred);
 }
 
     } // namespace range

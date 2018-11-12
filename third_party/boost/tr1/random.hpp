@@ -28,13 +28,13 @@
 
 namespace std { namespace tr1{
 
-using ::boost::variate_generator;
+using ::std::variate_generator;
 
 template<class UIntType, UIntType a, UIntType c, UIntType m>
 class linear_congruential
 {
 private:
-   typedef ::boost::random::linear_congruential<UIntType, a, c, m, 0> impl_type;
+   typedef ::std::random::linear_congruential<UIntType, a, c, m, 0> impl_type;
 public:
    // types
    typedef UIntType result_type;
@@ -49,13 +49,13 @@ public:
       : m_gen(that.m_gen){}
    template<class Gen> linear_congruential(Gen& g)
    {
-      init1(g, ::boost::is_same<Gen,linear_congruential>());
+      init1(g, ::std::is_same<Gen,linear_congruential>());
    }
    void seed(unsigned long x0 = 1)
    { m_gen.seed(x0); }
    template<class Gen> void seed(Gen& g)
    { 
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    result_type min BOOST_PREVENT_MACRO_SUBSTITUTION() const
    { return (m_gen.min)(); }
@@ -90,25 +90,25 @@ public:
 
 private:
    template <class Gen>
-   void init1(Gen& g, const ::boost::true_type&)
+   void init1(Gen& g, const ::std::true_type&)
    {
       m_gen = g.m_gen;
    }
    template <class Gen>
-   void init1(Gen& g, const ::boost::false_type&)
+   void init1(Gen& g, const ::std::false_type&)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::true_type&)
+   void init2(Gen& g, const ::std::true_type&)
    {
       m_gen.seed(static_cast<unsigned long>(g));
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::false_type&)
+   void init2(Gen& g, const ::std::false_type&)
    {
       //typedef typename Gen::result_type gen_rt;
-      boost::tr1_details::functor2iterator<Gen, unsigned long> f1(g), f2;
+      std::tr1_details::functor2iterator<Gen, unsigned long> f1(g), f2;
       m_gen.seed(f1, f2);
    }
    impl_type m_gen;
@@ -118,7 +118,7 @@ template<class UIntType, int w, int n, int m, int r,
 UIntType a, int u, int s, UIntType b, int t, UIntType c, int l>
 class mersenne_twister
 {
-   typedef ::boost::random::mersenne_twister
+   typedef ::std::random::mersenne_twister
       <UIntType, w, n, m, r, a, u, s, b, t, c, l, 0> imp_type;
 public:
    // types
@@ -141,14 +141,14 @@ public:
       : m_gen(value == 0 ? 5489UL : value){}
    template<class Gen> mersenne_twister(Gen& g)
    {
-      init1(g, ::boost::is_same<mersenne_twister,Gen>());
+      init1(g, ::std::is_same<mersenne_twister,Gen>());
    }
    void seed()
    { m_gen.seed(); }
    void seed(unsigned long value)
    { m_gen.seed(value == 0 ? 5489UL : value); }
    template<class Gen> void seed(Gen& g)
-   { init2(g, ::boost::is_fundamental<Gen>()); }
+   { init2(g, ::std::is_fundamental<Gen>()); }
    result_type min BOOST_PREVENT_MACRO_SUBSTITUTION() const
    { return (m_gen.min)(); }
    result_type max BOOST_PREVENT_MACRO_SUBSTITUTION() const
@@ -179,22 +179,22 @@ public:
 #endif
 private:
    template <class Gen>
-   void init1(Gen& g, const ::boost::true_type&)
+   void init1(Gen& g, const ::std::true_type&)
    {
       m_gen = g.m_gen;
    }
    template <class Gen>
-   void init1(Gen& g, const ::boost::false_type&)
+   void init1(Gen& g, const ::std::false_type&)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::true_type&)
+   void init2(Gen& g, const ::std::true_type&)
    {
       m_gen.seed(static_cast<unsigned long>(g == 0 ? 4357UL : g));
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::false_type&)
+   void init2(Gen& g, const ::std::false_type&)
    {
       m_gen.seed(g);
    }
@@ -217,11 +217,11 @@ public:
    explicit subtract_with_carry(unsigned long value)
       : m_gen(value == 0 ? 19780503UL : value){}
    template<class Gen> subtract_with_carry(Gen& g)
-   { init1(g, ::boost::is_same<Gen, subtract_with_carry<IntType, m, s, r> >()); }
+   { init1(g, ::std::is_same<Gen, subtract_with_carry<IntType, m, s, r> >()); }
    void seed(unsigned long value = 19780503ul)
    { m_gen.seed(value == 0 ? 19780503UL : value); }
    template<class Gen> void seed(Gen& g)
-   { init2(g, ::boost::is_fundamental<Gen>()); }
+   { init2(g, ::std::is_fundamental<Gen>()); }
    result_type min BOOST_PREVENT_MACRO_SUBSTITUTION() const
    { return (m_gen.min)(); }
    result_type max BOOST_PREVENT_MACRO_SUBSTITUTION() const
@@ -252,26 +252,26 @@ public:
 #endif
 private:
    template <class Gen>
-   void init1(Gen& g, const ::boost::true_type&)
+   void init1(Gen& g, const ::std::true_type&)
    {
       m_gen = g.m_gen;
    }
    template <class Gen>
-   void init1(Gen& g, const ::boost::false_type&)
+   void init1(Gen& g, const ::std::false_type&)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::true_type&)
+   void init2(Gen& g, const ::std::true_type&)
    {
       m_gen.seed(static_cast<unsigned long>(g == 0 ? 19780503UL : g));
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::false_type&)
+   void init2(Gen& g, const ::std::false_type&)
    {
       m_gen.seed(g);
    }
-   ::boost::random::subtract_with_carry<IntType, m, s, r, 0> m_gen;
+   ::std::random::subtract_with_carry<IntType, m, s, r, 0> m_gen;
 };
 
 template<class RealType, int w, int s, int r>
@@ -290,11 +290,11 @@ public:
    explicit subtract_with_carry_01(unsigned long value)
       : m_gen(value == 0 ? 19780503UL : value){}
    template<class Gen> subtract_with_carry_01(Gen& g)
-   { init1(g, ::boost::is_same<Gen, subtract_with_carry_01<RealType, w, s, r> >()); }
+   { init1(g, ::std::is_same<Gen, subtract_with_carry_01<RealType, w, s, r> >()); }
    void seed(unsigned long value = 19780503UL)
    { m_gen.seed(value == 0 ? 19780503UL : value); }
    template<class Gen> void seed(Gen& g)
-   { init2(g, ::boost::is_fundamental<Gen>()); }
+   { init2(g, ::std::is_fundamental<Gen>()); }
    result_type min BOOST_PREVENT_MACRO_SUBSTITUTION() const
    { return (m_gen.min)(); }
    result_type max BOOST_PREVENT_MACRO_SUBSTITUTION() const
@@ -325,31 +325,31 @@ public:
 #endif
 private:
    template <class Gen>
-   void init1(Gen& g, const ::boost::true_type&)
+   void init1(Gen& g, const ::std::true_type&)
    {
       m_gen = g.m_gen;
    }
    template <class Gen>
-   void init1(Gen& g, const ::boost::false_type&)
+   void init1(Gen& g, const ::std::false_type&)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::true_type&)
+   void init2(Gen& g, const ::std::true_type&)
    {
       m_gen.seed(static_cast<unsigned long>(g == 0 ? 19780503UL : g));
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::false_type&)
+   void init2(Gen& g, const ::std::false_type&)
    {
       //typedef typename Gen::result_type gen_rt;
-      boost::tr1_details::functor2iterator<Gen, unsigned long> f1(g), f2;
+      std::tr1_details::functor2iterator<Gen, unsigned long> f1(g), f2;
       m_gen.seed(f1, f2);
    }
-   ::boost::random::subtract_with_carry_01<RealType, w, s, r, 0> m_gen;
+   ::std::random::subtract_with_carry_01<RealType, w, s, r, 0> m_gen;
 };
 
-using ::boost::random::discard_block;
+using ::std::random::discard_block;
 
 template<class UniformRandomNumberGenerator1, int s1, class UniformRandomNumberGenerator2, int s2>
 class xor_combine
@@ -371,7 +371,7 @@ public:
    template<class Gen> xor_combine(Gen& g)
    { 
       init_minmax(); 
-      init1(g, ::boost::is_same<Gen, xor_combine<UniformRandomNumberGenerator1, s1, UniformRandomNumberGenerator2, s2> >());
+      init1(g, ::std::is_same<Gen, xor_combine<UniformRandomNumberGenerator1, s1, UniformRandomNumberGenerator2, s2> >());
    }
    void seed()
    {
@@ -385,7 +385,7 @@ public:
    }
    template<class Gen> void seed(Gen& g)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
 
    const base1_type& base1() const
@@ -430,24 +430,24 @@ private:
    result_type m_max;
 
    template <class Gen>
-   void init1(Gen& g, const ::boost::true_type&)
+   void init1(Gen& g, const ::std::true_type&)
    {
       m_b1 = g.m_b1;
       m_b2 = g.m_b2;
    }
    template <class Gen>
-   void init1(Gen& g, const ::boost::false_type&)
+   void init1(Gen& g, const ::std::false_type&)
    {
-      init2(g, ::boost::is_fundamental<Gen>());
+      init2(g, ::std::is_fundamental<Gen>());
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::true_type&)
+   void init2(Gen& g, const ::std::true_type&)
    {
       m_b1.seed(static_cast<unsigned long>(g));
       m_b2.seed(static_cast<unsigned long>(g));
    }
    template <class Gen>
-   void init2(Gen& g, const ::boost::false_type&)
+   void init2(Gen& g, const ::std::false_type&)
    {
       m_b1.seed(g);
       m_b2.seed(g);
@@ -515,20 +515,20 @@ void xor_combine<UniformRandomNumberGenerator1, s1, UniformRandomNumberGenerator
    m_max = b ^ d;
 }
 
-typedef linear_congruential< ::boost::int32_t, 16807, 0, 2147483647> minstd_rand0;
-typedef linear_congruential< ::boost::int32_t, 48271, 0, 2147483647> minstd_rand;
-typedef mersenne_twister< ::boost::uint32_t, 32,624,397,31,0x9908b0df,11,7,0x9d2c5680,15,0xefc60000,18> mt19937;
+typedef linear_congruential< ::std::int32_t, 16807, 0, 2147483647> minstd_rand0;
+typedef linear_congruential< ::std::int32_t, 48271, 0, 2147483647> minstd_rand;
+typedef mersenne_twister< ::std::uint32_t, 32,624,397,31,0x9908b0df,11,7,0x9d2c5680,15,0xefc60000,18> mt19937;
 typedef subtract_with_carry_01<float, 24, 10, 24> ranlux_base_01;
 typedef subtract_with_carry_01<double, 48, 10, 24> ranlux64_base_01;
-typedef discard_block<subtract_with_carry< ::boost::int32_t, (1<<24), 10, 24>, 223, 24> ranlux3;
-typedef discard_block<subtract_with_carry< ::boost::int32_t, (1<<24), 10, 24>, 389, 24> ranlux4;
+typedef discard_block<subtract_with_carry< ::std::int32_t, (1<<24), 10, 24>, 223, 24> ranlux3;
+typedef discard_block<subtract_with_carry< ::std::int32_t, (1<<24), 10, 24>, 389, 24> ranlux4;
 typedef discard_block<subtract_with_carry_01<float, 24, 10, 24>, 223, 24> ranlux3_01;
 typedef discard_block<subtract_with_carry_01<float, 24, 10, 24>, 389, 24> ranlux4_01;
 
 #ifndef __SUNPRO_CC
-using ::boost::random_device;
+using ::std::random_device;
 #endif
-using ::boost::uniform_int;
+using ::std::uniform_int;
 
 class bernoulli_distribution
 {
@@ -567,16 +567,16 @@ public:
 #endif
 
 private:
-   ::boost::bernoulli_distribution<double> m_dist;
+   ::std::bernoulli_distribution<double> m_dist;
 };
-//using ::boost::bernoulli_distribution;
-using ::boost::geometric_distribution;
-using ::boost::poisson_distribution;
-using ::boost::binomial_distribution;
-using ::boost::uniform_real;
-using ::boost::exponential_distribution;
-using ::boost::normal_distribution;
-using ::boost::gamma_distribution;
+//using ::std::bernoulli_distribution;
+using ::std::geometric_distribution;
+using ::std::poisson_distribution;
+using ::std::binomial_distribution;
+using ::std::uniform_real;
+using ::std::exponential_distribution;
+using ::std::normal_distribution;
+using ::std::gamma_distribution;
 
 } }
 

@@ -56,25 +56,25 @@ inline T bessel_i_small_z_series(T v, T x, const Policy& pol)
    T prefix;
    if(v < max_factorial<T>::value)
    {
-      prefix = pow(x / 2, v) / boost::math::tgamma(v + 1, pol);
+      prefix = pow(x / 2, v) / std::math::tgamma(v + 1, pol);
    }
    else
    {
-      prefix = v * log(x / 2) - boost::math::lgamma(v + 1, pol);
+      prefix = v * log(x / 2) - std::math::lgamma(v + 1, pol);
       prefix = exp(prefix);
    }
    if(prefix == 0)
       return prefix;
 
    cyl_bessel_i_small_z<T, Policy> s(v, x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
    T zero = 0;
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter);
 #endif
-   policies::check_series_iterations<T>("boost::math::bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
    return prefix * result;
 }
 
@@ -88,8 +88,8 @@ int temme_ik(T v, T x, T* K, T* K1, const Policy& pol)
     unsigned long k;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
 
     // |x| <= 2, Temme series converge rapidly
@@ -97,14 +97,14 @@ int temme_ik(T v, T x, T* K, T* K1, const Policy& pol)
     BOOST_ASSERT(abs(x) <= 2);
     BOOST_ASSERT(abs(v) <= 0.5f);
 
-    T gp = boost::math::tgamma1pm1(v, pol);
-    T gm = boost::math::tgamma1pm1(-v, pol);
+    T gp = std::math::tgamma1pm1(v, pol);
+    T gm = std::math::tgamma1pm1(-v, pol);
 
     a = log(x / 2);
     b = exp(v * a);
     sigma = -a * v;
     c = abs(v) < tools::epsilon<T>() ?
-       T(1) : T(boost::math::sin_pi(v) / (v * pi<T>()));
+       T(1) : T(std::math::sin_pi(v) / (v * pi<T>()));
     d = abs(sigma) < tools::epsilon<T>() ?
         T(1) : T(sinh(sigma) / sigma);
     gamma1 = abs(v) < tools::epsilon<T>() ?
@@ -147,7 +147,7 @@ int temme_ik(T v, T x, T* K, T* K1, const Policy& pol)
            break; 
         }
     }
-    policies::check_series_iterations<T>("boost::math::bessel_ik<%1%>(%1%,%1%) in temme_ik", k, pol);
+    policies::check_series_iterations<T>("std::math::bessel_ik<%1%>(%1%,%1%) in temme_ik", k, pol);
 
     *K = sum;
     *K1 = 2 * sum1 / x;
@@ -194,7 +194,7 @@ int CF1_ik(T v, T x, T* fv, const Policy& pol)
         }
     }
     BOOST_MATH_INSTRUMENT_VARIABLE(k);
-    policies::check_series_iterations<T>("boost::math::bessel_ik<%1%>(%1%,%1%) in CF1_ik", k, pol);
+    policies::check_series_iterations<T>("std::math::bessel_ik<%1%>(%1%,%1%) in CF1_ik", k, pol);
 
     *fv = f;
 
@@ -208,7 +208,7 @@ template <typename T, typename Policy>
 int CF2_ik(T v, T x, T* Kv, T* Kv1, const Policy& pol)
 {
     BOOST_MATH_STD_USING
-    using namespace boost::math::constants;
+    using namespace std::math::constants;
 
     T S, C, Q, D, f, a, b, q, delta, tolerance, current, prev;
     unsigned long k;
@@ -259,7 +259,7 @@ int CF2_ik(T v, T x, T* Kv, T* Kv1, const Policy& pol)
            break; 
         }
     }
-    policies::check_series_iterations<T>("boost::math::bessel_ik<%1%>(%1%,%1%) in CF2_ik", k, pol);
+    policies::check_series_iterations<T>("std::math::bessel_ik<%1%>(%1%,%1%) in CF2_ik", k, pol);
 
     *Kv = sqrt(pi<T>() / (2 * x)) * exp(-x) / S;
     *Kv1 = *Kv * (0.5f + v + x + (v * v - 0.25f) * f) / x;
@@ -291,10 +291,10 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
     BOOST_MATH_INSTRUMENT_VARIABLE(kind);
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
-    static const char* function = "boost::math::bessel_ik<%1%>(%1%,%1%)";
+    static const char* function = "std::math::bessel_ik<%1%>(%1%,%1%)";
 
     if (v < 0)
     {
@@ -328,7 +328,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
        if(reflect && (kind & need_i))
        {
            T z = (u + n % 2);
-           Iv = boost::math::sin_pi(z, pol) == 0 ? 
+           Iv = std::math::sin_pi(z, pol) == 0 ? 
                Iv : 
                policies::raise_overflow_error<T>(function, 0, pol);   // reflection formula
        }
@@ -401,7 +401,7 @@ int bessel_ik(T v, T x, T* I, T* K, int kind, const Policy& pol)
     if (reflect)
     {
         T z = (u + n % 2);
-        T fact = (2 / pi<T>()) * (boost::math::sin_pi(z) * Kv);
+        T fact = (2 / pi<T>()) * (std::math::sin_pi(z) * Kv);
         if(fact == 0)
            *I = Iv;
         else if(tools::max_value<T>() * scale < fact)

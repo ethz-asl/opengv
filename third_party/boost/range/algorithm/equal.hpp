@@ -172,9 +172,9 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
 
-            return ::boost::range_detail::equal(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2) );
+            return ::std::range_detail::equal(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2) );
         }
 
         /// \overload
@@ -185,14 +185,14 @@ namespace boost
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
             BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
 
-            return ::boost::range_detail::equal(
-                ::boost::begin(rng1), ::boost::end(rng1),
-                ::boost::begin(rng2), ::boost::end(rng2),
+            return ::std::range_detail::equal(
+                ::std::begin(rng1), ::std::end(rng1),
+                ::std::begin(rng2), ::std::end(rng2),
                 pred);
         }
 
     } // namespace range
-    using ::boost::range::equal;
+    using ::std::range::equal;
 } // namespace boost
 
 #endif // include guard

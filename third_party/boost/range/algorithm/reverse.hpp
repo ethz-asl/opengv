@@ -30,7 +30,7 @@ template<class BidirectionalRange>
 inline BidirectionalRange& reverse(BidirectionalRange& rng)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<BidirectionalRange> ));
-    std::reverse(boost::begin(rng), boost::end(rng));
+    std::reverse(std::begin(rng), std::end(rng));
     return rng;
 }
 
@@ -39,7 +39,7 @@ template<class BidirectionalRange>
 inline const BidirectionalRange& reverse(const BidirectionalRange& rng)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<const BidirectionalRange> ));
-    std::reverse(boost::begin(rng), boost::end(rng));
+    std::reverse(std::begin(rng), std::end(rng));
     return rng;
 }
 

@@ -203,9 +203,9 @@ void destroy(const Type* p)
 #pragma warning(pop)
 #endif
 
-} /* namespace boost::detail::allocator */
+} /* namespace std::detail::allocator */
 
-} /* namespace boost::detail */
+} /* namespace std::detail */
 
 } /* namespace boost */
 

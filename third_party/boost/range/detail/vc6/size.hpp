@@ -109,7 +109,7 @@ namespace boost
             struct inner {
                 static std::size_t fun( const char* s )
                 {
-                    return boost::range_detail::str_size( s );
+                    return std::range_detail::str_size( s );
                 }
             };
         };
@@ -121,7 +121,7 @@ namespace boost
             struct inner {
                 static std::size_t fun( const char* s )
                 {
-                    return boost::range_detail::str_size( s );
+                    return std::range_detail::str_size( s );
                 }
             };
         };
@@ -133,7 +133,7 @@ namespace boost
             struct inner {
                 static std::size_t fun( const wchar_t* s )
                 {
-                    return boost::range_detail::str_size( s );
+                    return std::range_detail::str_size( s );
                 }
             };
         };
@@ -145,7 +145,7 @@ namespace boost
             struct inner {
                 static std::size_t fun( const wchar_t* s )
                 {
-                    return boost::range_detail::str_size( s );
+                    return std::range_detail::str_size( s );
                 }
             };
         };

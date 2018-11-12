@@ -29,7 +29,7 @@ namespace random {
 namespace detail {
 
 template<class RealType, std::size_t bits, class URNG>
-RealType generate_canonical_impl(URNG& g, boost::mpl::true_ /*is_integral*/)
+RealType generate_canonical_impl(URNG& g, std::mpl::true_ /*is_integral*/)
 {
     using std::pow;
     typedef typename URNG::result_type base_result;
@@ -49,7 +49,7 @@ RealType generate_canonical_impl(URNG& g, boost::mpl::true_ /*is_integral*/)
 }
 
 template<class RealType, std::size_t bits, class URNG>
-RealType generate_canonical_impl(URNG& g, boost::mpl::false_ /*is_integral*/)
+RealType generate_canonical_impl(URNG& g, std::mpl::false_ /*is_integral*/)
 {
     using std::pow;
     using std::floor;
@@ -81,7 +81,7 @@ template<class RealType, std::size_t bits, class URNG>
 RealType generate_canonical(URNG& g)
 {
     RealType result = detail::generate_canonical_impl<RealType, bits>(
-        g, boost::is_integral<typename URNG::result_type>());
+        g, std::is_integral<typename URNG::result_type>());
     BOOST_ASSERT(result >= 0);
     BOOST_ASSERT(result <= 1);
     if(result == 1) {

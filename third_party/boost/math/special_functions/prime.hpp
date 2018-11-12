@@ -15,7 +15,7 @@
 namespace boost{ namespace math{
 
    template <class Policy>
-   boost::uint32_t prime(unsigned n, const Policy& pol)
+   std::uint32_t prime(unsigned n, const Policy& pol)
    {
       //
       // This is basically three big tables which together
@@ -28,7 +28,7 @@ namespace boost{ namespace math{
       static const unsigned b1 = 53;
       static const unsigned b2 = 6541;
       static const unsigned b3 = 10000;
-      static const boost::array<unsigned char, 54> a1 = {{
+      static const std::array<unsigned char, 54> a1 = {{
          2u, 3u, 5u, 7u, 11u, 13u, 17u, 19u, 23u, 29u, 31u, 
          37u, 41u, 43u, 47u, 53u, 59u, 61u, 67u, 71u, 73u, 
          79u, 83u, 89u, 97u, 101u, 103u, 107u, 109u, 113u, 
@@ -36,7 +36,7 @@ namespace boost{ namespace math{
          167u, 173u, 179u, 181u, 191u, 193u, 197u, 199u, 
          211u, 223u, 227u, 229u, 233u, 239u, 241u, 251u
       }};
-      static const boost::array<boost::uint16_t, 6488> a2 = {{
+      static const std::array<std::uint16_t, 6488> a2 = {{
          257u, 263u, 269u, 271u, 277u, 281u, 283u, 293u, 
          307u, 311u, 313u, 317u, 331u, 337u, 347u, 349u, 353u, 
          359u, 367u, 373u, 379u, 383u, 389u, 397u, 401u, 409u, 
@@ -759,7 +759,7 @@ namespace boost{ namespace math{
          65323u, 65327u, 65353u, 65357u, 65371u, 65381u, 65393u, 65407u, 65413u, 
          65419u, 65423u, 65437u, 65447u, 65449u, 65479u, 65497u, 65519u, 65521u
       }};
-      static const boost::array<boost::uint16_t, 3458> a3 = {{
+      static const std::array<std::uint16_t, 3458> a3 = {{
          2u, 4u, 8u, 16u, 22u, 28u, 44u, 
          46u, 52u, 64u, 74u, 82u, 94u, 98u, 112u, 
          116u, 122u, 142u, 152u, 164u, 166u, 172u, 178u, 
@@ -1201,15 +1201,15 @@ namespace boost{ namespace math{
          return a2[n - b1 - 1];
       if(n >= b3)
       {
-         return boost::math::policies::raise_domain_error<boost::uint32_t>(
-            "boost::math::prime<%1%>", "Argument n out of range: got %1%", n, pol);
+         return std::math::policies::raise_domain_error<std::uint32_t>(
+            "std::math::prime<%1%>", "Argument n out of range: got %1%", n, pol);
       }
-      return static_cast<boost::uint32_t>(a3[n - b2 - 1]) + 0xFFFFu;
+      return static_cast<std::uint32_t>(a3[n - b2 - 1]) + 0xFFFFu;
    }
 
-   inline boost::uint32_t prime(unsigned n)
+   inline std::uint32_t prime(unsigned n)
    {
-      return boost::math::prime(n, boost::math::policies::policy<>());
+      return std::math::prime(n, std::math::policies::policy<>());
    }
 
    static const unsigned max_prime = 10000;

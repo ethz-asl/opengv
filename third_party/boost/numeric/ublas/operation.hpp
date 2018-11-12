@@ -140,8 +140,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression1_type::const_iterator2 it2 (it1.begin ());
             typename expression1_type::const_iterator2 it2_end (it1.end ());
 #else
-            typename expression1_type::const_iterator2 it2 (boost::numeric::ublas::begin (it1, iterator1_tag ()));
-            typename expression1_type::const_iterator2 it2_end (boost::numeric::ublas::end (it1, iterator1_tag ()));
+            typename expression1_type::const_iterator2 it2 (std::numeric::ublas::begin (it1, iterator1_tag ()));
+            typename expression1_type::const_iterator2 it2_end (std::numeric::ublas::end (it1, iterator1_tag ()));
 #endif
             while (it2 != it2_end) {
                 v (index1) += *it2 * e2 () (it2.index2 ());
@@ -170,8 +170,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression1_type::const_iterator1 it1 (it2.begin ());
             typename expression1_type::const_iterator1 it1_end (it2.end ());
 #else
-            typename expression1_type::const_iterator1 it1 (boost::numeric::ublas::begin (it2, iterator2_tag ()));
-            typename expression1_type::const_iterator1 it1_end (boost::numeric::ublas::end (it2, iterator2_tag ()));
+            typename expression1_type::const_iterator1 it1 (std::numeric::ublas::begin (it2, iterator2_tag ()));
+            typename expression1_type::const_iterator1 it1_end (std::numeric::ublas::end (it2, iterator2_tag ()));
 #endif
             while (it1 != it1_end) {
                 v (it1.index1 ()) += *it1 * e2 () (index2);
@@ -362,8 +362,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression2_type::const_iterator1 it1 (it2.begin ());
             typename expression2_type::const_iterator1 it1_end (it2.end ());
 #else
-            typename expression2_type::const_iterator1 it1 (boost::numeric::ublas::begin (it2, iterator2_tag ()));
-            typename expression2_type::const_iterator1 it1_end (boost::numeric::ublas::end (it2, iterator2_tag ()));
+            typename expression2_type::const_iterator1 it1 (std::numeric::ublas::begin (it2, iterator2_tag ()));
+            typename expression2_type::const_iterator1 it1_end (std::numeric::ublas::end (it2, iterator2_tag ()));
 #endif
             while (it1 != it1_end) {
                 v (index2) += *it1 * e1 () (it1.index1 ());
@@ -392,8 +392,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression2_type::const_iterator2 it2 (it1.begin ());
             typename expression2_type::const_iterator2 it2_end (it1.end ());
 #else
-            typename expression2_type::const_iterator2 it2 (boost::numeric::ublas::begin (it1, iterator1_tag ()));
-            typename expression2_type::const_iterator2 it2_end (boost::numeric::ublas::end (it1, iterator1_tag ()));
+            typename expression2_type::const_iterator2 it2 (std::numeric::ublas::begin (it1, iterator1_tag ()));
+            typename expression2_type::const_iterator2 it2_end (std::numeric::ublas::end (it1, iterator1_tag ()));
 #endif
             while (it2 != it2_end) {
                 v (it2.index2 ()) += *it2 * e1 () (index1);
@@ -550,8 +550,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression1_type::const_iterator2 it2 (it1.begin ());
             typename expression1_type::const_iterator2 it2_end (it1.end ());
 #else
-            typename expression1_type::const_iterator2 it2 (boost::numeric::ublas::begin (it1, iterator1_tag ()));
-            typename expression1_type::const_iterator2 it2_end (boost::numeric::ublas::end (it1, iterator1_tag ()));
+            typename expression1_type::const_iterator2 it2 (std::numeric::ublas::begin (it1, iterator1_tag ()));
+            typename expression1_type::const_iterator2 it2_end (std::numeric::ublas::end (it1, iterator1_tag ()));
 #endif
             while (it2 != it2_end) {
                 // row (m, it1.index1 ()).plus_assign (*it2 * row (e2 (), it2.index2 ()));
@@ -629,8 +629,8 @@ namespace boost { namespace numeric { namespace ublas {
             typename expression2_type::const_iterator1 it1 (it2.begin ());
             typename expression2_type::const_iterator1 it1_end (it2.end ());
 #else
-            typename expression2_type::const_iterator1 it1 (boost::numeric::ublas::begin (it2, iterator2_tag ()));
-            typename expression2_type::const_iterator1 it1_end (boost::numeric::ublas::end (it2, iterator2_tag ()));
+            typename expression2_type::const_iterator1 it1 (std::numeric::ublas::begin (it2, iterator2_tag ()));
+            typename expression2_type::const_iterator1 it1_end (std::numeric::ublas::end (it2, iterator2_tag ()));
 #endif
             while (it1 != it1_end) {
                 // column (m, it2.index2 ()).plus_assign (*it1 * column (e1 (), it1.index1 ()));

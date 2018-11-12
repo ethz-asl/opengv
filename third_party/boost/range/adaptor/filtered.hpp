@@ -21,22 +21,22 @@ namespace boost
     {
         template< class P, class R >
         struct filtered_range :
-            boost::iterator_range<
-                boost::filter_iterator< P,
+            std::iterator_range<
+                std::filter_iterator< P,
                     BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                 >
             >
         {
         private:
-            typedef boost::iterator_range<
-                        boost::filter_iterator< P,
+            typedef std::iterator_range<
+                        std::filter_iterator< P,
                             BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                         >
                     > base;
         public:
             filtered_range( P p, R& r )
-            : base( make_filter_iterator( p, boost::begin(r), boost::end(r) ),
-                    make_filter_iterator( p, boost::end(r), boost::end(r) ) )
+            : base( make_filter_iterator( p, std::begin(r), std::end(r) ),
+                    make_filter_iterator( p, std::end(r), std::end(r) ) )
             { }
         };
 

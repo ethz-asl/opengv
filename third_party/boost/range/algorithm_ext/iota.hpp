@@ -27,8 +27,8 @@ inline ForwardRange& iota( ForwardRange& rng, Value x )
     BOOST_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
     typedef BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type iterator_t;
 
-    iterator_t last_target = ::boost::end(rng);
-    for (iterator_t target = ::boost::begin(rng); target != last_target; ++target, ++x)
+    iterator_t last_target = ::std::end(rng);
+    for (iterator_t target = ::std::begin(rng); target != last_target; ++target, ++x)
         *target = x;
 
     return rng;
@@ -40,8 +40,8 @@ inline const ForwardRange& iota( const ForwardRange& rng, Value x )
     BOOST_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
     typedef BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type iterator_t;
     
-    iterator_t last_target = ::boost::end(rng);
-    for (iterator_t target = ::boost::begin(rng); target != last_target; ++target, ++x)
+    iterator_t last_target = ::std::end(rng);
+    for (iterator_t target = ::std::begin(rng); target != last_target; ++target, ++x)
         *target = x;
     
     return rng;

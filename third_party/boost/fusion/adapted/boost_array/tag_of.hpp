@@ -27,9 +27,9 @@ namespace boost { namespace fusion
     {
         template<typename T, std::size_t N>
 #if defined(BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS)
-        struct tag_of<boost::array<T,N>, void >
+        struct tag_of<std::array<T,N>, void >
 #else
-        struct tag_of<boost::array<T,N> >
+        struct tag_of<std::array<T,N> >
 #endif
         {
             typedef boost_array_tag type;

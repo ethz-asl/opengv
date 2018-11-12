@@ -3,7 +3,7 @@
  boost/numeric/odeint/util/detail/is_range.hpp
 
  [begin_description]
- is_range implementation. Taken from the boost::range library.
+ is_range implementation. Taken from the std::range library.
  [end_description]
 
  Copyright Thorsten Ottosen 2003-2004
@@ -46,7 +46,7 @@ namespace detail
 {
 
 template< typename Range >
-struct is_range : boost::mpl::and_<range_detail::has_iterator<Range>, range_detail::has_const_iterator<Range> >
+struct is_range : std::mpl::and_<range_detail::has_iterator<Range>, range_detail::has_const_iterator<Range> >
 {
 };
 
@@ -55,12 +55,12 @@ struct is_range : boost::mpl::and_<range_detail::has_iterator<Range>, range_deta
 //////////////////////////////////////////////////////////////////////////
 
 template< typename iteratorT >
-struct is_range< std::pair<iteratorT,iteratorT> > : boost::mpl::true_
+struct is_range< std::pair<iteratorT,iteratorT> > : std::mpl::true_
 {
 };
 
 template< typename iteratorT >
-struct is_range< const std::pair<iteratorT,iteratorT> > : boost::mpl::true_
+struct is_range< const std::pair<iteratorT,iteratorT> > : std::mpl::true_
 {
 };
 
@@ -69,12 +69,12 @@ struct is_range< const std::pair<iteratorT,iteratorT> > : boost::mpl::true_
 //////////////////////////////////////////////////////////////////////////
 
 template< typename elementT, std::size_t sz >
-struct is_range< elementT[sz] > : boost::mpl::true_
+struct is_range< elementT[sz] > : std::mpl::true_
 {
 };
 
 template< typename elementT, std::size_t sz >
-struct is_range< const elementT[sz] > : boost::mpl::true_
+struct is_range< const elementT[sz] > : std::mpl::true_
 {
 };
 
@@ -83,42 +83,42 @@ struct is_range< const elementT[sz] > : boost::mpl::true_
 //////////////////////////////////////////////////////////////////////////
 
 template<>
-struct is_range< char* > : boost::mpl::true_
+struct is_range< char* > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< wchar_t* > : boost::mpl::true_
+struct is_range< wchar_t* > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< const char* > : boost::mpl::true_
+struct is_range< const char* > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< const wchar_t* > : boost::mpl::true_
+struct is_range< const wchar_t* > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< char* const > : boost::mpl::true_
+struct is_range< char* const > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< wchar_t* const > : boost::mpl::true_
+struct is_range< wchar_t* const > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< const char* const > : boost::mpl::true_
+struct is_range< const char* const > : std::mpl::true_
 {
 };
 
 template<>
-struct is_range< const wchar_t* const > : boost::mpl::true_
+struct is_range< const wchar_t* const > : std::mpl::true_
 {
 };
 

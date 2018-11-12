@@ -32,7 +32,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<BidirectionalRange>::type
 stable_partition(BidirectionalRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<BidirectionalRange> ));
-    return std::stable_partition(boost::begin(rng), boost::end(rng), pred);
+    return std::stable_partition(std::begin(rng), std::end(rng), pred);
 }
 
 /// \overload
@@ -41,7 +41,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const BidirectionalRange>::type
 stable_partition(const BidirectionalRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<const BidirectionalRange> ));
-    return std::stable_partition(boost::begin(rng),boost::end(rng),pred);
+    return std::stable_partition(std::begin(rng),std::end(rng),pred);
 }
 
 // range_return overloads
@@ -51,7 +51,7 @@ stable_partition(BidirectionalRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<BidirectionalRange> ));
     return range_return<BidirectionalRange,re>::pack(
-        std::stable_partition(boost::begin(rng), boost::end(rng), pred),
+        std::stable_partition(std::begin(rng), std::end(rng), pred),
         rng);
 }
 
@@ -62,7 +62,7 @@ stable_partition(const BidirectionalRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<const BidirectionalRange> ));
     return range_return<const BidirectionalRange,re>::pack(
-        std::stable_partition(boost::begin(rng),boost::end(rng),pred),
+        std::stable_partition(std::begin(rng),std::end(rng),pred),
         rng);
 }
 

@@ -84,7 +84,7 @@ struct is_bind_template_impl<false>
 };
 
 template< typename T > struct is_bind_template
-    : is_bind_template_impl< ::boost::detail::is_reference_impl<T>::value >
+    : is_bind_template_impl< ::std::detail::is_reference_impl<T>::value >
         ::template result_<T>
 {
 };

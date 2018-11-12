@@ -33,7 +33,7 @@ namespace boost
             //
             // Variables come first:
             //
-            boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+            std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
             T errtol = policies::get_epsilon<T, Policy>();
             T d2 = delta * delta / 2;
             //
@@ -67,7 +67,7 @@ namespace boost
             // Backwards recursion first, this is the stable
             // direction for recursion:
             //
-            boost::uintmax_t count = 0;
+            std::uintmax_t count = 0;
             T last_term = 0;
             for(int i = k; i >= 0; --i)
             {
@@ -111,8 +111,8 @@ namespace boost
             //
             // Variables come first:
             //
-            boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-            T errtol = boost::math::policies::get_epsilon<T, Policy>();
+            std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+            T errtol = std::math::policies::get_epsilon<T, Policy>();
             T d2 = delta * delta / 2;
             //
             // k is the starting point for iteration, and is the
@@ -133,7 +133,7 @@ namespace boost
                //
                pois = exp(-d2);
                pois *= pow(d2, static_cast<T>(k));
-               pois /= boost::math::tgamma(T(k + 1 + 0.5), pol);
+               pois /= std::math::tgamma(T(k + 1 + 0.5), pol);
                pois *= delta / constants::root_two<T>();
             }
             else
@@ -169,7 +169,7 @@ namespace boost
             //
             // Fused forward and backwards recursion:
             //
-            boost::uintmax_t count = 0;
+            std::uintmax_t count = 0;
             T last_term = 0;
             for(int i = k + 1, j = k; ; ++i, --j)
             {
@@ -206,7 +206,7 @@ namespace boost
          T non_central_t_cdf(T v, T delta, T t, bool invert, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if (std::math::isinf(v))
             { // Infinite degrees of freedom, so use normal distribution located at delta.
                normal_distribution<T, Policy> n(delta, 1); 
                return cdf(n, t);
@@ -264,7 +264,7 @@ namespace boost
                }
                else
                   result = 0;
-               result += cdf(boost::math::normal_distribution<T, Policy>(), -delta);
+               result += cdf(std::math::normal_distribution<T, Policy>(), -delta);
             }
             else
             {
@@ -279,7 +279,7 @@ namespace boost
                   result /= 2;
                }
                else // x == 0
-                  result = cdf(complement(boost::math::normal_distribution<T, Policy>(), -delta));
+                  result = cdf(complement(std::math::normal_distribution<T, Policy>(), -delta));
             }
             if(invert)
                result = 1 - result;
@@ -320,7 +320,7 @@ namespace boost
 
 
             value_type guess = 0;
-            if ( (boost::math::isinf(v)) || (v > 1 / boost::math::tools::epsilon<T>()) )
+            if ( (std::math::isinf(v)) || (v > 1 / std::math::tools::epsilon<T>()) )
             { // Infinite or very large degrees of freedom, so use normal distribution located at delta.
                normal_distribution<T, Policy> n(delta, 1);
                if (p < q)
@@ -353,10 +353,10 @@ namespace boost
                forwarding_policy());
             int s;
             if(p < q)
-               s = boost::math::sign(p - pzero);
+               s = std::math::sign(p - pzero);
             else
-               s = boost::math::sign(pzero - q);
-            if(s != boost::math::sign(guess))
+               s = std::math::sign(pzero - q);
+            if(s != std::math::sign(guess))
             {
                guess = s;
             }
@@ -379,8 +379,8 @@ namespace boost
             //
             // Variables come first:
             //
-            boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-            T errtol = boost::math::policies::get_epsilon<T, Policy>();
+            std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+            T errtol = std::math::policies::get_epsilon<T, Policy>();
             T d2 = delta * delta / 2;
             //
             // k is the starting point for iteration, and is the
@@ -407,7 +407,7 @@ namespace boost
             // Backwards recursion first, this is the stable
             // direction for recursion:
             //
-            boost::uintmax_t count = 0;
+            std::uintmax_t count = 0;
             for(int i = k; i >= 0; --i)
             {
                T term = xterm * pois;
@@ -447,7 +447,7 @@ namespace boost
          T non_central_t_pdf(T n, T delta, T t, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(n))
+            if (std::math::isinf(n))
             { // Infinite degrees of freedom, so use normal distribution located at delta.
                normal_distribution<T, Policy> n(delta, 1); 
                return pdf(n, t);
@@ -515,15 +515,15 @@ namespace boost
          template <class T, class Policy>
          T mean(T v, T delta, const Policy& pol)
          {
-            if (boost::math::isinf(v))
+            if (std::math::isinf(v))
             {
                return delta;
             }
             BOOST_MATH_STD_USING
-            if (v > 1 / boost::math::tools::epsilon<T>() )
+            if (v > 1 / std::math::tools::epsilon<T>() )
             {
               //normal_distribution<T, Policy> n(delta, 1);
-              //return boost::math::mean(n); 
+              //return std::math::mean(n); 
               return delta;
             }
             else
@@ -536,7 +536,7 @@ namespace boost
          template <class T, class Policy>
          T variance(T v, T delta, const Policy& pol)
          {
-            if (boost::math::isinf(v))
+            if (std::math::isinf(v))
             {
                return 1;
             }
@@ -554,7 +554,7 @@ namespace boost
          T skewness(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if (std::math::isinf(v))
             {
                return 0;
             }
@@ -562,7 +562,7 @@ namespace boost
             { // == Student's t
               return 0;
             }
-            T mean = boost::math::detail::mean(v, delta, pol);
+            T mean = std::math::detail::mean(v, delta, pol);
             T l2 = delta * delta;
             T var = ((l2 + 1) * v) / (v - 2) - mean * mean;
             T result = -2 * var;
@@ -576,7 +576,7 @@ namespace boost
          T kurtosis_excess(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if (std::math::isinf(v))
             {
                return 3;
             }
@@ -584,7 +584,7 @@ namespace boost
             { // == Student's t
               return 3;
             }
-            T mean = boost::math::detail::mean(v, delta, pol);
+            T mean = std::math::detail::mean(v, delta, pol);
             T l2 = delta * delta;
             T var = ((l2 + 1) * v) / (v - 2) - mean * mean;
             T result = -3 * var;
@@ -637,7 +637,7 @@ namespace boost
             }
             t_degrees_of_freedom_finder<RealType, Policy> f(delta, x, p < q ? p : q, p < q ? false : true);
             tools::eps_tolerance<RealType> tol(policies::digits<RealType, Policy>());
-            boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+            std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
             //
             // Pick an initial guess:
             //
@@ -690,7 +690,7 @@ namespace boost
             }
             t_non_centrality_finder<RealType, Policy> f(v, x, p < q ? p : q, p < q ? false : true);
             tools::eps_tolerance<RealType> tol(policies::digits<RealType, Policy>());
-            boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+            std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
             //
             // Pick an initial guess that we know is the right side of
             // zero:
@@ -722,7 +722,7 @@ namespace boost
 
          non_central_t_distribution(RealType v_, RealType lambda) : v(v_), ncp(lambda)
          { 
-            const char* function = "boost::math::non_central_t_distribution<%1%>::non_central_t_distribution(%1%,%1%)";
+            const char* function = "std::math::non_central_t_distribution<%1%>::non_central_t_distribution(%1%,%1%)";
             RealType r;
             detail::check_df_gt0_to_inf(
                function,
@@ -843,7 +843,7 @@ namespace boost
       template <class RealType, class Policy>
       inline const std::pair<RealType, RealType> range(const non_central_t_distribution<RealType, Policy>& /* dist */)
       { // Range of permissible values for random variable k.
-         using boost::math::tools::max_value;
+         using std::math::tools::max_value;
          return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>());
       }
 
@@ -851,7 +851,7 @@ namespace boost
       inline const std::pair<RealType, RealType> support(const non_central_t_distribution<RealType, Policy>& /* dist */)
       { // Range of supported values for random variable k.
          // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-         using boost::math::tools::max_value;
+         using std::math::tools::max_value;
          return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>());
       }
 
@@ -1068,8 +1068,8 @@ namespace boost
       template <class RealType, class Policy>
       RealType cdf(const non_central_t_distribution<RealType, Policy>& dist, const RealType& x)
       { 
-         const char* function = "boost::math::cdf(non_central_t_distribution<%1%>&, %1%)";
-//   was const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
+         const char* function = "std::math::cdf(non_central_t_distribution<%1%>&, %1%)";
+//   was const char* function = "std::math::non_central_t_distribution<%1%>::cdf(%1%)";
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
             Policy, 
@@ -1097,7 +1097,7 @@ namespace boost
             &r,
             Policy()))
                return (RealType)r;
-          if (boost::math::isinf(v))
+          if (std::math::isinf(v))
           { // Infinite degrees of freedom, so use normal distribution located at delta.
              normal_distribution<RealType, Policy> n(l, 1); 
              cdf(n, x);
@@ -1120,8 +1120,8 @@ namespace boost
       template <class RealType, class Policy>
       RealType cdf(const complemented2_type<non_central_t_distribution<RealType, Policy>, RealType>& c)
       { // Complemented Cumulative Distribution Function
-  // was       const char* function = "boost::math::non_central_t_distribution<%1%>::cdf(%1%)";
-         const char* function = "boost::math::cdf(const complement(non_central_t_distribution<%1%>&), %1%)";
+  // was       const char* function = "std::math::non_central_t_distribution<%1%>::cdf(%1%)";
+         const char* function = "std::math::cdf(const complement(non_central_t_distribution<%1%>&), %1%)";
          typedef typename policies::evaluation<RealType, Policy>::type value_type;
          typedef typename policies::normalise<
             Policy, 
@@ -1152,7 +1152,7 @@ namespace boost
             Policy()))
                return (RealType)r;
 
-         if (boost::math::isinf(v))
+         if (std::math::isinf(v))
          { // Infinite degrees of freedom, so use normal distribution located at delta.
              normal_distribution<RealType, Policy> n(l, 1); 
              return cdf(complement(n, x));

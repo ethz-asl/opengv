@@ -59,7 +59,7 @@
       public:
         equation_as_9_3_39_and_its_derivative(const T& zt) : zeta(zt) { }
 
-        boost::math::tuple<T, T> operator()(const T& z) const
+        std::math::tuple<T, T> operator()(const T& z) const
         {
           BOOST_MATH_STD_USING // ADL of std names, needed for acos, sqrt.
 
@@ -75,7 +75,7 @@
 
           const T its_derivative(zsq_minus_one_sqrt / z);
 
-          return boost::math::tuple<T, T>(the_function, its_derivative);
+          return std::math::tuple<T, T>(the_function, its_derivative);
         }
 
       private:
@@ -105,7 +105,7 @@
         // to refine the value of the estimate of the root of z
         // as a function of zeta.
 
-        const T v_pow_third(boost::math::cbrt(v));
+        const T v_pow_third(std::math::cbrt(v));
         const T v_pow_minus_two_thirds(T(1) / (v_pow_third * v_pow_third));
 
         // Obtain zeta using the order v combined with the m'th root of
@@ -116,7 +116,7 @@
 
         // Set up a quadratic equation based on the Taylor series
         // expansion mentioned above.
-        const T b = -((((zeta * zeta_sqrt) * 2U) / 3U) + boost::math::constants::half_pi<T>());
+        const T b = -((((zeta * zeta_sqrt) * 2U) / 3U) + std::math::constants::half_pi<T>());
 
         // Solve the quadratic equation, taking the positive root.
         const T z_estimate = (-b + sqrt((b * b) - T(2))) / 2U;
@@ -132,11 +132,11 @@
 
         const int digits2_for_root = (std::min)(digits2_of_t, std::numeric_limits<double>::digits);
 
-        boost::uintmax_t iteration_count = boost::uintmax_t(std::numeric_limits<T>::digits10 * 2);
+        std::uintmax_t iteration_count = std::uintmax_t(std::numeric_limits<T>::digits10 * 2);
 
         // Calculate the root of z as a function of zeta.
-        const T z = boost::math::tools::newton_raphson_iterate(
-          boost::math::detail::bessel_zero::equation_as_9_3_39_and_its_derivative<T>(zeta),
+        const T z = std::math::tools::newton_raphson_iterate(
+          std::math::detail::bessel_zero::equation_as_9_3_39_and_its_derivative<T>(zeta),
           z_estimate,
           range_zmin,
           range_zmax,
@@ -168,7 +168,7 @@
         template<class T>
         T equation_nist_10_21_40_a(const T& v)
         {
-          const T v_pow_third(boost::math::cbrt(v));
+          const T v_pow_third(std::math::cbrt(v));
           const T v_pow_minus_two_thirds(T(1) / (v_pow_third * v_pow_third));
 
           return v * (((((                         + T(0.043)
@@ -189,7 +189,7 @@
 
           T operator()(const T& x) const
           {
-            return boost::math::cyl_bessel_j(my_v, x, my_pol);
+            return std::math::cyl_bessel_j(my_v, x, my_pol);
           }
 
         private:
@@ -208,7 +208,7 @@
                                                                my_order_is_zero(order_is_zero),
                                                                my_pol(pol) { }
 
-          boost::math::tuple<T, T> operator()(const T& x) const
+          std::math::tuple<T, T> operator()(const T& x) const
           {
             // Obtain Jv(x) and Jv'(x).
             // Chris's original code called the Bessel function implementation layer direct, 
@@ -219,18 +219,18 @@
 
             if(my_order_is_zero)
             {
-              j_v       =  boost::math::cyl_bessel_j(0, x, my_pol);
-              j_v_prime = -boost::math::cyl_bessel_j(1, x, my_pol);
+              j_v       =  std::math::cyl_bessel_j(0, x, my_pol);
+              j_v_prime = -std::math::cyl_bessel_j(1, x, my_pol);
             }
             else
             {
-                      j_v       = boost::math::cyl_bessel_j(  my_v,      x, my_pol);
-              const T j_v_m1     (boost::math::cyl_bessel_j(T(my_v - 1), x, my_pol));
+                      j_v       = std::math::cyl_bessel_j(  my_v,      x, my_pol);
+              const T j_v_m1     (std::math::cyl_bessel_j(T(my_v - 1), x, my_pol));
                       j_v_prime = j_v_m1 - ((my_v * j_v) / x);
             }
 
             // Return a tuple containing both Jv(x) and Jv'(x).
-            return boost::math::make_tuple(j_v, j_v_prime);
+            return std::math::make_tuple(j_v, j_v_prime);
           }
 
         private:
@@ -280,7 +280,7 @@
             // Bessel function whose reflected, positive integer order
             // is less than, but nearest to vv.
 
-            T root_hi = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(vv_floor, m, pol);
+            T root_hi = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(vv_floor, m, pol);
             T root_lo;
 
             if(m == 1)
@@ -289,11 +289,11 @@
               // an adaptive range-searching algorithm.
               root_lo = T(root_hi - 0.1F);
 
-              const bool hi_end_of_bracket_is_negative = (boost::math::cyl_bessel_j(v, root_hi, pol) < 0);
+              const bool hi_end_of_bracket_is_negative = (std::math::cyl_bessel_j(v, root_hi, pol) < 0);
 
-              while((root_lo > boost::math::tools::epsilon<T>()))
+              while((root_lo > std::math::tools::epsilon<T>()))
               {
-                const bool lo_end_of_bracket_is_negative = (boost::math::cyl_bessel_j(v, root_lo, pol) < 0);
+                const bool lo_end_of_bracket_is_negative = (std::math::cyl_bessel_j(v, root_lo, pol) < 0);
 
                 if(hi_end_of_bracket_is_negative != lo_end_of_bracket_is_negative)
                 {
@@ -315,22 +315,22 @@
             }
             else
             {
-              root_lo = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(vv_floor, m - 1, pol);
+              root_lo = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(vv_floor, m - 1, pol);
             }
 
             // Perform several steps of bisection iteration to refine the guess.
-            boost::uintmax_t number_of_iterations(12U);
+            std::uintmax_t number_of_iterations(12U);
 
             // Do the bisection iteration.
-            const boost::math::tuple<T, T> guess_pair =
-               boost::math::tools::bisect(
-                  boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::function_object_jv<T, Policy>(v, pol),
+            const std::math::tuple<T, T> guess_pair =
+               std::math::tools::bisect(
+                  std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::function_object_jv<T, Policy>(v, pol),
                   root_lo,
                   root_hi,
-                  boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::my_bisection_unreachable_tolerance<T>,
+                  std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::my_bisection_unreachable_tolerance<T>,
                   number_of_iterations);
 
-            return (boost::math::get<0>(guess_pair) + boost::math::get<1>(guess_pair)) / 2U;
+            return (std::math::get<0>(guess_pair) + std::math::get<1>(guess_pair)) / 2U;
           }
 
           if(m == 1U)
@@ -355,7 +355,7 @@
             else
             {
               // For larger v, use the first line of Eqs. 10.21.40 in the NIST Handbook.
-              guess = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::equation_nist_10_21_40_a(v);
+              guess = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::equation_nist_10_21_40_a(v);
             }
           }
           else
@@ -363,17 +363,17 @@
             if(v < 2.2F)
             {
               // Use Eq. 10.21.19 in the NIST Handbook.
-              const T a(((v + T(m * 2U)) - T(0.5)) * boost::math::constants::half_pi<T>());
+              const T a(((v + T(m * 2U)) - T(0.5)) * std::math::constants::half_pi<T>());
 
-              guess = boost::math::detail::bessel_zero::equation_nist_10_21_19(v, a);
+              guess = std::math::detail::bessel_zero::equation_nist_10_21_19(v, a);
             }
             else
             {
               // Get an estimate of the m'th root of airy_ai.
-              const T airy_ai_root(boost::math::detail::airy_zero::airy_ai_zero_detail::initial_guess<T>(m));
+              const T airy_ai_root(std::math::detail::airy_zero::airy_ai_zero_detail::initial_guess<T>(m));
 
               // Use Eq. 9.5.26 in the A&S Handbook.
-              guess = boost::math::detail::bessel_zero::equation_as_9_5_26(v, airy_ai_root);
+              guess = std::math::detail::bessel_zero::equation_as_9_5_26(v, airy_ai_root);
             }
           }
 
@@ -386,7 +386,7 @@
         template<class T>
         T equation_nist_10_21_40_b(const T& v)
         {
-          const T v_pow_third(boost::math::cbrt(v));
+          const T v_pow_third(std::math::cbrt(v));
           const T v_pow_minus_two_thirds(T(1) / (v_pow_third * v_pow_third));
 
           return v * (((((                         - T(0.001)
@@ -407,7 +407,7 @@
 
           T operator()(const T& x) const
           {
-            return boost::math::cyl_neumann(my_v, x, my_pol);
+            return std::math::cyl_neumann(my_v, x, my_pol);
           }
 
         private:
@@ -424,9 +424,9 @@
                                           const Policy& pol) : my_v(v),
                                                                my_pol(pol) { }
 
-          boost::math::tuple<T, T> operator()(const T& x) const
+          std::math::tuple<T, T> operator()(const T& x) const
           {
-            const T half_epsilon(boost::math::tools::epsilon<T>() / 2U);
+            const T half_epsilon(std::math::tools::epsilon<T>() / 2U);
 
             const bool order_is_zero = ((my_v > -half_epsilon) && (my_v < +half_epsilon));
 
@@ -439,18 +439,18 @@
 
             if(order_is_zero)
             {
-              y_v       =  boost::math::cyl_neumann(0, x, my_pol);
-              y_v_prime = -boost::math::cyl_neumann(1, x, my_pol);
+              y_v       =  std::math::cyl_neumann(0, x, my_pol);
+              y_v_prime = -std::math::cyl_neumann(1, x, my_pol);
             }
             else
             {
-                      y_v       = boost::math::cyl_neumann(  my_v,      x, my_pol);
-              const T y_v_m1     (boost::math::cyl_neumann(T(my_v - 1), x, my_pol));
+                      y_v       = std::math::cyl_neumann(  my_v,      x, my_pol);
+              const T y_v_m1     (std::math::cyl_neumann(T(my_v - 1), x, my_pol));
                       y_v_prime = y_v_m1 - ((my_v * y_v) / x);
             }
 
             // Return a tuple containing both Yv(x) and Yv'(x).
-            return boost::math::make_tuple(y_v, y_v_prime);
+            return std::math::make_tuple(y_v, y_v_prime);
           }
 
         private:
@@ -498,20 +498,20 @@
               // half-integer orders and use different brackets above and below these.
               if(T(vv - vv_floor) < 0.5F)
               {
-                root_hi = boost::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m, pol);
+                root_hi = std::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m, pol);
               }
               else
               {
-                root_hi = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m, pol);
+                root_hi = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m, pol);
               }
 
               root_lo = T(root_hi - 0.1F);
 
-              const bool hi_end_of_bracket_is_negative = (boost::math::cyl_neumann(v, root_hi, pol) < 0);
+              const bool hi_end_of_bracket_is_negative = (std::math::cyl_neumann(v, root_hi, pol) < 0);
 
-              while((root_lo > boost::math::tools::epsilon<T>()))
+              while((root_lo > std::math::tools::epsilon<T>()))
               {
-                const bool lo_end_of_bracket_is_negative = (boost::math::cyl_neumann(v, root_lo, pol) < 0);
+                const bool lo_end_of_bracket_is_negative = (std::math::cyl_neumann(v, root_lo, pol) < 0);
 
                 if(hi_end_of_bracket_is_negative != lo_end_of_bracket_is_negative)
                 {
@@ -535,33 +535,33 @@
             {
               if(T(vv - vv_floor) < 0.5F)
               {
-                root_lo  = boost::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m - 1, pol);
-                root_hi = boost::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m, pol);
+                root_lo  = std::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m - 1, pol);
+                root_hi = std::math::detail::bessel_zero::cyl_neumann_zero_detail::initial_guess(vv_floor, m, pol);
                 root_lo += 0.01F;
                 root_hi += 0.01F;
               }
               else
               {
-                root_lo = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m - 1, pol);
-                root_hi = boost::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m, pol);
+                root_lo = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m - 1, pol);
+                root_hi = std::math::detail::bessel_zero::cyl_bessel_j_zero_detail::initial_guess(T(vv_floor + 0.5F), m, pol);
                 root_lo += 0.01F;
                 root_hi += 0.01F;
               }
             }
 
             // Perform several steps of bisection iteration to refine the guess.
-            boost::uintmax_t number_of_iterations(12U);
+            std::uintmax_t number_of_iterations(12U);
 
             // Do the bisection iteration.
-            const boost::math::tuple<T, T> guess_pair =
-               boost::math::tools::bisect(
-                  boost::math::detail::bessel_zero::cyl_neumann_zero_detail::function_object_yv<T, Policy>(v, pol),
+            const std::math::tuple<T, T> guess_pair =
+               std::math::tools::bisect(
+                  std::math::detail::bessel_zero::cyl_neumann_zero_detail::function_object_yv<T, Policy>(v, pol),
                   root_lo,
                   root_hi,
-                  boost::math::detail::bessel_zero::cyl_neumann_zero_detail::my_bisection_unreachable_tolerance<T>,
+                  std::math::detail::bessel_zero::cyl_neumann_zero_detail::my_bisection_unreachable_tolerance<T>,
                   number_of_iterations);
 
-            return (boost::math::get<0>(guess_pair) + boost::math::get<1>(guess_pair)) / 2U;
+            return (std::math::get<0>(guess_pair) + std::math::get<1>(guess_pair)) / 2U;
           }
 
           if(m == 1U)
@@ -586,7 +586,7 @@
             else
             {
               // For larger v, use the second line of Eqs. 10.21.40 in the NIST Handbook.
-              guess = boost::math::detail::bessel_zero::cyl_neumann_zero_detail::equation_nist_10_21_40_b(v);
+              guess = std::math::detail::bessel_zero::cyl_neumann_zero_detail::equation_nist_10_21_40_b(v);
             }
           }
           else
@@ -594,17 +594,17 @@
             if(v < 2.2F)
             {
               // Use Eq. 10.21.19 in the NIST Handbook.
-              const T a(((v + T(m * 2U)) - T(1.5)) * boost::math::constants::half_pi<T>());
+              const T a(((v + T(m * 2U)) - T(1.5)) * std::math::constants::half_pi<T>());
 
-              guess = boost::math::detail::bessel_zero::equation_nist_10_21_19(v, a);
+              guess = std::math::detail::bessel_zero::equation_nist_10_21_19(v, a);
             }
             else
             {
               // Get an estimate of the m'th root of airy_bi.
-              const T airy_bi_root(boost::math::detail::airy_zero::airy_bi_zero_detail::initial_guess<T>(m));
+              const T airy_bi_root(std::math::detail::airy_zero::airy_bi_zero_detail::initial_guess<T>(m));
 
               // Use Eq. 9.5.26 in the A&S Handbook.
-              guess = boost::math::detail::bessel_zero::equation_as_9_5_26(v, airy_bi_root);
+              guess = std::math::detail::bessel_zero::equation_as_9_5_26(v, airy_bi_root);
             }
           }
 
@@ -612,6 +612,6 @@
         }
       } // namespace cyl_neumann_zero_detail
     } // namespace bessel_zero
-  } } } // namespace boost::math::detail
+  } } } // namespace std::math::detail
 
 #endif // _BESSEL_JY_ZERO_2013_01_18_HPP_

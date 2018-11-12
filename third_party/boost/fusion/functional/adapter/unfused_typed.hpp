@@ -82,25 +82,25 @@ namespace boost
 {
 #if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
     template<class F, class Seq>
-    struct result_of< boost::fusion::unfused_typed<F,Seq> const () >
-        : boost::fusion::unfused_typed<F,Seq>::template result< 
-            boost::fusion::unfused_typed<F,Seq> const () >
+    struct result_of< std::fusion::unfused_typed<F,Seq> const () >
+        : std::fusion::unfused_typed<F,Seq>::template result< 
+            std::fusion::unfused_typed<F,Seq> const () >
     { };
     template<class F, class Seq>
-    struct result_of< boost::fusion::unfused_typed<F,Seq>() >
-        : boost::fusion::unfused_typed<F,Seq>::template result< 
-            boost::fusion::unfused_typed<F,Seq> () >
+    struct result_of< std::fusion::unfused_typed<F,Seq>() >
+        : std::fusion::unfused_typed<F,Seq>::template result< 
+            std::fusion::unfused_typed<F,Seq> () >
     { };
 #endif
     template<class F, class Seq>
-    struct tr1_result_of< boost::fusion::unfused_typed<F,Seq> const () >
-        : boost::fusion::unfused_typed<F,Seq>::template result< 
-            boost::fusion::unfused_typed<F,Seq> const () >
+    struct tr1_result_of< std::fusion::unfused_typed<F,Seq> const () >
+        : std::fusion::unfused_typed<F,Seq>::template result< 
+            std::fusion::unfused_typed<F,Seq> const () >
     { };
     template<class F, class Seq>
-    struct tr1_result_of< boost::fusion::unfused_typed<F,Seq>() >
-        : boost::fusion::unfused_typed<F,Seq>::template result< 
-            boost::fusion::unfused_typed<F,Seq> () >
+    struct tr1_result_of< std::fusion::unfused_typed<F,Seq>() >
+        : std::fusion::unfused_typed<F,Seq>::template result< 
+            std::fusion::unfused_typed<F,Seq> () >
     { };
 }
 
@@ -129,7 +129,7 @@ namespace boost
 #define M(z,i,s)                                                                \
     typename call_param<typename result_of::value_at_c<s,i>::type>::type a##i
 
-            inline typename boost::result_of< 
+            inline typename std::result_of< 
                 function_c(arg_vector_t &) >::type
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) const
             {
@@ -141,7 +141,7 @@ namespace boost
                 return static_cast<Derived const *>(this)->fnc_transformed(arg);
             }
 
-            inline typename boost::result_of<
+            inline typename std::result_of<
                 function(arg_vector_t &) >::type 
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) 
             {
@@ -159,12 +159,12 @@ namespace boost
 
             template <class Self BOOST_PP_ENUM_TRAILING_PARAMS(N,typename T)>
             struct result< Self const (BOOST_PP_ENUM_PARAMS(N,T)) >
-                : boost::result_of< function_c(arg_vector_t &) > 
+                : std::result_of< function_c(arg_vector_t &) > 
             { };
 
             template <class Self BOOST_PP_ENUM_TRAILING_PARAMS(N,typename T)>
             struct result< Self (BOOST_PP_ENUM_PARAMS(N,T)) >
-                : boost::result_of< function(arg_vector_t &) >
+                : std::result_of< function(arg_vector_t &) >
             { };
         };
 

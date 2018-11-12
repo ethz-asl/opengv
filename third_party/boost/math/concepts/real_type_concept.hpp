@@ -106,12 +106,12 @@ struct RealTypeConcept
       int i;
       r2 = ldexp(r, i);
       r2 = frexp(r, &i);
-      i = boost::math::tools::digits<RealType>();
-      r2 = boost::math::tools::max_value<RealType>();
-      r2 = boost::math::tools::min_value<RealType>();
-      r2 = boost::math::tools::log_max_value<RealType>();
-      r2 = boost::math::tools::log_min_value<RealType>();
-      r2 = boost::math::tools::epsilon<RealType>();
+      i = std::math::tools::digits<RealType>();
+      r2 = std::math::tools::max_value<RealType>();
+      r2 = std::math::tools::min_value<RealType>();
+      r2 = std::math::tools::log_max_value<RealType>();
+      r2 = std::math::tools::log_min_value<RealType>();
+      r2 = std::math::tools::epsilon<RealType>();
    }
 }; // struct DistributionConcept
 

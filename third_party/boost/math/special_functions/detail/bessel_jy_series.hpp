@@ -50,25 +50,25 @@ inline T bessel_j_small_z_series(T v, T x, const Policy& pol)
    T prefix;
    if(v < max_factorial<T>::value)
    {
-      prefix = pow(x / 2, v) / boost::math::tgamma(v+1, pol);
+      prefix = pow(x / 2, v) / std::math::tgamma(v+1, pol);
    }
    else
    {
-      prefix = v * log(x / 2) - boost::math::lgamma(v+1, pol);
+      prefix = v * log(x / 2) - std::math::lgamma(v+1, pol);
       prefix = exp(prefix);
    }
    if(0 == prefix)
       return prefix;
 
    bessel_j_small_z_series_term<T, Policy> s(v, x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
    T zero = 0;
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter);
 #endif
-   policies::check_series_iterations<T>("boost::math::bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::bessel_j_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
    return prefix * result;
 }
 
@@ -147,7 +147,7 @@ inline T bessel_y_small_z_series(T v, T x, T* pscale, const Policy& pol)
    bool need_logs = (v >= max_factorial<T>::value) || (tools::log_max_value<T>() / v < fabs(p));
    if(!need_logs)
    {
-      gam = boost::math::tgamma(v, pol);
+      gam = std::math::tgamma(v, pol);
       p = pow(x / 2, v);
       if(tools::max_value<T>() * p < gam)
       {
@@ -162,7 +162,7 @@ inline T bessel_y_small_z_series(T v, T x, T* pscale, const Policy& pol)
    }
    else
    {
-      gam = boost::math::lgamma(v, pol);
+      gam = std::math::lgamma(v, pol);
       p = v * p;
       prefix = gam - log(constants::pi<T>()) - p;
       if(tools::log_max_value<T>() < prefix)
@@ -177,33 +177,33 @@ inline T bessel_y_small_z_series(T v, T x, T* pscale, const Policy& pol)
       prefix = -exp(prefix);
    }
    bessel_y_small_z_series_term_a<T, Policy> s(v, x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
    *pscale = scale;
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
    T zero = 0;
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
+   T result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter);
 #endif
-   policies::check_series_iterations<T>("boost::math::bessel_y_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::bessel_y_small_z_series<%1%>(%1%,%1%)", max_iter, pol);
    result *= prefix;
 
    if(!need_logs)
    {
-      prefix = boost::math::tgamma(-v, pol) * boost::math::cos_pi(v) * p / constants::pi<T>();
+      prefix = std::math::tgamma(-v, pol) * std::math::cos_pi(v) * p / constants::pi<T>();
    }
    else
    {
       int s;
-      prefix = boost::math::lgamma(-v, &s, pol) + p;
+      prefix = std::math::lgamma(-v, &s, pol) + p;
       prefix = exp(prefix) * s / constants::pi<T>();
    }
    bessel_y_small_z_series_term_b<T, Policy> s2(v, x);
    max_iter = policies::get_max_series_iterations<Policy>();
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
-   T b = boost::math::tools::sum_series(s2, boost::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
+   T b = std::math::tools::sum_series(s2, std::math::policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T b = boost::math::tools::sum_series(s2, boost::math::policies::get_epsilon<T, Policy>(), max_iter);
+   T b = std::math::tools::sum_series(s2, std::math::policies::get_epsilon<T, Policy>(), max_iter);
 #endif
    result -= scale * prefix * b;
    return result;
@@ -240,7 +240,7 @@ T bessel_yn_small_z(int n, T z, T* scale, const Policy& pol)
    else
    {
       T p = pow(z / 2, n);
-      T result = -((boost::math::factorial<T>(n - 1) / constants::pi<T>()));
+      T result = -((std::math::factorial<T>(n - 1) / constants::pi<T>()));
       if(p * tools::max_value<T>() < result)
       {
          T div = tools::max_value<T>() / 8;

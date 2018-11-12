@@ -28,7 +28,7 @@ inline typename tools::promote_args<T>::type sqrt1pm1(const T& val, const Policy
 
    if(fabs(result_type(val)) > 0.75)
       return sqrt(1 + result_type(val)) - 1;
-   return boost::math::expm1(boost::math::log1p(val, pol) / 2, pol);
+   return std::math::expm1(std::math::log1p(val, pol) / 2, pol);
 }
 
 template <class T>

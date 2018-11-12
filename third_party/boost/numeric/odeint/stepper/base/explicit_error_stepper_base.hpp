@@ -143,7 +143,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateInOut , class DerivIn >
-    typename boost::disable_if< boost::is_same< DerivIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< DerivIn , time_type > , void >::type
     do_step( System system , StateInOut &x , const DerivIn &dxdt , time_type t , time_type dt )
     {
         this->stepper().do_step_impl( system , x , dxdt , t , x , dt );
@@ -158,7 +158,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateIn , class StateOut >
-    typename boost::disable_if< boost::is_same< StateIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< StateIn , time_type > , void >::type
     do_step( System system , const StateIn &in , time_type t , StateOut &out , time_type dt )
     {
         typename odeint::unwrap_reference< System >::type &sys = system;
@@ -175,7 +175,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateIn , class DerivIn , class StateOut >
-    typename boost::disable_if< boost::is_same< DerivIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< DerivIn , time_type > , void >::type
     do_step( System system , const StateIn &in , const DerivIn &dxdt , time_type t , StateOut &out , time_type dt )
     {
         this->stepper().do_step_impl( system , in , dxdt , t , out , dt );
@@ -214,7 +214,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateInOut , class DerivIn , class Err >
-    typename boost::disable_if< boost::is_same< DerivIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< DerivIn , time_type > , void >::type
     do_step( System system , StateInOut &x , const DerivIn &dxdt , time_type t , time_type dt , Err &xerr )
     {
         this->stepper().do_step_impl( system , x , dxdt , t , x , dt , xerr );
@@ -346,7 +346,7 @@ protected:
  *      the error during the step. Furthermore, the derivative at `t` must be passed in `dxdt`.
  *
  * \note The system is always passed as value, which might result in poor performance if it contains data. In this
- *      case it can be used with `boost::ref` or `std::ref`, for example `stepper.do_step( boost::ref( sys ) , x , t , dt );`
+ *      case it can be used with `std::ref` or `std::ref`, for example `stepper.do_step( std::ref( sys ) , x , t , dt );`
  *
  * \note The time `t` is not advanced by the stepper. This has to done manually, or by the appropriate `integrate`
  *      routines or `iterator`s.

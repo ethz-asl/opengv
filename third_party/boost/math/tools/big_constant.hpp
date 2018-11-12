@@ -31,7 +31,7 @@ inline BOOST_CONSTEXPR_OR_CONST T make_big_value(long double v, const char*, mpl
 template <class T>
 inline T make_big_value(long double, const char* s, mpl::false_ const&, mpl::false_ const&)
 {
-   return boost::lexical_cast<T>(s);
+   return std::lexical_cast<T>(s);
 }
 #endif
 template <class T>
@@ -44,7 +44,7 @@ inline BOOST_CONSTEXPR const char* make_big_value(long double, const char* s, mp
 // For constants which might fit in a long double (if it's big enough):
 //
 #define BOOST_MATH_BIG_CONSTANT(T, D, x)\
-   boost::math::tools::make_big_value<T>(\
+   std::math::tools::make_big_value<T>(\
       BOOST_JOIN(x, L), \
       BOOST_STRINGIZE(x), \
       mpl::bool_< (is_convertible<long double, T>::value) && \
@@ -52,12 +52,12 @@ inline BOOST_CONSTEXPR const char* make_big_value(long double, const char* s, mp
           || is_floating_point<T>::value \
           || (std::numeric_limits<T>::is_specialized && \
              (std::numeric_limits<T>::digits10 <= std::numeric_limits<long double>::digits10))) >(), \
-      boost::is_convertible<const char*, T>())
+      std::is_convertible<const char*, T>())
 //
 // For constants too huge for any conceivable long double (and which generate compiler errors if we try and declare them as such):
 //
 #define BOOST_MATH_HUGE_CONSTANT(T, D, x)\
-   boost::math::tools::make_big_value<T>(0.0L, BOOST_STRINGIZE(x), mpl::bool_<is_floating_point<T>::value || (std::numeric_limits<T>::is_specialized && std::numeric_limits<T>::max_exponent <= std::numeric_limits<long double>::max_exponent)>(), boost::is_convertible<const char*, T>())
+   std::math::tools::make_big_value<T>(0.0L, BOOST_STRINGIZE(x), mpl::bool_<is_floating_point<T>::value || (std::numeric_limits<T>::is_specialized && std::numeric_limits<T>::max_exponent <= std::numeric_limits<long double>::max_exponent)>(), std::is_convertible<const char*, T>())
 
 }}} // namespaces
 

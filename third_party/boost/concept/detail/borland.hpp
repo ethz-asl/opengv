@@ -22,9 +22,9 @@ struct require<void(*)(Model)>
   enum                                                  \
   {                                                     \
       BOOST_PP_CAT(boost_concept_check,__LINE__) =      \
-      boost::concepts::require<ModelFnPtr>::instantiate  \
+      std::concepts::require<ModelFnPtr>::instantiate  \
   }
 
-}} // namespace boost::concept
+}} // namespace std::concept
 
 #endif // BOOST_CONCEPT_DETAIL_BORLAND_DWA2006429_HPP

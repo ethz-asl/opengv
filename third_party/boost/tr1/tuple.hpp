@@ -26,29 +26,29 @@
 
 namespace std{ namespace tr1{
 
-using ::boost::tuple;
+using ::std::tuple;
 
 // [6.1.3.2] Tuple creation functions
-using ::boost::tuples::ignore;
-using ::boost::make_tuple;
-using ::boost::tie;
+using ::std::tuples::ignore;
+using ::std::make_tuple;
+using ::std::tie;
 
 // [6.1.3.3] Tuple helper classes
 template <class T> 
 struct tuple_size 
-   : public ::boost::integral_constant
-   < ::std::size_t, ::boost::tuples::length<T>::value>
+   : public ::std::integral_constant
+   < ::std::size_t, ::std::tuples::length<T>::value>
 {};
 
 template < int I, class T>
 struct tuple_element
 {
-   typedef typename boost::tuples::element<I,T>::type type;
+   typedef typename std::tuples::element<I,T>::type type;
 };
 
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x0582)
 // [6.1.3.4] Element access
-using ::boost::get;
+using ::std::get;
 #endif
 
 } } // namespaces
@@ -60,17 +60,17 @@ using ::boost::get;
 
 namespace std{ namespace tr1{
 
-using ::boost::fusion::tuple;
+using ::std::fusion::tuple;
 
 // [6.1.3.2] Tuple creation functions
-using ::boost::fusion::ignore;
-using ::boost::fusion::make_tuple;
-using ::boost::fusion::tie;
-using ::boost::fusion::get;
+using ::std::fusion::ignore;
+using ::std::fusion::make_tuple;
+using ::std::fusion::tie;
+using ::std::fusion::get;
 
 // [6.1.3.3] Tuple helper classes
-using ::boost::fusion::tuple_size;
-using ::boost::fusion::tuple_element;
+using ::std::fusion::tuple_size;
+using ::std::fusion::tuple_element;
 
 }}
 

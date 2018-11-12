@@ -41,7 +41,7 @@ struct dummyT {
 
 }
 
-BOOST_TT_BROKEN_COMPILER_SPEC(boost::dummyT)
+BOOST_TT_BROKEN_COMPILER_SPEC(std::dummyT)
     
 namespace boost {
 
@@ -139,9 +139,9 @@ template <bool is_pointer> struct lvalue_test
         typedef typename Iterator::reference reference;
         typedef typename Iterator::value_type value_type;
 # endif
-        BOOST_STATIC_ASSERT(boost::is_reference<reference>::value);
-        BOOST_STATIC_ASSERT((boost::is_same<reference,value_type&>::value
-                             || boost::is_same<reference,const value_type&>::value
+        BOOST_STATIC_ASSERT(std::is_reference<reference>::value);
+        BOOST_STATIC_ASSERT((std::is_same<reference,value_type&>::value
+                             || std::is_same<reference,const value_type&>::value
             ));
     }
 };
@@ -176,7 +176,7 @@ void forward_iterator_test(Iterator i, T v1, T v2)
 
  // borland doesn't allow non-type template parameters
 # if !defined(__BORLANDC__) || (__BORLANDC__ > 0x551)
-  lvalue_test<(boost::is_pointer<Iterator>::value)>::check(i);
+  lvalue_test<(std::is_pointer<Iterator>::value)>::check(i);
 #endif
 }
 
@@ -217,12 +217,12 @@ void random_access_iterator_test(Iterator i, int N, TrueVals vals)
   const Iterator j = i;
   int c;
 
-  typedef typename boost::detail::iterator_traits<Iterator>::value_type value_type;
+  typedef typename std::detail::iterator_traits<Iterator>::value_type value_type;
   
   for (c = 0; c < N-1; ++c) {
     assert(i == j + c);
     assert(*i == vals[c]);
-    assert(*i == boost::implicit_cast<value_type>(j[c]));
+    assert(*i == std::implicit_cast<value_type>(j[c]));
     assert(*i == *(j + c));
     assert(*i == *(c + j));
     ++i;
@@ -236,7 +236,7 @@ void random_access_iterator_test(Iterator i, int N, TrueVals vals)
   for (c = 0; c < N-1; ++c) {
     assert(i == k - c);
     assert(*i == vals[N - 1 - c]);
-    assert(*i == boost::implicit_cast<value_type>(j[N - 1 - c]));
+    assert(*i == std::implicit_cast<value_type>(j[N - 1 - c]));
     Iterator q = k - c; 
     assert(*i == *q);
     assert(i > j);

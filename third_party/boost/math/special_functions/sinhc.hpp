@@ -103,7 +103,7 @@ namespace boost
        template <class T, class Policy>
        inline typename tools::promote_args<T>::type sinhc_pi(T x, const Policy&)
        {
-          return boost::math::sinhc_pi(x);
+          return std::math::sinhc_pi(x);
        }
 
 #ifdef    BOOST_NO_TEMPLATE_TEMPLATES

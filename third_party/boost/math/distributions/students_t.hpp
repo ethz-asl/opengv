@@ -38,7 +38,7 @@ public:
    { // Constructor.
       RealType result;
       detail::check_df_gt0_to_inf( // Checks that df > 0 or df == inf.
-         "boost::math::students_t_distribution<%1%>::students_t_distribution", df_, &result, Policy());
+         "std::math::students_t_distribution<%1%>::students_t_distribution", df_, &result, Policy());
    } // students_t_distribution
 
    RealType degrees_of_freedom()const
@@ -65,7 +65,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const students_t_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
   // NOT including infinity.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>());
 }
 
@@ -73,7 +73,7 @@ template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> support(const students_t_distribution<RealType, Policy>& /*dist*/)
 { // Range of supported values for random variable x.
    // This is range where cdf rises from 0 to 1, and outside it, the pdf is zero.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>());
 }
 
@@ -85,15 +85,15 @@ inline RealType pdf(const students_t_distribution<RealType, Policy>& dist, const
 
    RealType error_result;
    if(false == detail::check_x(
-      "boost::math::pdf(const students_t_distribution<%1%>&, %1%)", x, &error_result, Policy()))
+      "std::math::pdf(const students_t_distribution<%1%>&, %1%)", x, &error_result, Policy()))
       return error_result;
    RealType df = dist.degrees_of_freedom();
    if(false == detail::check_df_gt0_to_inf( // Check that df > 0 or == +infinity.
-      "boost::math::pdf(const students_t_distribution<%1%>&, %1%)", df, &error_result, Policy()))
+      "std::math::pdf(const students_t_distribution<%1%>&, %1%)", df, &error_result, Policy()))
       return error_result;
 
    RealType result;
-   if (boost::math::isinf(x))
+   if (std::math::isinf(x))
    { // +infinity.
      normal_distribution<RealType, Policy> n(0, 1); 
      RealType result = pdf(n, x);
@@ -115,13 +115,13 @@ inline RealType pdf(const students_t_distribution<RealType, Policy>& dist, const
      RealType basem1 = x * x / df;
      if(basem1 < 0.125)
      {
-        result = exp(-boost::math::log1p(basem1, Policy()) * (1+df) / 2);
+        result = exp(-std::math::log1p(basem1, Policy()) * (1+df) / 2);
      }
      else
      {
         result = pow(1 / (1 + basem1), (df + 1) / 2);
      }
-     result /= sqrt(df) * boost::math::beta(df / 2, RealType(0.5f), Policy());
+     result /= sqrt(df) * std::math::beta(df / 2, RealType(0.5f), Policy());
    }
    return result;
 } // pdf
@@ -131,20 +131,20 @@ inline RealType cdf(const students_t_distribution<RealType, Policy>& dist, const
 {
    RealType error_result;
    if(false == detail::check_x(
-      "boost::math::pdf(const students_t_distribution<%1%>&, %1%)", x, &error_result, Policy()))
+      "std::math::pdf(const students_t_distribution<%1%>&, %1%)", x, &error_result, Policy()))
       return error_result;
    RealType df = dist.degrees_of_freedom();
    // Error check:
 
    if(false == detail::check_df_gt0_to_inf(  // Check that df > 0 or == +infinity.
-      "boost::math::cdf(const students_t_distribution<%1%>&, %1%)", df, &error_result, Policy()))
+      "std::math::cdf(const students_t_distribution<%1%>&, %1%)", df, &error_result, Policy()))
       return error_result;
 
    if (x == 0)
    { // Special case with exact result.
      return static_cast<RealType>(0.5);
    }
-   if (boost::math::isinf(x))
+   if (std::math::isinf(x))
    { // +infinity.
      normal_distribution<RealType, Policy> n(0, 1); 
      RealType result = cdf(n, x);
@@ -208,7 +208,7 @@ inline RealType quantile(const students_t_distribution<RealType, Policy>& dist, 
  
    // Check for domain errors:
    RealType df = dist.degrees_of_freedom();
-   static const char* function = "boost::math::quantile(const students_t_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const students_t_distribution<%1%>&, %1%)";
    RealType error_result;
    if(false == (detail::check_df_gt0_to_inf( // Check that df > 0 or == +infinity.
       function, df, &error_result, Policy())
@@ -250,7 +250,7 @@ inline RealType quantile(const students_t_distribution<RealType, Policy>& dist, 
    // and a couple of epsilon at double precision and in the central 
    // region where most use cases will occur...
    //
-   return boost::math::detail::fast_students_t_quantile(df, probability, Policy());
+   return std::math::detail::fast_students_t_quantile(df, probability, Policy());
 } // quantile
 
 template <class RealType, class Policy>
@@ -306,7 +306,7 @@ RealType students_t_distribution<RealType, Policy>::find_degrees_of_freedom(
       RealType sd,
       RealType hint)
 {
-   static const char* function = "boost::math::students_t_distribution<%1%>::find_degrees_of_freedom";
+   static const char* function = "std::math::students_t_distribution<%1%>::find_degrees_of_freedom";
    //
    // Check for domain errors:
    //
@@ -321,7 +321,7 @@ RealType students_t_distribution<RealType, Policy>::find_degrees_of_freedom(
 
    detail::sample_size_func<RealType, Policy> f(alpha, beta, sd, difference_from_mean);
    tools::eps_tolerance<RealType> tol(policies::digits<RealType, Policy>());
-   boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
    std::pair<RealType, RealType> r = tools::bracket_and_solve_root(f, hint, RealType(2), false, tol, max_iter, Policy());
    RealType result = r.first + (r.second - r.first) / 2;
    if(max_iter >= policies::get_max_root_iterations<Policy>())
@@ -353,10 +353,10 @@ template <class RealType, class Policy>
 inline RealType mean(const students_t_distribution<RealType, Policy>& dist)
 {  // Revised for https://svn.boost.org/trac/boost/ticket/7177
    RealType df = dist.degrees_of_freedom();
-   if(((boost::math::isnan)(df)) || (df <= 1) ) 
+   if(((std::math::isnan)(df)) || (df <= 1) ) 
    { // mean is undefined for moment <= 1!
       policies::raise_domain_error<RealType>(
-      "boost::math::mean(students_t_distribution<%1%> const&, %1%)",
+      "std::math::mean(students_t_distribution<%1%> const&, %1%)",
       "Mean is undefined for degrees of freedom < 1 but got %1%.", df, Policy());
       return std::numeric_limits<RealType>::quiet_NaN();
    }
@@ -368,15 +368,15 @@ inline RealType variance(const students_t_distribution<RealType, Policy>& dist)
 { // http://en.wikipedia.org/wiki/Student%27s_t-distribution
   // Revised for https://svn.boost.org/trac/boost/ticket/7177
   RealType df = dist.degrees_of_freedom();
-  if ((boost::math::isnan)(df) || (df <= 2))
+  if ((std::math::isnan)(df) || (df <= 2))
   { // NaN or undefined for <= 2.
      policies::raise_domain_error<RealType>(
-      "boost::math::variance(students_t_distribution<%1%> const&, %1%)",
+      "std::math::variance(students_t_distribution<%1%> const&, %1%)",
       "variance is undefined for degrees of freedom <= 2, but got %1%.",
       df, Policy());
     return std::numeric_limits<RealType>::quiet_NaN(); // Undefined.
   }
-  if (boost::math::isinf(df))
+  if (std::math::isinf(df))
   { // +infinity.
     return 1;
   }
@@ -399,10 +399,10 @@ template <class RealType, class Policy>
 inline RealType skewness(const students_t_distribution<RealType, Policy>& dist)
 {
     RealType df = dist.degrees_of_freedom();
-   if( ((boost::math::isnan)(df)) || (dist.degrees_of_freedom() <= 3))
+   if( ((std::math::isnan)(df)) || (dist.degrees_of_freedom() <= 3))
    { // Undefined for moment k = 3.
       policies::raise_domain_error<RealType>(
-         "boost::math::skewness(students_t_distribution<%1%> const&, %1%)",
+         "std::math::skewness(students_t_distribution<%1%> const&, %1%)",
          "Skewness is undefined for degrees of freedom <= 3, but got %1%.",
          dist.degrees_of_freedom(), Policy());
       return std::numeric_limits<RealType>::quiet_NaN();
@@ -414,15 +414,15 @@ template <class RealType, class Policy>
 inline RealType kurtosis(const students_t_distribution<RealType, Policy>& dist)
 {
    RealType df = dist.degrees_of_freedom();
-   if(((boost::math::isnan)(df)) || (df <= 4))
+   if(((std::math::isnan)(df)) || (df <= 4))
    { // Undefined or infinity for moment k = 4.
       policies::raise_domain_error<RealType>(
-       "boost::math::kurtosis(students_t_distribution<%1%> const&, %1%)",
+       "std::math::kurtosis(students_t_distribution<%1%> const&, %1%)",
        "Kurtosis is undefined for degrees of freedom <= 4, but got %1%.",
         df, Policy());
         return std::numeric_limits<RealType>::quiet_NaN(); // Undefined.
    }
-   if (boost::math::isinf(df))
+   if (std::math::isinf(df))
    { // +infinity.
      return 3;
    }
@@ -448,15 +448,15 @@ inline RealType kurtosis_excess(const students_t_distribution<RealType, Policy>&
    // see http://mathworld.wolfram.com/Kurtosis.html
 
    RealType df = dist.degrees_of_freedom();
-   if(((boost::math::isnan)(df)) || (df <= 4))
+   if(((std::math::isnan)(df)) || (df <= 4))
    { // Undefined or infinity for moment k = 4.
      policies::raise_domain_error<RealType>(
-       "boost::math::kurtosis_excess(students_t_distribution<%1%> const&, %1%)",
+       "std::math::kurtosis_excess(students_t_distribution<%1%> const&, %1%)",
        "Kurtosis_excess is undefined for degrees of freedom <= 4, but got %1%.",
       df, Policy());
      return std::numeric_limits<RealType>::quiet_NaN(); // Undefined.
    }
-   if (boost::math::isinf(df))
+   if (std::math::isinf(df))
    { // +infinity.
      return 0;
    }

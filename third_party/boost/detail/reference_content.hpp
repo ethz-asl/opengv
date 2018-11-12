@@ -128,7 +128,7 @@ struct make_reference_content< mpl::void_ >
 
 template <typename T>
 struct has_nothrow_copy<
-      ::boost::detail::reference_content< T& >
+      ::std::detail::reference_content< T& >
     >
     : mpl::true_
 {

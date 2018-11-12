@@ -25,30 +25,30 @@ T airy_ai_imp(T x, const Policy& pol)
    {
       T p = (-x * sqrt(-x) * 2) / 3;
       T v = T(1) / 3;
-      T j1 = boost::math::cyl_bessel_j(v, p, pol);
-      T j2 = boost::math::cyl_bessel_j(-v, p, pol);
+      T j1 = std::math::cyl_bessel_j(v, p, pol);
+      T j2 = std::math::cyl_bessel_j(-v, p, pol);
       T ai = sqrt(-x) * (j1 + j2) / 3;
       //T bi = sqrt(-x / 3) * (j2 - j1);
       return ai;
    }
    else if(fabs(x * x * x) / 6 < tools::epsilon<T>())
    {
-      T tg = boost::math::tgamma(constants::twothirds<T>(), pol);
+      T tg = std::math::tgamma(constants::twothirds<T>(), pol);
       T ai = 1 / (pow(T(3), constants::twothirds<T>()) * tg);
-      //T bi = 1 / (sqrt(boost::math::cbrt(T(3))) * tg);
+      //T bi = 1 / (sqrt(std::math::cbrt(T(3))) * tg);
       return ai;
    }
    else
    {
       T p = 2 * x * sqrt(x) / 3;
       T v = T(1) / 3;
-      //T j1 = boost::math::cyl_bessel_i(-v, p, pol);
-      //T j2 = boost::math::cyl_bessel_i(v, p, pol);
+      //T j1 = std::math::cyl_bessel_i(-v, p, pol);
+      //T j2 = std::math::cyl_bessel_i(v, p, pol);
       //
       // Note that although we can calculate ai from j1 and j2, the accuracy is horrible
       // as we're subtracting two very large values, so use the Bessel K relation instead:
       //
-      T ai = cyl_bessel_k(v, p, pol) * sqrt(x / 3) / boost::math::constants::pi<T>();  //sqrt(x) * (j1 - j2) / 3;
+      T ai = cyl_bessel_k(v, p, pol) * sqrt(x / 3) / std::math::constants::pi<T>();  //sqrt(x) * (j1 - j2) / 3;
       //T bi = sqrt(x / 3) * (j1 + j2);
       return ai;
    }
@@ -63,25 +63,25 @@ T airy_bi_imp(T x, const Policy& pol)
    {
       T p = (-x * sqrt(-x) * 2) / 3;
       T v = T(1) / 3;
-      T j1 = boost::math::cyl_bessel_j(v, p, pol);
-      T j2 = boost::math::cyl_bessel_j(-v, p, pol);
+      T j1 = std::math::cyl_bessel_j(v, p, pol);
+      T j2 = std::math::cyl_bessel_j(-v, p, pol);
       //T ai = sqrt(-x) * (j1 + j2) / 3;
       T bi = sqrt(-x / 3) * (j2 - j1);
       return bi;
    }
    else if(fabs(x * x * x) / 6 < tools::epsilon<T>())
    {
-      T tg = boost::math::tgamma(constants::twothirds<T>(), pol);
+      T tg = std::math::tgamma(constants::twothirds<T>(), pol);
       //T ai = 1 / (pow(T(3), constants::twothirds<T>()) * tg);
-      T bi = 1 / (sqrt(boost::math::cbrt(T(3))) * tg);
+      T bi = 1 / (sqrt(std::math::cbrt(T(3))) * tg);
       return bi;
    }
    else
    {
       T p = 2 * x * sqrt(x) / 3;
       T v = T(1) / 3;
-      T j1 = boost::math::cyl_bessel_i(-v, p, pol);
-      T j2 = boost::math::cyl_bessel_i(v, p, pol);
+      T j1 = std::math::cyl_bessel_i(-v, p, pol);
+      T j2 = std::math::cyl_bessel_i(v, p, pol);
       T bi = sqrt(x / 3) * (j1 + j2);
       return bi;
    }
@@ -96,28 +96,28 @@ T airy_ai_prime_imp(T x, const Policy& pol)
    {
       T p = (-x * sqrt(-x) * 2) / 3;
       T v = T(2) / 3;
-      T j1 = boost::math::cyl_bessel_j(v, p, pol);
-      T j2 = boost::math::cyl_bessel_j(-v, p, pol);
+      T j1 = std::math::cyl_bessel_j(v, p, pol);
+      T j2 = std::math::cyl_bessel_j(-v, p, pol);
       T aip = -x * (j1 - j2) / 3;
       return aip;
    }
    else if(fabs(x * x) / 2 < tools::epsilon<T>())
    {
-      T tg = boost::math::tgamma(constants::third<T>(), pol);
-      T aip = 1 / (boost::math::cbrt(T(3)) * tg);
+      T tg = std::math::tgamma(constants::third<T>(), pol);
+      T aip = 1 / (std::math::cbrt(T(3)) * tg);
       return -aip;
    }
    else
    {
       T p = 2 * x * sqrt(x) / 3;
       T v = T(2) / 3;
-      //T j1 = boost::math::cyl_bessel_i(-v, p, pol);
-      //T j2 = boost::math::cyl_bessel_i(v, p, pol);
+      //T j1 = std::math::cyl_bessel_i(-v, p, pol);
+      //T j2 = std::math::cyl_bessel_i(v, p, pol);
       //
       // Note that although we can calculate ai from j1 and j2, the accuracy is horrible
       // as we're subtracting two very large values, so use the Bessel K relation instead:
       //
-      T aip = -cyl_bessel_k(v, p, pol) * x / (boost::math::constants::root_three<T>() * boost::math::constants::pi<T>());
+      T aip = -cyl_bessel_k(v, p, pol) * x / (std::math::constants::root_three<T>() * std::math::constants::pi<T>());
       return aip;
    }
 }
@@ -131,24 +131,24 @@ T airy_bi_prime_imp(T x, const Policy& pol)
    {
       T p = (-x * sqrt(-x) * 2) / 3;
       T v = T(2) / 3;
-      T j1 = boost::math::cyl_bessel_j(v, p, pol);
-      T j2 = boost::math::cyl_bessel_j(-v, p, pol);
+      T j1 = std::math::cyl_bessel_j(v, p, pol);
+      T j2 = std::math::cyl_bessel_j(-v, p, pol);
       T aip = -x * (j1 + j2) / constants::root_three<T>();
       return aip;
    }
    else if(fabs(x * x) / 2 < tools::epsilon<T>())
    {
-      T tg = boost::math::tgamma(constants::third<T>(), pol);
-      T bip = sqrt(boost::math::cbrt(T(3))) / tg;
+      T tg = std::math::tgamma(constants::third<T>(), pol);
+      T bip = sqrt(std::math::cbrt(T(3))) / tg;
       return bip;
    }
    else
    {
       T p = 2 * x * sqrt(x) / 3;
       T v = T(2) / 3;
-      T j1 = boost::math::cyl_bessel_i(-v, p, pol);
-      T j2 = boost::math::cyl_bessel_i(v, p, pol);
-      T aip = x * (j1 + j2) / boost::math::constants::root_three<T>();
+      T j1 = std::math::cyl_bessel_i(-v, p, pol);
+      T j2 = std::math::cyl_bessel_i(v, p, pol);
+      T aip = x * (j1 + j2) / std::math::constants::root_three<T>();
       return aip;
    }
 }
@@ -161,15 +161,15 @@ T airy_ai_zero_imp(unsigned m, const Policy& pol)
    // Handle case when the zero'th zero is requested.
    if(m == 0U)
    {
-      return policies::raise_domain_error<T>("boost::math::airy_ai_zero<%1%>(%1%,%1%)",
+      return policies::raise_domain_error<T>("std::math::airy_ai_zero<%1%>(%1%,%1%)",
         "The requested rank of the zero is %1%, but must be 1 or more !", static_cast<T>(m), pol);
    }
 
    // Set up the initial guess for the upcoming root-finding.
-   const T guess_root = boost::math::detail::airy_zero::airy_ai_zero_detail::initial_guess<T>(m);
+   const T guess_root = std::math::detail::airy_zero::airy_ai_zero_detail::initial_guess<T>(m);
 
    // Select the maximum allowed iterations, being at least 24.
-   boost::uintmax_t number_of_iterations = (std::max)(24, int(std::numeric_limits<T>::digits10));
+   std::uintmax_t number_of_iterations = (std::max)(24, int(std::numeric_limits<T>::digits10));
 
    // Select the desired number of binary digits of precision.
    // Account for the radix of number representations having non-two radix!
@@ -187,8 +187,8 @@ T airy_ai_zero_imp(unsigned m, const Policy& pol)
 
    // Perform the root-finding using Newton-Raphson iteration from Boost.Math.
    const T am =
-      boost::math::tools::newton_raphson_iterate(
-         boost::math::detail::airy_zero::airy_ai_zero_detail::function_object_ai_and_ai_prime<T, Policy>(pol),
+      std::math::tools::newton_raphson_iterate(
+         std::math::detail::airy_zero::airy_ai_zero_detail::function_object_ai_and_ai_prime<T, Policy>(pol),
          guess_root,
          T(guess_root - tolerance),
          T(guess_root + tolerance),
@@ -208,14 +208,14 @@ T airy_bi_zero_imp(unsigned m, const Policy& pol)
    // Handle case when the zero'th zero is requested.
    if(m == 0U)
    {
-      return policies::raise_domain_error<T>("boost::math::airy_bi_zero<%1%>(%1%,%1%)",
+      return policies::raise_domain_error<T>("std::math::airy_bi_zero<%1%>(%1%,%1%)",
         "The requested rank of the zero is %1%, but must be 1 or more !", static_cast<T>(m), pol);
    }
    // Set up the initial guess for the upcoming root-finding.
-   const T guess_root = boost::math::detail::airy_zero::airy_bi_zero_detail::initial_guess<T>(m);
+   const T guess_root = std::math::detail::airy_zero::airy_bi_zero_detail::initial_guess<T>(m);
 
    // Select the maximum allowed iterations, being at least 24.
-   boost::uintmax_t number_of_iterations = (std::max)(24, int(std::numeric_limits<T>::digits10));
+   std::uintmax_t number_of_iterations = (std::max)(24, int(std::numeric_limits<T>::digits10));
 
    // Select the desired number of binary digits of precision.
    // Account for the radix of number representations having non-two radix!
@@ -233,8 +233,8 @@ T airy_bi_zero_imp(unsigned m, const Policy& pol)
 
    // Perform the root-finding using Newton-Raphson iteration from Boost.Math.
    const T bm =
-      boost::math::tools::newton_raphson_iterate(
-         boost::math::detail::airy_zero::airy_bi_zero_detail::function_object_bi_and_bi_prime<T, Policy>(pol),
+      std::math::tools::newton_raphson_iterate(
+         std::math::detail::airy_zero::airy_bi_zero_detail::function_object_bi_and_bi_prime<T, Policy>(pol),
          guess_root,
          T(guess_root - tolerance),
          T(guess_root + tolerance),
@@ -261,7 +261,7 @@ inline typename tools::promote_args<T>::type airy_ai(T x, const Policy&)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_ai_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "boost::math::airy<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_ai_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "std::math::airy<%1%>(%1%)");
 }
 
 template <class T>
@@ -283,7 +283,7 @@ inline typename tools::promote_args<T>::type airy_bi(T x, const Policy&)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_bi_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "boost::math::airy<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_bi_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "std::math::airy<%1%>(%1%)");
 }
 
 template <class T>
@@ -305,7 +305,7 @@ inline typename tools::promote_args<T>::type airy_ai_prime(T x, const Policy&)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_ai_prime_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "boost::math::airy<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_ai_prime_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "std::math::airy<%1%>(%1%)");
 }
 
 template <class T>
@@ -327,7 +327,7 @@ inline typename tools::promote_args<T>::type airy_bi_prime(T x, const Policy&)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_bi_prime_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "boost::math::airy<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::airy_bi_prime_imp<value_type>(static_cast<value_type>(x), forwarding_policy()), "std::math::airy<%1%>(%1%)");
 }
 
 template <class T>
@@ -348,7 +348,7 @@ inline T airy_ai_zero(unsigned m, const Policy& pol)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
    BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Airy return type must be a floating-point type.");
-   return policies::checked_narrowing_cast<T, Policy>(detail::airy_ai_zero_imp<T>(m, pol), "boost::math::airy_ai_zero<%1%>(unsigned)");
+   return policies::checked_narrowing_cast<T, Policy>(detail::airy_ai_zero_imp<T>(m, pol), "std::math::airy_ai_zero<%1%>(unsigned)");
 }
 
 template <class T>
@@ -369,7 +369,7 @@ inline OutputIterator airy_ai_zero(
 
    for(unsigned i = 0; i < number_of_zeros; ++i)
    {
-      *out_it = boost::math::airy_ai_zero<result_type>(start_index + i, pol);
+      *out_it = std::math::airy_ai_zero<result_type>(start_index + i, pol);
       ++out_it;
    }
    return out_it;
@@ -396,7 +396,7 @@ inline T airy_bi_zero(unsigned m, const Policy& pol)
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
    BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Airy return type must be a floating-point type.");
-   return policies::checked_narrowing_cast<T, Policy>(detail::airy_bi_zero_imp<T>(m, pol), "boost::math::airy_bi_zero<%1%>(unsigned)");
+   return policies::checked_narrowing_cast<T, Policy>(detail::airy_bi_zero_imp<T>(m, pol), "std::math::airy_bi_zero<%1%>(unsigned)");
 }
 
 template <typename T>
@@ -417,7 +417,7 @@ inline OutputIterator airy_bi_zero(
 
    for(unsigned i = 0; i < number_of_zeros; ++i)
    {
-      *out_it = boost::math::airy_bi_zero<result_type>(start_index + i, pol);
+      *out_it = std::math::airy_bi_zero<result_type>(start_index + i, pol);
       ++out_it;
    }
    return out_it;

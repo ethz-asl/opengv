@@ -34,7 +34,7 @@ inline BOOST_DEDUCED_TYPENAME disable_if<
 find( SinglePassRange& rng, const Value& val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange> ));
-    return std::find(boost::begin(rng), boost::end(rng), val);
+    return std::find(std::begin(rng), std::end(rng), val);
 }
 
 /// \overload
@@ -43,7 +43,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange>::type
 find( const SinglePassRange& rng, const Value& val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-    return std::find(boost::begin(rng), boost::end(rng), val);
+    return std::find(std::begin(rng), std::end(rng), val);
 }
 
 // range_return overloads
@@ -58,7 +58,7 @@ find( SinglePassRange& rng, const Value& val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange> ));
     return range_return<SinglePassRange,re>::
-        pack(std::find(boost::begin(rng), boost::end(rng), val),
+        pack(std::find(std::begin(rng), std::end(rng), val),
              rng);
 }
 
@@ -69,7 +69,7 @@ find( const SinglePassRange& rng, const Value& val )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
     return range_return<const SinglePassRange,re>::
-        pack(std::find(boost::begin(rng), boost::end(rng), val),
+        pack(std::find(std::begin(rng), std::end(rng), val),
              rng);
 }
 

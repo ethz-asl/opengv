@@ -65,7 +65,7 @@
     BOOST_FUNCTIONAL_g_arg(z, n, ~)
 
 #define BOOST_FUNCTIONAL_base(z, n, unused) \
-    ::boost::overloaded_function_detail::base< \
+    ::std::overloaded_function_detail::base< \
         BOOST_FUNCTIONAL_f_type(z, n, ~) \
     >
 
@@ -79,7 +79,7 @@
     using BOOST_FUNCTIONAL_base(z, n, ~)::operator();
 
 #define BOOST_FUNCTIONAL_function_type(z, n, unused) \
-    typename ::boost::overloaded_function_detail::function_type< \
+    typename ::std::overloaded_function_detail::function_type< \
         BOOST_FUNCTIONAL_f_type(z, n, ~) \
     >::type
 
@@ -173,7 +173,7 @@ overloaded_function<
 } // namespace
 
 // For type-of emulation: Register overloaded function type (for _AUTO, etc).
-BOOST_TYPEOF_REGISTER_TEMPLATE(boost::overloaded_function,
+BOOST_TYPEOF_REGISTER_TEMPLATE(std::overloaded_function,
     BOOST_FUNCTIONAL_overloads)
 
 #   undef BOOST_FUNCTIONAL_overloads
@@ -234,15 +234,15 @@ public:
     @brief Construct the overloaded function object.
 
     Any function pointer, function reference, and monomorphic function object
-    that can be converted to a <c>boost::function</c> function object can be
+    that can be converted to a <c>std::function</c> function object can be
     specified as parameter.
 
     @Note Unfortunately, it is not possible to support polymorphic function
     objects (as explained <a
     href="http://lists.boost.org/Archives/boost/2012/03/191744.php">here</a>).
     */
-    overloaded_function(const boost::function<F1>&,
-            const boost::function<F2>&, ...);
+    overloaded_function(const std::function<F1>&,
+            const std::function<F2>&, ...);
 
     /**
     @brief Call operator matching the signature of the function type specified
@@ -251,9 +251,9 @@ public:
     This will in turn invoke the call operator of the 1st function passed to
     the constructor.
     */
-    typename boost::function_traits<F1>::result_type operator()(
-            typename boost::function_traits<F1>::arg1_type,
-            typename boost::function_traits<F1>::arg2_type,
+    typename std::function_traits<F1>::result_type operator()(
+            typename std::function_traits<F1>::arg1_type,
+            typename std::function_traits<F1>::arg2_type,
             ...) const;
 
     /**
@@ -267,9 +267,9 @@ public:
     <c>F1</c>, <c>F2</c>, etc (even if not exhaustively listed by this
     documentation).
     */
-    typename boost::function_traits<F2>::result_type operator()(
-            typename boost::function_traits<F2>::arg1_type,
-            typename boost::function_traits<F2>::arg2_type,
+    typename std::function_traits<F2>::result_type operator()(
+            typename std::function_traits<F2>::arg1_type,
+            typename std::function_traits<F2>::arg2_type,
             ...) const;
 };
 

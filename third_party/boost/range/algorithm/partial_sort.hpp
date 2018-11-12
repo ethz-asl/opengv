@@ -31,7 +31,7 @@ inline RandomAccessRange& partial_sort(RandomAccessRange& rng,
     BOOST_DEDUCED_TYPENAME range_iterator<RandomAccessRange>::type middle)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( RandomAccessRangeConcept<RandomAccessRange> ));
-    std::partial_sort(boost::begin(rng), middle, boost::end(rng));
+    std::partial_sort(std::begin(rng), middle, std::end(rng));
     return rng;
 }
 
@@ -41,7 +41,7 @@ inline const RandomAccessRange& partial_sort(const RandomAccessRange& rng,
     BOOST_DEDUCED_TYPENAME range_iterator<const RandomAccessRange>::type middle)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( RandomAccessRangeConcept<const RandomAccessRange> ));
-    std::partial_sort(boost::begin(rng), middle, boost::end(rng));
+    std::partial_sort(std::begin(rng), middle, std::end(rng));
     return rng;
 }
 
@@ -52,7 +52,7 @@ inline RandomAccessRange& partial_sort(RandomAccessRange& rng,
     BinaryPredicate sort_pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( RandomAccessRangeConcept<RandomAccessRange> ));
-    std::partial_sort(boost::begin(rng), middle, boost::end(rng),
+    std::partial_sort(std::begin(rng), middle, std::end(rng),
                         sort_pred);
     return rng;
 }
@@ -64,7 +64,7 @@ inline const RandomAccessRange& partial_sort(const RandomAccessRange& rng,
     BinaryPredicate sort_pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( RandomAccessRangeConcept<const RandomAccessRange> ));
-    std::partial_sort(boost::begin(rng), middle, boost::end(rng),
+    std::partial_sort(std::begin(rng), middle, std::end(rng),
                         sort_pred);
     return rng;
 }

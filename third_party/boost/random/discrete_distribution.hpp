@@ -88,7 +88,7 @@ public:
          */
         template<class Range>
         explicit param_type(const Range& range)
-          : _probabilities(boost::begin(range), boost::end(range))
+          : _probabilities(std::begin(range), std::end(range))
         {
             normalize();
         }
@@ -219,7 +219,7 @@ public:
     template<class Range>
     explicit discrete_distribution(const Range& range)
     {
-        init(boost::begin(range), boost::end(range));
+        init(std::begin(range), std::end(range));
     }
     /**
      * Constructs a discrete_distribution that approximates a function.

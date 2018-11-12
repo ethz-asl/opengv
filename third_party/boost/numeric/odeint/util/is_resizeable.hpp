@@ -43,8 +43,8 @@ namespace odeint {
 template< class Container , class Enabler = void >
 struct is_resizeable
 {
-    //struct type : public boost::false_type { };
-    typedef boost::false_type type;
+    //struct type : public std::false_type { };
+    typedef std::false_type type;
     const static bool value = type::value;
 };
 
@@ -54,8 +54,8 @@ struct is_resizeable
 template< class V, class A >
 struct is_resizeable< std::vector< V , A  > >
 {
-    //struct type : public boost::true_type { };
-    typedef boost::true_type type;
+    //struct type : public std::true_type { };
+    typedef std::true_type type;
     const static bool value = type::value;
 };
 
@@ -64,12 +64,12 @@ struct is_resizeable< std::vector< V , A  > >
  * specialization for fusion sequences
  */
 template< class FusionSequence >
-struct is_resizeable< FusionSequence , typename boost::enable_if< typename boost::fusion::traits::is_sequence< FusionSequence >::type >::type >
+struct is_resizeable< FusionSequence , typename std::enable_if< typename std::fusion::traits::is_sequence< FusionSequence >::type >::type >
 {
-    typedef typename boost::mpl::find_if< FusionSequence , is_resizeable< boost::mpl::_1 > >::type iter;
-    typedef typename boost::mpl::end< FusionSequence >::type last;
+    typedef typename std::mpl::find_if< FusionSequence , is_resizeable< std::mpl::_1 > >::type iter;
+    typedef typename std::mpl::end< FusionSequence >::type last;
 
-    typedef typename boost::mpl::if_< boost::is_same< iter , last > , boost::false_type , boost::true_type >::type type;
+    typedef typename std::mpl::if_< std::is_same< iter , last > , std::false_type , std::true_type >::type type;
     const static bool value = type::value;
 };
 

@@ -45,7 +45,7 @@ size_t integrate_const(
 )
 {
     // we want to get as fast as possible to the end
-    if( boost::is_same< null_observer , Observer >::value )
+    if( std::is_same< null_observer , Observer >::value )
     {
         return detail::integrate_adaptive(
                 stepper , system , start_state ,
@@ -72,7 +72,7 @@ size_t integrate_const(
 )
 {
     // we want to get as fast as possible to the end
-    if( boost::is_same< null_observer , Observer >::value )
+    if( std::is_same< null_observer , Observer >::value )
     {
         return detail::integrate_adaptive(
                 stepper , system , start_state ,

@@ -62,7 +62,7 @@ static const char *copyright =
 #include <opengv/sac_problems/relative_pose/MultiNoncentralRelativePoseSacProblem.hpp>
 
 typedef opengv::sac_problems::relative_pose::MultiNoncentralRelativePoseSacProblem nrelRansac;
-typedef boost::shared_ptr<nrelRansac> nrelRansacPtr;
+typedef std::shared_ptr<nrelRansac> nrelRansacPtr;
 
 // The main mex-function
 void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )

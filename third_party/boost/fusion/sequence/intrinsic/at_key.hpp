@@ -19,7 +19,7 @@ namespace boost { namespace fusion
 {
     // Special tags:
     struct sequence_facade_tag;
-    struct boost_array_tag; // boost::array tag
+    struct boost_array_tag; // std::array tag
     struct mpl_sequence_tag; // mpl sequence tag
     struct std_pair_tag; // std::pair tag
 

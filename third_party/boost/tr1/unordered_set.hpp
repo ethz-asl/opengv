@@ -22,9 +22,9 @@
 
 namespace std{ namespace tr1{
 
-   using ::boost::unordered_set;
-   using ::boost::unordered_multiset;
-   using ::boost::swap;
+   using ::std::unordered_set;
+   using ::std::unordered_multiset;
+   using ::std::swap;
 
 } } // namespaces
 

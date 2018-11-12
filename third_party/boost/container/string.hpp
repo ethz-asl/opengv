@@ -98,7 +98,7 @@ class basic_string_base
    typedef typename allocator_traits_type::pointer     pointer;
    typedef typename allocator_traits_type::value_type  value_type;
    typedef typename allocator_traits_type::size_type   size_type;
-   typedef ::boost::intrusive::pointer_traits<pointer> pointer_traits;
+   typedef ::std::intrusive::pointer_traits<pointer> pointer_traits;
 
    basic_string_base()
       : members_()
@@ -116,7 +116,7 @@ class basic_string_base
    }
 
    basic_string_base(BOOST_RV_REF(basic_string_base) b)
-      :  members_(boost::move(b.alloc()))
+      :  members_(std::move(b.alloc()))
    { 
       this->init();
       this->swap_data(b);
@@ -172,7 +172,7 @@ class basic_string_base
    //This type has the same alignment and size as long_t but it's POD
    //so, unlike long_t, it can be placed in a union
   
-   typedef typename boost::aligned_storage< sizeof(long_t),
+   typedef typename std::aligned_storage< sizeof(long_t),
        container_detail::alignment_of<long_t>::value>::type   long_raw_t;
 
    protected:
@@ -220,7 +220,7 @@ class basic_string_base
 
       template<class AllocatorConvertible>
       explicit members_holder(BOOST_FWD_REF(AllocatorConvertible) a)
-         :  Allocator(boost::forward<AllocatorConvertible>(a))
+         :  Allocator(std::forward<AllocatorConvertible>(a))
       {}
 
       repr_t m_repr;
@@ -273,7 +273,7 @@ class basic_string_base
    typedef container_detail::integral_constant<unsigned, 1>      allocator_v1;
    typedef container_detail::integral_constant<unsigned, 2>      allocator_v2;
    typedef container_detail::integral_constant<unsigned,
-      boost::container::container_detail::version<Allocator>::value> alloc_version;
+      std::container::container_detail::version<Allocator>::value> alloc_version;
 
    std::pair<pointer, bool>
       allocation_command(allocation_type command,
@@ -447,7 +447,7 @@ class basic_string_base
             this->members_.m_repr.short_repr() = short_backup;
          }
          else{
-            boost::container::swap_dispatch(this->members_.m_repr.long_repr(), other.members_.m_repr.long_repr());
+            std::container::swap_dispatch(this->members_.m_repr.long_repr(), other.members_.m_repr.long_repr());
          }
       }
    }
@@ -541,12 +541,12 @@ class basic_string
    //////////////////////////////////////////////
    typedef Traits                                                                      traits_type;
    typedef CharT                                                                       value_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(allocator_type)                                      stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(pointer)                                             iterator;
@@ -561,7 +561,7 @@ class basic_string
    typedef typename base_t::allocator_v1  allocator_v1;
    typedef typename base_t::allocator_v2  allocator_v2;
    typedef typename base_t::alloc_version  alloc_version;
-   typedef ::boost::intrusive::pointer_traits<pointer> pointer_traits;
+   typedef ::std::intrusive::pointer_traits<pointer> pointer_traits;
    /// @endcond
 
    public:                         // Constructor, destructor, assignment.
@@ -616,7 +616,7 @@ class basic_string
    //!
    //! <b>Complexity</b>: Constant.
    basic_string(BOOST_RV_REF(basic_string) s) BOOST_CONTAINER_NOEXCEPT
-      : base_t(boost::move((base_t&)s))
+      : base_t(std::move((base_t&)s))
    {}
 
    //! <b>Effects</b>: Copy constructs a basic_string using the specified allocator.
@@ -2497,7 +2497,7 @@ template <class CharT, class Traits, class Allocator> inline
       , BOOST_RV_REF_BEG basic_string<CharT, Traits, Allocator> BOOST_RV_REF_END my)
 {
    mx += my;
-   return boost::move(mx);
+   return std::move(mx);
 }
 
 template <class CharT, class Traits, class Allocator> inline
@@ -2506,7 +2506,7 @@ template <class CharT, class Traits, class Allocator> inline
       , const basic_string<CharT,Traits,Allocator>& y)
 {
    mx += y;
-   return boost::move(mx);
+   return std::move(mx);
 }
 
 template <class CharT, class Traits, class Allocator> inline
@@ -2515,7 +2515,7 @@ template <class CharT, class Traits, class Allocator> inline
       ,BOOST_RV_REF_BEG basic_string<CharT, Traits, Allocator> BOOST_RV_REF_END my)
 {
    my.insert(my.begin(), x.begin(), x.end());
-   return boost::move(my);
+   return std::move(my);
 }
 
 template <class CharT, class Traits, class Allocator> inline
@@ -2843,8 +2843,8 @@ namespace boost {
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class C, class T, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::basic_string<C, T, Allocator> >
-   : public ::boost::has_trivial_destructor_after_move<Allocator>
+struct has_trivial_destructor_after_move<std::container::basic_string<C, T, Allocator> >
+   : public ::std::has_trivial_destructor_after_move<Allocator>
 {};
 
 }

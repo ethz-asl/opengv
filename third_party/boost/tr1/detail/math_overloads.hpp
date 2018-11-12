@@ -10,7 +10,7 @@
 #  ifndef BOOST_NO_SFINAE
 #     include <boost/utility/enable_if.hpp>
 #     include <boost/type_traits/is_convertible.hpp>
-#     define BOOST_TR1_MATH_RETURN(RET) typename ::boost::enable_if< ::boost::is_convertible<T,double>, RET >::type
+#     define BOOST_TR1_MATH_RETURN(RET) typename ::std::enable_if< ::std::is_convertible<T,double>, RET >::type
 #  else
 #     define BOOST_TR1_MATH_RETURN(RET) RET
 #  endif
@@ -24,17 +24,17 @@ namespace boost{ namespace tr1_detail{
 template <class T, class U>
 struct largest_real
 {
-   typedef typename boost::mpl::if_<
-      boost::is_same<long double, T>,
+   typedef typename std::mpl::if_<
+      std::is_same<long double, T>,
       long double,
-      typename boost::mpl::if_<
-         boost::is_same<long double, U>,
+      typename std::mpl::if_<
+         std::is_same<long double, U>,
          long double,
-         typename boost::mpl::if_<
-            boost::is_same<double, T>,
+         typename std::mpl::if_<
+            std::is_same<double, T>,
             double,
-            typename boost::mpl::if_<
-               boost::is_same<double, U>,
+            typename std::mpl::if_<
+               std::is_same<double, U>,
                double,
                float
             >::type
@@ -47,8 +47,8 @@ template <class T, class U>
 struct promote_to_real
 {
    typedef typename largest_real<
-      typename boost::mpl::if_< boost::is_floating_point<T>, T, double>::type,
-      typename boost::mpl::if_< boost::is_floating_point<U>, U, double>::type
+      typename std::mpl::if_< std::is_floating_point<T>, T, double>::type,
+      typename std::mpl::if_< std::is_floating_point<U>, U, double>::type
    >::type type;
 };
 

@@ -87,8 +87,8 @@ struct is_empty_impl
     typedef typename remove_cv<T>::type cvt;
     BOOST_STATIC_CONSTANT(
         bool, value = (
-            ::boost::type_traits::ice_or<
-              ::boost::detail::empty_helper<cvt,::boost::is_class<T>::value>::value
+            ::std::type_traits::ice_or<
+              ::std::detail::empty_helper<cvt,::std::is_class<T>::value>::value
               , BOOST_INTERNAL_IS_EMPTY(cvt)
             >::value
             ));
@@ -118,11 +118,11 @@ struct is_empty_impl
 
    BOOST_STATIC_CONSTANT(
        bool, value = (
-           ::boost::type_traits::ice_or<
-              ::boost::detail::empty_helper<
+           ::std::type_traits::ice_or<
+              ::std::detail::empty_helper<
                   cvt
-                , ::boost::is_class<T>::value
-                , ::boost::is_convertible< r_type,int>::value
+                , ::std::is_class<T>::value
+                , ::std::is_convertible< r_type,int>::value
               >::value
               , BOOST_INTERNAL_IS_EMPTY(cvt)
            >::value));
@@ -176,16 +176,16 @@ struct empty_helper_chooser<true>
 template <typename T>
 struct is_empty_impl
 {
-   typedef ::boost::detail::empty_helper_chooser<
-      ::boost::type_traits::ice_and<
-         ::boost::type_traits::ice_not< ::boost::is_reference<T>::value >::value,
-         ::boost::type_traits::ice_not< ::boost::is_convertible<T,double>::value >::value,
-         ::boost::type_traits::ice_not< ::boost::is_pointer<T>::value >::value,
-         ::boost::type_traits::ice_not< ::boost::is_member_pointer<T>::value >::value,
-         ::boost::type_traits::ice_not< ::boost::is_array<T>::value >::value,
-         ::boost::type_traits::ice_not< ::boost::is_void<T>::value >::value,
-         ::boost::type_traits::ice_not<
-            ::boost::is_convertible<T,void const volatile*>::value
+   typedef ::std::detail::empty_helper_chooser<
+      ::std::type_traits::ice_and<
+         ::std::type_traits::ice_not< ::std::is_reference<T>::value >::value,
+         ::std::type_traits::ice_not< ::std::is_convertible<T,double>::value >::value,
+         ::std::type_traits::ice_not< ::std::is_pointer<T>::value >::value,
+         ::std::type_traits::ice_not< ::std::is_member_pointer<T>::value >::value,
+         ::std::type_traits::ice_not< ::std::is_array<T>::value >::value,
+         ::std::type_traits::ice_not< ::std::is_void<T>::value >::value,
+         ::std::type_traits::ice_not<
+            ::std::is_convertible<T,void const volatile*>::value
             >::value
       >::value > chooser;
 
@@ -193,7 +193,7 @@ struct is_empty_impl
    typedef typename result::type eh_type;
 
    BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_or<eh_type::value, BOOST_INTERNAL_IS_EMPTY(T)>::value));
+      (::std::type_traits::ice_or<eh_type::value, BOOST_INTERNAL_IS_EMPTY(T)>::value));
 };
 
 #else
@@ -217,7 +217,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_empty,void const volatile,false)
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_empty,T,::boost::detail::is_empty_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_empty,T,::std::detail::is_empty_impl<T>::value)
 
 } // namespace boost
 

@@ -63,14 +63,14 @@ struct alignment_of_impl
     // Using a combination of the two seems to make the most of a bad job:
     //
     BOOST_STATIC_CONSTANT(std::size_t, value =
-        (::boost::detail::alignment_logic<
-            sizeof(::boost::detail::alignment_of_hack<T>) - sizeof(T),
+        (::std::detail::alignment_logic<
+            sizeof(::std::detail::alignment_of_hack<T>) - sizeof(T),
             __alignof(T)
         >::value));
 #elif !defined(BOOST_ALIGNMENT_OF)
     BOOST_STATIC_CONSTANT(std::size_t, value =
-        (::boost::detail::alignment_logic<
-            sizeof(::boost::detail::alignment_of_hack<T>) - sizeof(T),
+        (::std::detail::alignment_logic<
+            sizeof(::std::detail::alignment_of_hack<T>) - sizeof(T),
             sizeof(T)
         >::value));
 #else
@@ -86,7 +86,7 @@ struct alignment_of_impl
 
 } // namespace detail
 
-BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(alignment_of,T,::boost::detail::alignment_of_impl<T>::value)
+BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(alignment_of,T,::std::detail::alignment_of_impl<T>::value)
 
 // references have to be treated specially, assume
 // that a reference is just a special pointer:

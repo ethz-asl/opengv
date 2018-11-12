@@ -78,7 +78,7 @@ namespace boost { namespace fusion
     inline void invoke_procedure(Function f, Sequence & s)
     {
         detail::invoke_procedure_impl<
-                typename boost::remove_reference<Function>::type,Sequence
+                typename std::remove_reference<Function>::type,Sequence
             >::call(f,s);
     }
 
@@ -86,7 +86,7 @@ namespace boost { namespace fusion
     inline void invoke_procedure(Function f, Sequence const & s)
     {
         detail::invoke_procedure_impl<
-                typename boost::remove_reference<Function>::type,Sequence const
+                typename std::remove_reference<Function>::type,Sequence const
             >::call(f,s);
     }
 

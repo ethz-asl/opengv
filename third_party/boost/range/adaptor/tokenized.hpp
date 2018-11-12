@@ -21,15 +21,15 @@ namespace boost
 
         template< class R >
         struct tokenized_range : 
-            public boost::iterator_range< 
-                      boost::regex_token_iterator< 
+            public std::iterator_range< 
+                      std::regex_token_iterator< 
                           BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
                                               >
                                          >
         {
         private:
             typedef           
-                boost::regex_token_iterator< 
+                std::regex_token_iterator< 
                           BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
                                             >
                 regex_iter;
@@ -37,13 +37,13 @@ namespace boost
             typedef BOOST_DEDUCED_TYPENAME regex_iter::regex_type 
                 regex_type;
         
-            typedef boost::iterator_range<regex_iter> 
+            typedef std::iterator_range<regex_iter> 
                 base;
 
         public:
             template< class Regex, class Submatch, class Flag >
             tokenized_range( R& r, const Regex& re, const Submatch& sub, Flag f )
-              : base( regex_iter( boost::begin(r), boost::end(r), 
+              : base( regex_iter( std::begin(r), std::end(r), 
                                   regex_type(re), sub, f ),
                       regex_iter() )
             { }

@@ -43,7 +43,7 @@ typedef int (alignment_dummy::*member_function_ptr)();
 #ifdef BOOST_HAS_LONG_LONG
 #define BOOST_TT_ALIGNMENT_BASE_TYPES BOOST_PP_TUPLE_TO_LIST( \
         12, ( \
-        char, short, int, long,  ::boost::long_long_type, float, double, long double \
+        char, short, int, long,  ::std::long_long_type, float, double, long double \
         , void*, function_ptr, member_ptr, member_function_ptr))
 #else
 #define BOOST_TT_ALIGNMENT_BASE_TYPES BOOST_PP_TUPLE_TO_LIST( \
@@ -52,7 +52,7 @@ typedef int (alignment_dummy::*member_function_ptr)();
         , void*, function_ptr, member_ptr, member_function_ptr))
 #endif
 
-#define BOOST_TT_HAS_ONE_T(D,Data,T) boost::detail::has_one_T< T >
+#define BOOST_TT_HAS_ONE_T(D,Data,T) std::detail::has_one_T< T >
 
 #define BOOST_TT_ALIGNMENT_STRUCT_TYPES                         \
         BOOST_PP_LIST_TRANSFORM(BOOST_TT_HAS_ONE_T,             \
@@ -167,21 +167,21 @@ struct is_aligned
 };
 
 #ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::max_align,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<1> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<2> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<4> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<8> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<10> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<16> ,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::detail::lower_alignment<32> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::max_align,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<1> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<2> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<4> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<8> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<10> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<16> ,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::detail::lower_alignment<32> ,true)
 #endif
 
 } // namespace detail
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template<std::size_t Align>
-struct is_pod< ::boost::detail::lower_alignment<Align> >
+struct is_pod< ::std::detail::lower_alignment<Align> >
 {
         BOOST_STATIC_CONSTANT(std::size_t, value = true);
 };
@@ -194,11 +194,11 @@ namespace detail{
 template <std::size_t Align>
 class type_with_alignment_imp
 {
-    typedef ::boost::detail::lower_alignment<Align> t1;
+    typedef ::std::detail::lower_alignment<Align> t1;
     typedef typename mpl::if_c<
-          ::boost::detail::is_aligned< ::boost::alignment_of<t1>::value,Align >::value
+          ::std::detail::is_aligned< ::std::alignment_of<t1>::value,Align >::value
         , t1
-        , ::boost::detail::max_align
+        , ::std::detail::max_align
         >::type align_t;
 
     BOOST_STATIC_CONSTANT(std::size_t, found = alignment_of<align_t>::value);
@@ -214,7 +214,7 @@ class type_with_alignment_imp
 
 template <std::size_t Align>
 class type_with_alignment 
-  : public ::boost::detail::type_with_alignment_imp<Align>
+  : public ::std::detail::type_with_alignment_imp<Align>
 {
 };
 
@@ -239,13 +239,13 @@ template<> class type_with_alignment<64> { public: typedef align::a64 type; };
 template<> class type_with_alignment<128> { public: typedef align::a128 type; };
 
 namespace detail {
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a2,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a4,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a8,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a16,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a32,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a64,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a128,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a2,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a4,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a8,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a16,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a32,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a64,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a128,true)
 }
 #endif
 #if (defined(BOOST_MSVC) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && _MSC_VER >= 1300
@@ -292,53 +292,53 @@ struct __declspec(align(128)) a128 {
 template<> class type_with_alignment<8>  
 { 
    typedef mpl::if_c<
-      ::boost::alignment_of<boost::detail::max_align>::value < 8,
+      ::std::alignment_of<std::detail::max_align>::value < 8,
       align::a8,
-      boost::detail::type_with_alignment_imp<8> >::type t1; 
+      std::detail::type_with_alignment_imp<8> >::type t1; 
 public: 
    typedef t1::type type;
 };
 template<> class type_with_alignment<16> 
 { 
    typedef mpl::if_c<
-      ::boost::alignment_of<boost::detail::max_align>::value < 16,
+      ::std::alignment_of<std::detail::max_align>::value < 16,
       align::a16,
-      boost::detail::type_with_alignment_imp<16> >::type t1; 
+      std::detail::type_with_alignment_imp<16> >::type t1; 
 public: 
    typedef t1::type type;
 };
 template<> class type_with_alignment<32> 
 { 
    typedef mpl::if_c<
-      ::boost::alignment_of<boost::detail::max_align>::value < 32,
+      ::std::alignment_of<std::detail::max_align>::value < 32,
       align::a32,
-      boost::detail::type_with_alignment_imp<32> >::type t1; 
+      std::detail::type_with_alignment_imp<32> >::type t1; 
 public: 
    typedef t1::type type;
 };
 template<> class type_with_alignment<64> {
    typedef mpl::if_c<
-      ::boost::alignment_of<boost::detail::max_align>::value < 64,
+      ::std::alignment_of<std::detail::max_align>::value < 64,
       align::a64,
-      boost::detail::type_with_alignment_imp<64> >::type t1; 
+      std::detail::type_with_alignment_imp<64> >::type t1; 
 public: 
    typedef t1::type type;
 };
 template<> class type_with_alignment<128> {
    typedef mpl::if_c<
-      ::boost::alignment_of<boost::detail::max_align>::value < 128,
+      ::std::alignment_of<std::detail::max_align>::value < 128,
       align::a128,
-      boost::detail::type_with_alignment_imp<128> >::type t1; 
+      std::detail::type_with_alignment_imp<128> >::type t1; 
 public: 
    typedef t1::type type;
 };
 
 namespace detail {
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a8,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a16,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a32,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a64,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a128,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a8,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a16,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a32,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a64,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a128,true)
 }
 #endif
 
@@ -361,13 +361,13 @@ struct a16{ long double s; };
 
 namespace detail {
 
-typedef ::boost::align::a16 max_align;
+typedef ::std::align::a16 max_align;
 
 //#if ! BOOST_WORKAROUND(__CODEGEARC__, BOOST_TESTED_AT(0x610))
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a2,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a4,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a8,true)
-BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::boost::align::a16,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a2,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a4,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a8,true)
+BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_pod,::std::align::a16,true)
 //#endif
 }
 

@@ -128,9 +128,9 @@ public:
     { detail::generate_from_int(*this, first, last); }
 
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z)
+    void discard(std::uintmax_t z)
     {
-        for(boost::uintmax_t j = 0; j < z; ++j) {
+        for(std::uintmax_t j = 0; j < z; ++j) {
             (*this)();
         }
     }
@@ -168,7 +168,7 @@ public:
 
 private:
     /// \cond show_private
-    static UIntType wordmask() { return boost::low_bits_mask_t<w>::sig_bits; }
+    static UIntType wordmask() { return std::low_bits_mask_t<w>::sig_bits; }
     /// \endcond
     UIntType value;
 };

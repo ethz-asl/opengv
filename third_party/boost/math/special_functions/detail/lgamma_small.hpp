@@ -501,17 +501,17 @@ T lgamma_small_imp(T z, T zm1, T zm2, const mpl::int_<0>&, const Policy& pol, co
    {
       // special case near 2:
       T dz = zm2;
-      result = dz * log((z + Lanczos::g() - T(0.5)) / boost::math::constants::e<T>());
-      result += boost::math::log1p(dz / (Lanczos::g() + T(1.5)), pol) * T(1.5);
-      result += boost::math::log1p(Lanczos::lanczos_sum_near_2(dz), pol);
+      result = dz * log((z + Lanczos::g() - T(0.5)) / std::math::constants::e<T>());
+      result += std::math::log1p(dz / (Lanczos::g() + T(1.5)), pol) * T(1.5);
+      result += std::math::log1p(Lanczos::lanczos_sum_near_2(dz), pol);
    }
    else
    {
       // special case near 1:
       T dz = zm1;
-      result = dz * log((z + Lanczos::g() - T(0.5)) / boost::math::constants::e<T>());
-      result += boost::math::log1p(dz / (Lanczos::g() + T(0.5)), pol) / 2;
-      result += boost::math::log1p(Lanczos::lanczos_sum_near_1(dz), pol);
+      result = dz * log((z + Lanczos::g() - T(0.5)) / std::math::constants::e<T>());
+      result += std::math::log1p(dz / (Lanczos::g() + T(0.5)), pol) / 2;
+      result += std::math::log1p(Lanczos::lanczos_sum_near_1(dz), pol);
    }
    return result;
 }

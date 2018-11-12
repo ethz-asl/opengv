@@ -38,8 +38,8 @@ find_first_of(SinglePassRange1 & rng1, ForwardRange2 const & rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2));
+    return std::find_first_of(std::begin(rng1),std::end(rng1),
+                              std::begin(rng2),std::end(rng2));
 }
 
 /// \overload
@@ -50,8 +50,8 @@ find_first_of(const SinglePassRange1& rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2));
+    return std::find_first_of(std::begin(rng1),std::end(rng1),
+                              std::begin(rng2),std::end(rng2));
 }
 
 /// \overload
@@ -65,8 +65,8 @@ find_first_of(SinglePassRange1 & rng1, ForwardRange2 const & rng2, BinaryPredica
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2),pred);
+    return std::find_first_of(std::begin(rng1),std::end(rng1),
+                              std::begin(rng2),std::end(rng2),pred);
 }
 
 /// \overload
@@ -77,8 +77,8 @@ find_first_of(const SinglePassRange1& rng1, const ForwardRange2& rng2, BinaryPre
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
-    return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2),pred);
+    return std::find_first_of(std::begin(rng1),std::end(rng1),
+                              std::begin(rng2),std::end(rng2),pred);
 }
 
 // range return overloads
@@ -94,8 +94,8 @@ find_first_of(SinglePassRange1& rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<SinglePassRange1,re>::
-        pack(std::find_first_of(boost::begin(rng1), boost::end(rng1),
-                                boost::begin(rng2), boost::end(rng2)),
+        pack(std::find_first_of(std::begin(rng1), std::end(rng1),
+                                std::begin(rng2), std::end(rng2)),
              rng1);
 }
 
@@ -108,8 +108,8 @@ find_first_of(const SinglePassRange1& rng1, const ForwardRange2& rng2)
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<const SinglePassRange1,re>::
-        pack(std::find_first_of(boost::begin(rng1), boost::end(rng1),
-                                boost::begin(rng2), boost::end(rng2)),
+        pack(std::find_first_of(std::begin(rng1), std::end(rng1),
+                                std::begin(rng2), std::end(rng2)),
              rng1);
 }
 
@@ -127,8 +127,8 @@ find_first_of(SinglePassRange1 & rng1, const ForwardRange2& rng2,
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<SinglePassRange1,re>::
-        pack(std::find_first_of(boost::begin(rng1), boost::end(rng1),
-                                boost::begin(rng2), boost::end(rng2), pred),
+        pack(std::find_first_of(std::begin(rng1), std::end(rng1),
+                                std::begin(rng2), std::end(rng2), pred),
              rng1);
 }
 
@@ -143,8 +143,8 @@ find_first_of(const SinglePassRange1 & rng1, const ForwardRange2& rng2,
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange2> ));
 
     return range_return<const SinglePassRange1,re>::
-        pack(std::find_first_of(boost::begin(rng1), boost::end(rng1),
-                                boost::begin(rng2), boost::end(rng2), pred),
+        pack(std::find_first_of(std::begin(rng1), std::end(rng1),
+                                std::begin(rng2), std::end(rng2), pred),
              rng1);
 }
 

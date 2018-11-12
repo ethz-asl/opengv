@@ -23,7 +23,7 @@ struct has_default_constructor
  : public has_trivial_constructor<T>
 {};
 
-} } // namespace boost::detail
+} } // namespace std::detail
 
 
 #endif // BOOST_DETAIL_HAS_DEFAULT_CONSTRUCTOR_HPP_INCLUDED

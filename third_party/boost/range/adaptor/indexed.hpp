@@ -44,10 +44,10 @@ namespace boost
     {
         template< class Iter >
         class indexed_iterator
-            : public boost::iterator_adaptor< indexed_iterator<Iter>, Iter >
+            : public std::iterator_adaptor< indexed_iterator<Iter>, Iter >
         {
         private:
-            typedef boost::iterator_adaptor< indexed_iterator<Iter>, Iter >
+            typedef std::iterator_adaptor< indexed_iterator<Iter>, Iter >
                   base;
 
             typedef BOOST_DEDUCED_TYPENAME base::difference_type index_type;
@@ -70,7 +70,7 @@ namespace boost
             }
 
          private:
-            friend class boost::iterator_core_access;
+            friend class std::iterator_core_access;
 
             void increment()
             {
@@ -106,7 +106,7 @@ namespace boost
         public:
             template< class Index >
             indexed_range( Index i, Rng& r )
-              : base( iter_type(boost::begin(r), i), iter_type(boost::end(r),i) )
+              : base( iter_type(std::begin(r), i), iter_type(std::end(r),i) )
             { }
         };
 

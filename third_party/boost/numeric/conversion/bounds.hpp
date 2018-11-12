@@ -19,6 +19,6 @@ template<class N>
 struct bounds : boundsdetail::get_impl<N>::type
 {} ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif

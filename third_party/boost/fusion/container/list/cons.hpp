@@ -88,7 +88,7 @@ namespace boost { namespace fusion
         template <typename Sequence>
         cons(
             Sequence const& seq
-          , typename boost::disable_if<
+          , typename std::disable_if<
                 mpl::or_<
                     is_convertible<Sequence, cons> // use copy ctor instead
                   , is_convertible<Sequence, Car>  // use copy to car instead
@@ -119,7 +119,7 @@ namespace boost { namespace fusion
         }
 
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, Car>, cons&>::type
+        typename std::disable_if<is_convertible<Sequence, Car>, cons&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type Iterator;

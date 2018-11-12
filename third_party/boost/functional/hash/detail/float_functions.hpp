@@ -127,7 +127,7 @@ namespace boost {
         template <> struct is<float> { char x[10]; };
         template <> struct is<double> { char x[20]; };
         template <> struct is<long double> { char x[30]; };
-        template <> struct is<boost::hash_detail::not_found> { char x[40]; };
+        template <> struct is<std::hash_detail::not_found> { char x[40]; };
             
         // Used to convert the return type of a function to a type for sizeof.
 
@@ -173,8 +173,8 @@ namespace boost {
 // (since the arguments are built in types, ADL can't be used).
 
 namespace boost_hash_detect_float_functions {
-    template <class Float> boost::hash_detail::not_found ldexp(Float, int);
-    template <class Float> boost::hash_detail::not_found frexp(Float, int*);    
+    template <class Float> std::hash_detail::not_found ldexp(Float, int);
+    template <class Float> std::hash_detail::not_found frexp(Float, int*);    
 }
 
 // Macros for generating specializations of call_ldexp and call_frexp.
@@ -193,7 +193,7 @@ namespace boost_hash_detect_float_functions {
 #define BOOST_HASH_CALL_FLOAT_FUNC(cpp_func, c99_func, type1, type2)    \
 namespace boost_hash_detect_float_functions {                           \
     template <class Float>                                              \
-    boost::hash_detail::not_found c99_func(Float, type2);               \
+    std::hash_detail::not_found c99_func(Float, type2);               \
 }                                                                       \
                                                                         \
 namespace boost {                                                       \
@@ -216,7 +216,7 @@ namespace boost {                                                       \
                                                                         \
         template <bool x>                                               \
         struct call_c99_##c99_func :                                    \
-            boost::hash_detail::call_##cpp_func<double> {};             \
+            std::hash_detail::call_##cpp_func<double> {};             \
                                                                         \
         template <>                                                     \
         struct call_c99_##c99_func<true> {                              \
@@ -233,7 +233,7 @@ namespace boost {                                                       \
         template <bool x>                                               \
         struct call_cpp_##c99_func :                                    \
             call_c99_##c99_func<                                        \
-                ::boost::hash_detail::c99_func##_detect::check::c99     \
+                ::std::hash_detail::c99_func##_detect::check::c99     \
             > {};                                                       \
                                                                         \
         template <>                                                     \
@@ -251,7 +251,7 @@ namespace boost {                                                       \
         template <>                                                     \
         struct call_##cpp_func<type1> :                                 \
             call_cpp_##c99_func<                                        \
-                ::boost::hash_detail::c99_func##_detect::check::cpp     \
+                ::std::hash_detail::c99_func##_detect::check::cpp     \
             > {};                                                       \
     }                                                                   \
 }

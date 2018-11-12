@@ -27,13 +27,13 @@ struct has_trivial_dtor_impl
 #ifdef BOOST_HAS_TRIVIAL_DESTRUCTOR
    BOOST_STATIC_CONSTANT(bool, value = BOOST_HAS_TRIVIAL_DESTRUCTOR(T));
 #else
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::is_pod<T>::value);
+   BOOST_STATIC_CONSTANT(bool, value = ::std::is_pod<T>::value);
 #endif
 };
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_destructor,T,::boost::detail::has_trivial_dtor_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_destructor,T,::std::detail::has_trivial_dtor_impl<T>::value)
 
 BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_destructor,void,false)
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS

@@ -31,7 +31,7 @@ inline BOOST_DEDUCED_TYPENAME range_difference<SinglePassRange>::type
 count(SinglePassRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange> ));
-    return std::count(boost::begin(rng), boost::end(rng), val);
+    return std::count(std::begin(rng), std::end(rng), val);
 }
 
 /// \overload
@@ -40,7 +40,7 @@ inline BOOST_DEDUCED_TYPENAME range_difference<SinglePassRange const>::type
 count(const SinglePassRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-    return std::count(boost::begin(rng), boost::end(rng), val);
+    return std::count(std::begin(rng), std::end(rng), val);
 }
 
     } // namespace range

@@ -14,7 +14,7 @@ namespace boost { namespace fusion
     {
         template<typename State, typename It, typename F>
         struct fold_lvalue_state
-          : boost::result_of<
+          : std::result_of<
                 F(
                 typename add_reference<typename add_const<State>::type>::type,
                 typename fusion::result_of::deref<It>::type)
@@ -252,7 +252,7 @@ namespace boost { namespace fusion
         {
             typedef typename
                 result_of_unrolled_fold<
-                    typename boost::result_of<
+                    typename std::result_of<
                         F(
                             StateRef,
                             typename fusion::result_of::deref< It0 const>::type

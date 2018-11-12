@@ -36,28 +36,28 @@ template <class T>
 struct make_unsigned_imp
 {
    BOOST_STATIC_ASSERT(
-      (::boost::type_traits::ice_or< ::boost::is_integral<T>::value, ::boost::is_enum<T>::value>::value));
+      (::std::type_traits::ice_or< ::std::is_integral<T>::value, ::std::is_enum<T>::value>::value));
 #if !BOOST_WORKAROUND(BOOST_MSVC, <=1300)
    BOOST_STATIC_ASSERT(
-      (::boost::type_traits::ice_not< ::boost::is_same<
+      (::std::type_traits::ice_not< ::std::is_same<
          typename remove_cv<T>::type, bool>::value>::value));
 #endif
 
    typedef typename remove_cv<T>::type t_no_cv;
    typedef typename mpl::if_c<
-      (::boost::type_traits::ice_and< 
-         ::boost::is_unsigned<T>::value,
-         ::boost::is_integral<T>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, wchar_t>::value>::value,
-         ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, bool>::value>::value >::value),
+      (::std::type_traits::ice_and< 
+         ::std::is_unsigned<T>::value,
+         ::std::is_integral<T>::value,
+         ::std::type_traits::ice_not< ::std::is_same<t_no_cv, char>::value>::value,
+         ::std::type_traits::ice_not< ::std::is_same<t_no_cv, wchar_t>::value>::value,
+         ::std::type_traits::ice_not< ::std::is_same<t_no_cv, bool>::value>::value >::value),
       T,
       typename mpl::if_c<
-         (::boost::type_traits::ice_and< 
-            ::boost::is_integral<T>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, char>::value>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, wchar_t>::value>::value,
-            ::boost::type_traits::ice_not< ::boost::is_same<t_no_cv, bool>::value>::value>
+         (::std::type_traits::ice_and< 
+            ::std::is_integral<T>::value,
+            ::std::type_traits::ice_not< ::std::is_same<t_no_cv, char>::value>::value,
+            ::std::type_traits::ice_not< ::std::is_same<t_no_cv, wchar_t>::value>::value,
+            ::std::type_traits::ice_not< ::std::is_same<t_no_cv, bool>::value>::value>
          ::value),
          typename mpl::if_<
             is_same<t_no_cv, signed char>,
@@ -74,12 +74,12 @@ struct make_unsigned_imp
 #if defined(BOOST_HAS_LONG_LONG)
 #ifdef BOOST_HAS_INT128
                      typename mpl::if_c<
-                        sizeof(t_no_cv) == sizeof(boost::ulong_long_type), 
-                        boost::ulong_long_type, 
-                        boost::uint128_type
+                        sizeof(t_no_cv) == sizeof(std::ulong_long_type), 
+                        std::ulong_long_type, 
+                        std::uint128_type
                      >::type
 #else
-                     boost::ulong_long_type
+                     std::ulong_long_type
 #endif
 #elif defined(BOOST_HAS_MS_INT64)
                      unsigned __int64
@@ -106,12 +106,12 @@ struct make_unsigned_imp
 #if defined(BOOST_HAS_LONG_LONG)
 #ifdef BOOST_HAS_INT128
                      typename mpl::if_c<
-                        sizeof(t_no_cv) == sizeof(boost::ulong_long_type), 
-                        boost::ulong_long_type, 
-                        boost::uint128_type
+                        sizeof(t_no_cv) == sizeof(std::ulong_long_type), 
+                        std::ulong_long_type, 
+                        std::uint128_type
                      >::type
 #else
-                     boost::ulong_long_type
+                     std::ulong_long_type
 #endif
 #elif defined(BOOST_HAS_MS_INT64)
                      unsigned __int64
@@ -143,7 +143,7 @@ struct make_unsigned_imp
 
 } // namespace detail
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(make_unsigned,T,typename boost::detail::make_unsigned_imp<T>::type)
+BOOST_TT_AUX_TYPE_TRAIT_DEF1(make_unsigned,T,typename std::detail::make_unsigned_imp<T>::type)
 
 } // namespace boost
 

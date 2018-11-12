@@ -132,7 +132,7 @@ namespace boost { namespace numeric { namespace ublas {
 #endif
         // ISSUE require type consistency check
         // is_convertable (IA::size_type, TA::size_type)
-        typedef typename boost::remove_cv<typename vector_view_traits<JA>::value_type>::type index_type;
+        typedef typename std::remove_cv<typename vector_view_traits<JA>::value_type>::type index_type;
         // for compatibility, should be removed some day ...
         typedef index_type size_type;
         // size_type for the data arrays.
@@ -244,8 +244,8 @@ namespace boost { namespace numeric { namespace ublas {
             const array_size_type itv      = zero_based( index1_data_[element1] );
             const array_size_type itv_next = zero_based( index1_data_[element1+1] );
 
-            const_subiterator_type it_start = boost::next(vector_view_traits<index_array_type>::begin(index2_data_),itv);
-            const_subiterator_type it_end = boost::next(vector_view_traits<index_array_type>::begin(index2_data_),itv_next);
+            const_subiterator_type it_start = std::next(vector_view_traits<index_array_type>::begin(index2_data_),itv);
+            const_subiterator_type it_end = std::next(vector_view_traits<index_array_type>::begin(index2_data_),itv_next);
             const_subiterator_type it = find_index_in_row(it_start, it_end, element2) ;
             
             if (it == it_end || *it != k_based (element2))

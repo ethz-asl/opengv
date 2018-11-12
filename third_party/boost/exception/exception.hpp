@@ -217,7 +217,7 @@ boost
             }
 
 #ifdef __HP_aCC
-        //On HP aCC, this protected copy constructor prevents throwing boost::exception.
+        //On HP aCC, this protected copy constructor prevents throwing std::exception.
         //On all other platforms, the same effect is achieved by the pure virtual destructor.
         exception( exception const & x ) throw():
             data_(x.data_),

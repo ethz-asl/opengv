@@ -122,7 +122,7 @@ template<
     >
 struct BOOST_PP_CAT(apply_wrap,i_)
     : BOOST_PP_CAT(apply_wrap_impl,i_)<
-          ::boost::mpl::aux::arity<F,i_>::value
+          ::std::mpl::aux::arity<F,i_>::value
         , F
         BOOST_PP_COMMA_IF(i_) AUX778076_APPLY_WRAP_PARAMS(i_, T)
         >::type

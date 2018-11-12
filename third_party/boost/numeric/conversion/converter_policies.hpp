@@ -166,9 +166,9 @@ struct def_overflow_handler
            throw positive_overflow() ;
 #else
     if ( r == cNegOverflow )
-      ::boost::throw_exception(negative_overflow()) ;
+      ::std::throw_exception(negative_overflow()) ;
     else if ( r == cPosOverflow )
-           ::boost::throw_exception(positive_overflow()) ;
+           ::std::throw_exception(positive_overflow()) ;
 #endif
   }
 } ;
@@ -189,6 +189,6 @@ struct raw_converter
 
 struct UseInternalRangeChecker {} ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif

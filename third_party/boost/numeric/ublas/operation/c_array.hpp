@@ -25,7 +25,7 @@ namespace boost { namespace numeric { namespace ublas {
 
     
     
-    } // namespace boost::numeric::ublas::detail
+    } // namespace std::numeric::ublas::detail
 
 
     template <typename T>
@@ -36,6 +36,6 @@ namespace boost { namespace numeric { namespace ublas {
     }
 
 
-}}} // Namespace boost::numeric::ublas
+}}} // Namespace std::numeric::ublas
 
 #endif

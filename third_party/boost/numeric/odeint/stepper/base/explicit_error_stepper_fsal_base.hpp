@@ -141,7 +141,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateInOut , class DerivInOut >
-    typename boost::disable_if< boost::is_same< StateInOut , time_type > , void >::type
+    typename std::disable_if< std::is_same< StateInOut , time_type > , void >::type
     do_step( System system , StateInOut &x , DerivInOut &dxdt , time_type t , time_type dt )
     {
         m_first_call = true;
@@ -157,7 +157,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateIn , class StateOut >
-    typename boost::disable_if< boost::is_same< StateIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< StateIn , time_type > , void >::type
     do_step( System system , const StateIn &in , time_type t , StateOut &out , time_type dt )
     {
         if( m_resizer.adjust_size( in , detail::bind( &internal_stepper_base_type::template resize_impl< StateIn > , detail::ref( *this ) , detail::_1 ) ) || m_first_call )
@@ -214,7 +214,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateInOut , class DerivInOut , class Err >
-    typename boost::disable_if< boost::is_same< StateInOut , time_type > , void >::type
+    typename std::disable_if< std::is_same< StateInOut , time_type > , void >::type
     do_step( System system , StateInOut &x , DerivInOut &dxdt , time_type t , time_type dt , Err &xerr )
     {
         m_first_call = true;
@@ -267,7 +267,7 @@ public:
     template< class DerivIn >
     void initialize( const DerivIn &deriv )
     {
-        boost::numeric::odeint::copy( deriv , m_dxdt.m_v );
+        std::numeric::odeint::copy( deriv , m_dxdt.m_v );
         m_first_call = false;
     }
 
@@ -397,7 +397,7 @@ protected:
  *      out-of-place and estimates the error during the step. It is assumed the dxdt_in is derivative of in at time t.
  *
  * \note The system is always passed as value, which might result in poor performance if it contains data. In this
- *      case it can be used with `boost::ref` or `std::ref`, for example `stepper.do_step( boost::ref( sys ) , x , t , dt );`
+ *      case it can be used with `std::ref` or `std::ref`, for example `stepper.do_step( std::ref( sys ) , x , t , dt );`
  *
  * \note The time `t` is not advanced by the stepper. This has to done manually, or by the appropriate `integrate`
  *      routines or `iterator`s.

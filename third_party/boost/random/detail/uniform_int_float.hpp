@@ -34,10 +34,10 @@ public:
     typedef URNG base_type;
     typedef typename base_type::result_type base_result;
 
-    typedef typename boost::uint_t<
-        (std::numeric_limits<boost::uintmax_t>::digits <
+    typedef typename std::uint_t<
+        (std::numeric_limits<std::uintmax_t>::digits <
             std::numeric_limits<base_result>::digits)?
-        std::numeric_limits<boost::uintmax_t>::digits :
+        std::numeric_limits<std::uintmax_t>::digits :
         std::numeric_limits<base_result>::digits
     >::fast result_type;
 

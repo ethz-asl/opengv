@@ -29,8 +29,8 @@ namespace boost {
   template <class ReadablePropertyMap, class Compare>
   class indirect_cmp {
   public:
-    typedef typename boost::property_traits<ReadablePropertyMap>::value_type T;
-    typedef typename boost::property_traits<ReadablePropertyMap>::key_type K;
+    typedef typename std::property_traits<ReadablePropertyMap>::value_type T;
+    typedef typename std::property_traits<ReadablePropertyMap>::key_type K;
     typedef K first_argument_type;
     typedef K second_argument_type;
     typedef bool result_type;
@@ -59,8 +59,8 @@ namespace boost {
   template <class ReadablePropertyMap>
   class indirect_pmap {
   public:
-    typedef typename boost::property_traits<ReadablePropertyMap>::value_type T;
-    typedef typename boost::property_traits<ReadablePropertyMap>::key_type K;
+    typedef typename std::property_traits<ReadablePropertyMap>::value_type T;
+    typedef typename std::property_traits<ReadablePropertyMap>::key_type K;
     typedef K argument_type;
     typedef T result_type;
     inline indirect_pmap(const ReadablePropertyMap& df)

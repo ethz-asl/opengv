@@ -75,12 +75,12 @@ inline UnaryFunction for_each(SinglePassRange & rng, UnaryFunction fun)
         return for_each_detail::for_each_impl<
                 typename range_iterator<SinglePassRange>::type,
                 UnaryFunction
-        >(boost::begin(rng), boost::end(rng), fun);
+        >(std::begin(rng), std::end(rng), fun);
 #else
     return std::for_each<
         BOOST_DEDUCED_TYPENAME range_iterator<SinglePassRange>::type,
         UnaryFunction
-    >(boost::begin(rng),boost::end(rng),fun);
+    >(std::begin(rng),std::end(rng),fun);
 #endif    
 }
 
@@ -94,12 +94,12 @@ inline UnaryFunction for_each(const SinglePassRange& rng, UnaryFunction fun)
         return for_each_detail::for_each_impl<
                 typename range_iterator<const SinglePassRange>::type,
                 UnaryFunction
-        >(boost::begin(rng), boost::end(rng), fun);
+        >(std::begin(rng), std::end(rng), fun);
 #else    
     return std::for_each<
         BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange>::type,
         UnaryFunction
-    >(boost::begin(rng), boost::end(rng), fun);
+    >(std::begin(rng), std::end(rng), fun);
 #endif    
 }
 

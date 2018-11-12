@@ -9,7 +9,7 @@
 
 //  boost/memory_order.hpp
 //
-//  Defines enum boost::memory_order per the C++0x working draft
+//  Defines enum std::memory_order per the C++0x working draft
 //
 //  Copyright (c) 2008, 2009 Peter Dimov
 //

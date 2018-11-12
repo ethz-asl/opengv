@@ -186,7 +186,7 @@ namespace boost { namespace range_detail_microsoft {
     typename size_type_of<T>::type
     size_of(T const& x)
     {
-        return std::distance(boost::begin(x), boost::end(x));
+        return std::distance(std::begin(x), std::end(x));
     }
 
 #endif
@@ -198,7 +198,7 @@ namespace boost { namespace range_detail_microsoft {
     { };
 
 
-} } // namespace boost::range_detail_microsoft
+} } // namespace std::range_detail_microsoft
 
 
 #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_namespace_open(NamespaceList) \
@@ -290,40 +290,40 @@ namespace boost { namespace range_detail_microsoft {
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_begin(Fullname) \
         inline \
-        boost::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
+        std::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_begin(Fullname& x) \
         { \
-            return boost::range_detail_microsoft::begin_of(x); \
+            return std::range_detail_microsoft::begin_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_begin_const(Fullname) \
         inline \
-        boost::range_detail_microsoft::const_iterator_of< Fullname >::type \
+        std::range_detail_microsoft::const_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_begin(Fullname const& x) \
         { \
-            return boost::range_detail_microsoft::begin_of(x); \
+            return std::range_detail_microsoft::begin_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_end(Fullname) \
         inline \
-        boost::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
+        std::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_end(Fullname& x) \
         { \
-            return boost::range_detail_microsoft::end_of(x); \
+            return std::range_detail_microsoft::end_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_end_const(Fullname) \
         inline \
-        boost::range_detail_microsoft::const_iterator_of< Fullname >::type \
+        std::range_detail_microsoft::const_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_end(Fullname const& x) \
         { \
-            return boost::range_detail_microsoft::end_of(x); \
+            return std::range_detail_microsoft::end_of(x); \
         } \
     /**/
 
@@ -337,10 +337,10 @@ namespace boost { namespace range_detail_microsoft {
 
         #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_size(Fullname) \
             inline \
-            boost::range_detail_microsoft::size_type_of< Fullname >::type \
+            std::range_detail_microsoft::size_type_of< Fullname >::type \
             boost_range_size(Fullname const& x) \
             { \
-                return boost::range_detail_microsoft::size_of(x); \
+                return std::range_detail_microsoft::size_of(x); \
             } \
         /**/
 
@@ -471,40 +471,40 @@ namespace boost { namespace range_detail_microsoft {
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_begin(Params, Fullname) \
         template< Params > inline \
-        typename boost::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
+        typename std::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_begin(Fullname& x) \
         { \
-            return boost::range_detail_microsoft::begin_of(x); \
+            return std::range_detail_microsoft::begin_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_begin_const(Params, Fullname) \
         template< Params > inline \
-        typename boost::range_detail_microsoft::const_iterator_of< Fullname >::type \
+        typename std::range_detail_microsoft::const_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_begin(Fullname const& x) \
         { \
-            return boost::range_detail_microsoft::begin_of(x); \
+            return std::range_detail_microsoft::begin_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_end(Params, Fullname) \
         template< Params > inline \
-        typename boost::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
+        typename std::range_detail_microsoft::mutable_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_end(Fullname& x) \
         { \
-            return boost::range_detail_microsoft::end_of(x); \
+            return std::range_detail_microsoft::end_of(x); \
         } \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_end_const(Params, Fullname) \
         template< Params > inline \
-        typename boost::range_detail_microsoft::const_iterator_of< Fullname >::type \
+        typename std::range_detail_microsoft::const_iterator_of< Fullname >::type \
         BOOST_RANGE_DETAIL_MICROSOFT_range_end(Fullname const& x) \
         { \
-            return boost::range_detail_microsoft::end_of(x); \
+            return std::range_detail_microsoft::end_of(x); \
         } \
     /**/
 
@@ -518,10 +518,10 @@ namespace boost { namespace range_detail_microsoft {
 
         #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_size(Params, Fullname) \
             template< Params > inline \
-            typename boost::range_detail_microsoft::size_type_of< Fullname >::type \
+            typename std::range_detail_microsoft::size_type_of< Fullname >::type \
             boost_range_size(Fullname const& x) \
             { \
-                return boost::range_detail_microsoft::size_of(x); \
+                return std::range_detail_microsoft::size_of(x); \
             } \
         /**/
 
@@ -605,7 +605,7 @@ namespace boost { namespace range_detail_microsoft {
         { }
 
         explicit list_iterator(ListT& lst, POSITION pos) :
-            m_plst(boost::addressof(lst)), m_pos(pos)
+            m_plst(std::addressof(lst)), m_pos(pos)
         { }
 
     template< class, class, class, class > friend struct list_iterator;
@@ -687,7 +687,7 @@ namespace boost { namespace range_detail_microsoft {
     };
 
 
-} } // namespace boost::range_detail_microsoft
+} } // namespace std::range_detail_microsoft
 
 
 
@@ -725,8 +725,8 @@ namespace boost { namespace range_detail_microsoft {
     bool test_equals(Range1 const& rng1, Range2 const& rng2)
     {
         return
-            boost::distance(rng1) == boost::distance(rng2) &&
-            std::equal(boost::begin(rng1), boost::end(rng1), boost::begin(rng2))
+            std::distance(rng1) == std::distance(rng2) &&
+            std::equal(std::begin(rng1), std::end(rng1), std::begin(rng2))
         ;
     }
 
@@ -734,8 +734,8 @@ namespace boost { namespace range_detail_microsoft {
     template< class AssocContainer, class PairT >
     bool test_find_key_and_mapped(AssocContainer const& ac, PairT const& pa)
     {
-        typedef typename boost::range_const_iterator<AssocContainer>::type iter_t;
-        for (iter_t it = boost::const_begin(ac), last = boost::const_end(ac); it != last; ++it) {
+        typedef typename std::range_const_iterator<AssocContainer>::type iter_t;
+        for (iter_t it = std::const_begin(ac), last = std::const_end(ac); it != last; ++it) {
             if (it->first == pa.first && it->second == pa.second)
                 return true;
         }
@@ -753,7 +753,7 @@ namespace boost { namespace range_detail_microsoft {
         bool result = true;
 
         Range emptyRng;
-        result = result && boost::empty(emptyRng);
+        result = result && std::empty(emptyRng);
 
         return result;
     }
@@ -766,14 +766,14 @@ namespace boost { namespace range_detail_microsoft {
 
         // convertibility check
         typedef typename range_const_iterator<Range>::type citer_t;
-        citer_t cit = boost::begin(rng);
+        citer_t cit = std::begin(rng);
         (void)cit; // unused
 
         // mutability check
         typedef typename range_value<Range>::type val_t;
-        val_t v = *boost::begin(rng);
-        *boost::begin(rng) = v;
-        result = result && *boost::begin(rng) == v;
+        val_t v = *std::begin(rng);
+        *std::begin(rng) = v;
+        result = result && *std::begin(rng) == v;
 
         return result;
     }
@@ -782,17 +782,17 @@ namespace boost { namespace range_detail_microsoft {
     template< class Range >
     bool test_forward(Range& rng)
     {
-        boost::function_requires< ForwardRangeConcept<Range> >();
+        std::function_requires< ForwardRangeConcept<Range> >();
 
         bool result = (test_trivial)(rng);
 
         typedef typename range_value<Range>::type val_t;
 
         std::vector<val_t> saved;
-        std::copy(boost::begin(rng), boost::end(rng), std::back_inserter(saved));
-        std::rotate(boost::begin(saved), boost::next(boost::begin(saved)), boost::end(saved));
+        std::copy(std::begin(rng), std::end(rng), std::back_inserter(saved));
+        std::rotate(std::begin(saved), std::next(std::begin(saved)), std::end(saved));
 
-        std::rotate(boost::begin(rng), boost::next(boost::begin(rng)), boost::end(rng));
+        std::rotate(std::begin(rng), std::next(std::begin(rng)), std::end(rng));
 
         return result && (test_equals)(saved, rng);
     };
@@ -801,18 +801,18 @@ namespace boost { namespace range_detail_microsoft {
     template< class Range >
     bool test_bidirectional(Range& rng)
     {
-        boost::function_requires< BidirectionalRangeConcept<Range> >();
+        std::function_requires< BidirectionalRangeConcept<Range> >();
 
         bool result = (test_forward)(rng);
 
         typedef typename range_value<Range>::type val_t;
 
         std::vector<val_t> saved;
-        std::copy(boost::begin(rng), boost::end(rng), std::back_inserter(saved));
+        std::copy(std::begin(rng), std::end(rng), std::back_inserter(saved));
 
         result = result && (test_equals)(
-            boost::make_iterator_range(boost::rbegin(saved), boost::rend(saved)),
-            boost::make_iterator_range(boost::rbegin(rng), boost::rend(rng))
+            std::make_iterator_range(std::rbegin(saved), std::rend(saved)),
+            std::make_iterator_range(std::rbegin(rng), std::rend(rng))
         );
 
         return result;
@@ -822,26 +822,26 @@ namespace boost { namespace range_detail_microsoft {
     template< class Range >
     bool test_random_access(Range& rng)
     {
-        boost::function_requires< RandomAccessRangeConcept<Range> >();
+        std::function_requires< RandomAccessRangeConcept<Range> >();
 
         bool result = (test_bidirectional)(rng);
 
         typedef typename range_value<Range>::type val_t;
 
         std::vector<val_t> saved;
-        std::copy(boost::begin(rng), boost::end(rng), std::back_inserter(saved));
-        std::sort(boost::begin(saved), boost::end(saved));
+        std::copy(std::begin(rng), std::end(rng), std::back_inserter(saved));
+        std::sort(std::begin(saved), std::end(saved));
 
-        std::random_shuffle(boost::begin(rng), boost::end(rng));
-        std::sort(boost::begin(rng), boost::end(rng));
+        std::random_shuffle(std::begin(rng), std::end(rng));
+        std::sort(std::begin(rng), std::end(rng));
         result = result && (test_equals)(rng, saved);
 
-        std::random_shuffle(boost::begin(rng), boost::end(rng));
-        std::stable_sort(boost::begin(rng), boost::end(rng));
+        std::random_shuffle(std::begin(rng), std::end(rng));
+        std::stable_sort(std::begin(rng), std::end(rng));
         result = result && (test_equals)(rng, saved);
 
-        std::random_shuffle(boost::begin(rng), boost::end(rng));
-        std::partial_sort(boost::begin(rng), boost::end(rng), boost::end(rng));
+        std::random_shuffle(std::begin(rng), std::end(rng));
+        std::partial_sort(std::begin(rng), std::end(rng), std::end(rng));
         result = result && (test_equals)(rng, saved);
 
         return result;
@@ -857,7 +857,7 @@ namespace boost { namespace range_detail_microsoft {
         typedef typename range_const_iterator<SampleRange>::type iter_t;
         typedef typename range_value<SampleRange>::type val_t;
 
-        for (iter_t it = boost::const_begin(sample), last = boost::const_end(sample); it != last; ++it) {
+        for (iter_t it = std::const_begin(sample), last = std::const_end(sample); it != last; ++it) {
             val_t v = *it; // works around ATL3 CSimpleArray
             arr.Add(v);
         }
@@ -871,7 +871,7 @@ namespace boost { namespace range_detail_microsoft {
     {
         typedef typename range_const_iterator<SampleRange>::type iter_t;
 
-        for (iter_t it = boost::const_begin(sample), last = boost::const_end(sample); it != last; ++it) {
+        for (iter_t it = std::const_begin(sample), last = std::const_end(sample); it != last; ++it) {
             lst.AddTail(*it);
         }
 
@@ -885,7 +885,7 @@ namespace boost { namespace range_detail_microsoft {
         typedef typename range_const_iterator<SampleRange>::type iter_t;
         typedef typename range_value<SampleRange>::type val_t;
 
-        for (iter_t it = boost::const_begin(sample), last = boost::const_end(sample); it != last; ++it) {
+        for (iter_t it = std::const_begin(sample), last = std::const_end(sample); it != last; ++it) {
             str += *it;
         }
 
@@ -898,11 +898,11 @@ namespace boost { namespace range_detail_microsoft {
     {
         typedef typename range_const_iterator<SampleMap>::type iter_t;
 
-        for (iter_t it = boost::const_begin(sample), last = boost::const_end(sample); it != last; ++it) {
+        for (iter_t it = std::const_begin(sample), last = std::const_end(sample); it != last; ++it) {
             map.SetAt(it->first, it->second);
         }
 
-        return boost::distance(map) == boost::distance(sample);
+        return std::distance(map) == std::distance(sample);
     }
 
 
@@ -911,17 +911,17 @@ namespace boost { namespace range_detail_microsoft {
 
     template< class Range, class Iter >
     struct test_mutable_iter :
-        boost::is_same< typename boost::BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator<Range>::type, Iter >
+        std::is_same< typename std::BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator<Range>::type, Iter >
     { };
 
 
     template< class Range, class Iter >
     struct test_const_iter :
-        boost::is_same< typename boost::range_const_iterator<Range>::type, Iter >
+        std::is_same< typename std::range_const_iterator<Range>::type, Iter >
     { };
 
 
-} } // namespace boost::range_detail_microsoft
+} } // namespace std::range_detail_microsoft
 
 
 #endif // defined(BOOST_RANGE_DETAIL_MICROSOFT_TEST)

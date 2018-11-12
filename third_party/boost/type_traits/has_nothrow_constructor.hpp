@@ -23,14 +23,14 @@ struct has_nothrow_constructor_imp{
 #ifdef BOOST_HAS_NOTHROW_CONSTRUCTOR
    BOOST_STATIC_CONSTANT(bool, value = BOOST_HAS_NOTHROW_CONSTRUCTOR(T));
 #else
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::has_trivial_constructor<T>::value);
+   BOOST_STATIC_CONSTANT(bool, value = ::std::has_trivial_constructor<T>::value);
 #endif
 };
 
 }
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_nothrow_constructor,T,::boost::detail::has_nothrow_constructor_imp<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_nothrow_default_constructor,T,::boost::detail::has_nothrow_constructor_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_nothrow_constructor,T,::std::detail::has_nothrow_constructor_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_nothrow_default_constructor,T,::std::detail::has_nothrow_constructor_imp<T>::value)
 
 BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_nothrow_constructor,void,false)
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS

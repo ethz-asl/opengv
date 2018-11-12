@@ -80,11 +80,11 @@ public:
       assign_large_int(c);
    }
 #ifdef BOOST_HAS_LONG_LONG
-   RR(boost::ulong_long_type c)
+   RR(std::ulong_long_type c)
    {
       assign_large_int(c);
    }
-   RR(boost::long_long_type c)
+   RR(std::long_long_type c)
    {
       assign_large_int(c);
    }
@@ -116,8 +116,8 @@ public:
    RR& operator=(long c) { assign_large_int(c); return *this; }
    RR& operator=(unsigned long c) { assign_large_int(c); return *this; }
 #ifdef BOOST_HAS_LONG_LONG
-   RR& operator=(boost::long_long_type c) { assign_large_int(c); return *this; }
-   RR& operator=(boost::ulong_long_type c) { assign_large_int(c); return *this; }
+   RR& operator=(std::long_long_type c) { assign_large_int(c); return *this; }
+   RR& operator=(std::ulong_long_type c) { assign_large_int(c); return *this; }
 #endif
    RR& operator=(float c) { m_value = c; return *this; }
    RR& operator=(double c) { m_value = c; return *this; }
@@ -178,7 +178,7 @@ private:
          return;
       }
 
-      if (!(boost::math::isfinite)(a))
+      if (!(std::math::isfinite)(a))
       {
          throw std::overflow_error("Cannot construct an instance of NTL::RR with an infinite value.");
       }
@@ -500,20 +500,20 @@ namespace tools
 {
 
 template<>
-inline int digits<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline int digits<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
    return ::NTL::RR::precision();
 }
 
 template <>
-inline float real_cast<float, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline float real_cast<float, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    double r;
    conv(r, t.value());
    return static_cast<float>(r);
 }
 template <>
-inline double real_cast<double, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline double real_cast<double, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    double r;
    conv(r, t.value());
@@ -541,40 +541,40 @@ void convert_to_long_result(NTL::RR const& r, I& result)
 }
 
 template <>
-inline long double real_cast<long double, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline long double real_cast<long double, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    long double result(0);
    detail::convert_to_long_result(t.value(), result);
    return result;
 }
 template <>
-inline boost::math::ntl::RR real_cast<boost::math::ntl::RR, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline std::math::ntl::RR real_cast<std::math::ntl::RR, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    return t;
 }
 template <>
-inline unsigned real_cast<unsigned, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline unsigned real_cast<unsigned, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    unsigned result;
    detail::convert_to_long_result(t.value(), result);
    return result;
 }
 template <>
-inline int real_cast<int, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline int real_cast<int, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    int result;
    detail::convert_to_long_result(t.value(), result);
    return result;
 }
 template <>
-inline long real_cast<long, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline long real_cast<long, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    long result;
    detail::convert_to_long_result(t.value(), result);
    return result;
 }
 template <>
-inline long long real_cast<long long, boost::math::ntl::RR>(boost::math::ntl::RR t)
+inline long long real_cast<long long, std::math::ntl::RR>(std::math::ntl::RR t)
 {
    long long result;
    detail::convert_to_long_result(t.value(), result);
@@ -582,7 +582,7 @@ inline long long real_cast<long long, boost::math::ntl::RR>(boost::math::ntl::RR
 }
 
 template <>
-inline boost::math::ntl::RR max_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline std::math::ntl::RR max_value<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
    static bool has_init = false;
    static NTL::RR val;
@@ -596,7 +596,7 @@ inline boost::math::ntl::RR max_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_
 }
 
 template <>
-inline boost::math::ntl::RR min_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline std::math::ntl::RR min_value<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
    static bool has_init = false;
    static NTL::RR val;
@@ -610,7 +610,7 @@ inline boost::math::ntl::RR min_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_
 }
 
 template <>
-inline boost::math::ntl::RR log_max_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline std::math::ntl::RR log_max_value<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
    static bool has_init = false;
    static NTL::RR val;
@@ -625,7 +625,7 @@ inline boost::math::ntl::RR log_max_value<boost::math::ntl::RR>(BOOST_MATH_EXPLI
 }
 
 template <>
-inline boost::math::ntl::RR log_min_value<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline std::math::ntl::RR log_min_value<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
    static bool has_init = false;
    static NTL::RR val;
@@ -640,9 +640,9 @@ inline boost::math::ntl::RR log_min_value<boost::math::ntl::RR>(BOOST_MATH_EXPLI
 }
 
 template <>
-inline boost::math::ntl::RR epsilon<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+inline std::math::ntl::RR epsilon<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
-   return ldexp(boost::math::ntl::RR(1), 1-boost::math::policies::digits<boost::math::ntl::RR, boost::math::policies::policy<> >());
+   return ldexp(std::math::ntl::RR(1), 1-std::math::policies::digits<std::math::ntl::RR, std::math::policies::policy<> >());
 }
 
 } // namespace tools
@@ -653,13 +653,13 @@ inline boost::math::ntl::RR epsilon<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TE
 //
 namespace constants{
 
-template<> inline boost::math::ntl::RR pi<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+template<> inline std::math::ntl::RR pi<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
     NTL::RR result;
     ComputePi(result);
     return result;
 }
-template<> inline boost::math::ntl::RR e<boost::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(boost::math::ntl::RR))
+template<> inline std::math::ntl::RR e<std::math::ntl::RR>(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(std::math::ntl::RR))
 {
     NTL::RR result;
     result = 1;
@@ -682,13 +682,13 @@ namespace ntl{
    {
       asin_root(RR const& target) : t(target){}
 
-      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
+      std::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR f0 = sin(p);
          RR f1 = cos(p);
          RR f2 = -f0;
          f0 -= t;
-         return boost::math::make_tuple(f0, f1, f2);
+         return std::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;
@@ -698,11 +698,11 @@ namespace ntl{
    {
       double r;
       conv(r, z.value());
-      return boost::math::tools::halley_iterate(
+      return std::math::tools::halley_iterate(
          asin_root(z), 
          RR(std::asin(r)), 
-         RR(-boost::math::constants::pi<RR>()/2),
-         RR(boost::math::constants::pi<RR>()/2),
+         RR(-std::math::constants::pi<RR>()/2),
+         RR(std::math::constants::pi<RR>()/2),
          NTL::RR::precision());
    }
 
@@ -710,13 +710,13 @@ namespace ntl{
    {
       acos_root(RR const& target) : t(target){}
 
-      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
+      std::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR f0 = cos(p);
          RR f1 = -sin(p);
          RR f2 = -f0;
          f0 -= t;
-         return boost::math::make_tuple(f0, f1, f2);
+         return std::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;
@@ -726,11 +726,11 @@ namespace ntl{
    {
       double r;
       conv(r, z.value());
-      return boost::math::tools::halley_iterate(
+      return std::math::tools::halley_iterate(
          acos_root(z), 
          RR(std::acos(r)), 
-         RR(-boost::math::constants::pi<RR>()/2),
-         RR(boost::math::constants::pi<RR>()/2),
+         RR(-std::math::constants::pi<RR>()/2),
+         RR(std::math::constants::pi<RR>()/2),
          NTL::RR::precision());
    }
 
@@ -738,14 +738,14 @@ namespace ntl{
    {
       atan_root(RR const& target) : t(target){}
 
-      boost::math::tuple<RR, RR, RR> operator()(RR const& p)
+      std::math::tuple<RR, RR, RR> operator()(RR const& p)
       {
          RR c = cos(p);
          RR ta = tan(p);
          RR f0 = ta - t;
          RR f1 = 1 / (c * c);
          RR f2 = 2 * ta / (c * c);
-         return boost::math::make_tuple(f0, f1, f2);
+         return std::math::make_tuple(f0, f1, f2);
       }
    private:
       RR t;
@@ -755,11 +755,11 @@ namespace ntl{
    {
       double r;
       conv(r, z.value());
-      return boost::math::tools::halley_iterate(
+      return std::math::tools::halley_iterate(
          atan_root(z), 
          RR(std::atan(r)), 
-         -boost::math::constants::pi<RR>()/2,
-         boost::math::constants::pi<RR>()/2,
+         -std::math::constants::pi<RR>()/2,
+         std::math::constants::pi<RR>()/2,
          NTL::RR::precision());
    }
 
@@ -769,9 +769,9 @@ namespace ntl{
          return atan(y / x);
       if(x < 0)
       {
-         return y < 0 ? atan(y / x) - boost::math::constants::pi<RR>() : atan(y / x) + boost::math::constants::pi<RR>();
+         return y < 0 ? atan(y / x) - std::math::constants::pi<RR>() : atan(y / x) + std::math::constants::pi<RR>();
       }
-      return y < 0 ? -boost::math::constants::half_pi<RR>() : boost::math::constants::half_pi<RR>() ;
+      return y < 0 ? -std::math::constants::half_pi<RR>() : std::math::constants::half_pi<RR>() ;
    }
 
    inline RR sinh(RR z)
@@ -866,7 +866,7 @@ ntl::RR digamma_imp(ntl::RR x, const mpl::int_<0>* , const Policy& pol)
       //
       if(remainder == 0)
       {
-         return policies::raise_pole_error<ntl::RR>("boost::math::digamma<%1%>(%1%)", 0, (1-x), pol);
+         return policies::raise_pole_error<ntl::RR>("std::math::digamma<%1%>(%1%)", 0, (1-x), pol);
       }
       result = constants::pi<ntl::RR>() / tan(constants::pi<ntl::RR>() * remainder);
    }

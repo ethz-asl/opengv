@@ -71,9 +71,9 @@ struct list_node
 template<class Allocator>
 struct intrusive_list_type
 {
-   typedef boost::container::allocator_traits<Allocator>   allocator_traits_type;
+   typedef std::container::allocator_traits<Allocator>   allocator_traits_type;
    typedef typename allocator_traits_type::value_type value_type;
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <typename allocator_traits_type::pointer>::template
          rebind_pointer<void>::type
             void_pointer;
@@ -118,7 +118,7 @@ class list_const_iterator
    { return this->m_it->m_data;  }
 
    const_pointer   operator->() const
-   { return ::boost::intrusive::pointer_traits<const_pointer>::pointer_to(this->m_it->m_data); }
+   { return ::std::intrusive::pointer_traits<const_pointer>::pointer_to(this->m_it->m_data); }
 
    //Increment / Decrement
    list_const_iterator& operator++()      
@@ -169,7 +169,7 @@ class list_iterator
    {  return  this->m_it->m_data;  }
 
    pointer   operator->() const
-   { return ::boost::intrusive::pointer_traits<pointer>::pointer_to(this->m_it->m_data); }
+   { return ::std::intrusive::pointer_traits<pointer>::pointer_to(this->m_it->m_data); }
 
    //Increment / Decrement
    list_iterator& operator++() 
@@ -222,7 +222,7 @@ class list
    typedef typename AllocHolder::allocator_v1                     allocator_v1;
    typedef typename AllocHolder::allocator_v2                     allocator_v2;
    typedef typename AllocHolder::alloc_version                    alloc_version;
-   typedef boost::container::allocator_traits<Allocator>          allocator_traits_type;
+   typedef std::container::allocator_traits<Allocator>          allocator_traits_type;
 
    class equal_to_value
    {
@@ -267,12 +267,12 @@ class list
    //////////////////////////////////////////////
 
    typedef T                                                                           value_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(NodeAlloc)                                           stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(iterator_impl)                                       iterator;
@@ -343,7 +343,7 @@ class list
    //!
    //! <b>Complexity</b>: Constant.
    list(BOOST_RV_REF(list) x)
-      : AllocHolder(boost::move(static_cast<AllocHolder&>(x)))
+      : AllocHolder(std::move(static_cast<AllocHolder&>(x)))
    {}
 
    //! <b>Effects</b>: Copy constructs a list using the specified allocator.
@@ -436,15 +436,15 @@ class list
          if(this_alloc == x_alloc){
             //Destroy and swap pointers
             this->clear();
-            this->icont() = boost::move(x.icont());
+            this->icont() = std::move(x.icont());
             //Move allocator if needed
             this->AllocHolder::move_assign_alloc(x);
          }
          //If unequal allocators, then do a one by one move
          else{
             typedef typename std::iterator_traits<iterator>::iterator_category ItCat;
-            this->assign( boost::make_move_iterator(x.begin())
-                        , boost::make_move_iterator(x.end()));
+            this->assign( std::make_move_iterator(x.begin())
+                        , std::make_move_iterator(x.end()));
          }
       }
       return *this;
@@ -747,7 +747,7 @@ class list
    //! <b>Complexity</b>: Constant
    template <class... Args>
    void emplace_back(Args&&... args)
-   {  this->emplace(this->cend(), boost::forward<Args>(args)...); }
+   {  this->emplace(this->cend(), std::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the beginning of the list.
@@ -758,7 +758,7 @@ class list
    //! <b>Complexity</b>: Constant
    template <class... Args>
    void emplace_front(Args&&... args)
-   {  this->emplace(this->cbegin(), boost::forward<Args>(args)...);  }
+   {  this->emplace(this->cbegin(), std::forward<Args>(args)...);  }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... before p.
@@ -770,7 +770,7 @@ class list
    template <class... Args>
    iterator emplace(const_iterator p, Args&&... args)
    {
-      NodePtr pnode(AllocHolder::create_node(boost::forward<Args>(args)...));
+      NodePtr pnode(AllocHolder::create_node(std::forward<Args>(args)...));
       return iterator(this->icont().insert(p.get(), *pnode));
    }
 
@@ -1346,7 +1346,7 @@ class list
 
    iterator priv_insert(const_iterator p, BOOST_RV_REF(T) x)
    {
-      NodePtr tmp = AllocHolder::create_node(boost::move(x));
+      NodePtr tmp = AllocHolder::create_node(std::move(x));
       return iterator(this->icont().insert(p.get(), *tmp));
    }
 
@@ -1354,13 +1354,13 @@ class list
    {  this->insert(this->cend(), x);    }
 
    void priv_push_back (BOOST_RV_REF(T) x)
-   {  this->insert(this->cend(), boost::move(x));    }
+   {  this->insert(this->cend(), std::move(x));    }
 
    void priv_push_front (const T &x)  
    {  this->insert(this->cbegin(), x);  }
 
    void priv_push_front (BOOST_RV_REF(T) x)
-   {  this->insert(this->cbegin(), boost::move(x));  }
+   {  this->insert(this->cbegin(), std::move(x));  }
 
    class insertion_functor;
    friend class insertion_functor;
@@ -1460,8 +1460,8 @@ inline void swap(list<T, Allocator>& x, list<T, Allocator>& y)
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class T, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::list<T, Allocator> >
-   : public ::boost::has_trivial_destructor_after_move<Allocator>
+struct has_trivial_destructor_after_move<std::container::list<T, Allocator> >
+   : public ::std::has_trivial_destructor_after_move<Allocator>
 {};
 
 namespace container {

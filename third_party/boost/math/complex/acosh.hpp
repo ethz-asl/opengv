@@ -23,8 +23,8 @@ inline std::complex<T> acosh(const std::complex<T>& z)
    // Choosing the sign of multiplier to give real(acosh(z)) >= 0
    // as well as compatibility with C99.
    //
-   std::complex<T> result = boost::math::acos(z);
-   if(!(boost::math::isnan)(result.imag()) && signbit(result.imag()))
+   std::complex<T> result = std::math::acos(z);
+   if(!(std::math::isnan)(result.imag()) && signbit(result.imag()))
       return detail::mult_i(result);
    return detail::mult_minus_i(result);
 }

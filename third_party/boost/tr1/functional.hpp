@@ -28,9 +28,9 @@
 
 namespace std{ namespace tr1{
 
-   using ::boost::reference_wrapper;
-   using ::boost::ref;
-   using ::boost::cref;
+   using ::std::reference_wrapper;
+   using ::std::ref;
+   using ::std::cref;
 
 } }
 
@@ -50,7 +50,7 @@ namespace std{ namespace tr1{
 
    template<class F>
    struct result_of
-     : ::boost::tr1_result_of<F>
+     : ::std::tr1_result_of<F>
    {};
 
 } }
@@ -63,7 +63,7 @@ namespace std{ namespace tr1{
 
 namespace std{ namespace tr1{
 
-using boost::mem_fn;
+using std::mem_fn;
 
 } }
 
@@ -76,9 +76,9 @@ using boost::mem_fn;
 
 namespace std{ namespace tr1{
 
-   using ::boost::is_bind_expression;
-   using ::boost::is_placeholder;
-   using ::boost::bind;
+   using ::std::is_bind_expression;
+   using ::std::is_placeholder;
+   using ::std::bind;
    namespace placeholders {
 #ifndef BOOST_BIND_NO_PLACEHOLDERS
       using ::_1;
@@ -107,9 +107,9 @@ namespace std{ namespace tr1{
     && !defined(BOOST_FUNCTION_NO_FUNCTION_TYPE_SYNTAX)
 namespace std{ namespace tr1{
 
-   using ::boost::bad_function_call;
-   using ::boost::function;
-   using ::boost::swap;
+   using ::std::bad_function_call;
+   using ::std::function;
+   using ::std::swap;
 
 }}
 #endif
@@ -120,7 +120,7 @@ namespace std{ namespace tr1{
 //
 // This header can get included by boost/hash.hpp
 // leading to cyclic dependencies.  As a workaround
-// we forward declare boost::hash and include
+// we forward declare std::hash and include
 // the actual header later.
 //
 namespace boost{
@@ -128,10 +128,10 @@ template <class T> struct hash;
 }
 
 namespace std{ namespace tr1{
-   //using ::boost::hash;
+   //using ::std::hash;
 
    template <class T>
-   struct hash : public boost::hash<T>
+   struct hash : public std::hash<T>
    {
    };
 

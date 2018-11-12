@@ -50,13 +50,13 @@ namespace type_traits_detail {
     template <typename T>
     struct add_rvalue_reference_imp
     {
-       typedef typename boost::type_traits_detail::add_rvalue_reference_helper
+       typedef typename std::type_traits_detail::add_rvalue_reference_helper
                   <T, (is_void<T>::value == false && is_reference<T>::value == false) >::type type;
     };
 
 }
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_rvalue_reference,T,typename boost::type_traits_detail::add_rvalue_reference_imp<T>::type)
+BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_rvalue_reference,T,typename std::type_traits_detail::add_rvalue_reference_imp<T>::type)
 
 }  // namespace boost
 

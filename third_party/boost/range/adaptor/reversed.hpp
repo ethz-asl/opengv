@@ -20,25 +20,25 @@ namespace boost
     {
         template< class R >
         struct reversed_range : 
-            public boost::iterator_range< 
-                      boost::reverse_iterator<
+            public std::iterator_range< 
+                      std::reverse_iterator<
                         BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
                                               >
                                          >
         {
         private:
-            typedef boost::iterator_range< 
-                      boost::reverse_iterator<
+            typedef std::iterator_range< 
+                      std::reverse_iterator<
                         BOOST_DEDUCED_TYPENAME range_iterator<R>::type 
                                               >
                                          >
                 base;
             
         public:
-            typedef boost::reverse_iterator<BOOST_DEDUCED_TYPENAME range_iterator<R>::type> iterator;
+            typedef std::reverse_iterator<BOOST_DEDUCED_TYPENAME range_iterator<R>::type> iterator;
 
             explicit reversed_range( R& r ) 
-                : base( iterator(boost::end(r)), iterator(boost::begin(r)) )
+                : base( iterator(std::end(r)), iterator(std::begin(r)) )
             { }
         };
 

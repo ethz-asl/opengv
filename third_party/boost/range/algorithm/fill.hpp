@@ -29,7 +29,7 @@ template< class ForwardRange, class Value >
 inline ForwardRange& fill(ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    std::fill(boost::begin(rng), boost::end(rng), val);
+    std::fill(std::begin(rng), std::end(rng), val);
     return rng;
 }
 
@@ -38,7 +38,7 @@ template< class ForwardRange, class Value >
 inline const ForwardRange& fill(const ForwardRange& rng, const Value& val)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    std::fill(boost::begin(rng), boost::end(rng), val);
+    std::fill(std::begin(rng), std::end(rng), val);
     return rng;
 }
 

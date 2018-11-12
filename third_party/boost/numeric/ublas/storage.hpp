@@ -269,7 +269,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
 
     private:
-        friend class boost::serialization::access;
+        friend class std::serialization::access;
 
         // Serialization
         template<class Archive>
@@ -448,7 +448,7 @@ namespace boost { namespace numeric { namespace ublas {
 
     private:
         // Serialization
-        friend class boost::serialization::access;
+        friend class std::serialization::access;
 
         template<class Archive>
         void serialize(Archive & ar, const unsigned int version)
@@ -1655,7 +1655,7 @@ namespace boost { namespace numeric { namespace ublas {
 
     template <class V1, class V2>
     class index_pair_array:
-        private boost::noncopyable {
+        private std::noncopyable {
 
         typedef index_pair_array<V1, V2> self_type;
     public:
@@ -1828,7 +1828,7 @@ namespace boost { namespace numeric { namespace ublas {
 
     template <class V1, class V2, class V3>
     class index_triple_array:
-        private boost::noncopyable {
+        private std::noncopyable {
 
         typedef index_triple_array<V1, V2, V3> self_type;
     public:

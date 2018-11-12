@@ -55,14 +55,14 @@ struct unwrap_reference< std::reference_wrapper<T> >
 };
 
 template<typename T>
-struct unwrap_reference< boost::reference_wrapper<T> >
+struct unwrap_reference< std::reference_wrapper<T> >
 {
-        typedef typename boost::unwrap_reference<T>::type type;
+        typedef typename std::unwrap_reference<T>::type type;
 };
 
 #else
 
-using ::boost::unwrap_reference;
+using ::std::unwrap_reference;
 
 #endif
 
@@ -75,7 +75,7 @@ using ::std::ref;
 
 #else
 
-using ::boost::ref;
+using ::std::ref;
 
 #endif
 }

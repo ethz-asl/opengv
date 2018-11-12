@@ -157,7 +157,7 @@ public:
         controlled_step_result res = try_step( system , x , dxdt , t , m_xnew.m_v , dt );
         if( res == success )
         {
-            boost::numeric::odeint::copy( m_xnew.m_v , x );
+            std::numeric::odeint::copy( m_xnew.m_v , x );
         }
         return res;
     }
@@ -168,7 +168,7 @@ public:
      * this version does not solve the forwarding problem, boost.range can not be used
      */
     template< class System , class StateIn , class StateOut >
-    typename boost::disable_if< boost::is_same< StateIn , time_type > , controlled_step_result >::type
+    typename std::disable_if< std::is_same< StateIn , time_type > , controlled_step_result >::type
     try_step( System system , const StateIn &in , time_type &t , StateOut &out , time_type &dt )
     {
         typename odeint::unwrap_reference< System >::type &sys = system;
@@ -307,7 +307,7 @@ public:
             t += dt;
         }
 
-        if( !m_last_step_rejected || boost::numeric::odeint::detail::less_with_sign(new_h, dt, dt) )
+        if( !m_last_step_rejected || std::numeric::odeint::detail::less_with_sign(new_h, dt, dt) )
         {
             m_dt_last = new_h;
             dt = new_h;

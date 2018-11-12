@@ -33,8 +33,8 @@ inline bool lexicographical_compare(const SinglePassRange1& rng1,
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
     return std::lexicographical_compare(
-        boost::begin(rng1), boost::end(rng1),
-        boost::begin(rng2), boost::end(rng2));
+        std::begin(rng1), std::end(rng1),
+        std::begin(rng2), std::end(rng2));
 }
 
 /// \overload
@@ -47,8 +47,8 @@ inline bool lexicographical_compare(const SinglePassRange1& rng1,
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
     return std::lexicographical_compare(
-        boost::begin(rng1), boost::end(rng1),
-        boost::begin(rng2), boost::end(rng2), pred);
+        std::begin(rng1), std::end(rng1),
+        std::begin(rng2), std::end(rng2), pred);
 }
 
     } // namespace range

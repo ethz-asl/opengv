@@ -42,8 +42,8 @@ template <typename T, typename Policy>
 T ellint_e_imp(T phi, T k, const Policy& pol)
 {
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
     bool invert = false;
     if(phi < 0)
@@ -57,7 +57,7 @@ T ellint_e_imp(T phi, T k, const Policy& pol)
     if(phi >= tools::max_value<T>())
     {
        // Need to handle infinity as a special case:
-       result = policies::raise_overflow_error<T>("boost::math::ellint_e<%1%>(%1%,%1%)", 0, pol);
+       result = policies::raise_overflow_error<T>("std::math::ellint_e<%1%>(%1%,%1%)", 0, pol);
     }
     else if(phi > 1 / tools::epsilon<T>())
     {
@@ -74,10 +74,10 @@ T ellint_e_imp(T phi, T k, const Policy& pol)
        // but that fails if T has more digits than a long long,
        // so rewritten to use fmod instead:
        //
-       T rphi = boost::math::tools::fmod_workaround(phi, T(constants::pi<T>() / 2));
+       T rphi = std::math::tools::fmod_workaround(phi, T(constants::pi<T>() / 2));
        T m = floor((2 * phi) / constants::pi<T>());
        int s = 1;
-       if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
+       if(std::math::tools::fmod_workaround(m, T(2)) > 0.5)
        {
           m += 1;
           s = -1;
@@ -101,11 +101,11 @@ template <typename T, typename Policy>
 T ellint_e_imp(T k, const Policy& pol)
 {
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
     if (abs(k) > 1)
     {
-       return policies::raise_domain_error<T>("boost::math::ellint_e<%1%>(%1%)",
+       return policies::raise_domain_error<T>("std::math::ellint_e<%1%>(%1%)",
             "Got k = %1%, function requires |k| <= 1", k, pol);
     }
     if (abs(k) == 1)
@@ -127,14 +127,14 @@ inline typename tools::promote_args<T>::type ellint_2(T k, const Policy& pol, co
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_e_imp(static_cast<value_type>(k), pol), "boost::math::ellint_2<%1%>(%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_e_imp(static_cast<value_type>(k), pol), "std::math::ellint_2<%1%>(%1%)");
 }
 
 // Elliptic integral (Legendre form) of the second kind
 template <class T1, class T2>
 inline typename tools::promote_args<T1, T2>::type ellint_2(T1 k, T2 phi, const mpl::false_&)
 {
-   return boost::math::ellint_2(k, phi, policies::policy<>());
+   return std::math::ellint_2(k, phi, policies::policy<>());
 }
 
 } // detail
@@ -159,7 +159,7 @@ inline typename tools::promote_args<T1, T2>::type ellint_2(T1 k, T2 phi, const P
 {
    typedef typename tools::promote_args<T1, T2>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_e_imp(static_cast<value_type>(phi), static_cast<value_type>(k), pol), "boost::math::ellint_2<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::ellint_e_imp(static_cast<value_type>(phi), static_cast<value_type>(k), pol), "std::math::ellint_2<%1%>(%1%,%1%)");
 }
 
 }} // namespaces

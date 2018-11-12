@@ -45,10 +45,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename V::difference_type difference_type;
         typedef typename V::value_type value_type;
         typedef typename V::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_reference,
                                           typename V::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_closure_type,
                                           typename V::closure_type>::type vector_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -224,7 +224,7 @@ namespace boost { namespace numeric { namespace ublas {
         // Iterator types
     private:
         typedef typename V::const_iterator const_subiterator_type;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_iterator,
                                           typename V::iterator>::type subiterator_type;
 
@@ -599,10 +599,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename V::difference_type difference_type;
         typedef typename V::value_type value_type;
         typedef typename V::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_reference,
                                           typename V::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_closure_type,
                                           typename V::closure_type>::type vector_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -1115,9 +1115,9 @@ namespace boost { namespace numeric { namespace ublas {
      *
      * The vector of indices can be of any type with the restriction that its elements must be
      * type-compatible with the size_type \c of the container. In practice, the following are good candidates:
-     * - \c boost::numeric::ublas::indirect_array<A> where \c A can be \c int, \c size_t, \c long, etc...
+     * - \c std::numeric::ublas::indirect_array<A> where \c A can be \c int, \c size_t, \c long, etc...
      * - \c std::vector<A> where \c A can \c int, \c size_t, \c long, etc...
-     * - \c boost::numeric::ublas::vector<int> can work too (\c int can be replaced by another integer type)
+     * - \c std::numeric::ublas::vector<int> can work too (\c int can be replaced by another integer type)
      * - etc...
      *
      * An indirect vector can be used as a normal vector in any expression. If the specified indirect vector 
@@ -1144,10 +1144,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename V::difference_type difference_type;
         typedef typename V::value_type value_type;
         typedef typename V::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_reference,
                                           typename V::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<V>,
+        typedef typename std::mpl::if_<std::is_const<V>,
                                           typename V::const_closure_type,
                                           typename V::closure_type>::type vector_closure_type;
         typedef basic_range<size_type, difference_type> range_type;

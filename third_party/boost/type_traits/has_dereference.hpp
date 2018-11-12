@@ -13,12 +13,12 @@
 #define BOOST_TT_TRAIT_OP *
 #define BOOST_TT_FORBIDDEN_IF\
    /* void* or fundamental */\
-   ::boost::type_traits::ice_or<\
-      ::boost::type_traits::ice_and<\
-         ::boost::is_pointer< Rhs_noref >::value,\
-         ::boost::is_void< Rhs_noptr >::value\
+   ::std::type_traits::ice_or<\
+      ::std::type_traits::ice_and<\
+         ::std::is_pointer< Rhs_noref >::value,\
+         ::std::is_void< Rhs_noptr >::value\
       >::value,\
-      ::boost::is_fundamental< Rhs_nocv >::value\
+      ::std::is_fundamental< Rhs_nocv >::value\
    >::value
 
 

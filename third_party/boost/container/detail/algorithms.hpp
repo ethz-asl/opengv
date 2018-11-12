@@ -60,13 +60,13 @@ struct is_emplace_iterator<emplace_iterator<U, EF, D> >
 
 template<class A, class T, class InpIt>
 inline void construct_in_place(A &a, T* dest, InpIt source)
-{     boost::container::allocator_traits<A>::construct(a, dest, *source);  }
+{     std::container::allocator_traits<A>::construct(a, dest, *source);  }
 //#endif
 
 template<class A, class T, class U, class D>
 inline void construct_in_place(A &a, T *dest, default_construct_iterator<U, D>)
 {
-   boost::container::allocator_traits<A>::construct(a, dest);
+   std::container::allocator_traits<A>::construct(a, dest);
 }
 
 template<class A, class T, class U, class EF, class D>

@@ -74,80 +74,80 @@ namespace boost { namespace numeric { namespace ublas {
     };
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator+ (I in1, std::complex<R> const& in2 ) {
         return R (in1) + in2;
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator+ (std::complex<R> const& in1, I in2) {
         return in1 + R (in2);
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator- (I in1, std::complex<R> const& in2) {
         return R (in1) - in2;
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator- (std::complex<R> const& in1, I in2) {
         return in1 - R (in2);
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator* (I in1, std::complex<R> const& in2) {
         return R (in1) * in2;
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator* (std::complex<R> const& in1, I in2) {
         return in1 * R(in2);
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator/ (I in1, std::complex<R> const& in2) {
         return R(in1) / in2;
       }
 
       template<typename R, typename I> 
-      typename boost::enable_if<
+      typename std::enable_if<
         mpl::and_<
-          boost::is_float<R>,
-          boost::is_integral<I>
+          std::is_float<R>,
+          std::is_integral<I>
           >,
         std::complex<R> >::type inline operator/ (std::complex<R> const& in1, I in2) {
         return in1 / R (in2);
@@ -376,28 +376,28 @@ namespace boost { namespace numeric { namespace ublas {
 #ifdef BOOST_UBLAS_USE_INTERVAL
     // Define scalar interval type traits
     template<>
-    struct type_traits<boost::numeric::interval<float> > : scalar_traits<boost::numeric::interval<float> > {
-        typedef type_traits<boost::numeric::interval<float> > self_type;
-        typedef boost::numeric::interval<float> value_type;
+    struct type_traits<std::numeric::interval<float> > : scalar_traits<std::numeric::interval<float> > {
+        typedef type_traits<std::numeric::interval<float> > self_type;
+        typedef std::numeric::interval<float> value_type;
         typedef const value_type &const_reference;
         typedef value_type &reference;
         typedef value_type real_type;
-        typedef boost::numeric::interval<double> precision_type;
+        typedef std::numeric::interval<double> precision_type;
 
     };
     template<>
-    struct type_traits<boost::numeric::interval<double> > : scalar_traits<boost::numeric::interval<double> > {
-        typedef type_traits<boost::numeric::interval<double> > self_type;
-        typedef boost::numeric::interval<double> value_type;
+    struct type_traits<std::numeric::interval<double> > : scalar_traits<std::numeric::interval<double> > {
+        typedef type_traits<std::numeric::interval<double> > self_type;
+        typedef std::numeric::interval<double> value_type;
         typedef const value_type &const_reference;
         typedef value_type &reference;
         typedef value_type real_type;
-        typedef boost::numeric::interval<long double> precision_type;
+        typedef std::numeric::interval<long double> precision_type;
     };
     template<>
-    struct type_traits<boost::numeric::interval<long double> > : scalar_traits<boost::numeric::interval<long double> > {
-        typedef type_traits<boost::numeric::interval<long double> > self_type;
-        typedef boost::numeric::interval<long double> value_type;
+    struct type_traits<std::numeric::interval<long double> > : scalar_traits<std::numeric::interval<long double> > {
+        typedef type_traits<std::numeric::interval<long double> > self_type;
+        typedef std::numeric::interval<long double> value_type;
         typedef const value_type &const_reference;
         typedef value_type &reference;
         typedef value_type real_type;
@@ -596,10 +596,10 @@ namespace boost { namespace numeric { namespace ublas {
         // specialisation which define whether a type has a trivial constructor
         // or not. This is used by array types.
         template<typename T>
-        struct has_trivial_constructor : public boost::has_trivial_constructor<T> {};
+        struct has_trivial_constructor : public std::has_trivial_constructor<T> {};
 
         template<typename T>
-        struct has_trivial_destructor : public boost::has_trivial_destructor<T> {};
+        struct has_trivial_destructor : public std::has_trivial_destructor<T> {};
 
         template<typename FLT>
         struct has_trivial_constructor<std::complex<FLT> > : public has_trivial_constructor<FLT> {};

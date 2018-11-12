@@ -22,10 +22,10 @@ namespace detail
 {
 
    template <class T>
-   struct is_pair : public boost::false_type{};
+   struct is_pair : public std::false_type{};
 
    template <class T, class U>
-   struct is_pair<std::pair<T,U> > : public boost::true_type{};
+   struct is_pair<std::pair<T,U> > : public std::true_type{};
 
    template <class Gen>
    struct fraction_traits_simple
@@ -61,7 +61,7 @@ namespace detail
 
    template <class Gen>
    struct fraction_traits
-       : public boost::mpl::if_c<
+       : public std::mpl::if_c<
          is_pair<typename Gen::result_type>::value,
          fraction_traits_pair<Gen>,
          fraction_traits_simple<Gen> >::type
@@ -85,7 +85,7 @@ namespace detail
 // Note that the first a0 returned by generator Gen is disarded.
 //
 template <class Gen, class U>
-inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(Gen& g, const U& factor, boost::uintmax_t& max_terms)
+inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(Gen& g, const U& factor, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING // ADL of std names
 
@@ -104,7 +104,7 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(G
    C = f;
    D = 0;
 
-   boost::uintmax_t counter(max_terms);
+   std::uintmax_t counter(max_terms);
 
    do{
       v = g();
@@ -127,7 +127,7 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(G
 template <class Gen, class U>
 inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(Gen& g, const U& factor)
 {
-   boost::uintmax_t max_terms = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t max_terms = (std::numeric_limits<std::uintmax_t>::max)();
    return continued_fraction_b(g, factor, max_terms);
 }
 
@@ -140,12 +140,12 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(G
    typedef typename traits::result_type result_type;
 
    result_type factor = ldexp(1.0f, 1 - bits); // 1 / pow(result_type(2), bits);
-   boost::uintmax_t max_terms = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t max_terms = (std::numeric_limits<std::uintmax_t>::max)();
    return continued_fraction_b(g, factor, max_terms);
 }
 
 template <class Gen>
-inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(Gen& g, int bits, boost::uintmax_t& max_terms)
+inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(Gen& g, int bits, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING // ADL of std names
 
@@ -171,7 +171,7 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_b(G
 // Note that the first a1 and b1 returned by generator Gen are both used.
 //
 template <class Gen, class U>
-inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(Gen& g, const U& factor, boost::uintmax_t& max_terms)
+inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(Gen& g, const U& factor, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING // ADL of std names
 
@@ -191,7 +191,7 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(G
    C = f;
    D = 0;
 
-   boost::uintmax_t counter(max_terms);
+   std::uintmax_t counter(max_terms);
 
    do{
       v = g();
@@ -214,7 +214,7 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(G
 template <class Gen, class U>
 inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(Gen& g, const U& factor)
 {
-   boost::uintmax_t max_iter = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t max_iter = (std::numeric_limits<std::uintmax_t>::max)();
    return continued_fraction_a(g, factor, max_iter);
 }
 
@@ -227,13 +227,13 @@ inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(G
    typedef typename traits::result_type result_type;
 
    result_type factor = ldexp(1.0f, 1-bits); // 1 / pow(result_type(2), bits);
-   boost::uintmax_t max_iter = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t max_iter = (std::numeric_limits<std::uintmax_t>::max)();
 
    return continued_fraction_a(g, factor, max_iter);
 }
 
 template <class Gen>
-inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(Gen& g, int bits, boost::uintmax_t& max_terms)
+inline typename detail::fraction_traits<Gen>::result_type continued_fraction_a(Gen& g, int bits, std::uintmax_t& max_terms)
 {
    BOOST_MATH_STD_USING // ADL of std names
 

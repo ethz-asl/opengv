@@ -35,24 +35,24 @@ class functor_type {
     typedef BOOST_TYPEOF_TPL(&F::operator()) call_ptr;
 public:
     typedef
-        typename boost::function_types::function_type<
-            typename boost::mpl::push_front<
-                  typename boost::mpl::pop_front< // Remove functor type (1st).
-                    typename boost::function_types::parameter_types<
+        typename std::function_types::function_type<
+            typename std::mpl::push_front<
+                  typename std::mpl::pop_front< // Remove functor type (1st).
+                    typename std::function_types::parameter_types<
                             call_ptr>::type
                   >::type
-                , typename boost::function_types::result_type<call_ptr>::type
+                , typename std::function_types::result_type<call_ptr>::type
             >::type
         >::type
     type;
 };
 
-// NOTE: When using boost::function in Boost.Typeof emulation mode, the user
-// has to register boost::functionN instead of boost::function in oder to
-// do TYPEOF(F::operator()). That is confusing, so boost::function is handled
+// NOTE: When using std::function in Boost.Typeof emulation mode, the user
+// has to register std::functionN instead of std::function in oder to
+// do TYPEOF(F::operator()). That is confusing, so std::function is handled
 // separately so it does not require any Boost.Typeof registration at all.
 template<typename F>
-struct functor_type< boost::function<F> > {
+struct functor_type< std::function<F> > {
     typedef F type;
 };
 
@@ -61,16 +61,16 @@ struct functor_type< boost::function<F> > {
 template<typename F>
 struct function_type {
     typedef
-        typename boost::mpl::if_<boost::function_types::is_function<F>,
-            boost::mpl::identity<F>
+        typename std::mpl::if_<std::function_types::is_function<F>,
+            std::mpl::identity<F>
         ,
-            typename boost::mpl::if_<boost::function_types::
+            typename std::mpl::if_<std::function_types::
                     is_function_pointer<F>,
-                boost::remove_pointer<F>
+                std::remove_pointer<F>
             ,
-                typename boost::mpl::if_<boost::function_types::
+                typename std::mpl::if_<std::function_types::
                         is_function_reference<F>,
-                    boost::remove_reference<F>
+                    std::remove_reference<F>
                 , // Else, requires that F is a functor.
                     functor_type<F>
                 >::type

@@ -36,7 +36,7 @@ BOOST_MPL_HAS_XXX_TRAIT_DEF(size_type)
 
 
 /**
- * \brief Wrapper type-traits used in \c boost::lazy_enabled_if for getting the
+ * \brief Wrapper type-traits used in \c std::lazy_enabled_if for getting the
  *  size type (see below).
  * \tparam VectorT A vector type.
  */
@@ -48,7 +48,7 @@ struct vector_size_type
 };
 
 /**
- * \brief Wrapper type-traits used in \c boost::lazy_enabled_if for getting the
+ * \brief Wrapper type-traits used in \c std::lazy_enabled_if for getting the
  *  size type (see below).
  * \tparam MatrixT A matrix type.
  */
@@ -283,7 +283,7 @@ struct size_by_tag_impl<TagT, CategoryT, unknown_orientation_tag>: size_by_tag_i
  */
 template <typename VectorExprT>
 BOOST_UBLAS_INLINE
-typename ::boost::lazy_enable_if_c<
+typename ::std::lazy_enable_if_c<
     detail::has_size_type<VectorExprT>::value,
     detail::vector_size_type<VectorExprT>
 >::type size(vector_expression<VectorExprT> const& ve)
@@ -336,7 +336,7 @@ typename matrix_traits<MatrixExprT>::size_type size(matrix_expression<MatrixExpr
  */
 template <typename TagT, typename MatrixExprT>
 BOOST_UBLAS_INLINE
-typename ::boost::lazy_enable_if_c<
+typename ::std::lazy_enable_if_c<
     detail::has_size_type<MatrixExprT>::value,
     detail::matrix_size_type<MatrixExprT>
 >::type size(matrix_expression<MatrixExprT> const& me)
@@ -344,7 +344,7 @@ typename ::boost::lazy_enable_if_c<
     return detail::size_by_tag_impl<TagT, matrix_tag, typename matrix_traits<MatrixExprT>::orientation_category>::apply(me);
 }
 
-}}} // Namespace boost::numeric::ublas
+}}} // Namespace std::numeric::ublas
 
 
 #endif // BOOST_NUMERIC_UBLAS_OPERATION_SIZE_HPP

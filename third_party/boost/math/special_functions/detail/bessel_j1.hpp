@@ -138,8 +138,8 @@ T bessel_j1(T x)
     T value, factor, r, rc, rs, w;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
-    using namespace boost::math::constants;
+    using namespace std::math::tools;
+    using namespace std::math::constants;
 
     w = abs(x);
     if (x == 0)

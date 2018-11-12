@@ -34,7 +34,7 @@ namespace odeint {
  * specializations for vex::vector< T >
  */
 template< typename T >
-struct is_resizeable< vex::vector< T > > : boost::true_type { };
+struct is_resizeable< vex::vector< T > > : std::true_type { };
 
 template< typename T >
 struct resize_impl< vex::vector< T > , vex::vector< T > >
@@ -62,7 +62,7 @@ struct same_size_impl< vex::vector< T > , vex::vector< T > >
  * specializations for vex::multivector< T >
  */
 template< typename T , uint N >
-struct is_resizeable< vex::multivector< T , N > > : boost::true_type { };
+struct is_resizeable< vex::multivector< T , N > > : std::true_type { };
 
 template< typename T , uint N >
 struct resize_impl< vex::multivector< T , N > , vex::multivector< T , N > >

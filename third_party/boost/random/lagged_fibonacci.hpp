@@ -90,7 +90,7 @@ public:
     BOOST_RANDOM_DETAIL_ARITHMETIC_SEED(lagged_fibonacci_engine,
         UIntType, value)
     {
-        minstd_rand0 intgen(static_cast<boost::uint32_t>(value));
+        minstd_rand0 intgen(static_cast<std::uint32_t>(value));
         detail::generator_seed_seq<minstd_rand0> gen(intgen);
         seed(gen);
     }
@@ -130,9 +130,9 @@ public:
     { detail::generate_from_int(*this, first, last); }
 
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z)
+    void discard(std::uintmax_t z)
     {
-        for(boost::uintmax_t j = 0; j < z; ++j) {
+        for(std::uintmax_t j = 0; j < z; ++j) {
             (*this)();
         }
     }
@@ -265,7 +265,7 @@ public:
     BOOST_STATIC_CONSTANT(unsigned int, long_lag = p);
     BOOST_STATIC_CONSTANT(unsigned int, short_lag = q);
 
-    BOOST_STATIC_CONSTANT(boost::uint32_t, default_seed = 331u);
+    BOOST_STATIC_CONSTANT(std::uint32_t, default_seed = 331u);
 
     /** Constructs a @c lagged_fibonacci_01 generator and calls @c seed(). */
     lagged_fibonacci_01_engine() { seed(); }
@@ -290,7 +290,7 @@ public:
      * seeds will be equivalent to some seed within this range. See
      * \linear_congruential_engine for details.
      */
-    BOOST_RANDOM_DETAIL_ARITHMETIC_SEED(lagged_fibonacci_01_engine, boost::uint32_t, value)
+    BOOST_RANDOM_DETAIL_ARITHMETIC_SEED(lagged_fibonacci_01_engine, std::uint32_t, value)
     {
         minstd_rand0 intgen(value);
         detail::generator_seed_seq<minstd_rand0> gen(intgen);
@@ -338,9 +338,9 @@ public:
     { return detail::generate_from_real(*this, first, last); }
 
     /** Advances the state of the generator by @c z. */
-    void discard(boost::uintmax_t z)
+    void discard(std::uintmax_t z)
     {
-        for(boost::uintmax_t j = 0; j < z; ++j) {
+        for(std::uintmax_t j = 0; j < z; ++j) {
             (*this)();
         }
     }
@@ -411,7 +411,7 @@ const unsigned int lagged_fibonacci_01_engine<RealType, w, p, q>::short_lag;
 template<class RealType, int w, unsigned int p, unsigned int q>
 const int lagged_fibonacci_01_engine<RealType,w,p,q>::word_size;
 template<class RealType, int w, unsigned int p, unsigned int q>
-const boost::uint32_t lagged_fibonacci_01_engine<RealType,w,p,q>::default_seed;
+const std::uint32_t lagged_fibonacci_01_engine<RealType,w,p,q>::default_seed;
 #endif
 
 /// \cond show_private
@@ -446,7 +446,7 @@ class lagged_fibonacci_01 : public lagged_fibonacci_01_engine<RealType, w, p, q>
     typedef lagged_fibonacci_01_engine<RealType, w, p, q> base_type;
 public:
     lagged_fibonacci_01() {}
-    BOOST_RANDOM_DETAIL_ARITHMETIC_CONSTRUCTOR(lagged_fibonacci_01, boost::uint32_t, val)
+    BOOST_RANDOM_DETAIL_ARITHMETIC_CONSTRUCTOR(lagged_fibonacci_01, std::uint32_t, val)
     { this->seed(val); }
     BOOST_RANDOM_DETAIL_SEED_SEQ_CONSTRUCTOR(lagged_fibonacci_01, SeedSeq, seq)
     { this->seed(seq); }
@@ -500,23 +500,23 @@ struct lagged_fibonacci_doc {};
 }
 #endif
 
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 607, 273> lagged_fibonacci607;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 1279, 418> lagged_fibonacci1279;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 2281, 1252> lagged_fibonacci2281;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 3217, 576> lagged_fibonacci3217;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 4423, 2098> lagged_fibonacci4423;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 9689, 5502> lagged_fibonacci9689;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 19937, 9842> lagged_fibonacci19937;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 23209, 13470> lagged_fibonacci23209;
-/** @copydoc boost::random::detail::lagged_fibonacci_doc */
+/** @copydoc std::random::detail::lagged_fibonacci_doc */
 typedef lagged_fibonacci_01_engine<double, 48, 44497, 21034> lagged_fibonacci44497;
 
 } // namespace random

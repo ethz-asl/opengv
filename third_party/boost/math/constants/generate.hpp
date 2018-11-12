@@ -29,7 +29,7 @@ typedef mpfr_class generator_type;
 #elif defined(USE_MPREAL)
 typedef mpfr::mpreal generator_type;
 #elif defined(USE_CPP_FLOAT)
-typedef boost::multiprecision::number<boost::multiprecision::cpp_dec_float<500> > generator_type;
+typedef std::multiprecision::number<std::multiprecision::cpp_dec_float<500> > generator_type;
 #else
 typedef ntl::RR generator_type;
 #endif
@@ -46,7 +46,7 @@ inline void print_constant(const char* name, generator_type(*f)(const mpl::int_<
    ntl::RR::SetPrecision(((200 + 1) * 1000L) / 301L);
    ntl::RR::SetOutputPrecision(102);
 #endif
-   generator_type value = f(boost::mpl::int_<0>());
+   generator_type value = f(std::mpl::int_<0>());
    std::stringstream os;
    os << std::setprecision(110) << std::scientific;
    os << value;
@@ -68,8 +68,8 @@ inline void print_constant(const char* name, generator_type(*f)(const mpl::int_<
 }
 
 #define BOOST_CONSTANTS_GENERATE(name) \
-   boost::math::constants::print_constant(#name, \
-   & boost::math::constants::detail::BOOST_JOIN(constant_, name)<boost::math::constants::generator_type>::get)
+   std::math::constants::print_constant(#name, \
+   & std::math::constants::detail::BOOST_JOIN(constant_, name)<std::math::constants::generator_type>::get)
 
 }}} // namespaces
 

@@ -26,7 +26,7 @@ inline T powm1_imp(const T a, const T z, const Policy& pol)
    {
       T p = log(a) * z;
       if(fabs(p) < 2)
-         return boost::math::expm1(p, pol);
+         return std::math::expm1(p, pol);
       // otherwise fall though:
    }
    return pow(a, z) - 1;

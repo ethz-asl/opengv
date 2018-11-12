@@ -245,13 +245,13 @@ namespace detail {
         // call put(x, ..) on every occurence of the current argument :
         if(self.cur_arg_ >= self.num_args_)  {
             if( self.exceptions() & too_many_args_bit )
-                boost::throw_exception(too_many_args(self.cur_arg_, self.num_args_)); 
+                std::throw_exception(too_many_args(self.cur_arg_, self.num_args_)); 
             else return;
         }
         for(unsigned long i=0; i < self.items_.size(); ++i) {
             if(self.items_[i].argN_ == self.cur_arg_) {
                 put<Ch, Tr, Alloc, T> (x, self.items_[i], self.items_[i].res_, 
-                                self.buf_, boost::get_pointer(self.loc_) );
+                                self.buf_, std::get_pointer(self.loc_) );
             }
         }
     }

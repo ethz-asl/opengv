@@ -78,12 +78,12 @@ typename Dist::value_type
       const typename Dist::value_type& multiplier,
       typename Dist::value_type adder,
       const Tolerance& tol,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    typedef typename Dist::value_type value_type;
    typedef typename Dist::policy_type policy_type;
 
-   static const char* function = "boost::math::do_inverse_discrete_quantile<%1%>";
+   static const char* function = "std::math::do_inverse_discrete_quantile<%1%>";
 
    BOOST_MATH_STD_USING
 
@@ -92,7 +92,7 @@ typename Dist::value_type
    // Max bounds of the distribution:
    //
    value_type min_bound, max_bound;
-   boost::math::tie(min_bound, max_bound) = support(dist);
+   std::math::tie(min_bound, max_bound) = support(dist);
 
    if(guess > max_bound)
       guess = max_bound;
@@ -100,7 +100,7 @@ typename Dist::value_type
       guess = min_bound;
 
    value_type fa = f(guess);
-   boost::uintmax_t count = max_iter - 1;
+   std::uintmax_t count = max_iter - 1;
    value_type fb(fa), a(guess), b =0; // Compiler warning C4701: potentially uninitialized local variable 'b' used
 
    if(fa == 0)
@@ -204,7 +204,7 @@ typename Dist::value_type
    // If the root hasn't been bracketed yet, try again
    // using the multiplier this time:
    //
-   if((boost::math::sign)(fb) == (boost::math::sign)(fa))
+   if((std::math::sign)(fb) == (std::math::sign)(fa))
    {
       if(fa < 0)
       {
@@ -212,7 +212,7 @@ typename Dist::value_type
          // Zero is to the right of x2, so walk upwards
          // until we find it:
          //
-         while(((boost::math::sign)(fb) == (boost::math::sign)(fa)) && (a != b))
+         while(((std::math::sign)(fb) == (std::math::sign)(fa)) && (a != b))
          {
             if(count == 0)
                policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, policy_type());
@@ -232,7 +232,7 @@ typename Dist::value_type
          // Zero is to the left of a, so walk downwards
          // until we find it:
          //
-         while(((boost::math::sign)(fb) == (boost::math::sign)(fa)) && (a != b))
+         while(((std::math::sign)(fb) == (std::math::sign)(fa)) && (a != b))
          {
             if(fabs(a) < tools::min_value<value_type>())
             {
@@ -296,7 +296,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::real>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    if(p <= pdf(dist, 0))
       return 0;
@@ -321,7 +321,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::integer_round_outwards>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
@@ -363,7 +363,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::integer_round_inwards>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
@@ -405,7 +405,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::integer_round_down>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
@@ -432,7 +432,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::integer_round_up>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    BOOST_MATH_STD_USING
    if(p <= pdf(dist, 0))
@@ -458,7 +458,7 @@ inline typename Dist::value_type
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::integer_round_nearest>&,
-      boost::uintmax_t& max_iter)
+      std::uintmax_t& max_iter)
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING

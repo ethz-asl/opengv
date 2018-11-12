@@ -22,9 +22,9 @@
 
 namespace std{ namespace tr1{
 
-   using ::boost::unordered_map;
-   using ::boost::unordered_multimap;
-   using ::boost::swap;
+   using ::std::unordered_map;
+   using ::std::unordered_multimap;
+   using ::std::swap;
 
 } } // namespaces
 

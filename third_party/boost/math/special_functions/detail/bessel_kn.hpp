@@ -24,9 +24,9 @@ T bessel_kn(int n, T x, const Policy& pol)
 {
     T value, current, prev;
 
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::bessel_kn<%1%>(%1%,%1%)";
+    static const char* function = "std::math::bessel_kn<%1%>(%1%,%1%)";
 
     if (x < 0)
     {

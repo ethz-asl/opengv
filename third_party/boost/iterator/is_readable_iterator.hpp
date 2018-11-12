@@ -52,7 +52,7 @@ namespace detail
   struct is_readable_iterator_impl<void>
   {
       template <class It>
-      struct rebind : boost::mpl::false_
+      struct rebind : std::mpl::false_
       {};
   };
 
@@ -61,7 +61,7 @@ namespace detail
   struct is_readable_iterator_impl<const void>
   {
       template <class It>
-      struct rebind : boost::mpl::false_
+      struct rebind : std::mpl::false_
       {};
   };
 
@@ -69,7 +69,7 @@ namespace detail
   struct is_readable_iterator_impl<volatile void>
   {
       template <class It>
-      struct rebind : boost::mpl::false_
+      struct rebind : std::mpl::false_
       {};
   };
 
@@ -77,7 +77,7 @@ namespace detail
   struct is_readable_iterator_impl<const volatile void>
   {
       template <class It>
-      struct rebind : boost::mpl::false_
+      struct rebind : std::mpl::false_
       {};
   };
 #endif
@@ -89,7 +89,7 @@ namespace detail
   template <class It>
   struct is_readable_iterator_impl2
     : is_readable_iterator_impl<
-          BOOST_DEDUCED_TYPENAME boost::detail::iterator_traits<It>::value_type const
+          BOOST_DEDUCED_TYPENAME std::detail::iterator_traits<It>::value_type const
       >::template rebind<It>
   {};
 } // namespace detail
@@ -97,7 +97,7 @@ namespace detail
 // Define the trait with full mpl lambda capability and various broken
 // compiler workarounds
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(
-    is_readable_iterator,T,::boost::detail::is_readable_iterator_impl2<T>::value)
+    is_readable_iterator,T,::std::detail::is_readable_iterator_impl2<T>::value)
     
 } // namespace boost
 

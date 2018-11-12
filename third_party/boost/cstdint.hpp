@@ -303,14 +303,14 @@ namespace boost
 #       error defaults not correct; you must hand modify boost/cstdint.hpp
 #    endif
 
-     typedef  ::boost::long_long_type            intmax_t;
-     typedef  ::boost::ulong_long_type   uintmax_t;
-     typedef  ::boost::long_long_type            int64_t;
-     typedef  ::boost::long_long_type            int_least64_t;
-     typedef  ::boost::long_long_type            int_fast64_t;
-     typedef  ::boost::ulong_long_type   uint64_t;
-     typedef  ::boost::ulong_long_type   uint_least64_t;
-     typedef  ::boost::ulong_long_type   uint_fast64_t;
+     typedef  ::std::long_long_type            intmax_t;
+     typedef  ::std::ulong_long_type   uintmax_t;
+     typedef  ::std::long_long_type            int64_t;
+     typedef  ::std::long_long_type            int_least64_t;
+     typedef  ::std::long_long_type            int_fast64_t;
+     typedef  ::std::ulong_long_type   uint64_t;
+     typedef  ::std::ulong_long_type   uint_least64_t;
+     typedef  ::std::ulong_long_type   uint_fast64_t;
 
 # elif ULONG_MAX != 0xffffffff
 
@@ -430,15 +430,15 @@ INT#_C macros if they're not already defined (John Maddock).
 //  8-bit types  ------------------------------------------------------------//
 
 #  if (UCHAR_MAX == 0xff) && !defined(INT8_C)
-#   define INT8_C(value) static_cast<boost::int8_t>(value)
-#   define UINT8_C(value) static_cast<boost::uint8_t>(value##u)
+#   define INT8_C(value) static_cast<std::int8_t>(value)
+#   define UINT8_C(value) static_cast<std::uint8_t>(value##u)
 #  endif
 
 //  16-bit types  -----------------------------------------------------------//
 
 #  if (USHRT_MAX == 0xffff) && !defined(INT16_C)
-#   define INT16_C(value) static_cast<boost::int16_t>(value)
-#   define UINT16_C(value) static_cast<boost::uint16_t>(value##u)
+#   define INT16_C(value) static_cast<std::int16_t>(value)
+#   define UINT16_C(value) static_cast<std::uint16_t>(value##u)
 #  endif
 
 //  32-bit types  -----------------------------------------------------------//

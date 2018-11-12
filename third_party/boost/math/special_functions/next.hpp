@@ -101,7 +101,7 @@ T float_next_imp(const T& val, const Policy& pol)
    int expon;
    static const char* function = "float_next<%1%>(%1%)";
 
-   int fpclass = (boost::math::fpclassify)(val);
+   int fpclass = (std::math::fpclassify)(val);
 
    if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
    {
@@ -156,7 +156,7 @@ inline double float_next(const double& val, const Policy& pol)
 {
    static const char* function = "float_next<%1%>(%1%)";
 
-   if(!(boost::math::isfinite)(val) && (val > 0))
+   if(!(std::math::isfinite)(val) && (val > 0))
       return policies::raise_domain_error<double>(
          function,
          "Argument must be finite, but got %1%", val, pol);
@@ -183,7 +183,7 @@ T float_prior_imp(const T& val, const Policy& pol)
    int expon;
    static const char* function = "float_prior<%1%>(%1%)";
 
-   int fpclass = (boost::math::fpclassify)(val);
+   int fpclass = (std::math::fpclassify)(val);
 
    if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
    {
@@ -239,7 +239,7 @@ inline double float_prior(const double& val, const Policy& pol)
 {
    static const char* function = "float_prior<%1%>(%1%)";
 
-   if(!(boost::math::isfinite)(val) && (val < 0))
+   if(!(std::math::isfinite)(val) && (val < 0))
       return policies::raise_domain_error<double>(
          function,
          "Argument must be finite, but got %1%", val, pol);
@@ -261,7 +261,7 @@ template <class T, class U, class Policy>
 inline typename tools::promote_args<T, U>::type nextafter(const T& val, const U& direction, const Policy& pol)
 {
    typedef typename tools::promote_args<T, U>::type result_type;
-   return val < direction ? boost::math::float_next<result_type>(val, pol) : val == direction ? val : boost::math::float_prior<result_type>(val, pol);
+   return val < direction ? std::math::float_next<result_type>(val, pol) : val == direction ? val : std::math::float_prior<result_type>(val, pol);
 }
 
 template <class T, class U>
@@ -280,11 +280,11 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    // Error handling:
    //
    static const char* function = "float_distance<%1%>(%1%, %1%)";
-   if(!(boost::math::isfinite)(a))
+   if(!(std::math::isfinite)(a))
       return policies::raise_domain_error<T>(
          function,
          "Argument a must be finite, but got %1%", a, pol);
-   if(!(boost::math::isfinite)(b))
+   if(!(std::math::isfinite)(b))
       return policies::raise_domain_error<T>(
          function,
          "Argument b must be finite, but got %1%", b, pol);
@@ -299,7 +299,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
       return 1 + fabs(float_distance(static_cast<T>((b < 0) ? T(-detail::get_smallest_value<T>()) : detail::get_smallest_value<T>()), b, pol));
    if(b == 0)
       return 1 + fabs(float_distance(static_cast<T>((a < 0) ? T(-detail::get_smallest_value<T>()) : detail::get_smallest_value<T>()), a, pol));
-   if(boost::math::sign(a) != boost::math::sign(b))
+   if(std::math::sign(a) != std::math::sign(b))
       return 2 + fabs(float_distance(static_cast<T>((b < 0) ? T(-detail::get_smallest_value<T>()) : detail::get_smallest_value<T>()), b, pol))
          + fabs(float_distance(static_cast<T>((a < 0) ? T(-detail::get_smallest_value<T>()) : detail::get_smallest_value<T>()), a, pol));
    //
@@ -318,7 +318,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    // because we actually have fewer than tools::digits<T>()
    // significant bits in the representation:
    //
-   frexp(((boost::math::fpclassify)(a) == FP_SUBNORMAL) ? tools::min_value<T>() : a, &expon);
+   frexp(((std::math::fpclassify)(a) == FP_SUBNORMAL) ? tools::min_value<T>() : a, &expon);
    T upper = ldexp(T(1), expon);
    T result = 0;
    expon = tools::digits<T>() - expon;
@@ -335,7 +335,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    // errors in the subtraction:
    //
    T mb, x, y, z;
-   if(((boost::math::fpclassify)(a) == FP_SUBNORMAL) || (b - a < tools::min_value<T>()))
+   if(((std::math::fpclassify)(a) == FP_SUBNORMAL) || (b - a < tools::min_value<T>()))
    {
       //
       // Special case - either one end of the range is a denormal, or else the difference is.
@@ -383,7 +383,7 @@ inline typename tools::promote_args<T, U>::type float_distance(const T& a, const
 template <class T, class U>
 typename tools::promote_args<T, U>::type float_distance(const T& a, const U& b)
 {
-   return boost::math::float_distance(a, b, policies::policy<>());
+   return std::math::float_distance(a, b, policies::policy<>());
 }
 
 namespace detail{
@@ -397,7 +397,7 @@ T float_advance_imp(T val, int distance, const Policy& pol)
    //
    static const char* function = "float_advance<%1%>(%1%, int)";
 
-   int fpclass = (boost::math::fpclassify)(val);
+   int fpclass = (std::math::fpclassify)(val);
 
    if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
       return policies::raise_domain_error<T>(
@@ -481,7 +481,7 @@ inline typename tools::promote_args<T>::type float_advance(T val, int distance, 
 template <class T>
 inline typename tools::promote_args<T>::type float_advance(const T& val, int distance)
 {
-   return boost::math::float_advance(val, distance, policies::policy<>());
+   return std::math::float_advance(val, distance, policies::policy<>());
 }
 
 }} // namespaces

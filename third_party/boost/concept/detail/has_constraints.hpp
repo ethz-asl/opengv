@@ -45,6 +45,6 @@ struct not_satisfied
     typedef mpl::bool_<value> type;
 };
 
-}} // namespace boost::concepts::detail
+}} // namespace std::concepts::detail
 
 #endif // BOOST_CONCEPT_DETAIL_HAS_CONSTRAINTS_DWA2006429_HPP

@@ -24,7 +24,7 @@ class comparison_error
 {
 public:
   comparison_error()
-    : std::runtime_error("boost::interval: uncertain comparison")
+    : std::runtime_error("std::interval: uncertain comparison")
   { }
 };
 

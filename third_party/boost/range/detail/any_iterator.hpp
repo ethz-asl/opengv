@@ -503,7 +503,7 @@ namespace boost
             }
 
         private:
-            friend class ::boost::iterator_core_access;
+            friend class ::std::iterator_core_access;
 
             Reference dereference() const
             {

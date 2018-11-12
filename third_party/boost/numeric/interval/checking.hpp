@@ -23,7 +23,7 @@ struct exception_create_empty
 {
   void operator()()
   {
-    throw std::runtime_error("boost::interval: empty interval created");
+    throw std::runtime_error("std::interval: empty interval created");
   }
 };
 
@@ -31,7 +31,7 @@ struct exception_invalid_number
 {
   void operator()()
   {
-    throw std::invalid_argument("boost::interval: invalid number");
+    throw std::invalid_argument("std::interval: invalid number");
   }
 };
 

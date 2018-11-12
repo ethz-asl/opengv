@@ -32,7 +32,7 @@ namespace boost { namespace fusion {
                 typename result_of::distance<typename First::first_type, typename Last::first_type>::type
                 call(First const& first, Last const& last)
                 {
-                    return boost::fusion::distance(first.first, last.first);
+                    return std::fusion::distance(first.first, last.first);
                 }
             };
         };
@@ -49,7 +49,7 @@ namespace boost { namespace fusion {
                 typename result_of::distance<typename First::first1_type, typename Last::first1_type>::type
                 call(First const& first, Last const& last)
                 {
-                    return boost::fusion::distance(first.first1, last.first1);
+                    return std::fusion::distance(first.first1, last.first1);
                 }
             };
         };

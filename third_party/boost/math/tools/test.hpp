@@ -24,7 +24,7 @@ template <class T>
 struct test_result
 {
 private:
-   boost::math::tools::stats<T> stat;   // Statistics for the test.
+   std::math::tools::stats<T> stat;   // Statistics for the test.
    unsigned worst_case;                 // Index of the worst case test.
 public:
    test_result() { worst_case = 0; }
@@ -36,7 +36,7 @@ public:
    T max BOOST_PREVENT_MACRO_SUBSTITUTION()const{ return (stat.max)(); }
    T total()const{ return stat.total(); }
    T mean()const{ return stat.mean(); }
-   boost::uintmax_t count()const{ return stat.count(); }
+   std::uintmax_t count()const{ return stat.count(); }
    T variance()const{ return stat.variance(); }
    T variance1()const{ return stat.variance1(); }
    T rms()const{ return stat.rms(); }
@@ -183,7 +183,7 @@ void print_row(const Seq& row)
 }
 
 //
-// Function test accepts an matrix of input values (probably a 2D boost::array)
+// Function test accepts an matrix of input values (probably a 2D std::array)
 // and calls two functors for each row in the array - one calculates a value
 // to test, and one extracts the expected value from the array (or possibly
 // calculates it at high precision).  The two functors are usually simple lambda
@@ -236,7 +236,7 @@ test_result<typename calculate_result_type<A>::value_type> test(const A& a, F1 t
          std::cout << std::endl;
       }
 #endif
-      if(!(boost::math::isfinite)(point) && (boost::math::isfinite)(expected))
+      if(!(std::math::isfinite)(point) && (std::math::isfinite)(expected))
       {
          std::cout << "CAUTION: Found non-finite result, when a finite value was expected at entry " << i << "\n";
          std::cout << "Found: " << point << " Expected " << expected << " Error: " << err << std::endl;
@@ -304,7 +304,7 @@ test_result<Real> test_hetero(const A& a, F1 test_func, F2 expect_func)
          std::cout << std::endl;
       }
 #endif
-      if(!(boost::math::isfinite)(point) && (boost::math::isfinite)(expected))
+      if(!(std::math::isfinite)(point) && (std::math::isfinite)(expected))
       {
          std::cout << "CAUTION: Found non-finite result, when a finite value was expected at entry " << i << "\n";
          std::cout << "Found: " << point << " Expected " << expected << " Error: " << err << std::endl;

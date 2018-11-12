@@ -138,7 +138,7 @@ size_t integrate_adaptive(
     }
     obs( stepper.current_state() , stepper.current_time() );
     // overwrite start_state with the final point
-    boost::numeric::odeint::copy( stepper.current_state() , start_state );
+    std::numeric::odeint::copy( stepper.current_state() , start_state );
     return count;
 }
 

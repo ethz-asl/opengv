@@ -56,14 +56,14 @@ laguerre(unsigned n, T x, const Policy&, const mpl::true_&)
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::laguerre_imp(n, static_cast<value_type>(x)), "boost::math::laguerre<%1%>(unsigned, %1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::laguerre_imp(n, static_cast<value_type>(x)), "std::math::laguerre<%1%>(unsigned, %1%)");
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type 
    laguerre(unsigned n, unsigned m, T x, const mpl::false_&)
 {
-   return boost::math::laguerre(n, m, x, policies::policy<>());
+   return std::math::laguerre(n, m, x, policies::policy<>());
 }
 
 } // namespace detail
@@ -91,7 +91,7 @@ T laguerre_imp(unsigned n, unsigned m, T x, const Policy& pol)
 {
    // Special cases:
    if(m == 0)
-      return boost::math::laguerre(n, x, pol);
+      return std::math::laguerre(n, x, pol);
 
    T p0 = 1;
    
@@ -119,7 +119,7 @@ inline typename tools::promote_args<T>::type
 {
    typedef typename tools::promote_args<T>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   return policies::checked_narrowing_cast<result_type, Policy>(detail::laguerre_imp(n, m, static_cast<value_type>(x), pol), "boost::math::laguerre<%1%>(unsigned, unsigned, %1%)");
+   return policies::checked_narrowing_cast<result_type, Policy>(detail::laguerre_imp(n, m, static_cast<value_type>(x), pol), "std::math::laguerre<%1%>(unsigned, unsigned, %1%)");
 }
 
 template <class T1, class T2>

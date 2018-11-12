@@ -15,7 +15,7 @@
 // $Revision: 49267 $
 
 namespace {
-namespace mpl = boost::mpl;
+namespace mpl = std::mpl;
 }
 
 #endif // BOOST_MPL_ALIAS_HPP_INCLUDED

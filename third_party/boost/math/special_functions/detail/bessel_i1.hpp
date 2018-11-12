@@ -101,7 +101,7 @@ T bessel_i1(T x)
     T value, factor, r, w;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
     w = abs(x);
     if (x == 0)

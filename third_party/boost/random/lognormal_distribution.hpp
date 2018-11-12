@@ -38,7 +38,7 @@ namespace random {
  * @xmlwarning
  * This distribution has been updated to match the C++ standard.
  * Its behavior has changed from the original
- * boost::lognormal_distribution.  A backwards compatible
+ * std::lognormal_distribution.  A backwards compatible
  * version is provided in namespace boost.
  * @endxmlwarning
  */

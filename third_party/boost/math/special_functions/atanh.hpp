@@ -48,7 +48,7 @@ namespace boost
         inline T    atanh_imp(const T x, const Policy& pol)
         {
             BOOST_MATH_STD_USING
-            static const char* function = "boost::math::atanh<%1%>(%1%)";
+            static const char* function = "std::math::atanh<%1%>(%1%)";
             
             if(x < -1)
             {
@@ -76,7 +76,7 @@ namespace boost
             {
                 // http://functions.wolfram.com/ElementaryFunctions/ArcTanh/02/
                 if(abs(x) < 0.5f)
-                   return (boost::math::log1p(x, pol) - boost::math::log1p(-x, pol)) / 2;
+                   return (std::math::log1p(x, pol) - std::math::log1p(-x, pol)) / 2;
                 return(log( (1 + x) / (1 - x) ) / 2);
             }
             else
@@ -111,12 +111,12 @@ namespace boost
                policies::assert_undefined<> >::type forwarding_policy;
            return policies::checked_narrowing_cast<result_type, forwarding_policy>(
               detail::atanh_imp(static_cast<value_type>(x), forwarding_policy()),
-              "boost::math::atanh<%1%>(%1%)");
+              "std::math::atanh<%1%>(%1%)");
         }
         template<typename T>
         inline typename tools::promote_args<T>::type atanh(T x)
         {
-           return boost::math::atanh(x, policies::policy<>());
+           return std::math::atanh(x, policies::policy<>());
         }
 
     }

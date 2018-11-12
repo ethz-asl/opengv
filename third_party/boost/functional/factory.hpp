@@ -35,18 +35,18 @@ namespace boost
         factory_passes_alloc_to_smart_pointer
     };
 
-    template< typename Pointer, class Allocator = boost::none_t,
+    template< typename Pointer, class Allocator = std::none_t,
         factory_alloc_propagation AP = factory_alloc_for_pointee_and_deleter >
     class factory;
 
     //----- ---- --- -- - -  -   -
 
     template< typename Pointer, factory_alloc_propagation AP >
-    class factory<Pointer, boost::none_t, AP> 
+    class factory<Pointer, std::none_t, AP> 
     {
       public:
-        typedef typename boost::remove_cv<Pointer>::type result_type;
-        typedef typename boost::pointee<result_type>::type value_type;
+        typedef typename std::remove_cv<Pointer>::type result_type;
+        typedef typename std::pointee<result_type>::type value_type;
 
         factory()
         { }
@@ -58,12 +58,12 @@ namespace boost
 
     template< class Pointer, class Allocator, factory_alloc_propagation AP >
     class factory
-        : private Allocator::template rebind< typename boost::pointee<
-            typename boost::remove_cv<Pointer>::type >::type >::other
+        : private Allocator::template rebind< typename std::pointee<
+            typename std::remove_cv<Pointer>::type >::type >::other
     {
       public:
-        typedef typename boost::remove_cv<Pointer>::type result_type;
-        typedef typename boost::pointee<result_type>::type value_type;
+        typedef typename std::remove_cv<Pointer>::type result_type;
+        typedef typename std::pointee<result_type>::type value_type;
 
         typedef typename Allocator::template rebind<value_type>::other
             allocator_type;
@@ -101,13 +101,13 @@ namespace boost
                 static_cast<allocator_type const*>(this));
         }
 
-        inline result_type make_pointer(value_type* ptr, boost::non_type<
+        inline result_type make_pointer(value_type* ptr, std::non_type<
             factory_alloc_propagation,factory_passes_alloc_to_smart_pointer>)
         const
         {
             return result_type(ptr,deleter(this->get_allocator()));
         }
-        inline result_type make_pointer(value_type* ptr, boost::non_type<
+        inline result_type make_pointer(value_type* ptr, std::non_type<
             factory_alloc_propagation,factory_alloc_for_pointee_and_deleter>)
         const
         {
@@ -151,7 +151,7 @@ namespace boost
         { 
             return make_pointer(
                 new(memory) value_type(BOOST_PP_ENUM_PARAMS(N,a)),
-                boost::non_type<factory_alloc_propagation,AP>() );
+                std::non_type<factory_alloc_propagation,AP>() );
         }
         catch (...) { this->get_allocator().deallocate(memory,1); throw; }
     }

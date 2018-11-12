@@ -79,15 +79,15 @@ namespace boost { namespace math {
          unsigned long k;
 
          BOOST_MATH_STD_USING
-            using namespace boost::math::tools;
-         using namespace boost::math::constants;
+            using namespace std::math::tools;
+         using namespace std::math::constants;
 
          BOOST_ASSERT(fabs(v) <= 0.5f);  // precondition for using this routine
 
-         T gp = boost::math::tgamma1pm1(v, pol);
-         T gm = boost::math::tgamma1pm1(-v, pol);
-         T spv = boost::math::sin_pi(v, pol);
-         T spv2 = boost::math::sin_pi(v/2, pol);
+         T gp = std::math::tgamma1pm1(v, pol);
+         T gm = std::math::tgamma1pm1(-v, pol);
+         T spv = std::math::sin_pi(v, pol);
+         T spv2 = std::math::sin_pi(v/2, pol);
          T xp = pow(x/2, v);
 
          a = log(x / 2);
@@ -131,7 +131,7 @@ namespace boost { namespace math {
                break; 
             }
          }
-         policies::check_series_iterations<T>("boost::math::bessel_jy<%1%>(%1%,%1%) in temme_jy", k, pol);
+         policies::check_series_iterations<T>("std::math::bessel_jy<%1%>(%1%,%1%) in temme_jy", k, pol);
          *Y = -sum;
          *Y1 = -2 * sum1 / x;
 
@@ -173,7 +173,7 @@ namespace boost { namespace math {
             if (abs(delta - 1) < tolerance) 
             { break; }
          }
-         policies::check_series_iterations<T>("boost::math::bessel_jy<%1%>(%1%,%1%) in CF1_jy", k / 100, pol);
+         policies::check_series_iterations<T>("std::math::bessel_jy<%1%>(%1%,%1%) in CF1_jy", k / 100, pol);
          *fv = -f;
          *sign = s;                              // sign of denominator
 
@@ -249,7 +249,7 @@ namespace boost { namespace math {
             if (fabs(delta_r - 1) + fabs(delta_i) < tolerance)
                break;
          }
-         policies::check_series_iterations<T>("boost::math::bessel_jy<%1%>(%1%,%1%) in CF2_jy", k, pol);
+         policies::check_series_iterations<T>("std::math::bessel_jy<%1%>(%1%,%1%) in CF2_jy", k, pol);
          *p = fr;
          *q = fi;
 
@@ -275,11 +275,11 @@ namespace boost { namespace math {
          T cp = 0;
          T sp = 0;
 
-         static const char* function = "boost::math::bessel_jy<%1%>(%1%,%1%)";
+         static const char* function = "std::math::bessel_jy<%1%>(%1%,%1%)";
 
          BOOST_MATH_STD_USING
-            using namespace boost::math::tools;
-         using namespace boost::math::constants;
+            using namespace std::math::tools;
+         using namespace std::math::constants;
 
          if (v < 0)
          {
@@ -294,8 +294,8 @@ namespace boost { namespace math {
          if(reflect)
          {
             T z = (u + n % 2);
-            cp = boost::math::cos_pi(z, pol);
-            sp = boost::math::sin_pi(z, pol);
+            cp = std::math::cos_pi(z, pol);
+            sp = std::math::sin_pi(z, pol);
             if(u != 0)
                kind = need_j|need_y;               // need both for reflection formula
          }
@@ -394,7 +394,7 @@ namespace boost { namespace math {
             //
             // Normally we calculate sin/cos(chi) where:
             //
-            // chi = x - fmod(T(v / 2 + 0.25f), T(2)) * boost::math::constants::pi<T>();
+            // chi = x - fmod(T(v / 2 + 0.25f), T(2)) * std::math::constants::pi<T>();
             //
             // But this introduces large errors, so use sin/cos addition formulae to
             // improve accuracy:
@@ -407,7 +407,7 @@ namespace boost { namespace math {
 
             T sc = sx * cv - sv * cx; // == sin(chi);
             T cc = cx * cv + sx * sv; // == cos(chi);
-            T chi = boost::math::constants::root_two<T>() / (boost::math::constants::root_pi<T>() * sqrt(x)); //sqrt(2 / (boost::math::constants::pi<T>() * x));
+            T chi = std::math::constants::root_two<T>() / (std::math::constants::root_pi<T>() * sqrt(x)); //sqrt(2 / (std::math::constants::pi<T>() * x));
             Yv = chi * (p * sc + q * cc);
             Jv = chi * (p * cc - q * sc);
          }

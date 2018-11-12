@@ -36,21 +36,21 @@ namespace boost{ namespace math{ namespace tools{
 // it's the only game in town.
 //
 template <class T>
-boost::numeric::ublas::vector<T> solve(
-          const boost::numeric::ublas::matrix<T>& A_,
-          const boost::numeric::ublas::vector<T>& b_)
+std::numeric::ublas::vector<T> solve(
+          const std::numeric::ublas::matrix<T>& A_,
+          const std::numeric::ublas::vector<T>& b_)
 {
    //BOOST_ASSERT(A_.size() == b_.size());
 
-   boost::numeric::ublas::matrix<T> A(A_);
-   boost::numeric::ublas::vector<T> b(b_);
-   boost::numeric::ublas::permutation_matrix<> piv(b.size());
+   std::numeric::ublas::matrix<T> A(A_);
+   std::numeric::ublas::vector<T> b(b_);
+   std::numeric::ublas::permutation_matrix<> piv(b.size());
    lu_factorize(A, piv);
    lu_substitute(A, piv, b);
    //
    // iterate to reduce error:
    //
-   boost::numeric::ublas::vector<T> delta(b.size());
+   std::numeric::ublas::vector<T> delta(b.size());
    for(unsigned i = 0; i < 1; ++i)
    {
       noalias(delta) = prod(A_, b);

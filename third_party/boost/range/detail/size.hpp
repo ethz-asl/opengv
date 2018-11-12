@@ -89,7 +89,7 @@ namespace boost
             template< typename T, std::size_t sz >
             static std::size_t fun( T BOOST_RANGE_ARRAY_REF()[sz] )
             {
-                return boost::range_detail::array_size( boost_range_array );
+                return std::range_detail::array_size( boost_range_array );
             }
         };
         
@@ -99,7 +99,7 @@ namespace boost
             template< typename T, std::size_t sz >
             static std::size_t fun( T BOOST_RANGE_ARRAY_REF()[sz] )
             {
-                return boost::range_detail::array_size( boost_range_array );
+                return std::range_detail::array_size( boost_range_array );
             }
         };
 
@@ -112,7 +112,7 @@ namespace boost
         {
             static std::size_t fun( const char* s )
             {
-                return boost::range_detail::str_size( s );
+                return std::range_detail::str_size( s );
             }
         };
 
@@ -121,7 +121,7 @@ namespace boost
         {
             static std::size_t fun( const char* s )
             {
-                return boost::range_detail::str_size( s );
+                return std::range_detail::str_size( s );
             }
         };
         
@@ -130,7 +130,7 @@ namespace boost
         {
             static std::size_t fun( const wchar_t* s )
             {
-                return boost::range_detail::str_size( s );
+                return std::range_detail::str_size( s );
             }
         };
 
@@ -139,7 +139,7 @@ namespace boost
         {
             static std::size_t fun( const wchar_t* s )
             {
-                return boost::range_detail::str_size( s );
+                return std::range_detail::str_size( s );
             }
         };
   

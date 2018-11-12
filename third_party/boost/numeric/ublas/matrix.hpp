@@ -27,20 +27,20 @@ namespace boost { namespace numeric {
 	/** \brief main namespace of uBLAS.
 	 *
 	 * Use this namespace for all operations with uBLAS. It can also be abbreviated with
-	 * \code namespace ublas = boost::numeric::ublas; \endcode
+	 * \code namespace ublas = std::numeric::ublas; \endcode
 	 *
 	 * A common practice is to bring this namespace into the current scope with
-	 * \code using namespace boost::numeric::ublas; \endcode.
+	 * \code using namespace std::numeric::ublas; \endcode.
 	 *
 	 * However, be warned that using the ublas namespace and the std::vector at the same time can lead to the compiler to confusion. 
-	 * The solution is simply to prefix each ublas vector like \c boost::numeric::ublas::vector<T>. If you think it's too long to 
-	 * write, you can define a new namespace like \c namespace ublas = boost::numeric::ublas and then just declare your vectors
+	 * The solution is simply to prefix each ublas vector like \c std::numeric::ublas::vector<T>. If you think it's too long to 
+	 * write, you can define a new namespace like \c namespace ublas = std::numeric::ublas and then just declare your vectors
 	 * with \c ublas::vector<T>. STL vectors will be declared as vector<T>. No need to prefix with \c std::
 	 */
 	namespace ublas {
 
     namespace detail {
-        using namespace boost::numeric::ublas;
+        using namespace std::numeric::ublas;
 
         // Matrix resizing algorithm
         template <class L, class M>

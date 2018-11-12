@@ -133,7 +133,7 @@ class aligned_storage
     {
         char data[ sizeof(T) ];
         BOOST_DEDUCED_TYPENAME type_with_alignment<
-          ::boost::alignment_of<T>::value >::type aligner_;
+          ::std::alignment_of<T>::value >::type aligner_;
     } dummy_ ;
 
   public:
@@ -179,7 +179,7 @@ class optional_base : public optional_tag
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
     BOOST_DEDUCED_TYPENAME
 #endif
-    ::boost::detail::make_reference_content<T>::type internal_type ;
+    ::std::detail::make_reference_content<T>::type internal_type ;
 
     typedef aligned_storage<internal_type> storage_type ;
 
@@ -352,7 +352,7 @@ class optional_base : public optional_tag
     template<class Expr>
     void construct ( Expr const& factory, in_place_factory_base const* )
      {
-       BOOST_STATIC_ASSERT ( ::boost::mpl::not_<is_reference_predicate>::value ) ;
+       BOOST_STATIC_ASSERT ( ::std::mpl::not_<is_reference_predicate>::value ) ;
        boost_optional_detail::construct<value_type>(factory, m_storage.address());
        m_initialized = true ;
      }
@@ -361,7 +361,7 @@ class optional_base : public optional_tag
     template<class Expr>
     void construct ( Expr const& factory, typed_in_place_factory_base const* )
      {
-       BOOST_STATIC_ASSERT ( ::boost::mpl::not_<is_reference_predicate>::value ) ;
+       BOOST_STATIC_ASSERT ( ::std::mpl::not_<is_reference_predicate>::value ) ;
        factory.apply(m_storage.address()) ;
        m_initialized = true ;
      }
@@ -556,7 +556,7 @@ class optional : public optional_detail::optional_base<T>
     // Depending on the above some T ctor is called.
     // Can throw is the resolved T ctor throws.
     template<class Expr>
-    explicit optional ( Expr const& expr ) : base(expr,boost::addressof(expr)) {}
+    explicit optional ( Expr const& expr ) : base(expr,std::addressof(expr)) {}
 #endif
 
     // Creates a deep copy of another optional<T>
@@ -572,7 +572,7 @@ class optional : public optional_detail::optional_base<T>
     template<class Expr>
     optional& operator= ( Expr const& expr )
       {
-        this->assign_expr(expr,boost::addressof(expr));
+        this->assign_expr(expr,std::addressof(expr));
         return *this ;
       }
 #endif
@@ -619,7 +619,7 @@ class optional : public optional_detail::optional_base<T>
     void swap( optional & arg )
       {
         // allow for Koenig lookup
-        using boost::swap;
+        using std::swap;
         swap(*this, arg);
       }
 
@@ -935,17 +935,17 @@ struct swap_selector<true>
             return;
 
         if( !hasX )
-            x = boost::in_place();
+            x = std::in_place();
         else if ( !hasY )
-            y = boost::in_place();
+            y = std::in_place();
 
         // Boost.Utility.Swap will take care of ADL and workarounds for broken compilers
-        boost::swap(x.get(),y.get());
+        std::swap(x.get(),y.get());
 
         if( !hasX )
-            y = boost::none ;
+            y = std::none ;
         else if( !hasY )
-            x = boost::none ;
+            x = std::none ;
     }
 };
 
@@ -961,17 +961,17 @@ struct swap_selector<false>
         if ( !hasX && hasY )
         {
             x = y.get();
-            y = boost::none ;
+            y = std::none ;
         }
         else if ( hasX && !hasY )
         {
             y = x.get();
-            x = boost::none ;
+            x = std::none ;
         }
         else if ( hasX && hasY )
         {
             // Boost.Utility.Swap will take care of ADL and workarounds for broken compilers
-            boost::swap(x.get(),y.get());
+            std::swap(x.get(),y.get());
         }
     }
 };

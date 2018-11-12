@@ -27,11 +27,11 @@ template <typename T>
 struct is_scalar_impl
 { 
    BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_or<
-         ::boost::is_arithmetic<T>::value,
-         ::boost::is_enum<T>::value,
-         ::boost::is_pointer<T>::value,
-         ::boost::is_member_pointer<T>::value
+      (::std::type_traits::ice_or<
+         ::std::is_arithmetic<T>::value,
+         ::std::is_enum<T>::value,
+         ::std::is_pointer<T>::value,
+         ::std::is_member_pointer<T>::value
       >::value));
 };
 
@@ -46,7 +46,7 @@ template <> struct is_scalar_impl<void const volatile>{ BOOST_STATIC_CONSTANT(bo
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_scalar,T,::boost::detail::is_scalar_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_scalar,T,::std::detail::is_scalar_impl<T>::value)
 
 } // namespace boost
 

@@ -1782,7 +1782,7 @@ namespace boost
             using    ::std::exp;
             using    ::std::cos;
             
-            using    ::boost::math::sinc_pi;
+            using    ::std::math::sinc_pi;
             
             T    u = exp(real(q));
             
@@ -1803,7 +1803,7 @@ namespace boost
             using    ::std::cos;
             using    ::std::cosh;
             
-            using    ::boost::math::sinhc_pi;
+            using    ::std::math::sinhc_pi;
             
             T    z = abs(unreal(q));
             
@@ -1822,7 +1822,7 @@ namespace boost
             using    ::std::cos;
             using    ::std::cosh;
             
-            using    ::boost::math::sinhc_pi;
+            using    ::std::math::sinhc_pi;
             
             T    z = abs(unreal(q));
             

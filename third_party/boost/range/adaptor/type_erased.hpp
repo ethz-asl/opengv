@@ -64,7 +64,7 @@ namespace boost
               , Difference
               , Buffer
             >::type range_type;
-            return range_type(boost::begin(rng), boost::end(rng));
+            return range_type(std::begin(rng), std::end(rng));
         }
 
         template<
@@ -100,7 +100,7 @@ namespace boost
               , Difference
               , Buffer
             >::type range_type;
-            return range_type(boost::begin(rng), boost::end(rng));
+            return range_type(std::begin(rng), std::end(rng));
         }
 
         template<
@@ -138,7 +138,7 @@ namespace boost
               , Buffer
             >::type range_type;
 
-            return range_type(boost::begin(rng), boost::end(rng));
+            return range_type(std::begin(rng), std::end(rng));
         }
 
         template<
@@ -176,7 +176,7 @@ namespace boost
               , Buffer
             >::type range_type;
 
-            return range_type(boost::begin(rng), boost::end(rng));
+            return range_type(std::begin(rng), std::end(rng));
         }
     }
 } // namespace boost

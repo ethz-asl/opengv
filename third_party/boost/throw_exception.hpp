@@ -42,9 +42,9 @@
 #if !defined( BOOST_EXCEPTION_DISABLE )
 # include <boost/exception/exception.hpp>
 # include <boost/current_function.hpp>
-# define BOOST_THROW_EXCEPTION(x) ::boost::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
+# define BOOST_THROW_EXCEPTION(x) ::std::exception_detail::throw_exception_(x,BOOST_CURRENT_FUNCTION,__FILE__,__LINE__)
 #else
-# define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x)
+# define BOOST_THROW_EXCEPTION(x) ::std::throw_exception(x)
 #endif
 
 namespace boost
@@ -81,7 +81,7 @@ template<class E> BOOST_ATTRIBUTE_NORETURN inline void throw_exception( E const 
         void
         throw_exception_( E const & x, char const * current_function, char const * file, int line )
         {
-            boost::throw_exception(
+            std::throw_exception(
                 set_info(
                     set_info(
                         set_info(

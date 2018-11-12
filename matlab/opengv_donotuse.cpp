@@ -234,19 +234,19 @@ void printCases()
 }
 
 typedef opengv::sac_problems::absolute_pose::AbsolutePoseSacProblem absRansac;
-typedef boost::shared_ptr<absRansac> absRansacPtr;
+typedef std::shared_ptr<absRansac> absRansacPtr;
 
 typedef opengv::sac_problems::relative_pose::CentralRelativePoseSacProblem relRansac;
-typedef boost::shared_ptr<relRansac> relRansacPtr;
+typedef std::shared_ptr<relRansac> relRansacPtr;
 typedef opengv::sac_problems::relative_pose::NoncentralRelativePoseSacProblem nrelRansac;
-typedef boost::shared_ptr<nrelRansac> nrelRansacPtr;
+typedef std::shared_ptr<nrelRansac> nrelRansacPtr;
 typedef opengv::sac_problems::relative_pose::RotationOnlySacProblem rotRansac;
-typedef boost::shared_ptr<rotRansac> rotRansacPtr;
+typedef std::shared_ptr<rotRansac> rotRansacPtr;
 typedef opengv::sac_problems::relative_pose::EigensolverSacProblem eigRansac;
-typedef boost::shared_ptr<eigRansac> eigRansacPtr;
+typedef std::shared_ptr<eigRansac> eigRansacPtr;
 
 typedef opengv::sac_problems::point_cloud::PointCloudSacProblem ptRansac;
-typedef boost::shared_ptr<ptRansac> ptRansacPtr;
+typedef std::shared_ptr<ptRansac> ptRansacPtr;
 
 // The main mex-function
 void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )

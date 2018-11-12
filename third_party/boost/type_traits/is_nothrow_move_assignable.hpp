@@ -32,22 +32,22 @@ namespace detail{
 #ifndef BOOST_NO_CXX11_NOEXCEPT
 
 template <class T, class Enable = void>
-struct false_or_cpp11_noexcept_move_assignable: public ::boost::false_type {};
+struct false_or_cpp11_noexcept_move_assignable: public ::std::false_type {};
 
 template <class T>
 struct false_or_cpp11_noexcept_move_assignable <
         T,
-        typename ::boost::enable_if_c<sizeof(T) && BOOST_NOEXCEPT_EXPR(::boost::declval<T&>() = ::boost::declval<T>())>::type
-    > : public ::boost::integral_constant<bool, BOOST_NOEXCEPT_EXPR(::boost::declval<T&>() = ::boost::declval<T>())>
+        typename ::std::enable_if_c<sizeof(T) && BOOST_NOEXCEPT_EXPR(::std::declval<T&>() = ::std::declval<T>())>::type
+    > : public ::std::integral_constant<bool, BOOST_NOEXCEPT_EXPR(::std::declval<T&>() = ::std::declval<T>())>
 {};
 
 template <class T>
 struct is_nothrow_move_assignable_imp{
     BOOST_STATIC_CONSTANT(bool, value = (
-        ::boost::type_traits::ice_and<
-            ::boost::type_traits::ice_not< ::boost::is_volatile<T>::value >::value,
-            ::boost::type_traits::ice_not< ::boost::is_reference<T>::value >::value,
-            ::boost::detail::false_or_cpp11_noexcept_move_assignable<T>::value
+        ::std::type_traits::ice_and<
+            ::std::type_traits::ice_not< ::std::is_volatile<T>::value >::value,
+            ::std::type_traits::ice_not< ::std::is_reference<T>::value >::value,
+            ::std::detail::false_or_cpp11_noexcept_move_assignable<T>::value
         >::value));
 };
 
@@ -56,12 +56,12 @@ struct is_nothrow_move_assignable_imp{
 template <class T>
 struct is_nothrow_move_assignable_imp{
     BOOST_STATIC_CONSTANT(bool, value = (
-        ::boost::type_traits::ice_and<
-            ::boost::type_traits::ice_or<
-                ::boost::has_trivial_move_assign<T>::value,
-                ::boost::has_nothrow_assign<T>::value
+        ::std::type_traits::ice_and<
+            ::std::type_traits::ice_or<
+                ::std::has_trivial_move_assign<T>::value,
+                ::std::has_nothrow_assign<T>::value
             >::value,
-            ::boost::type_traits::ice_not< ::boost::is_array<T>::value >::value
+            ::std::type_traits::ice_not< ::std::is_array<T>::value >::value
         >::value));
 };
 
@@ -69,7 +69,7 @@ struct is_nothrow_move_assignable_imp{
 
 }
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_nothrow_move_assignable,T,::boost::detail::is_nothrow_move_assignable_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_nothrow_move_assignable,T,::std::detail::is_nothrow_move_assignable_imp<T>::value)
 BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_assignable,void,false)
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
 BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_nothrow_move_assignable,void const,false)

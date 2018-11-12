@@ -80,7 +80,7 @@ namespace boost { namespace numeric { namespace ublas {
     public:
         typedef T value_type;
         typedef const value_type &const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<T>,
+        typedef typename std::mpl::if_<std::is_const<T>,
                                           const_reference,
                                           value_type &>::type reference;
         typedef const self_type const_closure_type;
@@ -128,7 +128,7 @@ namespace boost { namespace numeric { namespace ublas {
     public:
         typedef T value_type;
         typedef const value_type &const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<T>,
+        typedef typename std::mpl::if_<std::is_const<T>,
                                           const_reference,
                                           value_type &>::type reference;
         typedef const scalar_reference<const self_type> const_closure_type;

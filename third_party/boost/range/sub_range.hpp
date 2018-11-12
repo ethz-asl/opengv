@@ -49,8 +49,8 @@ namespace boost
         
     public: // for return value of front/back
         typedef BOOST_DEDUCED_TYPENAME 
-                boost::mpl::if_< boost::is_reference<reference>,
-                                 const BOOST_DEDUCED_TYPENAME boost::remove_reference<reference>::type&, 
+                std::mpl::if_< std::is_reference<reference>,
+                                 const BOOST_DEDUCED_TYPENAME std::remove_reference<reference>::type&, 
                                  reference >::type const_reference;
 
     public:
@@ -154,14 +154,14 @@ namespace boost
     inline bool operator==( const sub_range<ForwardRange>& l,
                             const sub_range<ForwardRange2>& r )
     {
-        return boost::equal( l, r );
+        return std::equal( l, r );
     }
 
     template< class ForwardRange, class ForwardRange2 >
     inline bool operator!=( const sub_range<ForwardRange>& l,
                             const sub_range<ForwardRange2>& r )
     {
-        return !boost::equal( l, r );
+        return !std::equal( l, r );
     }
 
     template< class ForwardRange, class ForwardRange2 >

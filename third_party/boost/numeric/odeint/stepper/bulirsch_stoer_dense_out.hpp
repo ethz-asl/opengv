@@ -286,7 +286,7 @@ public:
     void initialize( const StateType &x0 , const time_type &t0 , const time_type &dt0 )
     {
         m_resizer.adjust_size( x0 , detail::bind( &controlled_error_bs_type::template resize_impl< StateType > , detail::ref( *this ) , detail::_1 ) );
-        boost::numeric::odeint::copy( x0 , get_current_state() );
+        std::numeric::odeint::copy( x0 , get_current_state() );
         m_t = t0;
         m_dt = dt0;
         reset();
@@ -501,7 +501,7 @@ private:
         value_type error = 0.0;
         if( m_control_interpolation )
         {
-            boost::numeric::odeint::copy( m_diffs[2*k+1][0].m_v , m_err.m_v );
+            std::numeric::odeint::copy( m_diffs[2*k+1][0].m_v , m_err.m_v );
             error = m_error_checker.error( m_algebra , x_start , dxdt_start , m_err.m_v , dt );
         }
 
@@ -533,7 +533,7 @@ private:
                 {
                     m_algebra.for_each3( m_diffs[kappa][j_diffs].m_v , m_diffs[kappa][j_diffs].m_v , m_derivs[j][i].m_v ,
                                          typename operations_type::template scale_sum2< value_type , value_type >( 1.0 ,
-                                                                                                                   sign * fac * boost::math::binomial_coefficient< value_type >( kappa , c ) ) );
+                                                                                                                   sign * fac * std::math::binomial_coefficient< value_type >( kappa , c ) ) );
                 }
                 else
                 {
@@ -555,7 +555,7 @@ private:
         // we use only values at interval center, that is theta=0, for interpolation
         // our interpolation polynomial is thus of order 2k+2, hence we have 2k+3 terms
 
-        boost::numeric::odeint::copy( m_mp_states[0].m_v , out );
+        std::numeric::odeint::copy( m_mp_states[0].m_v , out );
         // add remaining terms: x += a_1 theta + a2 theta^2 + ... + a_{2k} theta^{2k}
         value_type theta_pow( theta );
         for( size_t i=0 ; i<=2*m_k_final+1 ; ++i )

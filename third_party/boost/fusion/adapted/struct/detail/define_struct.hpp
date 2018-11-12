@@ -46,16 +46,16 @@
     BOOST_PP_EXPR_IF(                                                           \
         I_,                                                                     \
         typedef typename                                                        \
-            boost::fusion::result_of::next<                                     \
+            std::fusion::result_of::next<                                     \
                 BOOST_PP_CAT(I,BOOST_PP_DEC(I_))                                \
             >::type                                                             \
         BOOST_PP_CAT(I,I_);                                                     \
         BOOST_PP_CAT(I,I_) BOOST_PP_CAT(i,I_)=                                  \
-                boost::fusion::next(BOOST_PP_CAT(i,BOOST_PP_DEC(I_)));          \
+                std::fusion::next(BOOST_PP_CAT(i,BOOST_PP_DEC(I_)));          \
     )                                                                           \
                                                                                 \
     BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,1,ATTRIBUTE)=                      \
-        boost::fusion::deref(BOOST_PP_CAT(i,I_));
+        std::fusion::deref(BOOST_PP_CAT(i,I_));
 
 #define BOOST_FUSION_DEFINE_STRUCT_ASSIGN_OP(                                   \
     ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                                       \
@@ -65,9 +65,9 @@
     operator=(Seq const& seq)                                                   \
     {                                                                           \
         typedef typename                                                        \
-            boost::fusion::result_of::begin<Seq const>::type                    \
+            std::fusion::result_of::begin<Seq const>::type                    \
         I0;                                                                     \
-        I0 i0=boost::fusion::begin(seq);                                        \
+        I0 i0=std::fusion::begin(seq);                                        \
                                                                                 \
         BOOST_PP_SEQ_FOR_EACH_I_R(                                              \
             1,                                                                  \
@@ -88,14 +88,14 @@
                                                                                 \
     BOOST_PP_COMMA_IF(I)                                                        \
     BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,1,ATTRIBUTE)(                      \
-        boost::fusion::deref(boost::fusion::advance_c<I>(boost::fusion::begin(  \
+        std::fusion::deref(std::fusion::advance_c<I>(std::fusion::begin(  \
             seq))))
 
 #define BOOST_FUSION_DEFINE_STRUCT_SEQ_CTOR_DISABLER(                           \
     ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                                       \
                                                                                 \
-    , typename boost::disable_if<                                               \
-        boost::is_convertible<                                                  \
+    , typename std::disable_if<                                               \
+        std::is_convertible<                                                  \
             Seq const&                                                          \
           , BOOST_PP_TUPLE_ELEM(                                                \
                 ATTRIBUTE_TUPEL_SIZE,                                           \
@@ -156,7 +156,7 @@
         NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                             \
                                                                                 \
         explicit                                                                \
-        NAME(boost::call_traits<                                                \
+        NAME(std::call_traits<                                                \
                 BOOST_PP_TUPLE_ELEM(                                            \
                     ATTRIBUTE_TUPEL_SIZE,0,BOOST_PP_SEQ_HEAD(ATTRIBUTES_SEQ))   \
             >::param_type arg)                                                  \
@@ -168,8 +168,8 @@
         TEMPLATE_PARAMS_SEQ, NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)        \
                                                                                 \
         explicit                                                                \
-        NAME(typename boost::call_traits<                                       \
-                typename boost::fusion::detail::get_first_arg<                  \
+        NAME(typename std::call_traits<                                       \
+                typename std::fusion::detail::get_first_arg<                  \
                     BOOST_PP_TUPLE_ELEM(                                        \
                         ATTRIBUTE_TUPEL_SIZE,                                   \
                         0,                                                      \
@@ -190,8 +190,8 @@
 #define BOOST_FUSION_DEFINE_TPL_STRUCT_CTOR_ARG_I(R, DATA, I, ATTRIBUTE)        \
                                                                                 \
         BOOST_PP_COMMA_IF(I)                                                    \
-        typename boost::call_traits<                                            \
-            typename boost::fusion::detail::get_first_arg<                      \
+        typename std::call_traits<                                            \
+            typename std::fusion::detail::get_first_arg<                      \
                 BOOST_PP_TUPLE_ELEM(                                            \
                     BOOST_PP_TUPLE_ELEM(3,0,DATA),                              \
                     0,                                                          \
@@ -223,7 +223,7 @@
         R, ATTRIBUTE_TUPEL_SIZE, I, ATTRIBUTE)                                  \
                                                                                 \
         BOOST_PP_COMMA_IF(I)                                                    \
-        boost::call_traits<                                                     \
+        std::call_traits<                                                     \
             BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,0,ATTRIBUTE)               \
         >::param_type BOOST_PP_CAT(_,I)
 

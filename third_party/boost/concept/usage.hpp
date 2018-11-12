@@ -26,19 +26,19 @@ struct usage_requirements
 
 #   define BOOST_CONCEPT_USAGE(model)                                    \
       model(); /* at least 2.96 and 3.4.3 both need this :( */           \
-      BOOST_CONCEPT_ASSERT((boost::concepts::usage_requirements<model>)); \
+      BOOST_CONCEPT_ASSERT((std::concepts::usage_requirements<model>)); \
       ~model()
 
 #  else
 
 #   define BOOST_CONCEPT_USAGE(model)                                    \
-      BOOST_CONCEPT_ASSERT((boost::concepts::usage_requirements<model>)); \
+      BOOST_CONCEPT_ASSERT((std::concepts::usage_requirements<model>)); \
       ~model()
 
 #  endif
 
 # endif 
 
-}} // namespace boost::concepts
+}} // namespace std::concepts
 
 #endif // BOOST_CONCEPT_USAGE_DWA2006919_HPP

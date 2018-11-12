@@ -128,7 +128,7 @@ inline typename tools::promote_args<T, U, V>::type jacobi_elliptic(T k, U theta,
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   static const char* function = "boost::math::jacobi_elliptic<%1%>(%1%)";
+   static const char* function = "std::math::jacobi_elliptic<%1%>(%1%)";
 
    value_type sn, cn, dn;
    sn = detail::jacobi_imp<value_type>(static_cast<value_type>(theta), static_cast<value_type>(k), &cn, &dn, forwarding_policy(), function);

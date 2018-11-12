@@ -13,7 +13,7 @@ namespace boost { namespace fusion
     {
         template<typename State, typename It, typename F>
         struct reverse_iter_fold_lvalue_state
-          : boost::result_of<
+          : std::result_of<
                 F(
                 typename add_reference<typename add_const<State>::type>::type,
                 It&)
@@ -251,7 +251,7 @@ namespace boost { namespace fusion
         {
             typedef typename
                 result_of_unrolled_reverse_iter_fold<
-                    typename boost::result_of<
+                    typename std::result_of<
                         F(
                             StateRef,
                             It0 const&

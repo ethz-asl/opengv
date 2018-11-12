@@ -113,7 +113,7 @@ namespace boost { namespace numeric { namespace convdetail
     typedef typename mpl::eval_if<caseTT,TT_Q,choose_TF_FT_FF_Q>::type type ;
   } ;
 
-} } } // namespace boost::numeric::convdetail
+} } } // namespace std::numeric::convdetail
 
 #endif
 

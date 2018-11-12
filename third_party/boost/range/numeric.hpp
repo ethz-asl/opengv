@@ -41,14 +41,14 @@ namespace boost
     inline Value accumulate( const SinglePassRange& rng, Value init )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::accumulate( boost::begin(rng), boost::end(rng), init );
+        return std::accumulate( std::begin(rng), std::end(rng), init );
     }
 
     template< class SinglePassRange, class Value, class BinaryOperation >
     inline Value accumulate( const SinglePassRange& rng, Value init, BinaryOperation op )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::accumulate( boost::begin(rng), boost::end(rng), init, op );
+        return std::accumulate( std::begin(rng), std::end(rng), init, op );
     }
 
 
@@ -57,9 +57,9 @@ namespace boost
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-        BOOST_ASSERT( boost::distance(rng2) >= boost::distance(rng1) );
-        return std::inner_product( boost::begin(rng1), boost::end(rng1),
-            boost::begin(rng2), init );
+        BOOST_ASSERT( std::distance(rng2) >= std::distance(rng1) );
+        return std::inner_product( std::begin(rng1), std::end(rng1),
+            std::begin(rng2), init );
     }
 
     template< class SinglePassRange1,
@@ -72,10 +72,10 @@ namespace boost
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-        BOOST_ASSERT( boost::distance(rng2) >= boost::distance(rng1) );
+        BOOST_ASSERT( std::distance(rng2) >= std::distance(rng1) );
 
-        return std::inner_product( boost::begin(rng1), boost::end(rng1),
-                                   boost::begin(rng2), init, op1, op2 );
+        return std::inner_product( std::begin(rng1), std::end(rng1),
+                                   std::begin(rng2), init, op1, op2 );
     }
 
     template< class SinglePassRange, class OutputIterator >
@@ -83,7 +83,7 @@ namespace boost
                                         OutputIterator result )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::partial_sum( boost::begin(rng), boost::end(rng), result );
+        return std::partial_sum( std::begin(rng), std::end(rng), result );
     }
 
     template< class SinglePassRange, class OutputIterator, class BinaryOperation >
@@ -91,7 +91,7 @@ namespace boost
                                         BinaryOperation op )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::partial_sum( boost::begin(rng), boost::end(rng), result, op );
+        return std::partial_sum( std::begin(rng), std::end(rng), result, op );
     }
 
     template< class SinglePassRange, class OutputIterator >
@@ -99,7 +99,7 @@ namespace boost
                                                 OutputIterator result )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::adjacent_difference( boost::begin(rng), boost::end(rng),
+        return std::adjacent_difference( std::begin(rng), std::end(rng),
                                          result );
     }
 
@@ -109,7 +109,7 @@ namespace boost
                                                 BinaryOperation op )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange> ));
-        return std::adjacent_difference( boost::begin(rng), boost::end(rng),
+        return std::adjacent_difference( std::begin(rng), std::end(rng),
                                          result, op );
     }
 

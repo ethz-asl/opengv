@@ -18,7 +18,7 @@ namespace boost { namespace fusion
 {
     // Special tags:
     struct iterator_facade_tag; // iterator facade tag
-    struct boost_array_iterator_tag; // boost::array iterator tag
+    struct boost_array_iterator_tag; // std::array iterator tag
     struct mpl_iterator_tag; // mpl sequence iterator tag
     struct std_pair_iterator_tag; // std::pair iterator tag
 
@@ -74,7 +74,7 @@ namespace boost { namespace fusion
     {
         template <typename Iter1, typename Iter2>
         inline typename
-        boost::enable_if<
+        std::enable_if<
             mpl::and_<is_fusion_iterator<Iter1>, is_fusion_iterator<Iter2> >
             , bool
             >::type
@@ -85,7 +85,7 @@ namespace boost { namespace fusion
 
         template <typename Iter1, typename Iter2>
         inline typename
-        boost::enable_if<
+        std::enable_if<
             mpl::and_<is_fusion_iterator<Iter1>, is_fusion_iterator<Iter2> >
             , bool
             >::type

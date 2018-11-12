@@ -56,7 +56,7 @@ struct mkl_operations
             // we get Containers that have size() and [i]-access
 
             const int n = t1.size();
-            //boost::numeric::odeint::copy( t1 , t3 );
+            //std::numeric::odeint::copy( t1 , t3 );
             if( &(t2[0]) != &(t1[0]) )
             {
                 cblas_dcopy( n , &(t2[0]) , 1 , &(t1[0]) , 1 );
@@ -86,7 +86,7 @@ struct mkl_operations
             // we get Containers that have size() and [i]-access
 
             const int n = t1.size();
-            //boost::numeric::odeint::copy( t1 , t3 );
+            //std::numeric::odeint::copy( t1 , t3 );
             if( &(t2[0]) != &(t1[0]) )
             {
                 cblas_dcopy( n , &(t2[0]) , 1 , &(t1[0]) , 1 );
@@ -119,7 +119,7 @@ struct mkl_operations
             // we get Containers that have size() and [i]-access
 
             const int n = t1.size();
-            //boost::numeric::odeint::copy( t1 , t3 );
+            //std::numeric::odeint::copy( t1 , t3 );
             if( &(t2[0]) != &(t1[0]) )
             {
                 cblas_dcopy( n , &(t2[0]) , 1 , &(t1[0]) , 1 );
@@ -157,7 +157,7 @@ struct mkl_operations
             // we get Containers that have size() and [i]-access
 
             const int n = t1.size();
-            //boost::numeric::odeint::copy( t1 , t3 );
+            //std::numeric::odeint::copy( t1 , t3 );
             if( &(t2[0]) != &(t1[0]) )
             {
                 cblas_dcopy( n , &(t2[0]) , 1 , &(t1[0]) , 1 );

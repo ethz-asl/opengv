@@ -20,15 +20,15 @@ namespace boost
     {
         template< class R >
         struct indirected_range :
-            public boost::iterator_range<
-                        boost::indirect_iterator<
+            public std::iterator_range<
+                        std::indirect_iterator<
                             BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                         >
                     >
         {
         private:
-            typedef boost::iterator_range<
-                        boost::indirect_iterator<
+            typedef std::iterator_range<
+                        std::indirect_iterator<
                             BOOST_DEDUCED_TYPENAME range_iterator<R>::type
                         >
                     >

@@ -31,7 +31,7 @@ namespace odeint {
 template< class T >
 struct is_resizeable< thrust::device_vector< T > >
 {
-    struct type : public boost::true_type { };
+    struct type : public std::true_type { };
     const static bool value = type::value;
 };
 
@@ -57,7 +57,7 @@ struct resize_impl< thrust::device_vector< T > , thrust::device_vector< T > >
 template< class T >
 struct is_resizeable< thrust::host_vector< T > >
 {
-    struct type : public boost::true_type { };
+    struct type : public std::true_type { };
     const static bool value = type::value;
 };
 
@@ -86,7 +86,7 @@ struct copy_impl< Container1 , thrust::device_vector< Value > >
 {
     static void copy( const Container1 &from , thrust::device_vector< Value > &to )
     {
-        thrust::copy( boost::begin( from ) , boost::end( from ) , boost::begin( to ) );
+        thrust::copy( std::begin( from ) , std::end( from ) , std::begin( to ) );
     }
 };
 
@@ -95,7 +95,7 @@ struct copy_impl< thrust::device_vector< Value > , Container2 >
 {
     static void copy( const thrust::device_vector< Value > &from , Container2 &to )
     {
-        thrust::copy( boost::begin( from ) , boost::end( from ) , boost::begin( to ) );
+        thrust::copy( std::begin( from ) , std::end( from ) , std::begin( to ) );
     }
 };
 
@@ -104,7 +104,7 @@ struct copy_impl< thrust::device_vector< Value > , thrust::device_vector< Value 
 {
     static void copy( const thrust::device_vector< Value > &from , thrust::device_vector< Value > &to )
     {
-        thrust::copy( boost::begin( from ) , boost::end( from ) , boost::begin( to ) );
+        thrust::copy( std::begin( from ) , std::end( from ) , std::begin( to ) );
     }
 };
 

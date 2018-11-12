@@ -372,7 +372,7 @@ T digamma_imp(T x, const Tag* t, const Policy& pol)
       //
       if(remainder == 0)
       {
-         return policies::raise_pole_error<T>("boost::math::digamma<%1%>(%1%)", 0, (1-x), pol);
+         return policies::raise_pole_error<T>("std::math::digamma<%1%>(%1%)", 0, (1-x), pol);
       }
       result = constants::pi<T>() / tan(constants::pi<T>() * remainder);
    }
@@ -417,8 +417,8 @@ struct digamma_initializer
    {
       init()
       {
-         boost::math::digamma(T(1.5), Policy());
-         boost::math::digamma(T(500), Policy());
+         std::math::digamma(T(1.5), Policy());
+         std::math::digamma(T(500), Policy());
       }
       void force_instantiate()const{}
    };
@@ -463,7 +463,7 @@ inline typename tools::promote_args<T>::type
 
    return policies::checked_narrowing_cast<result_type, Policy>(detail::digamma_imp(
       static_cast<value_type>(x),
-      static_cast<const tag_type*>(0), pol), "boost::math::digamma<%1%>(%1%)");
+      static_cast<const tag_type*>(0), pol), "std::math::digamma<%1%>(%1%)");
 }
 
 template <class T>

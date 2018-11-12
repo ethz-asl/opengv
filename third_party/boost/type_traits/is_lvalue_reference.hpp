@@ -53,9 +53,9 @@ BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T& const 
 #if defined(__GNUC__) && (__GNUC__ < 3)
 // these allow us to work around illegally cv-qualified reference
 // types.
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T const ,::boost::is_lvalue_reference<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T volatile ,::boost::is_lvalue_reference<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T const volatile ,::boost::is_lvalue_reference<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T const ,::std::is_lvalue_reference<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T volatile ,::std::is_lvalue_reference<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_lvalue_reference,T const volatile ,::std::is_lvalue_reference<T>::value)
 // However, the above specializations confuse gcc 2.96 unless we also
 // supply these specializations for array types
 BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,unsigned long N,is_lvalue_reference,T[N],false)
@@ -73,9 +73,9 @@ BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_2(typename T,unsigned long N,is_lvalue_ref
 
 namespace detail {
 
-using ::boost::type_traits::yes_type;
-using ::boost::type_traits::no_type;
-using ::boost::type_traits::wrap;
+using ::std::type_traits::yes_type;
+using ::std::type_traits::no_type;
+using ::std::type_traits::wrap;
 
 template <class T> T&(* is_lvalue_reference_helper1(wrap<T>) )(wrap<T>);
 char is_lvalue_reference_helper1(...);
@@ -88,8 +88,8 @@ struct is_lvalue_reference_impl
 {
     BOOST_STATIC_CONSTANT(
         bool, value = sizeof(
-            ::boost::detail::is_lvalue_reference_helper2(
-                ::boost::detail::is_lvalue_reference_helper1(::boost::type_traits::wrap<T>()))) == 1
+            ::std::detail::is_lvalue_reference_helper2(
+                ::std::detail::is_lvalue_reference_helper1(::std::type_traits::wrap<T>()))) == 1
         );
 };
 
@@ -102,7 +102,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_lvalue_reference,void const volatile,false
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_lvalue_reference,T,::boost::detail::is_lvalue_reference_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_lvalue_reference,T,::std::detail::is_lvalue_reference_impl<T>::value)
 
 #ifdef BOOST_MSVC
 #   pragma warning(pop)

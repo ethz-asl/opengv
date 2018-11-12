@@ -33,7 +33,7 @@
 namespace boost {
 
   template<class T, class Compare = std::less<T>, bool implicit_fence = true,
-           class Buffer = boost::queue<T> >
+           class Buffer = std::queue<T> >
   class fenced_priority_queue {
   public:
     typedef T value_type;

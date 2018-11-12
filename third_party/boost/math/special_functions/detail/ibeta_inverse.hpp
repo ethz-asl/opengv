@@ -27,7 +27,7 @@ struct temme_root_finder
 {
    temme_root_finder(const T t_, const T a_) : t(t_), a(a_) {}
 
-   boost::math::tuple<T, T> operator()(T x)
+   std::math::tuple<T, T> operator()(T x)
    {
       BOOST_MATH_STD_USING // ADL of std names
 
@@ -35,16 +35,16 @@ struct temme_root_finder
       if(y == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return boost::math::make_tuple(static_cast<T>(-big), static_cast<T>(-big));
+         return std::math::make_tuple(static_cast<T>(-big), static_cast<T>(-big));
       }
       if(x == 0)
       {
          T big = tools::max_value<T>() / 4;
-         return boost::math::make_tuple(static_cast<T>(-big), big);
+         return std::math::make_tuple(static_cast<T>(-big), big);
       }
       T f = log(x) + a * log(y) + t;
       T f1 = (1 / x) - (a / (y));
-      return boost::math::make_tuple(f, f1);
+      return std::math::make_tuple(f, f1);
    }
 private:
    T t, a;
@@ -66,7 +66,7 @@ T temme_method_1_ibeta_inverse(T a, T b, T z, const Policy& pol)
    // get the first approximation for eta from the inverse
    // error function (Eq: 2.9 and 2.10).
    //
-   T eta0 = boost::math::erfc_inv(2 * z, pol);
+   T eta0 = std::math::erfc_inv(2 * z, pol);
    eta0 /= -sqrt(a / 2);
 
    T terms[4] = { eta0 };
@@ -143,7 +143,7 @@ T temme_method_2_ibeta_inverse(T /*a*/, T /*b*/, T z, T r, T theta, const Policy
    // Get first estimate for eta, see Eq 3.9 and 3.10,
    // but note there is a typo in Eq 3.10:
    //
-   T eta0 = boost::math::erfc_inv(2 * z, pol);
+   T eta0 = std::math::erfc_inv(2 * z, pol);
    eta0 /= -sqrt(r / 2);
 
    T s = sin(theta);
@@ -322,9 +322,9 @@ T temme_method_3_ibeta_inverse(T a, T b, T p, T q, const Policy& pol)
    //
    T eta0;
    if(p < q)
-      eta0 = boost::math::gamma_q_inv(b, p, pol);
+      eta0 = std::math::gamma_q_inv(b, p, pol);
    else
-      eta0 = boost::math::gamma_p_inv(b, q, pol);
+      eta0 = std::math::gamma_p_inv(b, q, pol);
    eta0 /= a;
    //
    // Define the variables and powers we'll need later on:
@@ -416,7 +416,7 @@ struct ibeta_roots
    ibeta_roots(T _a, T _b, T t, bool inv = false)
       : a(_a), b(_b), target(t), invert(inv) {}
 
-   boost::math::tuple<T, T, T> operator()(T x)
+   std::math::tuple<T, T, T> operator()(T x)
    {
       BOOST_MATH_STD_USING // ADL of std names
 
@@ -442,7 +442,7 @@ struct ibeta_roots
       if(f1 == 0)
          f1 = (invert ? -1 : 1) * tools::min_value<T>() * 64;
 
-      return boost::math::make_tuple(f, f1, f2);
+      return std::math::make_tuple(f, f1, f2);
    }
 private:
    T a, b, target;
@@ -557,7 +557,7 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
             T ppa = pow(p, 1/a);
             if((ppa < 0.0025) && (a + b < 200))
             {
-               x = ppa * pow(a * boost::math::beta(a, b, pol), 1/a);
+               x = ppa * pow(a * std::math::beta(a, b, pol), 1/a);
             }
             else
                x = temme_method_2_ibeta_inverse(a, b, p, r, theta, pol);
@@ -585,7 +585,7 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
             //
             T bet = 0;
             if(b < 2)
-               bet = boost::math::beta(a, b, pol);
+               bet = std::math::beta(a, b, pol);
             if(bet != 0)
             {
                y = pow(b * q * bet, 1/b);
@@ -612,7 +612,7 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
       // Now we need to ensure that we start our iteration from the
       // right side of the inflection point:
       //
-      T fs = boost::math::ibeta(a, b, xs, pol) - p;
+      T fs = std::math::ibeta(a, b, xs, pol) - p;
       if(fabs(fs) / p < tools::epsilon<T>() * 3)
       {
          // The result is at the point of inflection, best just return it:
@@ -626,7 +626,7 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
          invert = !invert;
          xs = 1 - xs;
       }
-      T xg = pow(a * p * boost::math::beta(a, b, pol), 1/a);
+      T xg = pow(a * p * std::math::beta(a, b, pol), 1/a);
       x = xg / (1 + xg);
       y = 1 / (1 + xg);
       //
@@ -648,7 +648,7 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
       //
       T xs = (a - 1) / (a + b - 2);
       T xs2 = (b - 1) / (a + b - 2);
-      T ps = boost::math::ibeta(a, b, xs, pol) - p;
+      T ps = std::math::ibeta(a, b, xs, pol) - p;
 
       if(ps < 0)
       {
@@ -661,9 +661,9 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
       // Estimate x and y, using expm1 to get a good estimate
       // for y when it's very small:
       //
-      T lx = log(p * a * boost::math::beta(a, b, pol)) / a;
+      T lx = log(p * a * std::math::beta(a, b, pol)) / a;
       x = exp(lx);
-      y = x < 0.9 ? T(1 - x) : (T)(-boost::math::expm1(lx, pol));
+      y = x < 0.9 ? T(1 - x) : (T)(-std::math::expm1(lx, pol));
 
       if((b < a) && (x < 0.2))
       {
@@ -723,17 +723,17 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
       }
       if(pow(p, 1/a) < 0.5)
       {
-         x = pow(p * a * boost::math::beta(a, b, pol), 1 / a);
+         x = pow(p * a * std::math::beta(a, b, pol), 1 / a);
          if(x == 0)
-            x = boost::math::tools::min_value<T>();
+            x = std::math::tools::min_value<T>();
          y = 1 - x;
       }
       else /*if(pow(q, 1/b) < 0.1)*/
       {
          // model a distorted quarter circle:
-         y = pow(1 - pow(p, b * boost::math::beta(a, b, pol)), 1/b);
+         y = pow(1 - pow(p, b * std::math::beta(a, b, pol)), 1/b);
          if(y == 0)
-            y = boost::math::tools::min_value<T>();
+            y = std::math::tools::min_value<T>();
          x = 1 - y;
       }
    }
@@ -767,19 +767,19 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
          //
          // We're not interested in answers smaller than machine epsilon:
          //
-         lower = boost::math::tools::epsilon<T>();
+         lower = std::math::tools::epsilon<T>();
          if(x < lower)
             x = lower;
       }
       else
-         lower = boost::math::tools::min_value<T>();
+         lower = std::math::tools::min_value<T>();
       if(x < lower)
          x = lower;
    }
    //
    // Figure out how many digits to iterate towards:
    //
-   int digits = boost::math::policies::digits<T, Policy>() / 2;
+   int digits = std::math::policies::digits<T, Policy>() / 2;
    if((x < 1e-50) && ((a < 1) || (b < 1)))
    {
       //
@@ -798,16 +798,16 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
    // Now iterate, we can use either p or q as the target here
    // depending on which is smaller:
    //
-   boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
-   x = boost::math::tools::halley_iterate(
-      boost::math::detail::ibeta_roots<T, Policy>(a, b, (p < q ? p : q), (p < q ? false : true)), x, lower, upper, digits, max_iter);
-   policies::check_root_iterations<T>("boost::math::ibeta<%1%>(%1%, %1%, %1%)", max_iter, pol);
+   std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+   x = std::math::tools::halley_iterate(
+      std::math::detail::ibeta_roots<T, Policy>(a, b, (p < q ? p : q), (p < q ? false : true)), x, lower, upper, digits, max_iter);
+   policies::check_root_iterations<T>("std::math::ibeta<%1%>(%1%, %1%, %1%)", max_iter, pol);
    //
    // We don't really want these asserts here, but they are useful for sanity
    // checking that we have the limits right, uncomment if you suspect bugs *only*.
    //
    //BOOST_ASSERT(x != upper);
-   //BOOST_ASSERT((x != lower) || (x == boost::math::tools::min_value<T>()) || (x == boost::math::tools::epsilon<T>()));
+   //BOOST_ASSERT((x != lower) || (x == std::math::tools::min_value<T>()) || (x == std::math::tools::epsilon<T>()));
    //
    // Tidy up, if we "lower" was too high then zero is the best answer we have:
    //
@@ -824,7 +824,7 @@ template <class T1, class T2, class T3, class T4, class Policy>
 inline typename tools::promote_args<T1, T2, T3, T4>::type  
    ibeta_inv(T1 a, T2 b, T3 p, T4* py, const Policy& pol)
 {
-   static const char* function = "boost::math::ibeta_inv<%1%>(%1%,%1%,%1%)";
+   static const char* function = "std::math::ibeta_inv<%1%>(%1%,%1%,%1%)";
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2, T3, T4>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
@@ -882,7 +882,7 @@ template <class T1, class T2, class T3, class T4, class Policy>
 inline typename tools::promote_args<T1, T2, T3, T4>::type 
    ibetac_inv(T1 a, T2 b, T3 q, T4* py, const Policy& pol)
 {
-   static const char* function = "boost::math::ibetac_inv<%1%>(%1%,%1%,%1%)";
+   static const char* function = "std::math::ibetac_inv<%1%>(%1%,%1%,%1%)";
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<T1, T2, T3, T4>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;

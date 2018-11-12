@@ -23,25 +23,25 @@ namespace boost
 
         template<class T, class Enabler = void>
         struct has_range_iterator_impl
-            : boost::mpl::false_
+            : std::mpl::false_
         {
         };
 
         template<class T>
         struct has_range_iterator_impl<T, BOOST_DEDUCED_TYPENAME enable_if< has_type< range_mutable_iterator<T> > >::type>
-            : boost::mpl::true_
+            : std::mpl::true_
         {
         };
 
         template<class T, class Enabler = void>
         struct has_range_const_iterator_impl
-            : boost::mpl::false_
+            : std::mpl::false_
         {
         };
 
         template<class T>
         struct has_range_const_iterator_impl<T, BOOST_DEDUCED_TYPENAME enable_if< has_type< range_const_iterator<T> > >::type>
-            : boost::mpl::true_
+            : std::mpl::true_
         {
         };
 

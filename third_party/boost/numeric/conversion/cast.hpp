@@ -40,14 +40,14 @@ namespace boost
     {
         typedef numeric::conversion_traits<Target, Source>   conv_traits;
         typedef numeric::numeric_cast_traits<Target, Source> cast_traits;
-        typedef boost::numeric::converter
+        typedef std::numeric::converter
             <
                 Target,
                 Source, 
                 conv_traits,
                 typename cast_traits::overflow_policy, 
                 typename cast_traits::rounding_policy, 
-                boost::numeric::raw_converter< conv_traits >,
+                std::numeric::raw_converter< conv_traits >,
                 typename cast_traits::range_checking_policy
             > converter;
         return converter::convert(arg);

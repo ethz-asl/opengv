@@ -443,7 +443,7 @@ namespace detail
       >::type iterator_category;
 
       // Needed for some broken libraries (see below)
-      typedef boost::iterator<
+      typedef std::iterator<
           iterator_category
         , Value
         , typename traversal_archetype_base<

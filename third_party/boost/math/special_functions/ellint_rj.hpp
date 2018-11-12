@@ -37,9 +37,9 @@ T ellint_rj_imp(T x, T y, T z, T p, const Policy& pol)
     unsigned long k;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::ellint_rj<%1%>(%1%,%1%,%1%)";
+    static const char* function = "std::math::ellint_rj<%1%>(%1%,%1%,%1%)";
 
     if (x < 0)
     {
@@ -92,10 +92,10 @@ T ellint_rj_imp(T x, T y, T z, T p, const Policy& pol)
        BOOST_ASSERT(pmy >= 0);
 
        T p = pmy + y;
-       value = boost::math::ellint_rj(x, y, z, p, pol);
+       value = std::math::ellint_rj(x, y, z, p, pol);
        value *= pmy;
-       value -= 3 * boost::math::ellint_rf(x, y, z, pol);
-       value += 3 * sqrt((x * y * z) / (x * z + p * q)) * boost::math::ellint_rc(x * z + p * q, p * q, pol);
+       value -= 3 * std::math::ellint_rf(x, y, z, pol);
+       value += 3 * sqrt((x * y * z) / (x * z + p * q)) * std::math::ellint_rc(x * z + p * q, p * q, pol);
        value /= (y + q);
        return value;
     }
@@ -123,7 +123,7 @@ T ellint_rj_imp(T x, T y, T z, T p, const Policy& pol)
         alpha = p * (sx + sy + sz) + sx * sy * sz;
         alpha *= alpha;
         beta = p * (p + lambda) * (p + lambda);
-        sigma += factor * boost::math::ellint_rc(alpha, beta, pol);
+        sigma += factor * std::math::ellint_rc(alpha, beta, pol);
         factor /= 4;
         x = (x + lambda) / 4;
         y = (y + lambda) / 4;
@@ -164,7 +164,7 @@ inline typename tools::promote_args<T1, T2, T3, T4>::type
          static_cast<value_type>(y),
          static_cast<value_type>(z),
          static_cast<value_type>(p),
-         pol), "boost::math::ellint_rj<%1%>(%1%,%1%,%1%,%1%)");
+         pol), "std::math::ellint_rj<%1%>(%1%,%1%,%1%,%1%)");
 }
 
 template <class T1, class T2, class T3, class T4>

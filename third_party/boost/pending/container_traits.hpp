@@ -289,61 +289,61 @@ namespace boost { namespace graph_detail {
 #ifndef BOOST_NO_HASH
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
   template <class Key, class Eq, class Hash, class Alloc> 
-  struct container_traits< boost::unordered_set<Key,Eq,Hash,Alloc> > {
+  struct container_traits< std::unordered_set<Key,Eq,Hash,Alloc> > {
     typedef unordered_set_tag category;
     typedef unstable_tag iterator_stability;
   };
   template <class Key, class T, class Eq, class Hash, class Alloc>
-  struct container_traits< boost::unordered_map<Key,T,Eq,Hash,Alloc> > {
+  struct container_traits< std::unordered_map<Key,T,Eq,Hash,Alloc> > {
     typedef unordered_map_tag category;
     typedef unstable_tag iterator_stability;
   };
   template <class Key, class Eq, class Hash, class Alloc>
-  struct container_traits< boost::unordered_multiset<Key,Eq,Hash,Alloc> > {
+  struct container_traits< std::unordered_multiset<Key,Eq,Hash,Alloc> > {
     typedef unordered_multiset_tag category;
     typedef unstable_tag iterator_stability;
   };
   template <class Key, class T, class Eq, class Hash, class Alloc>
-  struct container_traits< boost::unordered_multimap<Key,T,Eq,Hash,Alloc> > {
+  struct container_traits< std::unordered_multimap<Key,T,Eq,Hash,Alloc> > {
     typedef unordered_multimap_tag category;
     typedef unstable_tag iterator_stability;
   };
 #endif
   template <class Key, class Eq, class Hash, class Alloc>
   unordered_set_tag
-  container_category(const boost::unordered_set<Key,Eq,Hash,Alloc>&)
+  container_category(const std::unordered_set<Key,Eq,Hash,Alloc>&)
   { return unordered_set_tag(); }
 
   template <class Key, class T, class Eq, class Hash, class Alloc>
   unordered_map_tag
-  container_category(const boost::unordered_map<Key,T,Eq,Hash,Alloc>&)
+  container_category(const std::unordered_map<Key,T,Eq,Hash,Alloc>&)
   { return unordered_map_tag(); }
 
   template <class Key, class Eq, class Hash, class Alloc>
-  unstable_tag iterator_stability(const boost::unordered_set<Key,Eq,Hash,Alloc>&)
+  unstable_tag iterator_stability(const std::unordered_set<Key,Eq,Hash,Alloc>&)
   { return unstable_tag(); }
 
   template <class Key, class T, class Eq, class Hash, class Alloc>
-  unstable_tag iterator_stability(const boost::unordered_map<Key,T,Eq,Hash,Alloc>&)
+  unstable_tag iterator_stability(const std::unordered_map<Key,T,Eq,Hash,Alloc>&)
   { return unstable_tag(); }
   template <class Key, class Eq, class Hash, class Alloc>
   unordered_multiset_tag
-  container_category(const boost::unordered_multiset<Key,Eq,Hash,Alloc>&)
+  container_category(const std::unordered_multiset<Key,Eq,Hash,Alloc>&)
   { return unordered_multiset_tag(); }
 
   template <class Key, class T, class Eq, class Hash, class Alloc>
   unordered_multimap_tag
-  container_category(const boost::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
+  container_category(const std::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
   { return unordered_multimap_tag(); }
 
   template <class Key, class Eq, class Hash, class Alloc>
   unstable_tag
-  iterator_stability(const boost::unordered_multiset<Key,Eq,Hash,Alloc>&)
+  iterator_stability(const std::unordered_multiset<Key,Eq,Hash,Alloc>&)
   { return unstable_tag(); }
 
   template <class Key, class T, class Eq, class Hash, class Alloc>
   unstable_tag
-  iterator_stability(const boost::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
+  iterator_stability(const std::unordered_multimap<Key,T,Eq,Hash,Alloc>&)
   { return unstable_tag(); }
 #endif
 
@@ -424,7 +424,7 @@ namespace boost { namespace graph_detail {
   push_dispatch(Container& c, const T& v, back_insertion_sequence_tag)
   {
     c.push_back(v);
-    return std::make_pair(boost::prior(c.end()), true);
+    return std::make_pair(std::prior(c.end()), true);
   }
 
   template <class Container, class T>
@@ -550,7 +550,7 @@ namespace boost { namespace graph_detail {
                                 graph_detail::container_category(c));
   }
 
-}} // namespace boost::graph_detail
+}} // namespace std::graph_detail
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
 // Stay out of the way of concept checking class templates

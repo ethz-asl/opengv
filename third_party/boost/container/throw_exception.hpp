@@ -46,31 +46,31 @@ namespace container {
 
    inline void throw_bad_alloc()
    {
-      BOOST_ASSERT(!"boost::container bad_alloc thrown");
+      BOOST_ASSERT(!"std::container bad_alloc thrown");
       std::abort();
    }
 
    inline void throw_out_of_range(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container out_of_range thrown", str);
+      BOOST_ASSERT_MSG(!"std::container out_of_range thrown", str);
       std::abort();
    }
 
    inline void throw_length_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container length_error thrown", str);
+      BOOST_ASSERT_MSG(!"std::container length_error thrown", str);
       std::abort();
    }
 
    inline void throw_logic_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container logic_error thrown", str);
+      BOOST_ASSERT_MSG(!"std::container logic_error thrown", str);
       std::abort();
    }
 
    inline void throw_runtime_error(const char* str)
    {
-      BOOST_ASSERT_MSG(!"boost::container runtime_error thrown", str);
+      BOOST_ASSERT_MSG(!"std::container runtime_error thrown", str);
       std::abort();
    }
 

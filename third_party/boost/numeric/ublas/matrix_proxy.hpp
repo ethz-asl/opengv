@@ -38,10 +38,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef const self_type const_closure_type;
@@ -200,7 +200,7 @@ namespace boost { namespace numeric { namespace ublas {
         // Iterator types
     private:
         typedef typename M::const_iterator2 const_subiterator_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator2,
                                           typename M::iterator2>::type subiterator_type;
 
@@ -495,10 +495,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef const self_type const_closure_type;
@@ -657,7 +657,7 @@ namespace boost { namespace numeric { namespace ublas {
         // Iterator types
     private:
         typedef typename M::const_iterator1 const_subiterator_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator1,
                                           typename M::iterator1>::type subiterator_type;
 
@@ -951,10 +951,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -1148,7 +1148,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_range::value_type value_type;
             typedef typename matrix_vector_range::difference_type difference_type;
@@ -1256,7 +1256,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_range::value_type value_type;
             typedef typename matrix_vector_range::difference_type difference_type;
@@ -1406,10 +1406,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -1613,7 +1613,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_slice::value_type value_type;
             typedef typename matrix_vector_slice::difference_type difference_type;
@@ -1721,7 +1721,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_slice::value_type value_type;
             typedef typename matrix_vector_slice::difference_type difference_type;
@@ -1873,10 +1873,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef const self_type const_closure_type;
@@ -2078,7 +2078,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_indirect::value_type value_type;
             typedef typename matrix_vector_indirect::difference_type difference_type;
@@ -2186,7 +2186,7 @@ namespace boost { namespace numeric { namespace ublas {
         public:
             // FIXME Iterator can never be different code was:
             // typename iterator_restrict_traits<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::iterator_category>
-            BOOST_STATIC_ASSERT ((boost::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
+            BOOST_STATIC_ASSERT ((std::is_same<typename M::const_iterator1::iterator_category, typename M::const_iterator2::iterator_category>::value ));
 
             typedef typename matrix_vector_indirect::value_type value_type;
             typedef typename matrix_vector_indirect::difference_type difference_type;
@@ -2336,10 +2336,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -2510,11 +2510,11 @@ namespace boost { namespace numeric { namespace ublas {
         // Iterator types
     private:
         typedef typename M::const_iterator1 const_subiterator1_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator1,
                                           typename M::iterator1>::type subiterator1_type;
         typedef typename M::const_iterator2 const_subiterator2_type;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_iterator2,
                                           typename M::iterator2>::type subiterator2_type;
 
@@ -3239,10 +3239,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef basic_range<size_type, difference_type> range_type;
@@ -4171,8 +4171,8 @@ namespace boost { namespace numeric { namespace ublas {
      *
      * The matrix of indices can be of any type with the restriction that its elements must be
      * type-compatible with the size_type \c of the container. In practice, the following are good candidates:
-     * - \c boost::numeric::ublas::indirect_array<A> where \c A can be \c int, \c size_t, \c long, etc...
-     * - \c boost::numeric::ublas::matrix<int> can work too (\c int can be replaced by another integer type)
+     * - \c std::numeric::ublas::indirect_array<A> where \c A can be \c int, \c size_t, \c long, etc...
+     * - \c std::numeric::ublas::matrix<int> can work too (\c int can be replaced by another integer type)
      * - etc...
      *
      * An indirect matrix can be used as a normal matrix in any expression. If the specified indirect matrix 
@@ -4197,10 +4197,10 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename M::difference_type difference_type;
         typedef typename M::value_type value_type;
         typedef typename M::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_reference,
                                           typename M::reference>::type reference;
-        typedef typename boost::mpl::if_<boost::is_const<M>,
+        typedef typename std::mpl::if_<std::is_const<M>,
                                           typename M::const_closure_type,
                                           typename M::closure_type>::type matrix_closure_type;
         typedef basic_range<size_type, difference_type> range_type;

@@ -127,7 +127,7 @@ namespace boost {
       template<typename Tuple, class UnaryMetaFun>
       struct tuple_meta_transform
         : mpl::eval_if<
-              boost::is_same<Tuple, tuples::null_type>
+              std::is_same<Tuple, tuples::null_type>
             , mpl::identity<tuples::null_type>
             , tuple_meta_transform_impl<Tuple, UnaryMetaFun>
         >
@@ -169,9 +169,9 @@ namespace boost {
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
               mpl::or_<
 #endif 
-                  boost::is_same<Tuple, tuples::null_type>
+                  std::is_same<Tuple, tuples::null_type>
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-                , boost::is_same<Tuple,int>
+                , std::is_same<Tuple,int>
               >
 #endif 
             , mpl::identity<StartType>
@@ -245,7 +245,7 @@ namespace boost {
              >::type
            , transformed_tail_type
         >( 
-            f(boost::tuples::get<0>(t)), tuple_transform(t.get_tail(), f)
+            f(std::tuples::get<0>(t)), tuple_transform(t.get_tail(), f)
         );
       }
 
@@ -561,8 +561,8 @@ namespace boost {
         const zip_iterator<OtherIteratorTuple>& other
         ) const
     { 
-        return boost::tuples::get<0>(other.get_iterator_tuple()) - 
-            boost::tuples::get<0>(this->get_iterator_tuple());
+        return std::tuples::get<0>(other.get_iterator_tuple()) - 
+            std::tuples::get<0>(this->get_iterator_tuple());
     }
   
     // Data Members

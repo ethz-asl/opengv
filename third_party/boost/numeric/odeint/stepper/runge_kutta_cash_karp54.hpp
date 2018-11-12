@@ -41,7 +41,7 @@ namespace odeint {
 
 #ifndef DOXYGEN_SKIP
 template< class Value = double >
-struct rk54_ck_coefficients_a1 : boost::array< Value , 1 >
+struct rk54_ck_coefficients_a1 : std::array< Value , 1 >
 {
     rk54_ck_coefficients_a1( void )
     {
@@ -50,7 +50,7 @@ struct rk54_ck_coefficients_a1 : boost::array< Value , 1 >
 };
 
 template< class Value = double >
-struct rk54_ck_coefficients_a2 : boost::array< Value , 2 >
+struct rk54_ck_coefficients_a2 : std::array< Value , 2 >
 {
     rk54_ck_coefficients_a2( void )
     {
@@ -61,7 +61,7 @@ struct rk54_ck_coefficients_a2 : boost::array< Value , 2 >
 
 
 template< class Value = double >
-struct rk54_ck_coefficients_a3 : boost::array< Value , 3 >
+struct rk54_ck_coefficients_a3 : std::array< Value , 3 >
 {
     rk54_ck_coefficients_a3( void )
     {
@@ -72,7 +72,7 @@ struct rk54_ck_coefficients_a3 : boost::array< Value , 3 >
 };
 
 template< class Value = double >
-struct rk54_ck_coefficients_a4 : boost::array< Value , 4 >
+struct rk54_ck_coefficients_a4 : std::array< Value , 4 >
 {
     rk54_ck_coefficients_a4( void )
     {
@@ -84,7 +84,7 @@ struct rk54_ck_coefficients_a4 : boost::array< Value , 4 >
 };
 
 template< class Value = double >
-struct rk54_ck_coefficients_a5 : boost::array< Value , 5 >
+struct rk54_ck_coefficients_a5 : std::array< Value , 5 >
 {
     rk54_ck_coefficients_a5( void )
     {
@@ -97,7 +97,7 @@ struct rk54_ck_coefficients_a5 : boost::array< Value , 5 >
 };
 
 template< class Value = double >
-struct rk54_ck_coefficients_b : boost::array< Value , 6 >
+struct rk54_ck_coefficients_b : std::array< Value , 6 >
 {
     rk54_ck_coefficients_b( void )
     {
@@ -111,7 +111,7 @@ struct rk54_ck_coefficients_b : boost::array< Value , 6 >
 };
 
 template< class Value = double >
-struct rk54_ck_coefficients_db : boost::array< Value , 6 >
+struct rk54_ck_coefficients_db : std::array< Value , 6 >
 {
     rk54_ck_coefficients_db( void )
     {
@@ -126,7 +126,7 @@ struct rk54_ck_coefficients_db : boost::array< Value , 6 >
 
 
 template< class Value = double >
-struct rk54_ck_coefficients_c : boost::array< Value , 6 >
+struct rk54_ck_coefficients_c : std::array< Value , 6 >
 {
     rk54_ck_coefficients_c( void )
     {
@@ -179,7 +179,7 @@ public:
 
 
     runge_kutta_cash_karp54( const algebra_type &algebra = algebra_type() ) : stepper_base_type(
-        boost::fusion::make_vector( rk54_ck_coefficients_a1<Value>() ,
+        std::fusion::make_vector( rk54_ck_coefficients_a1<Value>() ,
                                  rk54_ck_coefficients_a2<Value>() ,
                                  rk54_ck_coefficients_a3<Value>() ,
                                  rk54_ck_coefficients_a4<Value>() ,

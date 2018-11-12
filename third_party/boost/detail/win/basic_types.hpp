@@ -73,7 +73,7 @@ extern "C" {
 //~ #else
     //~ typedef double LONGLONG_;
 //~ #endif
-    typedef boost::int64_t LONGLONG_;
+    typedef std::int64_t LONGLONG_;
 
 // @FIXME Which condition must be tested
 # ifdef _WIN64

@@ -25,7 +25,7 @@ namespace boost
     template< class T >
     inline bool empty( const T& r )
     {
-        return boost::begin( r ) == boost::end( r );
+        return std::begin( r ) == std::end( r );
     }
 
 } // namespace 'boost'

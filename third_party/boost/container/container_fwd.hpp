@@ -28,7 +28,7 @@ namespace intrusive{
 
 namespace boost{ namespace container{ namespace container_detail{
 
-namespace bi = boost::intrusive;
+namespace bi = std::intrusive;
 
 }}}
 

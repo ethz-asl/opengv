@@ -63,7 +63,7 @@ namespace boost { namespace container {
 //! // Specialize trait for class template Z
 //! template <class T, class Allocator = allocator<T> >
 //! struct constructible_with_allocator_suffix<Z<T,Allocator> > 
-//!      : ::boost::true_type { };
+//!      : ::std::true_type { };
 //! -- end example]
 //!
 //! <b>Note</b>: This trait is a workaround inspired by "N2554: The Scoped Allocator Model (Rev 2)"
@@ -76,7 +76,7 @@ namespace boost { namespace container {
 //! to detect if a type should be constructed with suffix or prefix allocator arguments.
 template <class T>
 struct constructible_with_allocator_suffix
-   : ::boost::false_type
+   : ::std::false_type
 {};
 
 //! <b>Remark</b>: if a specialization is derived from true_type, indicates that T may be constructed
@@ -113,7 +113,7 @@ struct constructible_with_allocator_suffix
 //! // Specialize trait for class template Y
 //! template <class T, class Allocator = allocator<T> >
 //! struct constructible_with_allocator_prefix<Y<T,Allocator> > 
-//!       : ::boost::true_type { };
+//!       : ::std::true_type { };
 //! 
 //! -- end example]
 //!
@@ -127,7 +127,7 @@ struct constructible_with_allocator_suffix
 //! to detect if a type should be constructed with suffix or prefix allocator arguments.
 template <class T>
 struct constructible_with_allocator_prefix
-    : ::boost::false_type
+    : ::std::false_type
 {};
 
 ///@cond
@@ -170,7 +170,7 @@ struct uses_allocator_imp
 //! derived from false_type otherwise.
 template <typename T, typename Alloc>
 struct uses_allocator
-   : boost::integral_constant<bool, container_detail::uses_allocator_imp<T, Alloc>::value>
+   : std::integral_constant<bool, container_detail::uses_allocator_imp<T, Alloc>::value>
 {};
 
 ///@cond
@@ -231,7 +231,7 @@ struct outermost_allocator_imp<MaybeScopedAlloc, true>
 
 template <typename Alloc>
 struct is_scoped_allocator
-   : boost::integral_constant<bool, container_detail::is_scoped_allocator_imp<Alloc>::value>
+   : std::integral_constant<bool, container_detail::is_scoped_allocator_imp<Alloc>::value>
 {};
 
 template <typename Alloc>
@@ -272,7 +272,7 @@ namespace container_detail {
       struct dummy;
 
       template<class X>
-      static yes_type test(dummy<sizeof(X(boost::move_detail::declval<Args>()...))>*);
+      static yes_type test(dummy<sizeof(X(std::move_detail::declval<Args>()...))>*);
 
       template<class X>
       static no_type test(...);
@@ -282,7 +282,7 @@ namespace container_detail {
 
    template<class T, class ...Args>
    struct is_constructible
-      : boost::integral_constant<bool, is_constructible_impl<T, Args...>::value>
+      : std::integral_constant<bool, is_constructible_impl<T, Args...>::value>
    {};
 
    template <class T, class InnerAlloc, class ...Args>
@@ -345,7 +345,7 @@ namespace container_detail {
                                  , void)
            >
    struct is_constructible
-      : boost::integral_constant
+      : std::integral_constant
          < bool
          , is_constructible_impl
             < T
@@ -435,12 +435,12 @@ template < typename OutermostAlloc
          , class ...Args
          >
 inline void dispatch_allocator_prefix_suffix
-   ( boost::true_type  use_alloc_prefix, OutermostAlloc& outermost_alloc
+   ( std::true_type  use_alloc_prefix, OutermostAlloc& outermost_alloc
    , InnerAlloc& inner_alloc, T* p, BOOST_FWD_REF(Args) ...args)
 {
    (void)use_alloc_prefix;
    allocator_traits<OutermostAlloc>::construct
-      ( outermost_alloc, p, allocator_arg, inner_alloc, ::boost::forward<Args>(args)...);
+      ( outermost_alloc, p, allocator_arg, inner_alloc, ::std::forward<Args>(args)...);
 }
 
 template < typename OutermostAlloc
@@ -449,12 +449,12 @@ template < typename OutermostAlloc
          , class ...Args
          >
 inline void dispatch_allocator_prefix_suffix
-   ( boost::false_type use_alloc_prefix, OutermostAlloc& outermost_alloc
+   ( std::false_type use_alloc_prefix, OutermostAlloc& outermost_alloc
    , InnerAlloc &inner_alloc, T* p, BOOST_FWD_REF(Args)...args)
 {
    (void)use_alloc_prefix;
    allocator_traits<OutermostAlloc>::construct
-      (outermost_alloc, p, ::boost::forward<Args>(args)..., inner_alloc);
+      (outermost_alloc, p, ::std::forward<Args>(args)..., inner_alloc);
 }
 
 template < typename OutermostAlloc
@@ -463,7 +463,7 @@ template < typename OutermostAlloc
          , class ...Args
          >
 inline void dispatch_uses_allocator
-   ( boost::true_type uses_allocator, OutermostAlloc& outermost_alloc
+   ( std::true_type uses_allocator, OutermostAlloc& outermost_alloc
    , InnerAlloc& inner_alloc, T* p, BOOST_FWD_REF(Args)...args)
 {
    (void)uses_allocator;
@@ -471,7 +471,7 @@ inline void dispatch_uses_allocator
    //                     is_constructible_with_allocator_suffix<T, InnerAlloc, Args...>::value ));
    dispatch_allocator_prefix_suffix
       ( is_constructible_with_allocator_prefix<T, InnerAlloc, Args...>()
-      , outermost_alloc, inner_alloc, p, ::boost::forward<Args>(args)...);
+      , outermost_alloc, inner_alloc, p, ::std::forward<Args>(args)...);
 }
 
 template < typename OutermostAlloc
@@ -480,13 +480,13 @@ template < typename OutermostAlloc
          , class ...Args
          >
 inline void dispatch_uses_allocator
-   ( boost::false_type uses_allocator, OutermostAlloc & outermost_alloc
+   ( std::false_type uses_allocator, OutermostAlloc & outermost_alloc
    , InnerAlloc & inner_alloc
    ,T* p, BOOST_FWD_REF(Args)...args)
 {
    (void)uses_allocator; (void)inner_alloc;
    allocator_traits<OutermostAlloc>::construct
-      (outermost_alloc, p, ::boost::forward<Args>(args)...);
+      (outermost_alloc, p, ::std::forward<Args>(args)...);
 }
 
 #else    //#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
@@ -498,7 +498,7 @@ template < typename OutermostAlloc                                              
          BOOST_PP_ENUM_TRAILING_PARAMS(n, class P)                                           \
          >                                                                                   \
 inline void dispatch_allocator_prefix_suffix(                                                \
-                                       boost::true_type  use_alloc_prefix,                   \
+                                       std::true_type  use_alloc_prefix,                   \
                                        OutermostAlloc& outermost_alloc,                      \
                                        InnerAlloc&    inner_alloc,                           \
                                        T* p                                                  \
@@ -516,7 +516,7 @@ template < typename OutermostAlloc                                              
          BOOST_PP_ENUM_TRAILING_PARAMS(n, class P)                                           \
          >                                                                                   \
 inline void dispatch_allocator_prefix_suffix(                                                \
-                           boost::false_type use_alloc_prefix,                               \
+                           std::false_type use_alloc_prefix,                               \
                            OutermostAlloc& outermost_alloc,                                  \
                            InnerAlloc&    inner_alloc,                                       \
                            T* p BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _)) \
@@ -533,7 +533,7 @@ template < typename OutermostAlloc                                              
          , typename T                                                                        \
          BOOST_PP_ENUM_TRAILING_PARAMS(n, class P)                                           \
          >                                                                                   \
-inline void dispatch_uses_allocator(boost::true_type uses_allocator,                         \
+inline void dispatch_uses_allocator(std::true_type uses_allocator,                         \
                         OutermostAlloc& outermost_alloc,                                     \
                         InnerAlloc&    inner_alloc,                                          \
                         T* p BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))    \
@@ -551,7 +551,7 @@ template < typename OutermostAlloc                                              
          , typename T                                                                        \
          BOOST_PP_ENUM_TRAILING_PARAMS(n, class P)                                           \
          >                                                                                   \
-inline void dispatch_uses_allocator(boost::false_type uses_allocator                         \
+inline void dispatch_uses_allocator(std::false_type uses_allocator                         \
                         ,OutermostAlloc &    outermost_alloc                                 \
                         ,InnerAlloc &    inner_alloc                                         \
                         ,T* p BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_LIST, _))   \
@@ -585,17 +585,17 @@ class scoped_allocator_adaptor_base
    typedef OuterAlloc outer_allocator_type;
    typedef scoped_allocator_adaptor<InnerAllocs...> inner_allocator_type;
    typedef allocator_traits<inner_allocator_type>   inner_traits_type;
-   typedef boost::integral_constant<
+   typedef std::integral_constant<
       bool,
       outer_traits_type::propagate_on_container_copy_assignment::value ||
       inner_allocator_type::propagate_on_container_copy_assignment::value
       > propagate_on_container_copy_assignment;
-   typedef boost::integral_constant<
+   typedef std::integral_constant<
       bool,
       outer_traits_type::propagate_on_container_move_assignment::value ||
       inner_allocator_type::propagate_on_container_move_assignment::value
       > propagate_on_container_move_assignment;
-   typedef boost::integral_constant<
+   typedef std::integral_constant<
       bool,
       outer_traits_type::propagate_on_container_swap::value ||
       inner_allocator_type::propagate_on_container_swap::value
@@ -606,7 +606,7 @@ class scoped_allocator_adaptor_base
 
    template <class OuterA2>
    scoped_allocator_adaptor_base(BOOST_FWD_REF(OuterA2) outerAlloc, const InnerAllocs &...args)
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))
       , m_inner(args...)
       {}
 
@@ -616,8 +616,8 @@ class scoped_allocator_adaptor_base
       {}
 
    scoped_allocator_adaptor_base(BOOST_RV_REF(scoped_allocator_adaptor_base) other)
-      : outer_allocator_type(::boost::move(other.outer_allocator()))
-      , m_inner(::boost::move(other.inner_allocator()))
+      : outer_allocator_type(::std::move(other.outer_allocator()))
+      , m_inner(::std::move(other.inner_allocator()))
       {}
 
    template <class OuterA2>
@@ -643,7 +643,7 @@ class scoped_allocator_adaptor_base
       ( internal_type_t
       , BOOST_FWD_REF(OuterA2) outerAlloc
       , const inner_allocator_type &inner)
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))
       , m_inner(inner)
    {}
 
@@ -659,15 +659,15 @@ class scoped_allocator_adaptor_base
 
    scoped_allocator_adaptor_base &operator=(BOOST_RV_REF(scoped_allocator_adaptor_base) other)
    {
-      outer_allocator_type::operator=(boost::move(other.outer_allocator()));
-      m_inner = ::boost::move(other.inner_allocator());
+      outer_allocator_type::operator=(std::move(other.outer_allocator()));
+      m_inner = ::std::move(other.inner_allocator());
       return *this;
    }
 
    void swap(scoped_allocator_adaptor_base &r)
    {
-      boost::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());
-      boost::container::swap_dispatch(this->m_inner, r.inner_allocator());
+      std::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());
+      std::container::swap_dispatch(this->m_inner, r.inner_allocator());
    }
 
    inner_allocator_type&       inner_allocator()
@@ -731,17 +731,17 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
          , BOOST_CONTAINER_PP_IDENTITY, nat)                                                    \
       > inner_allocator_type;                                                                   \
    typedef allocator_traits<inner_allocator_type>   inner_traits_type;                          \
-   typedef boost::integral_constant<                                                            \
+   typedef std::integral_constant<                                                            \
       bool,                                                                                     \
       outer_traits_type::propagate_on_container_copy_assignment::value ||                       \
       inner_allocator_type::propagate_on_container_copy_assignment::value                       \
       > propagate_on_container_copy_assignment;                                                 \
-   typedef boost::integral_constant<                                                            \
+   typedef std::integral_constant<                                                            \
       bool,                                                                                     \
       outer_traits_type::propagate_on_container_move_assignment::value ||                       \
       inner_allocator_type::propagate_on_container_move_assignment::value                       \
       > propagate_on_container_move_assignment;                                                 \
-   typedef boost::integral_constant<                                                            \
+   typedef std::integral_constant<                                                            \
       bool,                                                                                     \
       outer_traits_type::propagate_on_container_swap::value ||                                  \
       inner_allocator_type::propagate_on_container_swap::value                                  \
@@ -753,7 +753,7 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
    template <class OuterA2>                                                                     \
    scoped_allocator_adaptor_base(BOOST_FWD_REF(OuterA2) outerAlloc                              \
       BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_CONST_REF_PARAM_LIST_Q, _))                  \
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))                             \
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))                             \
       , m_inner(BOOST_PP_ENUM_PARAMS(n, q))                                                     \
       {}                                                                                        \
                                                                                                 \
@@ -763,8 +763,8 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
       {}                                                                                        \
                                                                                                 \
    scoped_allocator_adaptor_base(BOOST_RV_REF(scoped_allocator_adaptor_base) other)             \
-      : outer_allocator_type(::boost::move(other.outer_allocator()))                            \
-      , m_inner(::boost::move(other.inner_allocator()))                                         \
+      : outer_allocator_type(::std::move(other.outer_allocator()))                            \
+      , m_inner(::std::move(other.inner_allocator()))                                         \
       {}                                                                                        \
                                                                                                 \
    template <class OuterA2>                                                                     \
@@ -798,7 +798,7 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
       ( internal_type_t                                                                         \
       , BOOST_FWD_REF(OuterA2) outerAlloc                                                       \
       , const inner_allocator_type &inner)                                                      \
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))                             \
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))                             \
       , m_inner(inner)                                                                          \
    {}                                                                                           \
                                                                                                 \
@@ -813,15 +813,15 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
                                                                                                 \
    scoped_allocator_adaptor_base &operator=(BOOST_RV_REF(scoped_allocator_adaptor_base) other)  \
    {                                                                                            \
-      outer_allocator_type::operator=(boost::move(other.outer_allocator()));                    \
-      m_inner = ::boost::move(other.inner_allocator());                                         \
+      outer_allocator_type::operator=(std::move(other.outer_allocator()));                    \
+      m_inner = ::std::move(other.inner_allocator());                                         \
       return *this;                                                                             \
    }                                                                                            \
                                                                                                 \
    void swap(scoped_allocator_adaptor_base &r)                                                  \
    {                                                                                            \
-      boost::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());            \
-      boost::container::swap_dispatch(this->m_inner, r.inner_allocator());                      \
+      std::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());            \
+      std::container::swap_dispatch(this->m_inner, r.inner_allocator());                      \
    }                                                                                            \
                                                                                                 \
    inner_allocator_type&       inner_allocator()                                                \
@@ -887,7 +887,7 @@ class scoped_allocator_adaptor_base
 
    template <class OuterA2>
    scoped_allocator_adaptor_base(BOOST_FWD_REF(OuterA2) outerAlloc)
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))
       {}
 
    scoped_allocator_adaptor_base(const scoped_allocator_adaptor_base& other)
@@ -895,7 +895,7 @@ class scoped_allocator_adaptor_base
       {}
 
    scoped_allocator_adaptor_base(BOOST_RV_REF(scoped_allocator_adaptor_base) other)
-      : outer_allocator_type(::boost::move(other.outer_allocator()))
+      : outer_allocator_type(::std::move(other.outer_allocator()))
       {}
 
    template <class OuterA2>
@@ -927,7 +927,7 @@ class scoped_allocator_adaptor_base
 
    template <class OuterA2>
    scoped_allocator_adaptor_base(internal_type_t, BOOST_FWD_REF(OuterA2) outerAlloc, const inner_allocator_type &)
-      : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))
+      : outer_allocator_type(::std::forward<OuterA2>(outerAlloc))
       {}
  
    public:
@@ -939,13 +939,13 @@ class scoped_allocator_adaptor_base
 
    scoped_allocator_adaptor_base &operator=(BOOST_RV_REF(scoped_allocator_adaptor_base) other)
    {
-      outer_allocator_type::operator=(boost::move(other.outer_allocator()));
+      outer_allocator_type::operator=(std::move(other.outer_allocator()));
       return *this;
    }
 
    void swap(scoped_allocator_adaptor_base &r)
    {
-      boost::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());
+      std::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());
    }
 
    inner_allocator_type&       inner_allocator()
@@ -1104,19 +1104,19 @@ class scoped_allocator_adaptor
    //! <b>Effects</b>: move constructs each allocator within the adaptor with
    //! the corresponding allocator from other.
    scoped_allocator_adaptor(BOOST_RV_REF(scoped_allocator_adaptor) other)
-      : base_type(::boost::move(other.base()))
+      : base_type(::std::move(other.base()))
       {}
 
    #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Requires</b>: OuterAlloc shall be constructible from OuterA2.
    //!
-   //! <b>Effects</b>: initializes the OuterAlloc base class with boost::forward<OuterA2>(outerAlloc) and inner
+   //! <b>Effects</b>: initializes the OuterAlloc base class with std::forward<OuterA2>(outerAlloc) and inner
    //! with innerAllocs...(hence recursively initializing each allocator within the adaptor with the
    //! corresponding allocator from the argument list).
    template <class OuterA2>
    scoped_allocator_adaptor(BOOST_FWD_REF(OuterA2) outerAlloc, const InnerAllocs & ...innerAllocs)
-      : base_type(::boost::forward<OuterA2>(outerAlloc), innerAllocs...)
+      : base_type(::std::forward<OuterA2>(outerAlloc), innerAllocs...)
       {}
    #else // #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
@@ -1124,7 +1124,7 @@ class scoped_allocator_adaptor
    template <class OuterA2>                                                                     \
    scoped_allocator_adaptor(BOOST_FWD_REF(OuterA2) outerAlloc                                   \
                      BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_CONST_REF_PARAM_LIST_Q, _))   \
-      : base_type(::boost::forward<OuterA2>(outerAlloc)                                         \
+      : base_type(::std::forward<OuterA2>(outerAlloc)                                         \
                   BOOST_PP_ENUM_TRAILING_PARAMS(n, q)                                           \
                   )                                                                             \
       {}                                                                                        \
@@ -1160,7 +1160,7 @@ class scoped_allocator_adaptor
       BOOST_PP_ENUM_TRAILING_PARAMS(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS, Q)
       #endif
       > BOOST_RV_REF_END other)
-      : base_type(::boost::move(other.base()))
+      : base_type(::std::move(other.base()))
       {}
 
    scoped_allocator_adaptor &operator=(BOOST_COPY_ASSIGN_REF(scoped_allocator_adaptor) other)
@@ -1171,7 +1171,7 @@ class scoped_allocator_adaptor
 
    scoped_allocator_adaptor &operator=(BOOST_RV_REF(scoped_allocator_adaptor) other)
    {
-      base_type::operator=(boost::move(static_cast<scoped_allocator_adaptor&>(other)));
+      base_type::operator=(std::move(static_cast<scoped_allocator_adaptor&>(other)));
       return *this;
    }
 
@@ -1304,7 +1304,7 @@ class scoped_allocator_adaptor
          ( uses_allocator<T, inner_allocator_type>()
          , get_outermost_allocator(this->outer_allocator())
          , this->inner_allocator()
-         , p, ::boost::forward<Args>(args)...);
+         , p, ::std::forward<Args>(args)...);
    }
 
    #else // #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
@@ -1340,11 +1340,11 @@ class scoped_allocator_adaptor
 
    template <class T1, class T2, class U, class V>
    void construct(std::pair<T1, T2>* p, BOOST_FWD_REF(U) x, BOOST_FWD_REF(V) y)
-   {  this->construct_pair(p, ::boost::forward<U>(x), ::boost::forward<V>(y));   }
+   {  this->construct_pair(p, ::std::forward<U>(x), ::std::forward<V>(y));   }
 
    template <class T1, class T2, class U, class V>
    void construct(container_detail::pair<T1, T2>* p, BOOST_FWD_REF(U) x, BOOST_FWD_REF(V) y)
-   {  this->construct_pair(p, ::boost::forward<U>(x), ::boost::forward<V>(y));   }
+   {  this->construct_pair(p, ::std::forward<U>(x), ::std::forward<V>(y));   }
   
    template <class T1, class T2, class U, class V>
    void construct(std::pair<T1, T2>* p, const std::pair<U, V>& x)
@@ -1384,9 +1384,9 @@ class scoped_allocator_adaptor
    template <class Pair, class U, class V>
    void construct_pair(Pair* p, BOOST_FWD_REF(U) x, BOOST_FWD_REF(V) y)
    {
-      this->construct(container_detail::addressof(p->first), ::boost::forward<U>(x));
+      this->construct(container_detail::addressof(p->first), ::std::forward<U>(x));
       BOOST_TRY{
-         this->construct(container_detail::addressof(p->second), ::boost::forward<V>(y));
+         this->construct(container_detail::addressof(p->second), ::std::forward<V>(y));
       }
       BOOST_CATCH(...){
          this->destroy(container_detail::addressof(p->first));
@@ -1412,9 +1412,9 @@ class scoped_allocator_adaptor
    template <class Pair, class Pair2>
    void construct_pair(Pair* p, BOOST_RV_REF(Pair2) pr)
    {
-      this->construct(container_detail::addressof(p->first), ::boost::move(pr.first));
+      this->construct(container_detail::addressof(p->first), ::std::move(pr.first));
       BOOST_TRY{
-         this->construct(container_detail::addressof(p->second), ::boost::move(pr.second));
+         this->construct(container_detail::addressof(p->second), ::std::move(pr.second));
       }
       BOOST_CATCH(...){
          this->destroy(container_detail::addressof(p->first));
@@ -1429,7 +1429,7 @@ class scoped_allocator_adaptor
    private:
    template <class OuterA2>
    scoped_allocator_adaptor(internal_type_t, BOOST_FWD_REF(OuterA2) outer, const inner_allocator_type& inner)
-      : base_type(internal_type_t(), ::boost::forward<OuterA2>(outer), inner)
+      : base_type(internal_type_t(), ::std::forward<OuterA2>(outer), inner)
    {}
 
    /// @endcond
@@ -1462,7 +1462,7 @@ inline bool operator==(
    const bool has_zero_inner = sizeof...(InnerAllocs) == 0u;
    #else
    const bool has_zero_inner =
-      boost::container::container_detail::is_same
+      std::container::container_detail::is_same
          <Q0, container_detail::nat>::value;
    #endif
 

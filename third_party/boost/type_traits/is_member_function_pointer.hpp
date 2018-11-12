@@ -44,7 +44,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_function_pointer,T,__is_member_function_p
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(
       is_member_function_pointer
     , T
-    , ::boost::type_traits::is_mem_fun_pointer_impl<typename remove_cv<T>::type>::value
+    , ::std::type_traits::is_mem_fun_pointer_impl<typename remove_cv<T>::type>::value
     )
 
 #else
@@ -55,7 +55,7 @@ namespace detail {
 
 template <bool>
 struct is_mem_fun_pointer_select
-    : public ::boost::type_traits::false_result
+    : public ::std::type_traits::false_result
 {
 };
 
@@ -73,7 +73,7 @@ struct is_mem_fun_pointer_select<false>
 
         BOOST_STATIC_CONSTANT(
             bool, value = (
-                1 == sizeof(::boost::type_traits::is_mem_fun_pointer_tester(self_type::make_t))
+                1 == sizeof(::std::type_traits::is_mem_fun_pointer_tester(self_type::make_t))
             ));
 #if BOOST_WORKAROUND(BOOST_MSVC_FULL_VER, >= 140050000)
 #pragma warning(pop)
@@ -84,9 +84,9 @@ struct is_mem_fun_pointer_select<false>
 template <typename T>
 struct is_member_function_pointer_impl
     : public is_mem_fun_pointer_select<
-          ::boost::type_traits::ice_or<
-              ::boost::is_reference<T>::value
-            , ::boost::is_array<T>::value
+          ::std::type_traits::ice_or<
+              ::std::is_reference<T>::value
+            , ::std::is_array<T>::value
             >::value
         >::template result_<T>
 {
@@ -125,7 +125,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_member_function_pointer,void const volatil
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_function_pointer,T,::boost::detail::is_member_function_pointer_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_member_function_pointer,T,::std::detail::is_member_function_pointer_impl<T>::value)
 
 #endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

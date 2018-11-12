@@ -209,7 +209,7 @@ inline V evaluate_polynomial(const T(&a)[N], const V& val)
 }
 
 template <std::size_t N, class T, class V>
-inline V evaluate_polynomial(const boost::array<T,N>& a, const V& val)
+inline V evaluate_polynomial(const std::array<T,N>& a, const V& val)
 {
    typedef mpl::int_<N> tag_type;
    return detail::evaluate_polynomial_c_imp(static_cast<const T*>(a.data()), val, static_cast<tag_type const*>(0));
@@ -230,7 +230,7 @@ inline V evaluate_even_polynomial(const T(&a)[N], const V& z)
 }
 
 template <std::size_t N, class T, class V>
-inline V evaluate_even_polynomial(const boost::array<T,N>& a, const V& z)
+inline V evaluate_even_polynomial(const std::array<T,N>& a, const V& z)
 {
    return evaluate_polynomial(a, V(z*z));
 }
@@ -251,7 +251,7 @@ inline V evaluate_odd_polynomial(const T(&a)[N], const V& z)
 }
 
 template <std::size_t N, class T, class V>
-inline V evaluate_odd_polynomial(const boost::array<T,N>& a, const V& z)
+inline V evaluate_odd_polynomial(const std::array<T,N>& a, const V& z)
 {
    typedef mpl::int_<N-1> tag_type;
    return a[0] + z * detail::evaluate_polynomial_c_imp(static_cast<const T*>(a.data()) + 1, V(z*z), static_cast<tag_type const*>(0));
@@ -265,7 +265,7 @@ namespace detail{
 template <class T, class U, class V, class Tag>
 inline V evaluate_rational_c_imp(const T* num, const U* denom, const V& z, const Tag*)
 {
-   return boost::math::tools::evaluate_rational(num, denom, z, Tag::value);
+   return std::math::tools::evaluate_rational(num, denom, z, Tag::value);
 }
 
 }
@@ -317,7 +317,7 @@ inline V evaluate_rational(const T(&a)[N], const U(&b)[N], const V& z)
 }
 
 template <std::size_t N, class T, class U, class V>
-inline V evaluate_rational(const boost::array<T,N>& a, const boost::array<U,N>& b, const V& z)
+inline V evaluate_rational(const std::array<T,N>& a, const std::array<U,N>& b, const V& z)
 {
    return detail::evaluate_rational_c_imp(a.data(), b.data(), z, static_cast<mpl::int_<N>*>(0));
 }

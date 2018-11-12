@@ -34,7 +34,7 @@ namespace odeint {
  * specializations for viennacl::vector< T >
  */
 template< typename T >
-struct is_resizeable< viennacl::vector< T > > : boost::true_type { };
+struct is_resizeable< viennacl::vector< T > > : std::true_type { };
 
 template< typename T >
 struct resize_impl< viennacl::vector< T > , viennacl::vector< T > >

@@ -48,7 +48,7 @@ namespace boost { namespace mpl
     // is not an MPL sequence by returning mpl::void_.
     // In other words: Fusion Sequences are always MPL Sequences, but they can
     // be incompletely defined.
-    template<> struct begin_impl< boost::fusion::fusion_sequence_tag >;
+    template<> struct begin_impl< std::fusion::fusion_sequence_tag >;
 }}
 
 #endif

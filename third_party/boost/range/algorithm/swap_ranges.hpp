@@ -73,9 +73,9 @@ swap_ranges(SinglePassRange1& range1, SinglePassRange2& range2)
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<SinglePassRange1>));
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<SinglePassRange2>));
 
-    boost::range_detail::swap_ranges_impl(
-        boost::begin(range1), boost::end(range1),
-        boost::begin(range2), boost::end(range2));
+    std::range_detail::swap_ranges_impl(
+        std::begin(range1), std::end(range1),
+        std::begin(range2), std::end(range2));
 
     return range2;
 }
@@ -88,9 +88,9 @@ swap_ranges(const SinglePassRange1& range1, SinglePassRange2& range2)
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<const SinglePassRange1>));
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<SinglePassRange2>));
 
-    boost::range_detail::swap_ranges_impl(
-        boost::begin(range1), boost::end(range1),
-        boost::begin(range2), boost::end(range2));
+    std::range_detail::swap_ranges_impl(
+        std::begin(range1), std::end(range1),
+        std::begin(range2), std::end(range2));
 
     return range2;
 }
@@ -103,9 +103,9 @@ swap_ranges(SinglePassRange1& range1, const SinglePassRange2& range2)
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<SinglePassRange1>));
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<const SinglePassRange2>));
 
-    boost::range_detail::swap_ranges_impl(
-        boost::begin(range1), boost::end(range1),
-        boost::begin(range2), boost::end(range2));
+    std::range_detail::swap_ranges_impl(
+        std::begin(range1), std::end(range1),
+        std::begin(range2), std::end(range2));
 
     return range2;
 }
@@ -118,9 +118,9 @@ swap_ranges(const SinglePassRange1& range1, const SinglePassRange2& range2)
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<const SinglePassRange1>));
     BOOST_RANGE_CONCEPT_ASSERT((SinglePassRangeConcept<const SinglePassRange2>));
 
-    boost::range_detail::swap_ranges_impl(
-        boost::begin(range1), boost::end(range1),
-        boost::begin(range2), boost::end(range2));
+    std::range_detail::swap_ranges_impl(
+        std::begin(range1), std::end(range1),
+        std::begin(range2), std::end(range2));
 
     return range2;
 }

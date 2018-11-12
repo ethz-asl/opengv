@@ -116,7 +116,7 @@ namespace boost { namespace fusion
         struct distance
         {
             typedef typename mpl::eval_if<
-                boost::is_same<I1, I2>,
+                std::is_same<I1, I2>,
                 mpl::int_<0>,
                 lazy_next_distance<I1, I2>
             >::type type;

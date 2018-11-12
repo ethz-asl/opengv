@@ -97,7 +97,7 @@ namespace boost {
         static const CharType body_nan[4] = { 'n', 'a', 'n', '\0' };
         static const CharType* null_string = 0;
 
-        switch((boost::math::fpclassify)(val))
+        switch((std::math::fpclassify)(val))
         {
 
         case FP_INFINITE:
@@ -105,7 +105,7 @@ namespace boost {
           {
             throw std::ios_base::failure("Infinity");
           }
-          else if((boost::math::signbit)(val))
+          else if((std::math::signbit)(val))
           { // negative infinity.
             put_num_and_fill(it, iosb, prefix_minus, body_inf, fill, val);
           }
@@ -124,7 +124,7 @@ namespace boost {
           {
             throw std::ios_base::failure("NaN");
           }
-          else if((boost::math::signbit)(val))
+          else if((std::math::signbit)(val))
           { // negative so "-nan".
             put_num_and_fill(it, iosb, prefix_minus, body_nan, fill, val);
           }
@@ -139,7 +139,7 @@ namespace boost {
           break;
 
         case FP_ZERO:
-          if((flags_ & signed_zero) && ((boost::math::signbit)(val)))
+          if((flags_ & signed_zero) && ((std::math::signbit)(val)))
           { // Flag set to distinguish between positive and negative zero.
             // But string "0" should have stuff after decimal point if setprecision and/or exp format. 
 
@@ -274,7 +274,7 @@ namespace boost {
       template<class ValType> static ValType positive_nan()
       {
         // On some platforms quiet_NaN() may be negative.
-        return (boost::math::copysign)(
+        return (std::math::copysign)(
           std::numeric_limits<ValType>::quiet_NaN(), static_cast<ValType>(1)
           );
         // static_cast<ValType>(1) added Paul A. Bristow 5 Apr 11
@@ -319,7 +319,7 @@ namespace boost {
 
         if(negative)
         {
-          val = (boost::math::changesign)(val);
+          val = (std::math::changesign)(val);
         }
       } // void get_signed
 

@@ -50,7 +50,7 @@ namespace boost
             if(x < 1)
             {
                return policies::raise_domain_error<T>(
-                  "boost::math::acosh<%1%>(%1%)",
+                  "std::math::acosh<%1%>(%1%)",
                   "acosh requires x >= 1, but got x = %1%.", x, pol);
             }
             else if    ((x - 1) >= tools::root_epsilon<T>())
@@ -66,7 +66,7 @@ namespace boost
                    // This is just a rearrangement of the standard form below
                    // devised to minimse loss of precision when x ~ 1:
                    T y = x - 1;
-                   return boost::math::log1p(y + sqrt(y * y + 2 * y), pol);
+                   return std::math::log1p(y + sqrt(y * y + 2 * y), pol);
                 }
                 else
                 {
@@ -99,12 +99,12 @@ namespace boost
                policies::assert_undefined<> >::type forwarding_policy;
            return policies::checked_narrowing_cast<result_type, forwarding_policy>(
               detail::acosh_imp(static_cast<value_type>(x), forwarding_policy()),
-              "boost::math::acosh<%1%>(%1%)");
+              "std::math::acosh<%1%>(%1%)");
         }
         template<typename T>
         inline typename tools::promote_args<T>::type acosh(T x)
         {
-           return boost::math::acosh(x, policies::policy<>());
+           return std::math::acosh(x, policies::policy<>());
         }
 
     }

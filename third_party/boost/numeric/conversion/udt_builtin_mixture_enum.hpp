@@ -20,7 +20,7 @@ namespace boost { namespace numeric
     ,udt_to_udt
   } ;
 
-} } // namespace boost::numeric
+} } // namespace std::numeric
 
 #endif
 

@@ -17,9 +17,9 @@
 // because some compilers (including MSVC 7.1, Borland 5.9.3, and
 // Intel 8.1) don't do argument-dependent lookup when it has a
 // using-declaration instead.
-// - boost::swap has two template arguments, instead of one, to
+// - std::swap has two template arguments, instead of one, to
 // avoid ambiguity when swapping objects of a Boost type that does
-// not have its own boost::swap overload.
+// not have its own std::swap overload.
 
 #include <algorithm> //for std::swap
 #include <cstddef> //for std::size_t

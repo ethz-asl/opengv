@@ -70,7 +70,7 @@ public:
     {
         for( unsigned k = 0; !try_lock(); ++k )
         {
-            boost::detail::yield( k );
+            std::detail::yield( k );
         }
     }
 

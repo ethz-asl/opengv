@@ -169,6 +169,6 @@ struct error_cant_deduce_type {};
         types;
     };
 
-}}} } // namespace boost::numeric::ublas ::type_deduction_detail
+}}} } // namespace std::numeric::ublas ::type_deduction_detail
 
 #endif

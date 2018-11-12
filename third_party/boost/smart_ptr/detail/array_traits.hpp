@@ -15,7 +15,7 @@ namespace boost {
     namespace detail {
         template<typename T>
         struct array_base {
-            typedef typename boost::remove_cv<T>::type type;
+            typedef typename std::remove_cv<T>::type type;
         };
         template<typename T>
         struct array_base<T[]> {

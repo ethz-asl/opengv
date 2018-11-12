@@ -80,7 +80,7 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1))
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -135,7 +135,7 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1))
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -288,7 +288,7 @@ struct lanczos31UDT
          static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 150, 435)),
          static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 150, 1)),
       };
-      return boost::math::tools::evaluate_rational(num, denom, z, 31);
+      return std::math::tools::evaluate_rational(num, denom, z, 31);
    }
 
    template <class T>
@@ -361,7 +361,7 @@ struct lanczos31UDT
          static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 150, 435)),
          static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 150, 1)),
       };
-      return boost::math::tools::evaluate_rational(num, denom, z, 31);
+      return std::math::tools::evaluate_rational(num, denom, z, 31);
    }
 
 

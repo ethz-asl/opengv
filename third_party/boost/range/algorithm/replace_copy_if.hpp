@@ -35,7 +35,7 @@ replace_copy_if(const ForwardRange& rng, OutputIterator out_it, Predicate pred,
         const Value& with_what)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::replace_copy_if(boost::begin(rng), boost::end(rng), out_it,
+    return std::replace_copy_if(std::begin(rng), std::end(rng), out_it,
         pred, with_what);
 }
 

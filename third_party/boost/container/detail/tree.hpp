@@ -158,20 +158,20 @@ struct rbtree_node
    template<class A, class B>
    void do_move_assign(std::pair<const A, B> &p)
    {
-      const_cast<A&>(m_data.first) = ::boost::move(p.first);
-      m_data.second = ::boost::move(p.second);
+      const_cast<A&>(m_data.first) = ::std::move(p.first);
+      m_data.second = ::std::move(p.second);
    }
 
    template<class A, class B>
    void do_move_assign(pair<const A, B> &p)
    {
-      const_cast<A&>(m_data.first) = ::boost::move(p.first);
-      m_data.second  = ::boost::move(p.second);
+      const_cast<A&>(m_data.first) = ::std::move(p.first);
+      m_data.second  = ::std::move(p.second);
    }
 
    template<class V>
    void do_move_assign(V &v)
-   {  m_data = ::boost::move(v); }
+   {  m_data = ::std::move(v); }
 };
 
 }//namespace container_detail {
@@ -181,11 +181,11 @@ namespace container_detail {
 template<class A, class ValueCompare>
 struct intrusive_rbtree_type
 {
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::value_type              value_type;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::void_pointer            void_pointer;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::size_type               size_type;
    typedef typename container_detail::rbtree_node
          <value_type, void_pointer>                node_type;
@@ -320,17 +320,17 @@ class rbtree
    typedef KeyCompare                                 key_compare;
    typedef tree_value_compare< Key, Value
                         , KeyCompare, KeyOfValue>     value_compare;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::pointer                    pointer;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::const_pointer              const_pointer;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::reference                  reference;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::const_reference            const_reference;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::size_type                  size_type;
-   typedef typename boost::container::
+   typedef typename std::container::
       allocator_traits<A>::difference_type            difference_type;
    typedef difference_type                            rbtree_difference_type;
    typedef pointer                                    rbtree_pointer;
@@ -451,7 +451,7 @@ class rbtree
       reference operator*()  const
          {  return this->m_it->get_data();  }
       pointer   operator->() const
-         {  return boost::intrusive::pointer_traits<pointer>::pointer_to(this->m_it->get_data());  }
+         {  return std::intrusive::pointer_traits<pointer>::pointer_to(this->m_it->get_data());  }
 
       //Increment / Decrement
       iterator& operator++() 
@@ -560,7 +560,7 @@ class rbtree
    }
 
    rbtree(BOOST_RV_REF(rbtree) x)
-      :  AllocHolder(::boost::move(static_cast<AllocHolder&>(x)), x.key_comp())
+      :  AllocHolder(::std::move(static_cast<AllocHolder&>(x)), x.key_comp())
    {}
 
    rbtree(const rbtree& x, const allocator_type &a)
@@ -599,7 +599,7 @@ class rbtree
          //Transfer all the nodes to a temporary tree
          //If anything goes wrong, all the nodes will be destroyed
          //automatically
-         Icont other_tree(::boost::move(this->icont()));
+         Icont other_tree(::std::move(this->icont()));
 
          //Now recreate the source tree reusing nodes stored by other_tree
          this->icont().clone_from
@@ -625,7 +625,7 @@ class rbtree
          if(this_alloc == x_alloc){
             //Destroy and swap pointers
             this->clear();
-            this->icont() = ::boost::move(x.icont());
+            this->icont() = ::std::move(x.icont());
             //Move allocator if needed
             this->AllocHolder::move_assign_alloc(x);
          }
@@ -634,7 +634,7 @@ class rbtree
             //Transfer all the nodes to a temporary tree
             //If anything goes wrong, all the nodes will be destroyed
             //automatically
-            Icont other_tree(::boost::move(this->icont()));
+            Icont other_tree(::std::move(this->icont()));
 
             //Now recreate the source tree reusing nodes stored by other_tree
             this->icont().clone_from
@@ -771,7 +771,7 @@ class rbtree
    iterator insert_unique_commit
       (BOOST_FWD_REF(MovableConvertible) mv, insert_commit_data &data)
    {
-      NodePtr tmp = AllocHolder::create_node(boost::forward<MovableConvertible>(mv));
+      NodePtr tmp = AllocHolder::create_node(std::forward<MovableConvertible>(mv));
       iiterator it(this->icont().insert_unique_commit(*tmp, data));
       return iterator(it);
    }
@@ -796,7 +796,7 @@ class rbtree
       if(!ret.second)
          return ret;
       return std::pair<iterator,bool>
-         (this->insert_unique_commit(boost::forward<MovableConvertible>(mv), data), true);
+         (this->insert_unique_commit(std::forward<MovableConvertible>(mv), data), true);
    }
 
    private:
@@ -836,23 +836,23 @@ class rbtree
 
    template <class... Args>
    std::pair<iterator, bool> emplace_unique(Args&&... args)
-   {  return this->emplace_unique_impl(AllocHolder::create_node(boost::forward<Args>(args)...));   }
+   {  return this->emplace_unique_impl(AllocHolder::create_node(std::forward<Args>(args)...));   }
 
    template <class... Args>
    iterator emplace_hint_unique(const_iterator hint, Args&&... args)
-   {  return this->emplace_unique_hint_impl(hint, AllocHolder::create_node(boost::forward<Args>(args)...));   }
+   {  return this->emplace_unique_hint_impl(hint, AllocHolder::create_node(std::forward<Args>(args)...));   }
 
    template <class... Args>
    iterator emplace_equal(Args&&... args)
    {
-      NodePtr p(AllocHolder::create_node(boost::forward<Args>(args)...));
+      NodePtr p(AllocHolder::create_node(std::forward<Args>(args)...));
       return iterator(this->icont().insert_equal(this->icont().end(), *p));
    }
 
    template <class... Args>
    iterator emplace_hint_equal(const_iterator hint, Args&&... args)
    {
-      NodePtr p(AllocHolder::create_node(boost::forward<Args>(args)...));
+      NodePtr p(AllocHolder::create_node(std::forward<Args>(args)...));
       return iterator(this->icont().insert_equal(hint.get(), *p));
    }
 
@@ -912,7 +912,7 @@ class rbtree
          this->insert_unique_check(hint, KeyOfValue()(mv), data);
       if(!ret.second)
          return ret.first;
-      return this->insert_unique_commit(boost::forward<MovableConvertible>(mv), data);
+      return this->insert_unique_commit(std::forward<MovableConvertible>(mv), data);
    }
 
    template <class InputIterator>
@@ -940,7 +940,7 @@ class rbtree
    template<class MovableConvertible>
    iterator insert_equal(BOOST_FWD_REF(MovableConvertible) mv)
    {
-      NodePtr p(AllocHolder::create_node(boost::forward<MovableConvertible>(mv)));
+      NodePtr p(AllocHolder::create_node(std::forward<MovableConvertible>(mv)));
       return iterator(this->icont().insert_equal(this->icont().end(), *p));
    }
 
@@ -953,7 +953,7 @@ class rbtree
    template<class MovableConvertible>
    iterator insert_equal(const_iterator hint, BOOST_FWD_REF(MovableConvertible) mv)
    {
-      NodePtr p(AllocHolder::create_node(boost::forward<MovableConvertible>(mv)));
+      NodePtr p(AllocHolder::create_node(std::forward<MovableConvertible>(mv)));
       return iterator(this->icont().insert_equal(hint.get(), *p));
    }
 
@@ -1122,7 +1122,7 @@ swap(rbtree<Key,Value,KeyOfValue,KeyCompare,A>& x,
 template <class K, class V, class KOV,
 class C, class A>
 struct has_trivial_destructor_after_move
-   <boost::container::container_detail::rbtree<K, V, KOV, C, A> >
+   <std::container::container_detail::rbtree<K, V, KOV, C, A> >
 {
    static const bool value = has_trivial_destructor_after_move<A>::value && has_trivial_destructor_after_move<C>::value;
 };

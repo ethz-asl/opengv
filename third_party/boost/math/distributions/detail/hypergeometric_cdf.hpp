@@ -91,7 +91,7 @@ namespace boost{ namespace math{ namespace detail{
       {
          result = 0;
       }
-      return policies::checked_narrowing_cast<result_type, forwarding_policy>(result, "boost::math::hypergeometric_cdf<%1%>(%1%,%1%,%1%,%1%)");
+      return policies::checked_narrowing_cast<result_type, forwarding_policy>(result, "std::math::hypergeometric_cdf<%1%>(%1%,%1%,%1%,%1%)");
    }
 
 }}} // namespaces

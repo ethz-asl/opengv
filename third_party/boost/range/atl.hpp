@@ -568,18 +568,18 @@ namespace boost { namespace range_detail_microsoft {
         template< class Iterator, class X >
         Iterator begin(X& x)
         {
-            return Iterator(boost::make_tuple(x.m_aKey, x.m_aVal));
+            return Iterator(std::make_tuple(x.m_aKey, x.m_aVal));
         }
 
         template< class Iterator, class X >
         Iterator end(X& x)
         {
-            return Iterator(boost::make_tuple(x.m_aKey + x.GetSize(), x.m_aVal + x.GetSize()));
+            return Iterator(std::make_tuple(x.m_aKey + x.GetSize(), x.m_aVal + x.GetSize()));
         }
     };
 
 
-} } // namespace boost::range_detail_microsoft
+} } // namespace std::range_detail_microsoft
 
 
 
@@ -594,17 +594,17 @@ namespace boost { namespace range_detail_microsoft {
     // arrays
     //
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CAtlArray, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CAutoPtrArray, 1
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CInterfaceArray, (class)(const IID *)
     )
 
@@ -612,22 +612,22 @@ namespace boost { namespace range_detail_microsoft {
     // lists
     //
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CAtlList, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CAutoPtrList, 1
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CHeapPtrList, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CInterfaceList, (class)(const IID *)
     )
 
@@ -635,22 +635,22 @@ namespace boost { namespace range_detail_microsoft {
     //maps
     //
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CAtlMap, 4
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::atl_rb_tree_tag,
+        std::range_detail_microsoft::atl_rb_tree_tag,
         (ATL, BOOST_PP_NIL), CRBTree, 4
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::atl_rb_tree_tag,
+        std::range_detail_microsoft::atl_rb_tree_tag,
         (ATL, BOOST_PP_NIL), CRBMap, 4
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::atl_rb_tree_tag,
+        std::range_detail_microsoft::atl_rb_tree_tag,
         (ATL, BOOST_PP_NIL), CRBMultiMap, 4
     )
 
@@ -659,28 +659,28 @@ namespace boost { namespace range_detail_microsoft {
     //
     #if !defined(BOOST_RANGE_ATL_HAS_OLD_CSIMPLESTRING)
         BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-            boost::range_detail_microsoft::atl_string_tag,
+            std::range_detail_microsoft::atl_string_tag,
             (ATL, BOOST_PP_NIL), CSimpleStringT, (class)(bool)
         )
     #else
         BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-            boost::range_detail_microsoft::atl_string_tag,
+            std::range_detail_microsoft::atl_string_tag,
             (ATL, BOOST_PP_NIL), CSimpleStringT, 1
         )
     #endif
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::atl_string_tag,
+        std::range_detail_microsoft::atl_string_tag,
         (ATL, BOOST_PP_NIL), CStringT, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::atl_string_tag,
+        std::range_detail_microsoft::atl_string_tag,
         (ATL, BOOST_PP_NIL), CFixedStringT, (class)(int)
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CStaticString, (class)(const int)
     )
 
@@ -689,7 +689,7 @@ namespace boost { namespace range_detail_microsoft {
 
 
 BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
-    boost::range_detail_microsoft::using_type_as_tag,
+    std::range_detail_microsoft::using_type_as_tag,
     (ATL, BOOST_PP_NIL), CComBSTR
 )
 
@@ -699,29 +699,29 @@ BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE(
 #if !defined(BOOST_RANGE_ATL_HAS_OLD_CSIMPLE_XXX)
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CSimpleArray, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CSimpleMap, 3
     )
 
 #else
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CSimpleArray, 1
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CSimpleMap, 2
     )
 
     BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE(
-        boost::range_detail_microsoft::using_type_as_tag,
+        std::range_detail_microsoft::using_type_as_tag,
         (ATL, BOOST_PP_NIL), CSimpleValArray, 1
     )
 

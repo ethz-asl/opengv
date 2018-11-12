@@ -35,7 +35,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #define BOOST_COMMON_TYPE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
-    BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
+    BOOST_MPL_ASSERT_MSG(std::mpl::bool_< (CND) >::type::value, MSG, TYPES)
 #else
 #include <boost/static_assert.hpp>
 #define BOOST_COMMON_TYPE_STATIC_ASSERT(CND, MSG, TYPES) BOOST_STATIC_ASSERT(CND)

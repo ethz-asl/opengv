@@ -31,22 +31,22 @@ namespace boost
     {
         template< class Iter, class Pred, bool default_pass >
         class skip_iterator
-          : public boost::iterator_adaptor<
+          : public std::iterator_adaptor<
                     skip_iterator<Iter,Pred,default_pass>,
                     Iter,
                     BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::value_type,
-                    boost::forward_traversal_tag,
+                    std::forward_traversal_tag,
                     BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::reference,
                     BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::difference_type
                 >
           , private Pred
         {
         private:
-            typedef boost::iterator_adaptor<
+            typedef std::iterator_adaptor<
                         skip_iterator<Iter,Pred,default_pass>,
                         Iter,
                         BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::value_type,
-                        boost::forward_traversal_tag,
+                        std::forward_traversal_tag,
                         BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::reference,
                         BOOST_DEDUCED_TYPENAME std::iterator_traits<Iter>::difference_type
                     > base_t;
@@ -79,7 +79,7 @@ namespace boost
                 {
                     if (default_pass)
                     {
-                        iter_t nxt = ::boost::next(it);
+                        iter_t nxt = ::std::next(it);
                         while (nxt != m_last && !bi_pred(*it, *nxt))
                         {
                             ++it;
@@ -88,7 +88,7 @@ namespace boost
                     }
                     else
                     {
-                        iter_t nxt = ::boost::next(it);
+                        iter_t nxt = ::std::next(it);
                         for(; nxt != m_last; ++it, ++nxt)
                         {
                             if (bi_pred(*it, *nxt))
@@ -139,8 +139,8 @@ namespace boost
 
         public:
             adjacent_filtered_range( const P& p, R& r )
-            : base_range(skip_iter(boost::begin(r), boost::end(r), p),
-                         skip_iter(boost::end(r), boost::end(r), p))
+            : base_range(skip_iter(std::begin(r), std::end(r), p),
+                         skip_iter(std::end(r), std::end(r), p))
             {
             }
         };

@@ -106,8 +106,8 @@ namespace detail{
 template <class Seq, class Item, int N>
 inline void unpack_and_append_tuple(Seq& s,
                                     const Item& data,
-                                    const boost::integral_constant<int, N>&,
-                                    const boost::false_type&)
+                                    const std::integral_constant<int, N>&,
+                                    const std::false_type&)
 {
    // termimation condition nothing to do here
 }
@@ -115,32 +115,32 @@ inline void unpack_and_append_tuple(Seq& s,
 template <class Seq, class Item, int N>
 inline void unpack_and_append_tuple(Seq& s,
                                     const Item& data,
-                                    const boost::integral_constant<int, N>&,
-                                    const boost::true_type&)
+                                    const std::integral_constant<int, N>&,
+                                    const std::true_type&)
 {
    // extract the N'th element, append, and recurse:
    typedef typename Seq::value_type value_type;
-   value_type val = boost::math::get<N>(data);
+   value_type val = std::math::get<N>(data);
    s.push_back(val);
 
-   typedef boost::integral_constant<int, N+1> next_value;
-   typedef boost::integral_constant<bool, (boost::math::tuple_size<Item>::value > N+1)> terminate;
+   typedef std::integral_constant<int, N+1> next_value;
+   typedef std::integral_constant<bool, (std::math::tuple_size<Item>::value > N+1)> terminate;
 
    unpack_and_append_tuple(s, data, next_value(), terminate());
 }
 
 template <class Seq, class Item>
-inline void unpack_and_append(Seq& s, const Item& data, const boost::true_type&)
+inline void unpack_and_append(Seq& s, const Item& data, const std::true_type&)
 {
    s.push_back(data);
 }
 
 template <class Seq, class Item>
-inline void unpack_and_append(Seq& s, const Item& data, const boost::false_type&)
+inline void unpack_and_append(Seq& s, const Item& data, const std::false_type&)
 {
    // Item had better be a tuple-like type or we've had it!!!!
-   typedef boost::integral_constant<int, 0> next_value;
-   typedef boost::integral_constant<bool, (boost::math::tuple_size<Item>::value > 0)> terminate;
+   typedef std::integral_constant<int, 0> next_value;
+   typedef std::integral_constant<bool, (std::math::tuple_size<Item>::value > 0)> terminate;
 
    unpack_and_append_tuple(s, data, next_value(), terminate());
 }
@@ -149,7 +149,7 @@ template <class Seq, class Item>
 inline void unpack_and_append(Seq& s, const Item& data)
 {
    typedef typename Seq::value_type value_type;
-   unpack_and_append(s, data, ::boost::is_convertible<Item, value_type>());
+   unpack_and_append(s, data, ::std::is_convertible<Item, value_type>());
 }
 
 } // detail
@@ -198,7 +198,7 @@ public:
          try{
             // domain_error exceptions from func are swallowed
             // and this data point is ignored:
-            boost::math::tools::detail::unpack_and_append(row, func(*a));
+            std::math::tools::detail::unpack_and_append(row, func(*a));
             m_data.insert(row);
          }
          catch(const std::domain_error&){}
@@ -388,8 +388,8 @@ void test_data<T>::create_test_points(std::set<T>& points, const parameter_info<
          BOOST_ASSERT(arg1.n1 < arg1.n2);
 
          typedef float random_type;
-         typedef typename boost::mpl::if_<
-            ::boost::is_floating_point<T>,
+         typedef typename std::mpl::if_<
+            ::std::is_floating_point<T>,
             T, long double>::type power_type;
 
          std::tr1::mt19937 rnd;
@@ -431,7 +431,7 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
          "[Default=r]";
 
       std::getline(std::cin, line);
-      boost::algorithm::trim(line);
+      std::algorithm::trim(line);
 
       if(line == "r")
       {
@@ -459,7 +459,7 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
       std::cout << "Sorry don't recognise \"" << line << "\" as a valid input\n"
          "do you want to try again [y/n]?";
       std::getline(std::cin, line);
-      boost::algorithm::trim(line);
+      std::algorithm::trim(line);
       if(line == "n")
          return false;
       else if(line == "y")
@@ -477,21 +477,21 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
          std::cout << "Data will be in the half open range a <= x < b,\n"
             "enter value for the start point fo the range [default=0]:";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          if(line == "")
          {
             info.z1 = 0;
             break;
          }
          try{
-            info.z1 = boost::lexical_cast<T>(line);
+            info.z1 = std::lexical_cast<T>(line);
             break;
          }
-         catch(const boost::bad_lexical_cast&)
+         catch(const std::bad_lexical_cast&)
          {
             std::cout << "Sorry, that was not valid input, try again [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -503,7 +503,7 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
       do{
          std::cout << "Enter value for the end point fo the range [default=1]:";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          if(line == "")
          {
             info.z2 = 1;
@@ -512,13 +512,13 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
          {
             try
             {
-               info.z2 = boost::lexical_cast<T>(line);
+               info.z2 = std::lexical_cast<T>(line);
             }
-            catch(const boost::bad_lexical_cast&)
+            catch(const std::bad_lexical_cast&)
             {
                std::cout << "Sorry, that was not valid input, try again [y/n]?";
                std::getline(std::cin, line);
-               boost::algorithm::trim(line);
+               std::algorithm::trim(line);
                if(line == "y")
                   continue;
                if(line == "n")
@@ -532,7 +532,7 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
             std::cout << "The end point of the range was <= the start point\n"
                "try a different value for the endpoint [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -546,16 +546,16 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
          // get the number of points:
          std::cout << "How many data points do you want?";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          try{
-            info.n1 = boost::lexical_cast<int>(line);
+            info.n1 = std::lexical_cast<int>(line);
             info.n2 = 0;
             if(info.n1 <= 0)
             {
                std::cout << "The number of points should be > 0\n"
                   "try again [y/n]?";
                std::getline(std::cin, line);
-               boost::algorithm::trim(line);
+               std::algorithm::trim(line);
                if(line == "y")
                   continue;
                if(line == "n")
@@ -565,11 +565,11 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
             }
             break;
          }
-         catch(const boost::bad_lexical_cast&)
+         catch(const std::bad_lexical_cast&)
          {
             std::cout << "Sorry, that was not valid input, try again [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -587,21 +587,21 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
             "for random value r,\n"
             "enter value for the point a [default=0]:";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          if(line == "")
          {
             info.z1 = 0;
             break;
          }
          try{
-            info.z1 = boost::lexical_cast<T>(line);
+            info.z1 = std::lexical_cast<T>(line);
             break;
          }
-         catch(const boost::bad_lexical_cast&)
+         catch(const std::bad_lexical_cast&)
          {
             std::cout << "Sorry, that was not valid input, try again [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -616,16 +616,16 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
             "for random value r,\n"
             "enter value for the starting exponent b:";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          try{
-            info.n1 = boost::lexical_cast<int>(line);
+            info.n1 = std::lexical_cast<int>(line);
             break;
          }
-         catch(const boost::bad_lexical_cast&)
+         catch(const std::bad_lexical_cast&)
          {
             std::cout << "Sorry, that was not valid input, try again [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -640,16 +640,16 @@ bool get_user_parameter_info(parameter_info<T>& info, const char* param_name)
             "for random value r,\n"
             "enter value for the ending exponent b:";
          std::getline(std::cin, line);
-         boost::algorithm::trim(line);
+         std::algorithm::trim(line);
          try{
-            info.n2 = boost::lexical_cast<int>(line);
+            info.n2 = std::lexical_cast<int>(line);
             break;
          }
-         catch(const boost::bad_lexical_cast&)
+         catch(const std::bad_lexical_cast&)
          {
             std::cout << "Sorry, that was not valid input, try again [y/n]?";
             std::getline(std::cin, line);
-            boost::algorithm::trim(line);
+            std::algorithm::trim(line);
             if(line == "y")
                continue;
             if(line == "n")
@@ -727,7 +727,7 @@ std::ostream& write_code(std::ostream& os,
       return os;
 
    os << "#ifndef SC_\n#  define SC_(x) static_cast<T>(BOOST_JOIN(x, L))\n#endif\n"
-   "   static const boost::array<boost::array<T, "
+   "   static const std::array<std::array<T, "
    << a->size() << ">, " << data.size() << "> " << name << " = {{\n";
 
    while(a != b)

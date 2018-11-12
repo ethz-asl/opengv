@@ -78,9 +78,9 @@ struct get_flat_tree_iterators
 {
    #ifdef BOOST_CONTAINER_VECTOR_ITERATOR_IS_POINTER
    typedef Pointer                                    iterator;
-   typedef typename boost::intrusive::
+   typedef typename std::intrusive::
       pointer_traits<Pointer>::element_type           iterator_element_type;
-   typedef typename boost::intrusive::
+   typedef typename std::intrusive::
       pointer_traits<Pointer>:: template
          rebind_pointer<const iterator_element_type>::type  const_iterator;
    #else //BOOST_CONTAINER_VECTOR_ITERATOR_IS_POINTER
@@ -97,7 +97,7 @@ template <class Key, class Value, class KeyOfValue,
           class Compare, class A>
 class flat_tree
 {
-   typedef boost::container::vector<Value, A>  vector_t;
+   typedef std::container::vector<Value, A>  vector_t;
    typedef A                                   allocator_t;
 
    public:
@@ -120,7 +120,7 @@ class flat_tree
       {}
 
       Data(BOOST_RV_REF(Data) d)
-         : value_compare(boost::move(static_cast<value_compare&>(d))), m_vect(boost::move(d.m_vect))
+         : value_compare(std::move(static_cast<value_compare&>(d))), m_vect(std::move(d.m_vect))
       {}
 
       Data(const Data &d, const A &a)
@@ -128,7 +128,7 @@ class flat_tree
       {}
 
       Data(BOOST_RV_REF(Data) d, const A &a)
-         : value_compare(boost::move(static_cast<value_compare&>(d))), m_vect(boost::move(d.m_vect), a)
+         : value_compare(std::move(static_cast<value_compare&>(d))), m_vect(std::move(d.m_vect), a)
       {}
 
       Data(const Compare &comp)
@@ -149,15 +149,15 @@ class flat_tree
 
       Data& operator=(BOOST_RV_REF(Data) d)
       {
-         this->value_compare::operator=(boost::move(static_cast<value_compare &>(d)));
-         m_vect = boost::move(d.m_vect);
+         this->value_compare::operator=(std::move(static_cast<value_compare &>(d)));
+         m_vect = std::move(d.m_vect);
          return *this;
       }
 
       void swap(Data &d)
       {
          value_compare& mycomp    = *this, & othercomp = d;
-         boost::container::swap_dispatch(mycomp, othercomp);
+         std::container::swap_dispatch(mycomp, othercomp);
          this->m_vect.swap(d.m_vect);
       }
 
@@ -208,7 +208,7 @@ class flat_tree
    { }
 
    flat_tree(BOOST_RV_REF(flat_tree) x)
-      :  m_data(boost::move(x.m_data))
+      :  m_data(std::move(x.m_data))
    { }
 
    flat_tree(const flat_tree& x, const allocator_type &a)
@@ -216,7 +216,7 @@ class flat_tree
    { }
 
    flat_tree(BOOST_RV_REF(flat_tree) x, const allocator_type &a)
-      :  m_data(boost::move(x.m_data), a)
+      :  m_data(std::move(x.m_data), a)
    { }
 
    template <class InputIterator>
@@ -248,7 +248,7 @@ class flat_tree
    {  m_data = x.m_data;   return *this;  }
 
    flat_tree&  operator=(BOOST_RV_REF(flat_tree) mx)
-   {  m_data = boost::move(mx.m_data); return *this;  }
+   {  m_data = std::move(mx.m_data); return *this;  }
 
    public:   
    // accessors:
@@ -329,7 +329,7 @@ class flat_tree
       insert_commit_data data;
       std::pair<iterator,bool> ret = this->priv_insert_unique_prepare(val, data);
       if(ret.second){
-         ret.first = this->priv_insert_commit(data, boost::move(val));
+         ret.first = this->priv_insert_commit(data, std::move(val));
       }
       return ret;
    }
@@ -344,7 +344,7 @@ class flat_tree
    iterator insert_equal(BOOST_RV_REF(value_type) mval)
    {
       iterator i = this->upper_bound(KeyOfValue()(mval));
-      i = this->m_data.m_vect.insert(i, boost::move(mval));
+      i = this->m_data.m_vect.insert(i, std::move(mval));
       return i;
    }
 
@@ -363,7 +363,7 @@ class flat_tree
       insert_commit_data data;
       std::pair<iterator,bool> ret = this->priv_insert_unique_prepare(pos, mval, data);
       if(ret.second){
-         ret.first = this->priv_insert_commit(data, boost::move(mval));
+         ret.first = this->priv_insert_commit(data, std::move(mval));
       }
       return ret.first;
    }
@@ -379,7 +379,7 @@ class flat_tree
    {
       insert_commit_data data;
       this->priv_insert_equal_prepare(pos, mval, data);
-      return this->priv_insert_commit(data, boost::move(mval));
+      return this->priv_insert_commit(data, std::move(mval));
    }
 
    template <class InIt>
@@ -544,13 +544,13 @@ class flat_tree
       aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
       value_type &val = *static_cast<value_type *>(static_cast<void *>(&v));
       stored_allocator_type &a = this->get_stored_allocator();
-      stored_allocator_traits::construct(a, &val, ::boost::forward<Args>(args)... );
+      stored_allocator_traits::construct(a, &val, ::std::forward<Args>(args)... );
       value_destructor<stored_allocator_type> d(a, val);
       insert_commit_data data;
       std::pair<iterator,bool> ret =
          this->priv_insert_unique_prepare(val, data);
       if(ret.second){
-         ret.first = this->priv_insert_commit(data, boost::move(val));
+         ret.first = this->priv_insert_commit(data, std::move(val));
       }
       return ret;
    }
@@ -561,12 +561,12 @@ class flat_tree
       aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
       value_type &val = *static_cast<value_type *>(static_cast<void *>(&v));
       stored_allocator_type &a = this->get_stored_allocator();
-      stored_allocator_traits::construct(a, &val, ::boost::forward<Args>(args)... );
+      stored_allocator_traits::construct(a, &val, ::std::forward<Args>(args)... );
       value_destructor<stored_allocator_type> d(a, val);
       insert_commit_data data;
       std::pair<iterator,bool> ret = this->priv_insert_unique_prepare(hint, val, data);
       if(ret.second){
-         ret.first = this->priv_insert_commit(data, boost::move(val));
+         ret.first = this->priv_insert_commit(data, std::move(val));
       }
       return ret.first;
    }
@@ -577,10 +577,10 @@ class flat_tree
       aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
       value_type &val = *static_cast<value_type *>(static_cast<void *>(&v));
       stored_allocator_type &a = this->get_stored_allocator();
-      stored_allocator_traits::construct(a, &val, ::boost::forward<Args>(args)... );
+      stored_allocator_traits::construct(a, &val, ::std::forward<Args>(args)... );
       value_destructor<stored_allocator_type> d(a, val);
       iterator i = this->upper_bound(KeyOfValue()(val));
-      i = this->m_data.m_vect.insert(i, boost::move(val));
+      i = this->m_data.m_vect.insert(i, std::move(val));
       return i;
    }
 
@@ -590,11 +590,11 @@ class flat_tree
       aligned_storage<sizeof(value_type), alignment_of<value_type>::value> v;
       value_type &val = *static_cast<value_type *>(static_cast<void *>(&v));
       stored_allocator_type &a = this->get_stored_allocator();
-      stored_allocator_traits::construct(a, &val, ::boost::forward<Args>(args)... );
+      stored_allocator_traits::construct(a, &val, ::std::forward<Args>(args)... );
       value_destructor<stored_allocator_type> d(a, val);
       insert_commit_data data;
       this->priv_insert_equal_prepare(hint, val, data);
-      iterator i = this->priv_insert_commit(data, boost::move(val));
+      iterator i = this->priv_insert_commit(data, std::move(val));
       return i;
    }
 
@@ -614,7 +614,7 @@ class flat_tree
       insert_commit_data data;                                                            \
       std::pair<iterator,bool> ret = this->priv_insert_unique_prepare(val, data);         \
       if(ret.second){                                                                     \
-         ret.first = this->priv_insert_commit(data, boost::move(val));                    \
+         ret.first = this->priv_insert_commit(data, std::move(val));                    \
       }                                                                                   \
       return ret;                                                                         \
    }                                                                                      \
@@ -632,7 +632,7 @@ class flat_tree
       insert_commit_data data;                                                            \
       std::pair<iterator,bool> ret = this->priv_insert_unique_prepare(hint, val, data);   \
       if(ret.second){                                                                     \
-         ret.first = this->priv_insert_commit(data, boost::move(val));                    \
+         ret.first = this->priv_insert_commit(data, std::move(val));                    \
       }                                                                                   \
       return ret.first;                                                                   \
    }                                                                                      \
@@ -647,7 +647,7 @@ class flat_tree
          BOOST_PP_ENUM_TRAILING(n, BOOST_CONTAINER_PP_PARAM_FORWARD, _) );                \
       value_destructor<stored_allocator_type> d(a,  val);                                 \
       iterator i = this->upper_bound(KeyOfValue()(val));                                  \
-      i = this->m_data.m_vect.insert(i, boost::move(val));                                \
+      i = this->m_data.m_vect.insert(i, std::move(val));                                \
       return i;                                                                           \
    }                                                                                      \
                                                                                           \
@@ -663,7 +663,7 @@ class flat_tree
       value_destructor<stored_allocator_type> d(a,  val);                                 \
       insert_commit_data data;                                                            \
       this->priv_insert_equal_prepare(hint, val, data);                                   \
-      iterator i = this->priv_insert_commit(data, boost::move(val));                      \
+      iterator i = this->priv_insert_commit(data, std::move(val));                      \
       return i;                                                                           \
    }                                                                                      \
 
@@ -859,7 +859,7 @@ class flat_tree
    {
       return this->m_data.m_vect.insert
          ( commit_data.position
-         , boost::forward<Convertible>(convertible));
+         , std::forward<Convertible>(convertible));
    }
 
    template <class RanIt>
@@ -1043,7 +1043,7 @@ swap(flat_tree<Key,Value,KeyOfValue,Compare,A>& x,
 //!specialization for optimizations
 template <class K, class V, class KOV,
 class C, class A>
-struct has_trivial_destructor_after_move<boost::container::container_detail::flat_tree<K, V, KOV, C, A> >
+struct has_trivial_destructor_after_move<std::container::container_detail::flat_tree<K, V, KOV, C, A> >
 {
    static const bool value = has_trivial_destructor_after_move<A>::value && has_trivial_destructor_after_move<C>::value;
 };

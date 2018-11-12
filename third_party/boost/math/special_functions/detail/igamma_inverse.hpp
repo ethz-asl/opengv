@@ -88,7 +88,7 @@ inline T didonato_FN(T p, T a, T x, unsigned N, T tolerance, const Policy& pol)
    // See equation 34.
    //
    BOOST_MATH_STD_USING
-   T u = log(p) + boost::math::lgamma(a + 1, pol);
+   T u = log(p) + std::math::lgamma(a + 1, pol);
    return exp((u + x - log(didonato_SN(a, x, N, tolerance))) / a);
 }
 
@@ -116,7 +116,7 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
    }
    else if(a < 1)
    {
-      T g = boost::math::tgamma(a, pol);
+      T g = std::math::tgamma(a, pol);
       T b = q * g;
       BOOST_MATH_INSTRUMENT_VARIABLE(g);
       BOOST_MATH_INSTRUMENT_VARIABLE(b);
@@ -234,7 +234,7 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
          else
          {
             T D = (std::max)(T(2), T(a * (a - 1)));
-            T lg = boost::math::lgamma(a, pol);
+            T lg = std::math::lgamma(a, pol);
             T lb = log(q) + lg;
             if(lb < -D * 2.3)
             {
@@ -279,13 +279,13 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
          if(w < 0.15f * ap1)
          {
             // DiDonato and Morris Eq 35:
-            T v = log(p) + boost::math::lgamma(ap1, pol);
+            T v = log(p) + std::math::lgamma(ap1, pol);
             z = exp((v + w) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
+            s = std::math::log1p(z / ap1 * (1 + z / ap2));
             z = exp((v + z - s) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
+            s = std::math::log1p(z / ap1 * (1 + z / ap2));
             z = exp((v + z - s) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2 * (1 + z / (a + 3))));
+            s = std::math::log1p(z / ap1 * (1 + z / ap2 * (1 + z / (a + 3))));
             z = exp((v + z - s) / a);
             BOOST_MATH_INSTRUMENT_VARIABLE(z);
          }
@@ -301,7 +301,7 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
          {
             // DiDonato and Morris Eq 36:
             T ls = log(didonato_SN(a, z, 100, T(1e-4)));
-            T v = log(p) + boost::math::lgamma(ap1, pol);
+            T v = log(p) + std::math::lgamma(ap1, pol);
             z = exp((v + z - ls) / a);
             result = z * (1 - (a * log(z) - z - v + ls) / (a - z));
 
@@ -333,7 +333,7 @@ struct gamma_p_inverse_func
       }
    }
 
-   boost::math::tuple<T, T, T> operator()(const T& x)const
+   std::math::tuple<T, T, T> operator()(const T& x)const
    {
       BOOST_FPU_EXCEPTION_GUARD
       //
@@ -353,7 +353,7 @@ struct gamma_p_inverse_func
 
       T f, f1;
       value_type ft;
-      f = static_cast<T>(boost::math::detail::gamma_incomplete_imp(
+      f = static_cast<T>(std::math::detail::gamma_incomplete_imp(
                static_cast<value_type>(a), 
                static_cast<value_type>(x), 
                true, invert,
@@ -378,7 +378,7 @@ struct gamma_p_inverse_func
          f2 = -f2;
       }
 
-      return boost::math::make_tuple(static_cast<T>(f - p), f1, f2);
+      return std::math::make_tuple(static_cast<T>(f - p), f1, f2);
    }
 private:
    T a, p;
@@ -390,7 +390,7 @@ T gamma_p_inv_imp(T a, T p, const Policy& pol)
 {
    BOOST_MATH_STD_USING  // ADL of std functions.
 
-   static const char* function = "boost::math::gamma_p_inv<%1%>(%1%, %1%)";
+   static const char* function = "std::math::gamma_p_inv<%1%>(%1%, %1%)";
 
    BOOST_MATH_INSTRUMENT_VARIABLE(a);
    BOOST_MATH_INSTRUMENT_VARIABLE(p);
@@ -433,7 +433,7 @@ T gamma_p_inv_imp(T a, T p, const Policy& pol)
    //
    // Go ahead and iterate:
    //
-   boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
    guess = tools::halley_iterate(
       detail::gamma_p_inverse_func<T, Policy>(a, p, false),
       guess,
@@ -453,7 +453,7 @@ T gamma_q_inv_imp(T a, T q, const Policy& pol)
 {
    BOOST_MATH_STD_USING  // ADL of std functions.
 
-   static const char* function = "boost::math::gamma_q_inv<%1%>(%1%, %1%)";
+   static const char* function = "std::math::gamma_q_inv<%1%>(%1%, %1%)";
 
    if(a <= 0)
       policies::raise_domain_error<T>(function, "Argument a in the incomplete gamma function inverse must be >= 0 (got a=%1%).", a, pol);
@@ -492,7 +492,7 @@ T gamma_q_inv_imp(T a, T q, const Policy& pol)
    //
    // Go ahead and iterate:
    //
-   boost::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_root_iterations<Policy>();
    guess = tools::halley_iterate(
       detail::gamma_p_inverse_func<T, Policy>(a, q, true),
       guess,

@@ -69,7 +69,7 @@ template< class T > class sp_reference_wrapper
 { 
 public:
 
-    explicit sp_reference_wrapper( T & t): t_( boost::addressof( t ) )
+    explicit sp_reference_wrapper( T & t): t_( std::addressof( t ) )
     {
     }
 
@@ -131,7 +131,7 @@ public:
         }
         catch(...)
         {
-            boost::checked_delete( p );
+            std::checked_delete( p );
             throw;
         }
 
@@ -141,8 +141,8 @@ public:
 
         if( pi_ == 0 )
         {
-            boost::checked_delete( p );
-            boost::throw_exception( std::bad_alloc() );
+            std::checked_delete( p );
+            std::throw_exception( std::bad_alloc() );
         }
 
 #endif
@@ -179,7 +179,7 @@ public:
         if(pi_ == 0)
         {
             d(p); // delete p
-            boost::throw_exception(std::bad_alloc());
+            std::throw_exception(std::bad_alloc());
         }
 
 #endif
@@ -211,7 +211,7 @@ public:
         if( pi_ == 0 )
         {
             D::operator_fn( p ); // delete p
-            boost::throw_exception( std::bad_alloc() );
+            std::throw_exception( std::bad_alloc() );
         }
 
 #endif // #ifndef BOOST_NO_EXCEPTIONS
@@ -259,7 +259,7 @@ public:
         else
         {
             d( p );
-            boost::throw_exception( std::bad_alloc() );
+            std::throw_exception( std::bad_alloc() );
         }
 
 #endif
@@ -307,7 +307,7 @@ public:
         else
         {
             D::operator_fn( p );
-            boost::throw_exception( std::bad_alloc() );
+            std::throw_exception( std::bad_alloc() );
         }
 
 #endif // #ifndef BOOST_NO_EXCEPTIONS
@@ -329,7 +329,7 @@ public:
 
         if( pi_ == 0 )
         {
-            boost::throw_exception(std::bad_alloc());
+            std::throw_exception(std::bad_alloc());
         }
 
 #endif
@@ -356,7 +356,7 @@ public:
 
         if( pi_ == 0 )
         {
-            boost::throw_exception( std::bad_alloc() );
+            std::throw_exception( std::bad_alloc() );
         }
 
 #endif
@@ -577,7 +577,7 @@ inline shared_count::shared_count( weak_count const & r ): pi_( r.pi_ )
 {
     if( pi_ == 0 || !pi_->add_ref_lock() )
     {
-        boost::throw_exception( boost::bad_weak_ptr() );
+        std::throw_exception( std::bad_weak_ptr() );
     }
 }
 

@@ -43,7 +43,7 @@ template <class T>
 struct is_signed_helper
 {
    typedef typename remove_cv<T>::type no_cv_t;
-   BOOST_STATIC_CONSTANT(bool, value = (!(::boost::detail::is_signed_values<T>::minus_one  > boost::detail::is_signed_values<T>::zero)));
+   BOOST_STATIC_CONSTANT(bool, value = (!(::std::detail::is_signed_values<T>::minus_one  > std::detail::is_signed_values<T>::zero)));
 };
 
 template <bool integral_type>
@@ -70,9 +70,9 @@ template <class T>
 struct is_signed_imp
 {
    typedef is_signed_select_helper< 
-      ::boost::type_traits::ice_or<
-         ::boost::is_integral<T>::value,
-         ::boost::is_enum<T>::value>::value 
+      ::std::type_traits::ice_or<
+         ::std::is_integral<T>::value,
+         ::std::is_enum<T>::value>::value 
    > selector;
    typedef typename selector::template rebind<T> binder;
    typedef typename binder::type type;
@@ -130,7 +130,7 @@ template <> struct is_signed_imp<const volatile wchar_t> : public true_type{};
 #if defined( __CODEGEARC__ )
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_signed,T,__is_signed(T))
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_signed,T,::boost::detail::is_signed_imp<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_signed,T,::std::detail::is_signed_imp<T>::value)
 #endif
 
 } // namespace boost

@@ -87,7 +87,7 @@ namespace boost
   // enable_if_convertible is used to remove those overloads from the overload
   // set that cannot be instantiated. For all practical purposes only overloads
   // for constant/mutable interaction will remain. This has the advantage that
-  // meta functions like boost::is_convertible do not return false positives,
+  // meta functions like std::is_convertible do not return false positives,
   // as they can only look at the signature of the conversion constructor
   // and not at the actual instantiation.
   //
@@ -95,7 +95,7 @@ namespace boost
   // always enabled for compilers that don't support enable_if or is_convertible. 
   // There is no need for compiler specific workarounds in user code. 
   //
-  // The operators implementation relies on boost::is_convertible not returning
+  // The operators implementation relies on std::is_convertible not returning
   // false positives for user/library defined iterator types. See comments
   // on operator implementation for consequences.
   //
@@ -109,7 +109,7 @@ namespace boost
              is_same<From,To>
            , is_convertible<From, To>
          >
-      , boost::detail::enable_type
+      , std::detail::enable_type
       , int&
      >::type type;
   };
@@ -119,7 +119,7 @@ namespace boost
   template <class From, class To>
   struct enable_if_convertible
   {
-      typedef boost::detail::enable_type type;
+      typedef std::detail::enable_type type;
   };
   
 #  elif BOOST_WORKAROUND(_MSC_FULL_VER, BOOST_TESTED_AT(13102292)) && BOOST_MSVC > 1300
@@ -133,7 +133,7 @@ namespace boost
             is_same<From,To>
           , is_convertible<From, To>
         >
-      , boost::detail::enable_type
+      , std::detail::enable_type
     >
   {};
   
@@ -143,7 +143,7 @@ namespace boost
   struct enable_if_convertible
     : iterators::enable_if<
           is_convertible<From, To>
-        , boost::detail::enable_type
+        , std::detail::enable_type
       >
   {};
       
@@ -182,7 +182,7 @@ namespace boost
             Derived
             
 # ifdef BOOST_ITERATOR_REF_CONSTNESS_KILLS_WRITABILITY
-          , typename boost::detail::ia_dflt_help<
+          , typename std::detail::ia_dflt_help<
                 Value
               , mpl::eval_if<
                     is_same<Reference,use_default>
@@ -191,17 +191,17 @@ namespace boost
                 >
             >::type
 # else
-          , typename boost::detail::ia_dflt_help<
+          , typename std::detail::ia_dflt_help<
                 Value, iterator_value<Base>
             >::type
 # endif
             
-          , typename boost::detail::ia_dflt_help<
+          , typename std::detail::ia_dflt_help<
                 Traversal
               , iterator_traversal<Base>
             >::type
 
-          , typename boost::detail::ia_dflt_help<
+          , typename std::detail::ia_dflt_help<
                 Reference
               , mpl::eval_if<
                     is_same<Value,use_default>
@@ -210,7 +210,7 @@ namespace boost
                 >
             >::type
 
-          , typename boost::detail::ia_dflt_help<
+          , typename std::detail::ia_dflt_help<
                 Difference, iterator_difference<Base>
             >::type
         >
@@ -259,14 +259,14 @@ namespace boost
     , class Difference   = use_default
   >
   class iterator_adaptor
-    : public boost::detail::iterator_adaptor_base<
+    : public std::detail::iterator_adaptor_base<
         Derived, Base, Value, Traversal, Reference, Difference
       >::type
   {
       friend class iterator_core_access;
 
    protected:
-      typedef typename boost::detail::iterator_adaptor_base<
+      typedef typename std::detail::iterator_adaptor_base<
           Derived, Base, Value, Traversal, Reference, Difference
       >::type super_t;
    public:
@@ -322,7 +322,7 @@ namespace boost
       >::type my_traversal;
 
 # define BOOST_ITERATOR_ADAPTOR_ASSERT_TRAVERSAL(cat) \
-      boost::detail::iterator_adaptor_assert_traversal<my_traversal, cat>();
+      std::detail::iterator_adaptor_assert_traversal<my_traversal, cat>();
 
       void advance(typename super_t::difference_type n)
       {

@@ -35,7 +35,7 @@ namespace boost { namespace fusion {
                 static type
                 call(First const& first, Last const& last)
                 {
-                    return boost::fusion::distance(last.first, first.first);
+                    return std::fusion::distance(last.first, first.first);
                 }
             };
         };

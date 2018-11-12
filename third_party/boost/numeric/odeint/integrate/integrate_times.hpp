@@ -72,7 +72,7 @@ size_t integrate_times(
 {
     return integrate_times(
             stepper , system , start_state ,
-            boost::begin( times ) , boost::end( times ) , dt , observer );
+            std::begin( times ) , std::end( times ) , dt , observer );
 }
 
 /**
@@ -86,7 +86,7 @@ size_t integrate_times(
 {
     return integrate_times(
             stepper , system , start_state ,
-            boost::begin( times ) , boost::end( times ) , dt , observer );
+            std::begin( times ) , std::end( times ) , dt , observer );
 }
 
 

@@ -49,7 +49,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_alpha(const char* function, const RealType& alpha, RealType* result, const Policy& pol)
       {
-        if(!(boost::math::isfinite)(alpha) || (alpha <= 0))
+        if(!(std::math::isfinite)(alpha) || (alpha <= 0))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -62,7 +62,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_beta(const char* function, const RealType& beta, RealType* result, const Policy& pol)
       {
-        if(!(boost::math::isfinite)(beta) || (beta <= 0))
+        if(!(std::math::isfinite)(beta) || (beta <= 0))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -75,7 +75,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_prob(const char* function, const RealType& p, RealType* result, const Policy& pol)
       {
-        if((p < 0) || (p > 1) || !(boost::math::isfinite)(p))
+        if((p < 0) || (p > 1) || !(std::math::isfinite)(p))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -88,7 +88,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_x(const char* function, const RealType& x, RealType* result, const Policy& pol)
       {
-        if(!(boost::math::isfinite)(x) || (x < 0) || (x > 1))
+        if(!(std::math::isfinite)(x) || (x < 0) || (x > 1))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -122,7 +122,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_mean(const char* function, const RealType& mean, RealType* result, const Policy& pol)
       {
-        if(!(boost::math::isfinite)(mean) || (mean <= 0))
+        if(!(std::math::isfinite)(mean) || (mean <= 0))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -134,7 +134,7 @@ namespace boost
       template <class RealType, class Policy>
       inline bool check_variance(const char* function, const RealType& variance, RealType* result, const Policy& pol)
       {
-        if(!(boost::math::isfinite)(variance) || (variance <= 0))
+        if(!(std::math::isfinite)(variance) || (variance <= 0))
         {
           *result = policies::raise_domain_error<RealType>(
             function,
@@ -160,7 +160,7 @@ namespace boost
       {
         RealType result;
         beta_detail::check_dist(
-           "boost::math::beta_distribution<%1%>::beta_distribution",
+           "std::math::beta_distribution<%1%>::beta_distribution",
           m_alpha,
           m_beta,
           &result, Policy());
@@ -186,7 +186,7 @@ namespace boost
         RealType mean, // Expected value of mean.
         RealType variance) // Expected value of variance.
       {
-        static const char* function = "boost::math::beta_distribution<%1%>::find_alpha";
+        static const char* function = "std::math::beta_distribution<%1%>::find_alpha";
         RealType result = 0; // of error checks.
         if(false ==
             (
@@ -204,7 +204,7 @@ namespace boost
         RealType mean, // Expected value of mean.
         RealType variance) // Expected value of variance.
       {
-        static const char* function = "boost::math::beta_distribution<%1%>::find_beta";
+        static const char* function = "std::math::beta_distribution<%1%>::find_beta";
         RealType result = 0; // of error checks.
         if(false ==
             (
@@ -227,7 +227,7 @@ namespace boost
         RealType x, //  x.
         RealType probability) // cdf
       {
-        static const char* function = "boost::math::beta_distribution<%1%>::find_alpha";
+        static const char* function = "std::math::beta_distribution<%1%>::find_alpha";
         RealType result = 0; // of error checks.
         if(false ==
             (
@@ -250,7 +250,7 @@ namespace boost
         RealType x, // probability x.
         RealType probability) // probability cdf.
       {
-        static const char* function = "boost::math::beta_distribution<%1%>::find_beta";
+        static const char* function = "std::math::beta_distribution<%1%>::find_beta";
         RealType result = 0; // of error checks.
         if(false ==
             (
@@ -275,7 +275,7 @@ namespace boost
     template <class RealType, class Policy>
     inline const std::pair<RealType, RealType> range(const beta_distribution<RealType, Policy>& /* dist */)
     { // Range of permissible values for random variable x.
-      using boost::math::tools::max_value;
+      using std::math::tools::max_value;
       return std::pair<RealType, RealType>(static_cast<RealType>(0), static_cast<RealType>(1));
     }
 
@@ -303,7 +303,7 @@ namespace boost
     template <class RealType, class Policy>
     inline RealType mode(const beta_distribution<RealType, Policy>& dist)
     {
-      static const char* function = "boost::math::mode(beta_distribution<%1%> const&)";
+      static const char* function = "std::math::mode(beta_distribution<%1%> const&)";
 
       RealType result;
       if ((dist.alpha() <= 1))
@@ -365,7 +365,7 @@ namespace boost
     { // Probability Density/Mass Function.
       BOOST_FPU_EXCEPTION_GUARD
 
-      static const char* function = "boost::math::pdf(beta_distribution<%1%> const&, %1%)";
+      static const char* function = "std::math::pdf(beta_distribution<%1%> const&, %1%)";
 
       BOOST_MATH_STD_USING // for ADL of std functions
 
@@ -381,7 +381,7 @@ namespace boost
       {
         return result;
       }
-      using boost::math::beta;
+      using std::math::beta;
       return ibeta_derivative(a, b, x, Policy());
     } // pdf
 
@@ -390,7 +390,7 @@ namespace boost
     { // Cumulative Distribution Function beta.
       BOOST_MATH_STD_USING // for ADL of std functions
 
-      static const char* function = "boost::math::cdf(beta_distribution<%1%> const&, %1%)";
+      static const char* function = "std::math::cdf(beta_distribution<%1%> const&, %1%)";
 
       RealType a = dist.alpha();
       RealType b = dist.beta();
@@ -422,7 +422,7 @@ namespace boost
 
       BOOST_MATH_STD_USING // for ADL of std functions
 
-      static const char* function = "boost::math::cdf(beta_distribution<%1%> const&, %1%)";
+      static const char* function = "std::math::cdf(beta_distribution<%1%> const&, %1%)";
 
       RealType const& x = c.param;
       beta_distribution<RealType, Policy> const& dist = c.dist;
@@ -463,7 +463,7 @@ namespace boost
       // will be less than or equal to that value
       // is whatever probability you supplied as an argument.
 
-      static const char* function = "boost::math::quantile(beta_distribution<%1%> const&, %1%)";
+      static const char* function = "std::math::quantile(beta_distribution<%1%> const&, %1%)";
 
       RealType result = 0; // of argument checks:
       RealType a = dist.alpha();
@@ -493,7 +493,7 @@ namespace boost
       // Return the number of expected x for a given
       // complement of the probability q.
 
-      static const char* function = "boost::math::quantile(beta_distribution<%1%> const&, %1%)";
+      static const char* function = "std::math::quantile(beta_distribution<%1%> const&, %1%)";
 
       //
       // Error checks:

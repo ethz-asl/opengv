@@ -59,7 +59,7 @@ public:
     explicit scoped_ptr( T * p = 0 ): px( p ) // never throws
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        boost::sp_scalar_constructor_hook( px );
+        std::sp_scalar_constructor_hook( px );
 #endif
     }
 
@@ -68,7 +68,7 @@ public:
     explicit scoped_ptr( std::auto_ptr<T> p ) BOOST_NOEXCEPT : px( p.release() )
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        boost::sp_scalar_constructor_hook( px );
+        std::sp_scalar_constructor_hook( px );
 #endif
     }
 
@@ -77,9 +77,9 @@ public:
     ~scoped_ptr() // never throws
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        boost::sp_scalar_destructor_hook( px );
+        std::sp_scalar_destructor_hook( px );
 #endif
-        boost::checked_delete( px );
+        std::checked_delete( px );
     }
 
     void reset(T * p = 0) // never throws
@@ -118,22 +118,22 @@ public:
 
 #if !defined( BOOST_NO_CXX11_NULLPTR )
 
-template<class T> inline bool operator==( scoped_ptr<T> const & p, boost::detail::sp_nullptr_t ) BOOST_NOEXCEPT
+template<class T> inline bool operator==( scoped_ptr<T> const & p, std::detail::sp_nullptr_t ) BOOST_NOEXCEPT
 {
     return p.get() == 0;
 }
 
-template<class T> inline bool operator==( boost::detail::sp_nullptr_t, scoped_ptr<T> const & p ) BOOST_NOEXCEPT
+template<class T> inline bool operator==( std::detail::sp_nullptr_t, scoped_ptr<T> const & p ) BOOST_NOEXCEPT
 {
     return p.get() == 0;
 }
 
-template<class T> inline bool operator!=( scoped_ptr<T> const & p, boost::detail::sp_nullptr_t ) BOOST_NOEXCEPT
+template<class T> inline bool operator!=( scoped_ptr<T> const & p, std::detail::sp_nullptr_t ) BOOST_NOEXCEPT
 {
     return p.get() != 0;
 }
 
-template<class T> inline bool operator!=( boost::detail::sp_nullptr_t, scoped_ptr<T> const & p ) BOOST_NOEXCEPT
+template<class T> inline bool operator!=( std::detail::sp_nullptr_t, scoped_ptr<T> const & p ) BOOST_NOEXCEPT
 {
     return p.get() != 0;
 }

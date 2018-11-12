@@ -55,10 +55,10 @@ public:
    {
       RealType result;
       detail::check_df(
-         "boost::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
+         "std::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
          m_df, &result, Policy())
          && detail::check_scale(
-"boost::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
+"std::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
          m_scale, &result,  Policy());
    } // inverse_chi_squared_distribution constructor 
 
@@ -67,7 +67,7 @@ public:
       RealType result;
       m_scale = 1 / m_df ; // Default scale = 1 / degrees of freedom (Wikipedia definition 1).
       detail::check_df(
-         "boost::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
+         "std::math::inverse_chi_squared_distribution<%1%>::inverse_chi_squared_distribution",
          m_df, &result, Policy());
    } // inverse_chi_squared_distribution
 
@@ -100,7 +100,7 @@ typedef inverse_chi_squared_distribution<double> inverse_chi_squared;
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const inverse_chi_squared_distribution<RealType, Policy>& /*dist*/)
 {  // Range of permissible values for random variable x.
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // 0 to + infinity.
 }
 
@@ -119,7 +119,7 @@ RealType pdf(const inverse_chi_squared_distribution<RealType, Policy>& dist, con
    RealType scale = dist.scale();
    RealType error_result;
 
-   static const char* function = "boost::math::pdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::pdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
 
    if(false == detail::check_inverse_chi_squared
      (function, df, scale, &error_result, Policy())
@@ -127,7 +127,7 @@ RealType pdf(const inverse_chi_squared_distribution<RealType, Policy>& dist, con
    { // Bad distribution.
       return error_result;
    }
-   if((x < 0) || !(boost::math::isfinite)(x))
+   if((x < 0) || !(std::math::isfinite)(x))
    { // Bad x.
       return policies::raise_domain_error<RealType>(
          function, "inverse Chi Square parameter was %1%, but must be >= 0 !", x, Policy());
@@ -154,7 +154,7 @@ RealType pdf(const inverse_chi_squared_distribution<RealType, Policy>& dist, con
 template <class RealType, class Policy>
 inline RealType cdf(const inverse_chi_squared_distribution<RealType, Policy>& dist, const RealType& x)
 {
-   static const char* function = "boost::math::cdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
    RealType df = dist.degrees_of_freedom();
    RealType scale = dist.scale();
    RealType error_result;
@@ -165,7 +165,7 @@ inline RealType cdf(const inverse_chi_squared_distribution<RealType, Policy>& di
    { // Bad distribution.
       return error_result;
    }
-   if((x < 0) || !(boost::math::isfinite)(x))
+   if((x < 0) || !(std::math::isfinite)(x))
    { // Bad x.
       return policies::raise_domain_error<RealType>(
          function, "inverse Chi Square parameter was %1%, but must be >= 0 !", x, Policy());
@@ -176,18 +176,18 @@ inline RealType cdf(const inverse_chi_squared_distribution<RealType, Policy>& di
    }
    // RealType shape = df /2; // inv_gamma shape,
    // RealType scale = df * scale/2; // inv_gamma scale,
-   // result = boost::math::gamma_q(shape, scale / x, Policy()); // inverse_gamma code.
-   return boost::math::gamma_q(df / 2, (df * (scale / 2)) / x, Policy());
+   // result = std::math::gamma_q(shape, scale / x, Policy()); // inverse_gamma code.
+   return std::math::gamma_q(df / 2, (df * (scale / 2)) / x, Policy());
 } // cdf
 
 template <class RealType, class Policy>
 inline RealType quantile(const inverse_chi_squared_distribution<RealType, Policy>& dist, const RealType& p)
 {
-   using boost::math::gamma_q_inv;
+   using std::math::gamma_q_inv;
    RealType df = dist.degrees_of_freedom();
    RealType scale = dist.scale();
 
-   static const char* function = "boost::math::quantile(const inverse_chi_squared_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const inverse_chi_squared_distribution<%1%>&, %1%)";
    // Error check:
    RealType error_result;
    if(false == detail::check_df(
@@ -215,11 +215,11 @@ inline RealType quantile(const inverse_chi_squared_distribution<RealType, Policy
 template <class RealType, class Policy>
 inline RealType cdf(const complemented2_type<inverse_chi_squared_distribution<RealType, Policy>, RealType>& c)
 {
-   using boost::math::gamma_q_inv;
+   using std::math::gamma_q_inv;
    RealType const& df = c.dist.degrees_of_freedom();
    RealType const& scale = c.dist.scale();
    RealType const& x = c.param;
-   static const char* function = "boost::math::cdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::cdf(const inverse_chi_squared_distribution<%1%>&, %1%)";
    // Error check:
    RealType error_result;
    if(false == detail::check_df(
@@ -231,7 +231,7 @@ inline RealType cdf(const complemented2_type<inverse_chi_squared_distribution<Re
    { // Treat zero as a special case.
      return 1;
    }
-   if((x < 0) || !(boost::math::isfinite)(x))
+   if((x < 0) || !(std::math::isfinite)(x))
    {
       return policies::raise_domain_error<RealType>(
          function, "inverse Chi Square parameter was %1%, but must be > 0 !", x, Policy());
@@ -246,12 +246,12 @@ inline RealType cdf(const complemented2_type<inverse_chi_squared_distribution<Re
 template <class RealType, class Policy>
 inline RealType quantile(const complemented2_type<inverse_chi_squared_distribution<RealType, Policy>, RealType>& c)
 {
-   using boost::math::gamma_q_inv;
+   using std::math::gamma_q_inv;
 
    RealType const& df = c.dist.degrees_of_freedom();
    RealType const& scale = c.dist.scale();
    RealType const& q = c.param;
-   static const char* function = "boost::math::quantile(const inverse_chi_squared_distribution<%1%>&, %1%)";
+   static const char* function = "std::math::quantile(const inverse_chi_squared_distribution<%1%>&, %1%)";
    // Error check:
    RealType error_result;
    if(false == detail::check_df(function, df, &error_result, Policy()))
@@ -278,7 +278,7 @@ inline RealType mean(const inverse_chi_squared_distribution<RealType, Policy>& d
    RealType df = dist.degrees_of_freedom();
    RealType scale = dist.scale();
 
-   static const char* function = "boost::math::mean(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::mean(const inverse_chi_squared_distribution<%1%>&)";
    if(df <= 2)
       return policies::raise_domain_error<RealType>(
          function,
@@ -292,7 +292,7 @@ inline RealType variance(const inverse_chi_squared_distribution<RealType, Policy
 { // Variance of inverse Chi-Squared distribution.
    RealType df = dist.degrees_of_freedom();
    RealType scale = dist.scale();
-   static const char* function = "boost::math::variance(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::variance(const inverse_chi_squared_distribution<%1%>&)";
    if(df <= 4)
    {
       return policies::raise_domain_error<RealType>(
@@ -311,7 +311,7 @@ inline RealType mode(const inverse_chi_squared_distribution<RealType, Policy>& d
 
    RealType df = dist.degrees_of_freedom();
    RealType scale = dist.scale();
-   static const char* function = "boost::math::mode(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::mode(const inverse_chi_squared_distribution<%1%>&)";
    if(df < 0)
       return policies::raise_domain_error<RealType>(
          function,
@@ -338,7 +338,7 @@ inline RealType skewness(const inverse_chi_squared_distribution<RealType, Policy
 {
    BOOST_MATH_STD_USING // For ADL
    RealType df = dist.degrees_of_freedom();
-   static const char* function = "boost::math::skewness(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::skewness(const inverse_chi_squared_distribution<%1%>&)";
    if(df <= 6)
       return policies::raise_domain_error<RealType>(
          function,
@@ -352,7 +352,7 @@ template <class RealType, class Policy>
 inline RealType kurtosis(const inverse_chi_squared_distribution<RealType, Policy>& dist)
 {
    RealType df = dist.degrees_of_freedom();
-   static const char* function = "boost::math::kurtosis(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::kurtosis(const inverse_chi_squared_distribution<%1%>&)";
    if(df <= 8)
       return policies::raise_domain_error<RealType>(
          function,
@@ -366,7 +366,7 @@ template <class RealType, class Policy>
 inline RealType kurtosis_excess(const inverse_chi_squared_distribution<RealType, Policy>& dist)
 {
    RealType df = dist.degrees_of_freedom();
-   static const char* function = "boost::math::kurtosis(const inverse_chi_squared_distribution<%1%>&)";
+   static const char* function = "std::math::kurtosis(const inverse_chi_squared_distribution<%1%>&)";
    if(df <= 8)
       return policies::raise_domain_error<RealType>(
          function,

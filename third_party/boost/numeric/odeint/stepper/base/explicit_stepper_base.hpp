@@ -130,7 +130,7 @@ public:
      * the disable is needed to avoid ambiguous overloads if state_type = time_type
      */
     template< class System , class StateInOut , class DerivIn >
-    typename boost::disable_if< boost::is_same< DerivIn , time_type > , void >::type
+    typename std::disable_if< std::is_same< DerivIn , time_type > , void >::type
     do_step( System system , StateInOut &x , const DerivIn &dxdt , time_type t , time_type dt )
     {
         this->stepper().do_step_impl( system , x , dxdt , t , x , dt );
@@ -264,8 +264,8 @@ protected:
  *   - `do_step( sys , in , dxdt , t , out , dt )` - This method update the state out-of-place and expects that the derivative at the point 
  *     `t` is explicitly passed in `dxdt`. It is a combination of the two `do_step` methods above.
  *
- * \note The system is always passed as value, which might result in poor performance if it contains data. In this case it can be used with `boost::ref`
- * or `std::ref`, for example `stepper.do_step( boost::ref( sys ) , x , t , dt );`
+ * \note The system is always passed as value, which might result in poor performance if it contains data. In this case it can be used with `std::ref`
+ * or `std::ref`, for example `stepper.do_step( std::ref( sys ) , x , t , dt );`
  *
  * \note The time `t` is not advanced by the stepper. This has to done manually, or by the appropriate `integrate` routines or `iterator`s.
  *

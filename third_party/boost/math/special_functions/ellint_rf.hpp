@@ -34,9 +34,9 @@ T ellint_rf_imp(T x, T y, T z, const Policy& pol)
     unsigned long k;
 
     BOOST_MATH_STD_USING
-    using namespace boost::math::tools;
+    using namespace std::math::tools;
 
-    static const char* function = "boost::math::ellint_rf<%1%>(%1%,%1%,%1%)";
+    static const char* function = "std::math::ellint_rf<%1%>(%1%,%1%,%1%)";
 
     if (x < 0 || y < 0 || z < 0)
     {
@@ -116,7 +116,7 @@ inline typename tools::promote_args<T1, T2, T3>::type
       detail::ellint_rf_imp(
          static_cast<value_type>(x),
          static_cast<value_type>(y),
-         static_cast<value_type>(z), pol), "boost::math::ellint_rf<%1%>(%1%,%1%,%1%)");
+         static_cast<value_type>(z), pol), "std::math::ellint_rf<%1%>(%1%,%1%,%1%)");
 }
 
 template <class T1, class T2, class T3>

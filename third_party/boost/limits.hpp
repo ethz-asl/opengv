@@ -26,8 +26,8 @@
 #  define BOOST_LLT __int64
 #  define BOOST_ULLT unsigned __int64
 #else
-#  define BOOST_LLT  ::boost::long_long_type
-#  define BOOST_ULLT  ::boost::ulong_long_type
+#  define BOOST_LLT  ::std::long_long_type
+#  define BOOST_ULLT  ::std::ulong_long_type
 #endif
 
 #include <climits>  // for CHAR_BIT

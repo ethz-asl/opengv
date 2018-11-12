@@ -62,7 +62,7 @@ namespace boost { namespace numeric { namespace convdetail
         type ;
   } ;
 
-} } } // namespace boost::numeric::convdetail
+} } } // namespace std::numeric::convdetail
 
 #endif
 

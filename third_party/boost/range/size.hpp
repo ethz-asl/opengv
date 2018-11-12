@@ -29,9 +29,9 @@ namespace boost
         inline BOOST_DEDUCED_TYPENAME range_size<const SinglePassRange>::type
         range_calculate_size(const SinglePassRange& rng)
         {
-            BOOST_ASSERT( (boost::end(rng) - boost::begin(rng)) >= 0 &&
+            BOOST_ASSERT( (std::end(rng) - std::begin(rng)) >= 0 &&
                           "reachability invariant broken!" );
-            return boost::end(rng) - boost::begin(rng);
+            return std::end(rng) - std::begin(rng);
         }
     }
 

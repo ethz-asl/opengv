@@ -57,16 +57,16 @@ public:
     explicit scoped_array( T * p = 0 ) BOOST_NOEXCEPT : px( p )
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        boost::sp_array_constructor_hook( px );
+        std::sp_array_constructor_hook( px );
 #endif
     }
 
     ~scoped_array() // never throws
     {
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
-        boost::sp_array_destructor_hook( px );
+        std::sp_array_destructor_hook( px );
 #endif
-        boost::checked_array_delete( px );
+        std::checked_array_delete( px );
     }
 
     void reset(T * p = 0) // never throws (but has a BOOST_ASSERT in it, so not marked with BOOST_NOEXCEPT)
@@ -100,22 +100,22 @@ public:
 
 #if !defined( BOOST_NO_CXX11_NULLPTR )
 
-template<class T> inline bool operator==( scoped_array<T> const & p, boost::detail::sp_nullptr_t ) BOOST_NOEXCEPT
+template<class T> inline bool operator==( scoped_array<T> const & p, std::detail::sp_nullptr_t ) BOOST_NOEXCEPT
 {
     return p.get() == 0;
 }
 
-template<class T> inline bool operator==( boost::detail::sp_nullptr_t, scoped_array<T> const & p ) BOOST_NOEXCEPT
+template<class T> inline bool operator==( std::detail::sp_nullptr_t, scoped_array<T> const & p ) BOOST_NOEXCEPT
 {
     return p.get() == 0;
 }
 
-template<class T> inline bool operator!=( scoped_array<T> const & p, boost::detail::sp_nullptr_t ) BOOST_NOEXCEPT
+template<class T> inline bool operator!=( scoped_array<T> const & p, std::detail::sp_nullptr_t ) BOOST_NOEXCEPT
 {
     return p.get() != 0;
 }
 
-template<class T> inline bool operator!=( boost::detail::sp_nullptr_t, scoped_array<T> const & p ) BOOST_NOEXCEPT
+template<class T> inline bool operator!=( std::detail::sp_nullptr_t, scoped_array<T> const & p ) BOOST_NOEXCEPT
 {
     return p.get() != 0;
 }

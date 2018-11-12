@@ -28,42 +28,42 @@ namespace boost
         struct void_ { typedef void_ type; };
     }
 
-    template<> struct range_iterator< ::boost::range_detail::void_ >
+    template<> struct range_iterator< ::std::range_detail::void_ >
     {
-       typedef ::boost::tuples::null_type type;
+       typedef ::std::tuples::null_type type;
     };
 
     namespace range_detail
     {
-        inline ::boost::tuples::null_type range_begin( ::boost::range_detail::void_& )
-        { return ::boost::tuples::null_type(); }
+        inline ::std::tuples::null_type range_begin( ::std::range_detail::void_& )
+        { return ::std::tuples::null_type(); }
 
-        inline ::boost::tuples::null_type range_begin( const ::boost::range_detail::void_& )
-        { return ::boost::tuples::null_type(); }
+        inline ::std::tuples::null_type range_begin( const ::std::range_detail::void_& )
+        { return ::std::tuples::null_type(); }
 
-        inline ::boost::tuples::null_type range_end( ::boost::range_detail::void_& )
-        { return ::boost::tuples::null_type(); }
+        inline ::std::tuples::null_type range_end( ::std::range_detail::void_& )
+        { return ::std::tuples::null_type(); }
 
-        inline ::boost::tuples::null_type range_end( const ::boost::range_detail::void_& )
-        { return ::boost::tuples::null_type(); }
+        inline ::std::tuples::null_type range_end( const ::std::range_detail::void_& )
+        { return ::std::tuples::null_type(); }
 
         template< class T >
         struct tuple_iter
         {
-            typedef BOOST_DEDUCED_TYPENAME ::boost::mpl::eval_if_c<
-                ::boost::is_same<T, ::boost::range_detail::void_ >::value,
-                ::boost::mpl::identity< ::boost::tuples::null_type >,
-                ::boost::range_iterator<T>
+            typedef BOOST_DEDUCED_TYPENAME ::std::mpl::eval_if_c<
+                ::std::is_same<T, ::std::range_detail::void_ >::value,
+                ::std::mpl::identity< ::std::tuples::null_type >,
+                ::std::range_iterator<T>
             >::type type;
         };
 
         template< class Rng1, class Rng2 >
         struct tuple_range
         {
-            typedef BOOST_DEDUCED_TYPENAME ::boost::mpl::eval_if_c<
-                ::boost::is_same<Rng1, ::boost::range_detail::void_ >::value,
-                ::boost::range_detail::void_,
-                ::boost::mpl::identity<Rng1>
+            typedef BOOST_DEDUCED_TYPENAME ::std::mpl::eval_if_c<
+                ::std::is_same<Rng1, ::std::range_detail::void_ >::value,
+                ::std::range_detail::void_,
+                ::std::mpl::identity<Rng1>
             >::type type;
         };
 
@@ -78,7 +78,7 @@ namespace boost
         >
         struct generate_tuple
         {
-            typedef ::boost::tuples::tuple<
+            typedef ::std::tuples::tuple<
                         BOOST_DEDUCED_TYPENAME tuple_iter<R1>::type,
                         BOOST_DEDUCED_TYPENAME tuple_iter<R2>::type,
                         BOOST_DEDUCED_TYPENAME tuple_iter<R3>::type,
@@ -89,22 +89,22 @@ namespace boost
 
             static type begin( R1& r1, R2& r2, R3& r3, R4& r4, R5& r5, R6& r6 )
             {
-                return ::boost::tuples::make_tuple( ::boost::begin(r1),
-                                                    ::boost::begin(r2),
-                                                    ::boost::begin(r3),
-                                                    ::boost::begin(r4),
-                                                    ::boost::begin(r5),
-                                                    ::boost::begin(r6) );
+                return ::std::tuples::make_tuple( ::std::begin(r1),
+                                                    ::std::begin(r2),
+                                                    ::std::begin(r3),
+                                                    ::std::begin(r4),
+                                                    ::std::begin(r5),
+                                                    ::std::begin(r6) );
             }
 
             static type end( R1& r1, R2& r2, R3& r3, R4& r4, R5& r5, R6& r6 )
             {
-                return ::boost::tuples::make_tuple( ::boost::end(r1),
-                                                    ::boost::end(r2),
-                                                    ::boost::end(r3),
-                                                    ::boost::end(r4),
-                                                    ::boost::end(r5),
-                                                    ::boost::end(r6) );
+                return ::std::tuples::make_tuple( ::std::end(r1),
+                                                    ::std::end(r2),
+                                                    ::std::end(r3),
+                                                    ::std::end(r4),
+                                                    ::std::end(r5),
+                                                    ::std::end(r6) );
             }
         };
 
@@ -135,11 +135,11 @@ namespace boost
             : base_t( zip_iter_t( generator_t::begin(r1,r2,r3,r4,r5,r6) ),
                       zip_iter_t( generator_t::end(r1,r2,r3,r4,r5,r6) ) )
             {
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r2));
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r3));
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r4));
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r5));
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r6));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r2));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r3));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r4));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r5));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r6));
             }
 
             template< class Zip, class Rng >
@@ -151,20 +151,20 @@ namespace boost
                 // @todo: tuple::begin( should be overloaded for this situation
             }
 
-            struct tuple_length : ::boost::tuples::length<tuple_t>
+            struct tuple_length : ::std::tuples::length<tuple_t>
             { };
 
             template< unsigned N >
             struct get
             {
                 template< class Z, class R >
-                static BOOST_DEDUCED_TYPENAME ::boost::tuples::element<N,tuple_t>::type begin( Z& z, R& )
+                static BOOST_DEDUCED_TYPENAME ::std::tuples::element<N,tuple_t>::type begin( Z& z, R& )
                 {
                     return get<N>( z.begin().get_iterator_tuple() );
                 }
 
                 template< class Z, class R >
-                static BOOST_DEDUCED_TYPENAME ::boost::tuples::element<N,tuple_t>::type end( Z& z, R& r )
+                static BOOST_DEDUCED_TYPENAME ::std::tuples::element<N,tuple_t>::type end( Z& z, R& r )
                 {
                     return get<N>( z.end().get_iterator_tuple() );
                 }
@@ -176,30 +176,30 @@ namespace boost
         struct zip_range
             : iterator_range<
                 zip_iterator<
-                    ::boost::tuples::tuple<
-                        BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng1>::type,
-                        BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng2>::type
+                    ::std::tuples::tuple<
+                        BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng1>::type,
+                        BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng2>::type
                     >
                 >
             >
         {
         private:
             typedef zip_iterator<
-                        ::boost::tuples::tuple<
-                            BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng1>::type,
-                            BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng2>::type
+                        ::std::tuples::tuple<
+                            BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng1>::type,
+                            BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng2>::type
                         >
                     > zip_iter_t;
             typedef iterator_range<zip_iter_t> base_t;
 
         public:
             zip_range( Rng1& r1, Rng2& r2 )
-            : base_t( zip_iter_t( ::boost::tuples::make_tuple(::boost::begin(r1),
-                                                              ::boost::begin(r2)) ),
-                      zip_iter_t( ::boost::tuples::make_tuple(::boost::end(r1),
-                                                              ::boost::end(r2)) ) )
+            : base_t( zip_iter_t( ::std::tuples::make_tuple(::std::begin(r1),
+                                                              ::std::begin(r2)) ),
+                      zip_iter_t( ::std::tuples::make_tuple(::std::end(r1),
+                                                              ::std::end(r2)) ) )
             {
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r2));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r2));
             }
         };
 
@@ -207,36 +207,36 @@ namespace boost
         struct zip_range3
             : iterator_range<
                 zip_iterator<
-                    ::boost::tuples::tuple<
-                        BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng1>::type,
-                        BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng2>::type,
-                        BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng3>::type
+                    ::std::tuples::tuple<
+                        BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng1>::type,
+                        BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng2>::type,
+                        BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng3>::type
                     >
                 >
             >
         {
         private:
             typedef zip_iterator<
-                ::boost::tuples::tuple<
-                    BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng1>::type,
-                    BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng2>::type,
-                    BOOST_DEDUCED_TYPENAME ::boost::range_iterator<Rng3>::type
+                ::std::tuples::tuple<
+                    BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng1>::type,
+                    BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng2>::type,
+                    BOOST_DEDUCED_TYPENAME ::std::range_iterator<Rng3>::type
                 >
             > zip_iter_t;
             typedef iterator_range<zip_iter_t> base_t;
 
         public:
             zip_range3( Rng1& r1, Rng2& r2, Rng3& r3 )
-            : base_t( zip_iter_t( ::boost::tuples::make_tuple(::boost::begin(r1),
-                                                              ::boost::begin(r2),
-                                                              ::boost::begin(r3)) ),
-                      zip_iter_t( ::boost::tuples::make_tuple(::boost::end(r1),
-                                                              ::boost::end(r2),
-                                                              ::boost::end(r3)) )
+            : base_t( zip_iter_t( ::std::tuples::make_tuple(::std::begin(r1),
+                                                              ::std::begin(r2),
+                                                              ::std::begin(r3)) ),
+                      zip_iter_t( ::std::tuples::make_tuple(::std::end(r1),
+                                                              ::std::end(r2),
+                                                              ::std::end(r3)) )
                     )
             {
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r2));
-                BOOST_ASSERT(::boost::distance(r1) <= ::boost::distance(r3));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r2));
+                BOOST_ASSERT(::std::distance(r1) <= ::std::distance(r3));
             }
         };
 
@@ -276,27 +276,27 @@ namespace boost
     } // namespace range_detail
 
     template< class Rng1, class Rng2 >
-    inline ::boost::range_detail::zip_range<Rng1, Rng2> combine( Rng1& r1, Rng2& r2 )
+    inline ::std::range_detail::zip_range<Rng1, Rng2> combine( Rng1& r1, Rng2& r2 )
     {
-        return ::boost::range_detail::zip_range<Rng1, Rng2>(r1, r2);
+        return ::std::range_detail::zip_range<Rng1, Rng2>(r1, r2);
     }
 
     template< class Rng1, class Rng2 >
-    inline ::boost::range_detail::zip_range<const Rng1, Rng2> combine( const Rng1& r1, Rng2& r2 )
+    inline ::std::range_detail::zip_range<const Rng1, Rng2> combine( const Rng1& r1, Rng2& r2 )
     {
-        return ::boost::range_detail::zip_range<const Rng1, Rng2>(r1, r2);
+        return ::std::range_detail::zip_range<const Rng1, Rng2>(r1, r2);
     }
 
     template< class Rng1, class Rng2 >
-    inline ::boost::range_detail::zip_range<Rng1, const Rng2> combine( Rng1& r1, const Rng2& r2 )
+    inline ::std::range_detail::zip_range<Rng1, const Rng2> combine( Rng1& r1, const Rng2& r2 )
     {
-        return ::boost::range_detail::zip_range<Rng1, const Rng2>(r1, r2);
+        return ::std::range_detail::zip_range<Rng1, const Rng2>(r1, r2);
     }
 
     template< class Rng1, class Rng2 >
-    inline ::boost::range_detail::zip_range<const Rng1, const Rng2> combine( const Rng1& r1, const Rng2& r2 )
+    inline ::std::range_detail::zip_range<const Rng1, const Rng2> combine( const Rng1& r1, const Rng2& r2 )
     {
-        return ::boost::range_detail::zip_range<const Rng1, const Rng2>(r1, r2);
+        return ::std::range_detail::zip_range<const Rng1, const Rng2>(r1, r2);
     }
 
 } // namespace boost

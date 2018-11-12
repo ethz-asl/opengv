@@ -112,7 +112,7 @@ T expm1_imp(T x, const mpl::int_<0>&, const Policy& pol)
       if(a >= tools::log_max_value<T>())
       {
          if(x > 0)
-            return policies::raise_overflow_error<T>("boost::math::expm1<%1%>(%1%)", 0, pol);
+            return policies::raise_overflow_error<T>("std::math::expm1<%1%>(%1%)", 0, pol);
          return -1;
       }
       return exp(x) - T(1);
@@ -120,14 +120,14 @@ T expm1_imp(T x, const mpl::int_<0>&, const Policy& pol)
    if(a < tools::epsilon<T>())
       return x;
    detail::expm1_series<T> s(x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582)) && !BOOST_WORKAROUND(__EDG_VERSION__, <= 245)
    T result = tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter);
 #else
    T zero = 0;
    T result = tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, zero);
 #endif
-   policies::check_series_iterations<T>("boost::math::expm1<%1%>(%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::expm1<%1%>(%1%)", max_iter, pol);
    return result;
 }
 
@@ -142,7 +142,7 @@ T expm1_imp(T x, const mpl::int_<53>&, const P& pol)
       if(a >= tools::log_max_value<T>())
       {
          if(x > 0)
-            return policies::raise_overflow_error<T>("boost::math::expm1<%1%>(%1%)", 0, pol);
+            return policies::raise_overflow_error<T>("std::math::expm1<%1%>(%1%)", 0, pol);
          return -1;
       }
       return exp(x) - T(1);
@@ -169,7 +169,7 @@ T expm1_imp(T x, const mpl::int_<64>&, const P& pol)
       if(a >= tools::log_max_value<T>())
       {
          if(x > 0)
-            return policies::raise_overflow_error<T>("boost::math::expm1<%1%>(%1%)", 0, pol);
+            return policies::raise_overflow_error<T>("std::math::expm1<%1%>(%1%)", 0, pol);
          return -1;
       }
       return exp(x) - T(1);
@@ -212,7 +212,7 @@ T expm1_imp(T x, const mpl::int_<113>&, const P& pol)
       if(a >= tools::log_max_value<T>())
       {
          if(x > 0)
-            return policies::raise_overflow_error<T>("boost::math::expm1<%1%>(%1%)", 0, pol);
+            return policies::raise_overflow_error<T>("std::math::expm1<%1%>(%1%)", 0, pol);
          return -1;
       }
       return exp(x) - T(1);
@@ -288,7 +288,7 @@ inline typename tools::promote_args<T>::type expm1(T x, const Policy& /* pol */)
    
    return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::expm1_imp(
       static_cast<value_type>(x),
-      tag_type(), forwarding_policy()), "boost::math::expm1<%1%>(%1%)");
+      tag_type(), forwarding_policy()), "std::math::expm1<%1%>(%1%)");
 }
 
 #ifdef expm1

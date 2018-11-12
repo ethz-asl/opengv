@@ -31,7 +31,7 @@ namespace boost {
         public:
             format_error()  {}
             virtual const char *what() const throw() {
-                return "boost::format_error: "
+                return "std::format_error: "
                     "format generic failure";
             }
         };
@@ -45,7 +45,7 @@ namespace boost {
             std::size_t get_pos() const { return pos_; }
             std::size_t get_next() const { return next_; }
             virtual const char *what() const throw() {
-                return "boost::bad_format_string: format-string is ill-formed";
+                return "std::bad_format_string: format-string is ill-formed";
             }
         };
 
@@ -58,7 +58,7 @@ namespace boost {
             std::size_t get_cur() const { return cur_; }
             std::size_t get_expected() const { return expected_; }
             virtual const char *what() const throw() {
-                return "boost::too_few_args: "
+                return "std::too_few_args: "
                     "format-string referred to more arguments than were passed";
             }
         };
@@ -72,7 +72,7 @@ namespace boost {
             std::size_t get_cur() const { return cur_; }
             std::size_t get_expected() const { return expected_; }
             virtual const char *what() const throw() {
-                return "boost::too_many_args: "
+                return "std::too_many_args: "
                     "format-string referred to less arguments than were passed";
             }
         };
@@ -88,7 +88,7 @@ namespace boost {
             int get_beg() const { return beg_; }
             int get_end() const { return end_; }
             virtual const char *what() const throw() {
-                return "boost::out_of_range: "
+                return "std::out_of_range: "
                     "tried to refer to an argument (or item) number which"
                     " is out of range, according to the format string";
             }

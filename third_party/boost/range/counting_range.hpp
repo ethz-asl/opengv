@@ -38,11 +38,11 @@ namespace boost
     {
         typedef counting_iterator<BOOST_DEDUCED_TYPENAME range_value<const Range>::type> counting_iterator_t;
         typedef iterator_range<counting_iterator_t> result_t;
-        return boost::empty(rng)
+        return std::empty(rng)
             ? result_t()
             : result_t(
-                counting_iterator_t(*boost::begin(rng)),
-                counting_iterator_t(*boost::prior(boost::end(rng))));
+                counting_iterator_t(*std::begin(rng)),
+                counting_iterator_t(*std::prior(std::end(rng))));
     }
 
     template<class Range>
@@ -51,11 +51,11 @@ namespace boost
     {
         typedef counting_iterator<BOOST_DEDUCED_TYPENAME range_value<Range>::type> counting_iterator_t;
         typedef iterator_range<counting_iterator_t> result_t;
-        return boost::empty(rng)
+        return std::empty(rng)
             ? result_t()
             : result_t(
-                counting_iterator_t(*boost::begin(rng)),
-                counting_iterator_t(*boost::prior(boost::end(rng))));
+                counting_iterator_t(*std::begin(rng)),
+                counting_iterator_t(*std::prior(std::end(rng))));
     }
 } // namespace boost
 

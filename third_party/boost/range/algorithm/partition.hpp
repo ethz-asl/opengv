@@ -31,7 +31,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type
 partition(ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return std::partition(boost::begin(rng),boost::end(rng),pred);
+    return std::partition(std::begin(rng),std::end(rng),pred);
 }
 
 /// \overload
@@ -40,7 +40,7 @@ inline BOOST_DEDUCED_TYPENAME range_iterator<ForwardRange>::type
 partition(const ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return std::partition(boost::begin(rng),boost::end(rng),pred);
+    return std::partition(std::begin(rng),std::end(rng),pred);
 }
 
 // range_return overloads
@@ -52,8 +52,8 @@ inline BOOST_DEDUCED_TYPENAME range_return<ForwardRange,re>::type
 partition(ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return boost::range_return<ForwardRange,re>::
-        pack(std::partition(boost::begin(rng), boost::end(rng), pred), rng);
+    return std::range_return<ForwardRange,re>::
+        pack(std::partition(std::begin(rng), std::end(rng), pred), rng);
 }
 
 /// \overload
@@ -63,8 +63,8 @@ inline BOOST_DEDUCED_TYPENAME range_return<const ForwardRange,re>::type
 partition(const ForwardRange& rng, UnaryPredicate pred)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-    return boost::range_return<const ForwardRange,re>::
-        pack(std::partition(boost::begin(rng), boost::end(rng), pred), rng);
+    return std::range_return<const ForwardRange,re>::
+        pack(std::partition(std::begin(rng), std::end(rng), pred), rng);
 }
 
     } // namespace range

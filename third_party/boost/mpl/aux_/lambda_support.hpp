@@ -113,21 +113,21 @@ template< typename T > struct has_rebind_tag;
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610))
 #   define BOOST_MPL_AUX_LAMBDA_SUPPORT_HAS_REBIND(i, name, params) \
 template< BOOST_MPL_PP_PARAMS(i,typename T) > \
-::boost::mpl::aux::yes_tag operator|( \
-      ::boost::mpl::aux::has_rebind_tag<int> \
+::std::mpl::aux::yes_tag operator|( \
+      ::std::mpl::aux::has_rebind_tag<int> \
     , name<BOOST_MPL_PP_PARAMS(i,T)>* \
     ); \
-::boost::mpl::aux::no_tag operator|( \
-      ::boost::mpl::aux::has_rebind_tag<int> \
-    , name< BOOST_MPL_PP_ENUM(i,::boost::mpl::na) >* \
+::std::mpl::aux::no_tag operator|( \
+      ::std::mpl::aux::has_rebind_tag<int> \
+    , name< BOOST_MPL_PP_ENUM(i,::std::mpl::na) >* \
     ); \
 /**/
 #elif !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
 #   define BOOST_MPL_AUX_LAMBDA_SUPPORT_HAS_REBIND(i, name, params) \
 template< BOOST_MPL_PP_PARAMS(i,typename T) > \
-::boost::mpl::aux::yes_tag operator|( \
-      ::boost::mpl::aux::has_rebind_tag<int> \
-    , ::boost::mpl::aux::has_rebind_tag< name<BOOST_MPL_PP_PARAMS(i,T)> >* \
+::std::mpl::aux::yes_tag operator|( \
+      ::std::mpl::aux::has_rebind_tag<int> \
+    , ::std::mpl::aux::has_rebind_tag< name<BOOST_MPL_PP_PARAMS(i,T)> >* \
     ); \
 /**/
 #else

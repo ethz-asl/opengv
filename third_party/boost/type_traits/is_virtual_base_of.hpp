@@ -88,7 +88,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF2(
       is_virtual_base_of
        , Base
        , Derived
-       , (::boost::detail::is_virtual_base_of_impl2<Base,Derived>::value) 
+       , (::std::detail::is_virtual_base_of_impl2<Base,Derived>::value) 
 )
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION

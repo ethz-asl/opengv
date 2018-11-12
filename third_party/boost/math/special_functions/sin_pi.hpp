@@ -55,13 +55,13 @@ template <class T, class Policy>
 inline typename tools::promote_args<T>::type sin_pi(T x, const Policy& pol)
 {
    typedef typename tools::promote_args<T>::type result_type;
-   return boost::math::detail::sin_pi_imp<result_type>(x, pol);
+   return std::math::detail::sin_pi_imp<result_type>(x, pol);
 }
 
 template <class T>
 inline typename tools::promote_args<T>::type sin_pi(T x)
 {
-   return boost::math::sin_pi(x, policies::policy<>());
+   return std::math::sin_pi(x, policies::policy<>());
 }
 
 } // namespace math

@@ -73,7 +73,7 @@ struct power_if_positive<N, false>
         if (base == 0)
         {
             return policies::raise_overflow_error<T>(
-                       "boost::math::pow(%1%)",
+                       "std::math::pow(%1%)",
                        "Attempted to compute a negative power of 0",
                        policy
                    );
@@ -92,7 +92,7 @@ struct power_if_positive<0, true>
         if (base == 0)
         {
             return policies::raise_indeterminate_result_error<T>(
-                       "boost::math::pow(%1%)",
+                       "std::math::pow(%1%)",
                        "The result of pow<0>(%1%) is undetermined",
                        base,
                        T(1),

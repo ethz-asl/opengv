@@ -21,7 +21,7 @@ namespace boost { namespace numeric {
         typedef Trunc<Source>           rounding_policy;
     };
 
-}}//namespace boost::numeric;
+}}//namespace std::numeric;
 
 #if !defined( BOOST_NUMERIC_CONVERSION_RELAX_BUILT_IN_CAST_TRAITS )
 #include <boost/cstdint.hpp>

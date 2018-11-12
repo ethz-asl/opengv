@@ -209,8 +209,8 @@ namespace boost {
     BOOST_dynamic_bitset_is_numeric(unsigned long);
 
 #if defined(BOOST_HAS_LONG_LONG)
-    BOOST_dynamic_bitset_is_numeric(::boost::long_long_type);
-    BOOST_dynamic_bitset_is_numeric(::boost::ulong_long_type);
+    BOOST_dynamic_bitset_is_numeric(::std::long_long_type);
+    BOOST_dynamic_bitset_is_numeric(::std::ulong_long_type);
 #endif
 
     // intentionally omitted

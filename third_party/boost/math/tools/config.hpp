@@ -11,7 +11,7 @@
 #endif
 
 #include <boost/config.hpp>
-#include <boost/cstdint.hpp> // for boost::uintmax_t
+#include <boost/cstdint.hpp> // for std::uintmax_t
 #include <boost/detail/workaround.hpp>
 #include <algorithm>  // for min and max
 #include <boost/config/no_tr1/cmath.hpp>
@@ -114,10 +114,10 @@
 #  include "boost/type.hpp"
 #  include "boost/non_type.hpp"
 
-#  define BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(t)         boost::type<t>* = 0
-#  define BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(t)    boost::type<t>*
-#  define BOOST_MATH_EXPLICIT_TEMPLATE_NON_TYPE(t, v)  boost::non_type<t, v>* = 0
-#  define BOOST_MATH_EXPLICIT_TEMPLATE_NON_TYPE_SPEC(t, v)  boost::non_type<t, v>*
+#  define BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(t)         std::type<t>* = 0
+#  define BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(t)    std::type<t>*
+#  define BOOST_MATH_EXPLICIT_TEMPLATE_NON_TYPE(t, v)  std::non_type<t, v>* = 0
+#  define BOOST_MATH_EXPLICIT_TEMPLATE_NON_TYPE_SPEC(t, v)  std::non_type<t, v>*
 
 #  define BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE(t)         \
              , BOOST_MATH_EXPLICIT_TEMPLATE_TYPE(t)
@@ -312,7 +312,7 @@ namespace boost{ namespace math{
    } // namespace detail
    }} // namespaces
 
-#    define BOOST_FPU_EXCEPTION_GUARD boost::math::detail::fpu_guard local_guard_object;
+#    define BOOST_FPU_EXCEPTION_GUARD std::math::detail::fpu_guard local_guard_object;
 #    define BOOST_MATH_INSTRUMENT_FPU do{ fexcept_t cpu_flags; fegetexceptflag(&cpu_flags, FE_ALL_EXCEPT); BOOST_MATH_INSTRUMENT_VARIABLE(cpu_flags); } while(0); 
 
 #  else

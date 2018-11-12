@@ -34,7 +34,7 @@ template < int I, class T> struct tuple_element; // forward declaration
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T1, class T2> 
 struct tuple_size< ::std::pair<T1, T2> >
-   : public ::boost::integral_constant< ::std::size_t, 2>
+   : public ::std::integral_constant< ::std::size_t, 2>
 {
 };
 
@@ -55,43 +55,43 @@ namespace tuple_detail{
    template <int I, class T1, class T2>
    struct tuple_get_result
    {
-      typedef typename boost::mpl::if_c<I==0, T1, T2>::type t1;
-      typedef typename boost::add_reference<t1>::type type;
+      typedef typename std::mpl::if_c<I==0, T1, T2>::type t1;
+      typedef typename std::add_reference<t1>::type type;
    };
    template <int I, class T1, class T2>
    struct const_tuple_get_result
    {
-      typedef typename boost::mpl::if_c<I==0, T1, T2>::type t1;
+      typedef typename std::mpl::if_c<I==0, T1, T2>::type t1;
 # if BOOST_WORKAROUND( __BORLANDC__, BOOST_TESTED_AT( 0x582))
       // I have absolutely no idea why add_const is not working here for Borland!
       // It passes all other free-standing tests, some strange interaction going on
-      typedef typename boost::add_reference< const t1 >::type type;
+      typedef typename std::add_reference< const t1 >::type type;
 # else
-      typedef typename boost::add_const<t1>::type t2;
-      typedef typename boost::add_reference<t2>::type type;
+      typedef typename std::add_const<t1>::type t2;
+      typedef typename std::add_reference<t2>::type type;
 # endif
    };
 
 template<int I, class T1, class T2> 
-inline typename tuple_detail::tuple_get_result<I,T1,T2>::type get(std::pair<T1, T2>& p, const ::boost::true_type&)
+inline typename tuple_detail::tuple_get_result<I,T1,T2>::type get(std::pair<T1, T2>& p, const ::std::true_type&)
 {
    return p.first;
 }
 
 template<int I, class T1, class T2> 
-inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const std::pair<T1, T2>& p, const ::boost::true_type&)
+inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const std::pair<T1, T2>& p, const ::std::true_type&)
 {
    return p.first;
 }
 
 template<int I, class T1, class T2> 
-inline typename tuple_detail::tuple_get_result<I,T1,T2>::type get(std::pair<T1, T2>& p, const ::boost::false_type&)
+inline typename tuple_detail::tuple_get_result<I,T1,T2>::type get(std::pair<T1, T2>& p, const ::std::false_type&)
 {
    return p.second;
 }
 
 template<int I, class T1, class T2> 
-inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const std::pair<T1, T2>& p, const ::boost::false_type&)
+inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const std::pair<T1, T2>& p, const ::std::false_type&)
 {
    return p.second;
 }
@@ -101,13 +101,13 @@ inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const st
 template<int I, class T1, class T2> 
 inline typename tuple_detail::tuple_get_result<I,T1,T2>::type get(std::pair<T1, T2>& p)
 {
-   return tuple_detail::get<I>(p, boost::integral_constant<bool, I==0>());
+   return tuple_detail::get<I>(p, std::integral_constant<bool, I==0>());
 }
 
 template<int I, class T1, class T2> 
 inline typename tuple_detail::const_tuple_get_result<I,T1,T2>::type get(const std::pair<T1, T2>& p)
 {
-   return tuple_detail::get<I>(p, boost::integral_constant<bool, I==0>());
+   return tuple_detail::get<I>(p, std::integral_constant<bool, I==0>());
 }
 
 } } // namespaces

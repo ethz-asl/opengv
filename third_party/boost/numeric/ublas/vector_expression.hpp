@@ -36,7 +36,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E::difference_type difference_type;
         typedef typename E::value_type value_type;
         typedef typename E::const_reference const_reference;
-        typedef typename boost::mpl::if_<boost::is_const<E>,
+        typedef typename std::mpl::if_<std::is_const<E>,
                                           typename E::const_reference,
                                           typename E::reference>::type reference;
         typedef E referred_type;
@@ -167,7 +167,7 @@ namespace boost { namespace numeric { namespace ublas {
 
         // Iterator types
         typedef typename E::const_iterator const_iterator;
-        typedef typename boost::mpl::if_<boost::is_const<E>,
+        typedef typename std::mpl::if_<std::is_const<E>,
                                           typename E::const_iterator,
                                           typename E::iterator>::type iterator;
 
@@ -232,10 +232,10 @@ namespace boost { namespace numeric { namespace ublas {
         public vector_expression<vector_unary<E, F> > {
 
         typedef F functor_type;
-        typedef typename boost::mpl::if_<boost::is_same<F, scalar_identity<typename E::value_type> >,
+        typedef typename std::mpl::if_<std::is_same<F, scalar_identity<typename E::value_type> >,
                                           E,
                                           const E>::type expression_type;
-        typedef typename boost::mpl::if_<boost::is_const<expression_type>,
+        typedef typename std::mpl::if_<std::is_const<expression_type>,
                                           typename E::const_closure_type,
                                           typename E::closure_type>::type expression_closure_type;
         typedef vector_unary<E, F> self_type;
@@ -247,7 +247,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef typename E::difference_type difference_type;
         typedef typename F::result_type value_type;
         typedef value_type const_reference;
-        typedef typename boost::mpl::if_<boost::is_same<F, scalar_identity<value_type> >,
+        typedef typename std::mpl::if_<std::is_same<F, scalar_identity<value_type> >,
                                           typename E::reference,
                                           value_type>::type reference;
         typedef const self_type const_closure_type;
@@ -281,7 +281,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
         BOOST_UBLAS_INLINE
         reference operator () (size_type i) {
-            BOOST_STATIC_ASSERT ((boost::is_same<functor_type, scalar_identity<value_type > >::value));
+            BOOST_STATIC_ASSERT ((std::is_same<functor_type, scalar_identity<value_type > >::value));
             return e_ (i);
         }
 
@@ -291,7 +291,7 @@ namespace boost { namespace numeric { namespace ublas {
         }
         BOOST_UBLAS_INLINE
         reference operator [] (size_type i) {
-            BOOST_STATIC_ASSERT ((boost::is_same<functor_type, scalar_identity<value_type > >::value));
+            BOOST_STATIC_ASSERT ((std::is_same<functor_type, scalar_identity<value_type > >::value));
             return e_ [i];
         }
 

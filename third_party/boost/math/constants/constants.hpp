@@ -74,17 +74,17 @@ namespace boost{ namespace math
 #endif
    public:
       typedef typename mpl::if_<
-         mpl::and_<boost::is_convertible<float, Real>, mpl::bool_< t1::value <= t2::value>, mpl::bool_<0 != t1::value> >,
+         mpl::and_<std::is_convertible<float, Real>, mpl::bool_< t1::value <= t2::value>, mpl::bool_<0 != t1::value> >,
          mpl::int_<construct_from_float>,
          typename mpl::if_<
-            mpl::and_<boost::is_convertible<double, Real>, mpl::bool_< t1::value <= t3::value>, mpl::bool_<0 != t1::value> >,
+            mpl::and_<std::is_convertible<double, Real>, mpl::bool_< t1::value <= t3::value>, mpl::bool_<0 != t1::value> >,
             mpl::int_<construct_from_double>,
             typename mpl::if_<
-               mpl::and_<boost::is_convertible<long double, Real>, mpl::bool_< t1::value <= t4::value>, mpl::bool_<0 != t1::value> >,
+               mpl::and_<std::is_convertible<long double, Real>, mpl::bool_< t1::value <= t4::value>, mpl::bool_<0 != t1::value> >,
                mpl::int_<construct_from_long_double>,
 #ifdef BOOST_MATH_USE_FLOAT128
                typename mpl::if_<
-                  mpl::and_<boost::is_convertible<__float128, Real>, mpl::bool_< t1::value <= t5::value>, mpl::bool_<0 != t1::value> >,
+                  mpl::and_<std::is_convertible<__float128, Real>, mpl::bool_< t1::value <= t5::value>, mpl::bool_<0 != t1::value> >,
                   mpl::int_<construct_from_float128>,
                   typename mpl::if_<
                      mpl::and_<mpl::bool_< t1::value <= max_string_digits>, mpl::bool_<0 != t1::value> >,
@@ -106,15 +106,15 @@ namespace boost{ namespace math
 
 #ifdef BOOST_HAS_THREADS
 #define BOOST_MATH_CONSTANT_THREAD_HELPER(name, prefix) \
-      boost::once_flag f = BOOST_ONCE_INIT;\
-      boost::call_once(f, &BOOST_JOIN(BOOST_JOIN(string_, get_), name)<T>);
+      std::once_flag f = BOOST_ONCE_INIT;\
+      std::call_once(f, &BOOST_JOIN(BOOST_JOIN(string_, get_), name)<T>);
 #else
 #define BOOST_MATH_CONSTANT_THREAD_HELPER(name, prefix)
 #endif
 
    namespace detail{
 
-      template <class Real, class Policy = boost::math::policies::policy<> >
+      template <class Real, class Policy = std::math::policies::policy<> >
       struct constant_return
       {
          typedef typename construction_traits<Real, Policy>::type construct_type;
@@ -130,7 +130,7 @@ namespace boost{ namespace math
          // This function should not compile, we don't have the necesary functionality to support it:
          BOOST_STATIC_ASSERT(sizeof(Real) == 0);
 #else
-         return boost::lexical_cast<Real>(p);
+         return std::lexical_cast<Real>(p);
 #endif
       }
       template <class Real>
@@ -208,7 +208,7 @@ namespace boost{ namespace math
    /* The default implementations come next: */ \
    static inline const T& get_from_string()\
    {\
-      static const T result = convert_from_string<T>(y, boost::is_convertible<const char*, T>());\
+      static const T result = convert_from_string<T>(y, std::is_convertible<const char*, T>());\
       return result;\
    }\
    /* This one is for very high precision that is none the less known at compile time: */ \
@@ -248,7 +248,7 @@ namespace boost{ namespace math
    template <class T, class Policy> inline BOOST_CONSTEXPR typename detail::constant_return<T, Policy>::type name(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(T) BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(Policy))\
    { return detail:: BOOST_JOIN(constant_, name)<T>::get(typename construction_traits<T, Policy>::type()); }\
    template <class T> inline BOOST_CONSTEXPR typename detail::constant_return<T>::type name(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(T))\
-   { return name<T, boost::math::policies::policy<> >(); }\
+   { return name<T, std::math::policies::policy<> >(); }\
    \
    \
    /* Now the namespace specific versions: */ \

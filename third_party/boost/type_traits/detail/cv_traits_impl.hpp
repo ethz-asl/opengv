@@ -76,8 +76,8 @@ namespace detail {
 
 // Use the implementation above for non function pointers
 template <typename T, unsigned Select 
-  = (unsigned)sizeof(::boost::type_traits::gcc8503::mini_funcptr_tester((T)0)) >
-struct cv_traits_imp : public ::boost::type_traits::gcc8503::cv_traits_imp<T> { };
+  = (unsigned)sizeof(::std::type_traits::gcc8503::mini_funcptr_tester((T)0)) >
+struct cv_traits_imp : public ::std::type_traits::gcc8503::cv_traits_imp<T> { };
 
 // Functions are never cv-qualified
 template <typename T> struct cv_traits_imp<T*,1>

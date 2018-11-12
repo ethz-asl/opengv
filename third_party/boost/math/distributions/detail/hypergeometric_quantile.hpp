@@ -112,7 +112,7 @@ unsigned hypergeometric_quantile_imp(T p, T q, unsigned r, unsigned n, unsigned 
    BOOST_MATH_STD_USING
    BOOST_FPU_EXCEPTION_GUARD
    T result;
-   T fudge_factor = 1 + tools::epsilon<T>() * ((N <= boost::math::prime(boost::math::max_prime - 1)) ? 50 : 2 * N);
+   T fudge_factor = 1 + tools::epsilon<T>() * ((N <= std::math::prime(std::math::max_prime - 1)) ? 50 : 2 * N);
    unsigned base = static_cast<unsigned>((std::max)(0, (int)(n + r) - (int)(N)));
    unsigned lim = (std::min)(r, n);
 

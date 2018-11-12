@@ -58,7 +58,7 @@ namespace boost
         void operator=(const any_iterator_buffer&);
 
         char* m_ptr;
-        boost::array<char, StackBufferSize> m_buffer;
+        std::array<char, StackBufferSize> m_buffer;
     };
 
     class any_iterator_heap_only_buffer
@@ -108,7 +108,7 @@ namespace boost
         }
 
     private:
-        boost::array<char, StackBufferSize> m_buffer;
+        std::array<char, StackBufferSize> m_buffer;
     };
 
     typedef any_iterator_buffer<64> any_iterator_default_buffer;

@@ -90,7 +90,7 @@ namespace boost
         inline iterator_range<BOOST_DEDUCED_TYPENAME range_iterator<T>::type>
         make_range( T& r, long )
         {
-            return boost::make_iterator_range( r );
+            return std::make_iterator_range( r );
         }
 
     }

@@ -28,7 +28,7 @@ namespace boost { namespace fusion
     {
         template <typename Seq1, typename Seq2>
         inline typename
-            boost::enable_if<
+            std::enable_if<
                 traits::enable_comparison<Seq1, Seq2>
               , bool
             >::type

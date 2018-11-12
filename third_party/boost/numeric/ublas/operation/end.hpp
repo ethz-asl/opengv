@@ -312,7 +312,7 @@ namespace boost { namespace numeric { namespace ublas {
         return it.end();
     }
 
-}}} // Namespace boost::numeric::ublas
+}}} // Namespace std::numeric::ublas
 
 
 #endif // BOOST_NUMERIC_UBLAS_OPERATION_END_HPP

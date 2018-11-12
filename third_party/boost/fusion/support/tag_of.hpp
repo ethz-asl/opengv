@@ -57,7 +57,7 @@ namespace boost { namespace fusion
         template <typename Sequence>
         struct tag_of_impl<
             Sequence
-          , typename boost::enable_if<detail::has_fusion_tag<Sequence> >::type>
+          , typename std::enable_if<detail::has_fusion_tag<Sequence> >::type>
         {
             typedef typename Sequence::fusion_tag type;
         };
@@ -67,7 +67,7 @@ namespace boost { namespace fusion
     {
         template <typename Sequence, typename Active>
         struct tag_of
-            : boost::fusion::detail::tag_of_impl<Sequence, Active>
+            : std::fusion::detail::tag_of_impl<Sequence, Active>
         {};
     }
 

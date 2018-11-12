@@ -20,11 +20,11 @@
 namespace std {
 
 template<class T, class Policies>
-class numeric_limits<boost::numeric::interval<T, Policies> >
+class numeric_limits<std::numeric::interval<T, Policies> >
   : public numeric_limits<T>
 {
 private:
-  typedef boost::numeric::interval<T, Policies> I;
+  typedef std::numeric::interval<T, Policies> I;
   typedef numeric_limits<T> bl;
 public:
   static I min BOOST_PREVENT_MACRO_SUBSTITUTION () throw() { return I((bl::min)(), (bl::min)()); }

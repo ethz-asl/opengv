@@ -124,7 +124,7 @@ template<
     >
 struct filter_iter
     : filter_iter_impl<
-          ::boost::is_same<Iterator,LastIterator>::value
+          ::std::is_same<Iterator,LastIterator>::value
         >::template result_< Iterator,LastIterator,Predicate >
 {
 };

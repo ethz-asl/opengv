@@ -67,8 +67,8 @@ class base< BOOST_FUNCTIONAL_DETAIL_f > {
 public:
     /* implicit */ inline base(
             // This requires specified type to be implicitly convertible to
-            // a boost::function<> functor.
-            boost::function< BOOST_FUNCTIONAL_DETAIL_f > const& f): f_(f)
+            // a std::function<> functor.
+            std::function< BOOST_FUNCTIONAL_DETAIL_f > const& f): f_(f)
     {}
 
     inline R operator()(BOOST_PP_ENUM(BOOST_FUNCTIONAL_DETAIL_arity,
@@ -78,7 +78,7 @@ public:
     }
 
 private:
-    boost::function< BOOST_FUNCTIONAL_DETAIL_f > const f_;
+    std::function< BOOST_FUNCTIONAL_DETAIL_f > const f_;
 };
 
 #   undef BOOST_FUNCTIONAL_DETAIL_arity

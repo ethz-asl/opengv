@@ -92,7 +92,7 @@ struct require<void(*)(Model)>
 enum                                                \
 {                                                   \
     BOOST_PP_CAT(boost_concept_check,__LINE__) =    \
-    sizeof(::boost::concepts::require<ModelFnPtr>)    \
+    sizeof(::std::concepts::require<ModelFnPtr>)    \
 }
   
 # else // Not vc-7.1
@@ -105,7 +105,7 @@ require_(void(*)(Model));
 enum                                                    \
 {                                                       \
     BOOST_PP_CAT(boost_concept_check,__LINE__) =        \
-      sizeof(::boost::concepts::require_((ModelFnPtr)0)) \
+      sizeof(::std::concepts::require_((ModelFnPtr)0)) \
 }
   
 # endif

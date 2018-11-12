@@ -1326,7 +1326,7 @@ namespace boost { namespace numeric { namespace ublas {
 	 /// A scalar (i.e. unique value) vector of type \c T and a given \c size. This is a virtual vector in the sense that no memory is allocated 
 	 /// for storing the unique value more than once: it still acts like any other vector. However assigning a new value will change all the value at once.
 	 /// vector into a normal vector. It must first be assigned to another normal vector by any suitable means. Its memory footprint is constant.
-	 /// \tparam T type of the objects stored in the vector: it can be anything even if most of the time, scalar types will be used like \c double or \c int. Complex types can be used, or even classes like boost::interval.
+	 /// \tparam T type of the objects stored in the vector: it can be anything even if most of the time, scalar types will be used like \c double or \c int. Complex types can be used, or even classes like std::interval.
 	 template<class T, class ALLOC>
 	 class scalar_vector:
 	     public vector_container<scalar_vector<T, ALLOC> > {

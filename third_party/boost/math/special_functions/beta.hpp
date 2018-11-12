@@ -35,9 +35,9 @@ T beta_imp(T a, T b, const Lanczos&, const Policy& pol)
    BOOST_MATH_STD_USING  // for ADL of std names
 
    if(a <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
+      policies::raise_domain_error<T>("std::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
+      policies::raise_domain_error<T>("std::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
 
    T result;
 
@@ -46,9 +46,9 @@ T beta_imp(T a, T b, const Lanczos&, const Policy& pol)
 
    // Special cases:
    if((c == a) && (b < tools::epsilon<T>()))
-      return boost::math::tgamma(b, pol);
+      return std::math::tgamma(b, pol);
    else if((c == b) && (a < tools::epsilon<T>()))
-      return boost::math::tgamma(a, pol);
+      return std::math::tgamma(a, pol);
    if(b == 1)
       return 1/a;
    else if(a == 1)
@@ -90,7 +90,7 @@ T beta_imp(T a, T b, const Lanczos&, const Policy& pol)
    {
       // Special case where the base of the power term is close to 1
       // compute (1+x)^y instead:
-      result *= exp(ambh * boost::math::log1p(-b / cgh, pol));
+      result *= exp(ambh * std::math::log1p(-b / cgh, pol));
    }
    else
    {
@@ -101,7 +101,7 @@ T beta_imp(T a, T b, const Lanczos&, const Policy& pol)
       result *= pow((agh / cgh) * (bgh / cgh), b);
    else
       result *= pow((agh * bgh) / (cgh * cgh), b);
-   result *= sqrt(boost::math::constants::e<T>() / bgh);
+   result *= sqrt(std::math::constants::e<T>() / bgh);
 
    // If a and b were originally less than 1 we need to scale the result:
    result *= prefix;
@@ -119,9 +119,9 @@ T beta_imp(T a, T b, const lanczos::undefined_lanczos& /* l */, const Policy& po
    BOOST_MATH_STD_USING
 
    if(a <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
+      policies::raise_domain_error<T>("std::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
+      policies::raise_domain_error<T>("std::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
 
    T result;
 
@@ -130,9 +130,9 @@ T beta_imp(T a, T b, const lanczos::undefined_lanczos& /* l */, const Policy& po
 
    // special cases:
    if((c == a) && (b < tools::epsilon<T>()))
-      return boost::math::tgamma(b, pol);
+      return std::math::tgamma(b, pol);
    else if((c == b) && (a < tools::epsilon<T>()))
-      return boost::math::tgamma(a, pol);
+      return std::math::tgamma(a, pol);
    if(b == 1)
       return 1/a;
    else if(a == 1)
@@ -161,11 +161,11 @@ T beta_imp(T a, T b, const lanczos::undefined_lanczos& /* l */, const Policy& po
 
    // calculate the fraction parts:
    T sa = detail::lower_gamma_series(a, la, pol) / a;
-   sa += detail::upper_gamma_fraction(a, la, ::boost::math::policies::get_epsilon<T, Policy>());
+   sa += detail::upper_gamma_fraction(a, la, ::std::math::policies::get_epsilon<T, Policy>());
    T sb = detail::lower_gamma_series(b, lb, pol) / b;
-   sb += detail::upper_gamma_fraction(b, lb, ::boost::math::policies::get_epsilon<T, Policy>());
+   sb += detail::upper_gamma_fraction(b, lb, ::std::math::policies::get_epsilon<T, Policy>());
    T sc = detail::lower_gamma_series(c, lc, pol) / c;
-   sc += detail::upper_gamma_fraction(c, lc, ::boost::math::policies::get_epsilon<T, Policy>());
+   sc += detail::upper_gamma_fraction(c, lc, ::std::math::policies::get_epsilon<T, Policy>());
 
    // and the exponent part:
    result = exp(lc - la - lb) * pow(la/lc, a) * pow(lb/lc, b);
@@ -243,7 +243,7 @@ T ibeta_power_terms(T a,
          //
          if(fabs(l1) < 0.1)
          {
-            result *= exp(a * boost::math::log1p(l1, pol));
+            result *= exp(a * std::math::log1p(l1, pol));
             BOOST_MATH_INSTRUMENT_VARIABLE(result);
          }
          else
@@ -253,7 +253,7 @@ T ibeta_power_terms(T a,
          }
          if(fabs(l2) < 0.1)
          {
-            result *= exp(b * boost::math::log1p(l2, pol));
+            result *= exp(b * std::math::log1p(l2, pol));
             BOOST_MATH_INSTRUMENT_VARIABLE(result);
          }
          else
@@ -287,17 +287,17 @@ T ibeta_power_terms(T a,
          T ratio = b / a;
          if((small_a && (ratio * l2 < 0.1)) || (!small_a && (l1 / ratio > 0.1)))
          {
-            T l3 = boost::math::expm1(ratio * boost::math::log1p(l2, pol), pol);
+            T l3 = std::math::expm1(ratio * std::math::log1p(l2, pol), pol);
             l3 = l1 + l3 + l3 * l1;
-            l3 = a * boost::math::log1p(l3, pol);
+            l3 = a * std::math::log1p(l3, pol);
             result *= exp(l3);
             BOOST_MATH_INSTRUMENT_VARIABLE(result);
          }
          else
          {
-            T l3 = boost::math::expm1(boost::math::log1p(l1, pol) / ratio, pol);
+            T l3 = std::math::expm1(std::math::log1p(l1, pol) / ratio, pol);
             l3 = l2 + l3 + l3 * l2;
-            l3 = b * boost::math::log1p(l3, pol);
+            l3 = b * std::math::log1p(l3, pol);
             result *= exp(l3);
             BOOST_MATH_INSTRUMENT_VARIABLE(result);
          }
@@ -305,7 +305,7 @@ T ibeta_power_terms(T a,
       else if(fabs(l1) < fabs(l2))
       {
          // First base near 1 only:
-         T l = a * boost::math::log1p(l1, pol)
+         T l = a * std::math::log1p(l1, pol)
             + b * log((y * cgh) / bgh);
          result *= exp(l);
          BOOST_MATH_INSTRUMENT_VARIABLE(result);
@@ -313,7 +313,7 @@ T ibeta_power_terms(T a,
       else
       {
          // Second base near 1 only:
-         T l = b * boost::math::log1p(l2, pol)
+         T l = b * std::math::log1p(l2, pol)
             + a * log((x * cgh) / agh);
          result *= exp(l);
          BOOST_MATH_INSTRUMENT_VARIABLE(result);
@@ -351,7 +351,7 @@ T ibeta_power_terms(T a,
       }
    }
    // combine with the leftover terms from the Lanczos approximation:
-   result *= sqrt(bgh / boost::math::constants::e<T>());
+   result *= sqrt(bgh / std::math::constants::e<T>());
    result *= sqrt(agh / cgh);
    result *= prefix;
 
@@ -377,7 +377,7 @@ T ibeta_power_terms(T a,
                         T b,
                         T x,
                         T y,
-                        const boost::math::lanczos::undefined_lanczos&,
+                        const std::math::lanczos::undefined_lanczos&,
                         bool normalised,
                         const Policy& pol)
 {
@@ -401,11 +401,11 @@ T ibeta_power_terms(T a,
    T lc = a + b + 5;
    // gamma function partials:
    T sa = detail::lower_gamma_series(a, la, pol) / a;
-   sa += detail::upper_gamma_fraction(a, la, ::boost::math::policies::get_epsilon<T, Policy>());
+   sa += detail::upper_gamma_fraction(a, la, ::std::math::policies::get_epsilon<T, Policy>());
    T sb = detail::lower_gamma_series(b, lb, pol) / b;
-   sb += detail::upper_gamma_fraction(b, lb, ::boost::math::policies::get_epsilon<T, Policy>());
+   sb += detail::upper_gamma_fraction(b, lb, ::std::math::policies::get_epsilon<T, Policy>());
    T sc = detail::lower_gamma_series(c, lc, pol) / c;
-   sc += detail::upper_gamma_fraction(c, lc, ::boost::math::policies::get_epsilon<T, Policy>());
+   sc += detail::upper_gamma_fraction(c, lc, ::std::math::policies::get_epsilon<T, Policy>());
    // gamma function powers combined with incomplete beta powers:
 
    T b1 = (x * lc) / la;
@@ -428,11 +428,11 @@ T ibeta_power_terms(T a,
    {
       T p1, p2;
       if((fabs(b1 - 1) * a < 10) && (a > 1))
-         p1 = exp(a * boost::math::log1p((x * b - y * la) / la, pol));
+         p1 = exp(a * std::math::log1p((x * b - y * la) / la, pol));
       else
          p1 = pow(b1, a);
       if((fabs(b2 - 1) * b < 10) && (b > 1))
-         p2 = exp(b * boost::math::log1p((y * a - x * lb) / lb, pol));
+         p2 = exp(b * std::math::log1p((y * a - x * lb) / lb, pol));
       else
          p2 = pow(b2, b);
       T p3 = exp(e1);
@@ -484,11 +484,11 @@ T ibeta_series(T a, T b, T x, T s0, const Lanczos&, bool normalised, T* p_deriva
       T cgh = c + Lanczos::g() - T(0.5);
       result = Lanczos::lanczos_sum_expG_scaled(c) / (Lanczos::lanczos_sum_expG_scaled(a) * Lanczos::lanczos_sum_expG_scaled(b));
       if(a * b < bgh * 10)
-         result *= exp((b - 0.5f) * boost::math::log1p(a / bgh, pol));
+         result *= exp((b - 0.5f) * std::math::log1p(a / bgh, pol));
       else
          result *= pow(cgh / bgh, b - 0.5f);
       result *= pow(x * cgh / agh, a);
-      result *= sqrt(agh / boost::math::constants::e<T>());
+      result *= sqrt(agh / std::math::constants::e<T>());
 
       if(p_derivative)
       {
@@ -504,16 +504,16 @@ T ibeta_series(T a, T b, T x, T s0, const Lanczos&, bool normalised, T* p_deriva
    if(result < tools::min_value<T>())
       return s0; // Safeguard: series can't cope with denorms.
    ibeta_series_t<T> s(a, b, x, result);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-   result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
-   policies::check_series_iterations<T>("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (with lanczos)", max_iter, pol);
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
+   policies::check_series_iterations<T>("std::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (with lanczos)", max_iter, pol);
    return result;
 }
 //
 // Incomplete Beta series again, this time without Lanczos support:
 //
 template <class T, class Policy>
-T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczos&, bool normalised, T* p_derivative, T y, const Policy& pol)
+T ibeta_series(T a, T b, T x, T s0, const std::math::lanczos::undefined_lanczos&, bool normalised, T* p_derivative, T y, const Policy& pol)
 {
    BOOST_MATH_STD_USING
 
@@ -534,11 +534,11 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
 
       // calculate the gamma parts:
       T sa = detail::lower_gamma_series(a, la, pol) / a;
-      sa += detail::upper_gamma_fraction(a, la, ::boost::math::policies::get_epsilon<T, Policy>());
+      sa += detail::upper_gamma_fraction(a, la, ::std::math::policies::get_epsilon<T, Policy>());
       T sb = detail::lower_gamma_series(b, lb, pol) / b;
-      sb += detail::upper_gamma_fraction(b, lb, ::boost::math::policies::get_epsilon<T, Policy>());
+      sb += detail::upper_gamma_fraction(b, lb, ::std::math::policies::get_epsilon<T, Policy>());
       T sc = detail::lower_gamma_series(c, lc, pol) / c;
-      sc += detail::upper_gamma_fraction(c, lc, ::boost::math::policies::get_epsilon<T, Policy>());
+      sc += detail::upper_gamma_fraction(c, lc, ::std::math::policies::get_epsilon<T, Policy>());
 
       // and their combined power-terms:
       T b1 = (x * lc) / la;
@@ -561,7 +561,7 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
       {
          result = pow(b1, a);
          if(a * b < lb * 10)
-            result *= exp(b * boost::math::log1p(a / lb, pol));
+            result *= exp(b * std::math::log1p(a / lb, pol));
          else
             result *= pow(b2, b);
          result /= exp(e1);
@@ -583,9 +583,9 @@ T ibeta_series(T a, T b, T x, T s0, const boost::math::lanczos::undefined_lanczo
    if(result < tools::min_value<T>())
       return s0; // Safeguard: series can't cope with denorms.
    ibeta_series_t<T> s(a, b, x, result);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
-   result = boost::math::tools::sum_series(s, boost::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
-   policies::check_series_iterations<T>("boost::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (without lanczos)", max_iter, pol);
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   result = std::math::tools::sum_series(s, std::math::policies::get_epsilon<T, Policy>(), max_iter, s0);
+   policies::check_series_iterations<T>("std::math::ibeta<%1%>(%1%, %1%, %1%) in ibeta_series (without lanczos)", max_iter, pol);
    return result;
 }
 
@@ -636,7 +636,7 @@ inline T ibeta_fraction2(T a, T b, T x, T y, const Policy& pol, bool normalised,
       return result;
 
    ibeta_fraction2_t<T> f(a, b, x, y);
-   T fract = boost::math::tools::continued_fraction_b(f, boost::math::policies::get_epsilon<T, Policy>());
+   T fract = std::math::tools::continued_fraction_b(f, std::math::policies::get_epsilon<T, Policy>());
    BOOST_MATH_INSTRUMENT_VARIABLE(fract);
    BOOST_MATH_INSTRUMENT_VARIABLE(result);
    return result / fract;
@@ -711,25 +711,25 @@ struct Pn_size
    // This is likely to be enough for ~35-50 digit accuracy
    // but it's hard to quantify exactly:
    BOOST_STATIC_CONSTANT(unsigned, value = 50);
-   BOOST_STATIC_ASSERT(::boost::math::max_factorial<T>::value >= 100);
+   BOOST_STATIC_ASSERT(::std::math::max_factorial<T>::value >= 100);
 };
 template <>
 struct Pn_size<float>
 {
    BOOST_STATIC_CONSTANT(unsigned, value = 15); // ~8-15 digit accuracy
-   BOOST_STATIC_ASSERT(::boost::math::max_factorial<float>::value >= 30);
+   BOOST_STATIC_ASSERT(::std::math::max_factorial<float>::value >= 30);
 };
 template <>
 struct Pn_size<double>
 {
    BOOST_STATIC_CONSTANT(unsigned, value = 30); // 16-20 digit accuracy
-   BOOST_STATIC_ASSERT(::boost::math::max_factorial<double>::value >= 60);
+   BOOST_STATIC_ASSERT(::std::math::max_factorial<double>::value >= 60);
 };
 template <>
 struct Pn_size<long double>
 {
    BOOST_STATIC_CONSTANT(unsigned, value = 50); // ~35-50 digit accuracy
-   BOOST_STATIC_ASSERT(::boost::math::max_factorial<long double>::value >= 100);
+   BOOST_STATIC_ASSERT(::std::math::max_factorial<long double>::value >= 100);
 };
 
 template <class T, class Policy>
@@ -746,7 +746,7 @@ T beta_small_b_large_a_series(T a, T b, T x, T y, T s0, T mult, const Policy& po
    T t = a + bm1 / 2;
    T lx, u;
    if(y < 0.35)
-      lx = boost::math::log1p(-y, pol);
+      lx = std::math::log1p(-y, pol);
    else
       lx = log(x);
    u = -t * lx;
@@ -757,7 +757,7 @@ T beta_small_b_large_a_series(T a, T b, T x, T y, T s0, T mult, const Policy& po
       return s0;
    if(normalised)
    {
-      prefix = h / boost::math::tgamma_delta_ratio(a, b, pol);
+      prefix = h / std::math::tgamma_delta_ratio(a, b, pol);
       prefix /= pow(t, b);
    }
    else
@@ -770,11 +770,11 @@ T beta_small_b_large_a_series(T a, T b, T x, T y, T s0, T mult, const Policy& po
    // recursively, and requires a full history of all the previous values
    // so no choice but to declare a big table and hope it's big enough...
    //
-   T p[ ::boost::math::detail::Pn_size<T>::value ] = { 1 };  // see 9.3.
+   T p[ ::std::math::detail::Pn_size<T>::value ] = { 1 };  // see 9.3.
    //
    // Now an initial value for J, see 9.6:
    //
-   T j = boost::math::gamma_q(b, u, pol) / h;
+   T j = std::math::gamma_q(b, u, pol) / h;
    //
    // Now we can start to pull things together and evaluate the sum in Eq 9:
    //
@@ -810,11 +810,11 @@ T beta_small_b_large_a_series(T a, T b, T x, T y, T s0, T mult, const Policy& po
       for(unsigned m = 1; m < n; ++m)
       {
          mbn = m * b - n;
-         p[n] += mbn * p[n-m] / boost::math::unchecked_factorial<T>(tmp1);
+         p[n] += mbn * p[n-m] / std::math::unchecked_factorial<T>(tmp1);
          tmp1 += 2;
       }
       p[n] /= n;
-      p[n] += bm1 / boost::math::unchecked_factorial<T>(tnp1);
+      p[n] += bm1 / std::math::unchecked_factorial<T>(tnp1);
       //
       // Now we want Jn from Jn-1 using Eq 9.6:
       //
@@ -869,7 +869,7 @@ inline T binomial_ccdf(T n, T k, T x, T y)
 template <class T, class Policy>
 T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_derivative)
 {
-   static const char* function = "boost::math::ibeta<%1%>(%1%, %1%, %1%)";
+   static const char* function = "std::math::ibeta<%1%>(%1%, %1%, %1%)";
    typedef typename lanczos::lanczos<T, Policy>::type lanczos_type;
    BOOST_MATH_STD_USING // for ADL of std math functions.
 
@@ -925,7 +925,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
       {
          *p_derivative = (a == 1) ? (T)1 : (a < 1) ? T(tools::max_value<T>() / 2) : T(tools::min_value<T>() * 2);
       }
-      return (invert ? (normalised ? T(1) : boost::math::beta(a, b, pol)) : T(0));
+      return (invert ? (normalised ? T(1) : std::math::beta(a, b, pol)) : T(0));
    }
    if(x == 1)
    {
@@ -933,7 +933,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
       {
          *p_derivative = (b == 1) ? T(1) : (b < 1) ? T(tools::max_value<T>() / 2) : T(tools::min_value<T>() * 2);
       }
-      return (invert == 0 ? (normalised ? 1 : boost::math::beta(a, b, pol)) : 0);
+      return (invert == 0 ? (normalised ? 1 : std::math::beta(a, b, pol)) : 0);
    }
 
    if((std::min)(a, b) <= 1)
@@ -957,7 +957,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
             }
             else
             {
-               fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+               fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                invert = false;
                fract = -ibeta_series(a, b, x, fract, lanczos_type(), normalised, p_derivative, y, pol);
                BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -977,7 +977,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
                }
                else
                {
-                  fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+                  fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                   invert = false;
                   fract = -ibeta_series(a, b, x, fract, lanczos_type(), normalised, p_derivative, y, pol);
                   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1003,7 +1003,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
                }
                else
                {
-                  fract -= (normalised ? 1 : boost::math::beta(a, b, pol));
+                  fract -= (normalised ? 1 : std::math::beta(a, b, pol));
                   invert = false;
                   fract = -beta_small_b_large_a_series(T(a + 20), b, x, y, fract, prefix, pol, normalised);
                   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1023,7 +1023,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
             }
             else
             {
-               fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+               fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                invert = false;
                fract = -ibeta_series(a, b, x, fract, lanczos_type(), normalised, p_derivative, y, pol);
                BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1044,7 +1044,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
                }
                else
                {
-                  fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+                  fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                   invert = false;
                   fract = -ibeta_series(a, b, x, fract, lanczos_type(), normalised, p_derivative, y, pol);
                   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1059,7 +1059,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
                }
                else
                {
-                  fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+                  fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                   invert = false;
                   fract = -beta_small_b_large_a_series(a, b, x, y, fract, T(1), pol, normalised);
                   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1086,7 +1086,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
                }
                else
                {
-                  fract -= (normalised ? 1 : boost::math::beta(a, b, pol));
+                  fract -= (normalised ? 1 : std::math::beta(a, b, pol));
                   invert = false;
                   fract = -beta_small_b_large_a_series(T(a + 20), b, x, y, fract, prefix, pol, normalised);
                   BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1124,7 +1124,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
             T n = b + k;
             fract = binomial_ccdf(n, k, x, y);
             if(!normalised)
-               fract *= boost::math::beta(a, b, pol);
+               fract *= std::math::beta(a, b, pol);
             BOOST_MATH_INSTRUMENT_VARIABLE(fract);
          }
          else if(b * x <= 0.7)
@@ -1136,7 +1136,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
             }
             else
             {
-               fract = -(normalised ? 1 : boost::math::beta(a, b, pol));
+               fract = -(normalised ? 1 : std::math::beta(a, b, pol));
                invert = false;
                fract = -ibeta_series(a, b, x, fract, lanczos_type(), normalised, p_derivative, y, pol);
                BOOST_MATH_INSTRUMENT_VARIABLE(fract);
@@ -1178,7 +1178,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
             fract = ibeta_a_step(bbar, a, y, x, n, pol, normalised, static_cast<T*>(0));
             fract += ibeta_a_step(a, bbar, x, y, 20, pol, normalised, static_cast<T*>(0));
             if(invert)
-               fract -= (normalised ? 1 : boost::math::beta(a, b, pol));
+               fract -= (normalised ? 1 : std::math::beta(a, b, pol));
             //fract = ibeta_series(a+20, bbar, x, fract, l, normalised, p_derivative, y);
             fract = beta_small_b_large_a_series(T(a+20),  bbar, x, y, fract, T(1), pol, normalised);
             if(invert)
@@ -1221,7 +1221,7 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
          }
       }
    }
-   return invert ? (normalised ? 1 : boost::math::beta(a, b, pol)) - fract : fract;
+   return invert ? (normalised ? 1 : std::math::beta(a, b, pol)) - fract : fract;
 } // template <class T, class Lanczos>T ibeta_imp(T a, T b, T x, const Lanczos& l, bool inv, bool normalised)
 
 template <class T, class Policy>
@@ -1249,12 +1249,12 @@ T ibeta_derivative_imp(T a, T b, T x, const Policy& pol)
    if(x == 0)
    {
       return (a > 1) ? 0 : 
-         (a == 1) ? 1 / boost::math::beta(a, b, pol) : policies::raise_overflow_error<T>(function, 0, pol);
+         (a == 1) ? 1 / std::math::beta(a, b, pol) : policies::raise_overflow_error<T>(function, 0, pol);
    }
    else if(x == 1)
    {
       return (b > 1) ? 0 :
-         (b == 1) ? 1 / boost::math::beta(a, b, pol) : policies::raise_overflow_error<T>(function, 0, pol);
+         (b == 1) ? 1 / std::math::beta(a, b, pol) : policies::raise_overflow_error<T>(function, 0, pol);
    }
    //
    // Now the regular cases:
@@ -1294,13 +1294,13 @@ inline typename tools::promote_args<RT1, RT2>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::beta_imp(static_cast<value_type>(a), static_cast<value_type>(b), evaluation_type(), forwarding_policy()), "boost::math::beta<%1%>(%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::beta_imp(static_cast<value_type>(a), static_cast<value_type>(b), evaluation_type(), forwarding_policy()), "std::math::beta<%1%>(%1%,%1%)");
 }
 template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    beta(RT1 a, RT2 b, RT3 x, const mpl::false_*)
 {
-   return boost::math::beta(a, b, x, policies::policy<>());
+   return std::math::beta(a, b, x, policies::policy<>());
 }
 } // namespace detail
 
@@ -1314,14 +1314,14 @@ inline typename tools::promote_args<RT1, RT2, A>::type
    beta(RT1 a, RT2 b, A arg)
 {
    typedef typename policies::is_policy<A>::type tag;
-   return boost::math::detail::beta(a, b, arg, static_cast<tag*>(0));
+   return std::math::detail::beta(a, b, arg, static_cast<tag*>(0));
 }
 
 template <class RT1, class RT2>
 inline typename tools::promote_args<RT1, RT2>::type 
    beta(RT1 a, RT2 b)
 {
-   return boost::math::beta(a, b, policies::policy<>());
+   return std::math::beta(a, b, policies::policy<>());
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
@@ -1339,7 +1339,7 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), false, false), "boost::math::beta<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), false, false), "std::math::beta<%1%>(%1%,%1%,%1%)");
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
@@ -1357,13 +1357,13 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), true, false), "boost::math::betac<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), true, false), "std::math::betac<%1%>(%1%,%1%,%1%)");
 }
 template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    betac(RT1 a, RT2 b, RT3 x)
 {
-   return boost::math::betac(a, b, x, policies::policy<>());
+   return std::math::betac(a, b, x, policies::policy<>());
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
@@ -1380,13 +1380,13 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), false, true), "boost::math::ibeta<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), false, true), "std::math::ibeta<%1%>(%1%,%1%,%1%)");
 }
 template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    ibeta(RT1 a, RT2 b, RT3 x)
 {
-   return boost::math::ibeta(a, b, x, policies::policy<>());
+   return std::math::ibeta(a, b, x, policies::policy<>());
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
@@ -1403,13 +1403,13 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), true, true), "boost::math::ibetac<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy(), true, true), "std::math::ibetac<%1%>(%1%,%1%,%1%)");
 }
 template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    ibetac(RT1 a, RT2 b, RT3 x)
 {
-   return boost::math::ibetac(a, b, x, policies::policy<>());
+   return std::math::ibetac(a, b, x, policies::policy<>());
 }
 
 template <class RT1, class RT2, class RT3, class Policy>
@@ -1426,13 +1426,13 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
 
-   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_derivative_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy()), "boost::math::ibeta_derivative<%1%>(%1%,%1%,%1%)");
+   return policies::checked_narrowing_cast<result_type, forwarding_policy>(detail::ibeta_derivative_imp(static_cast<value_type>(a), static_cast<value_type>(b), static_cast<value_type>(x), forwarding_policy()), "std::math::ibeta_derivative<%1%>(%1%,%1%,%1%)");
 }
 template <class RT1, class RT2, class RT3>
 inline typename tools::promote_args<RT1, RT2, RT3>::type 
    ibeta_derivative(RT1 a, RT2 b, RT3 x)
 {
-   return boost::math::ibeta_derivative(a, b, x, policies::policy<>());
+   return std::math::ibeta_derivative(a, b, x, policies::policy<>());
 }
 
 } // namespace math

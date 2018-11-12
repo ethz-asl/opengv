@@ -40,7 +40,7 @@ namespace boost
       {}
 
    private:
-      typename super_t::reference dereference() const { return *boost::prior(this->base()); }
+      typename super_t::reference dereference() const { return *std::prior(this->base()); }
     
       void increment() { --this->base_reference(); }
       void decrement() { ++this->base_reference(); }

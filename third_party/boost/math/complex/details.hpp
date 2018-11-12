@@ -30,7 +30,7 @@ namespace boost{ namespace math{ namespace detail{
 template <class T>
 inline T mult_minus_one(const T& t)
 {
-   return (boost::math::isnan)(t) ? t : (boost::math::changesign)(t);
+   return (std::math::isnan)(t) ? t : (std::math::changesign)(t);
 }
 
 template <class T>

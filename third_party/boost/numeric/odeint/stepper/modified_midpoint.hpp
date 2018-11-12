@@ -93,7 +93,7 @@ public :
 
         sys( m_x1.m_v , m_dxdt.m_v , th );
 
-        boost::numeric::odeint::copy( in , m_x0.m_v );
+        std::numeric::odeint::copy( in , m_x0.m_v );
 
         unsigned short i = 1;
         while( i != m_steps )
@@ -216,11 +216,11 @@ public :
 
         if( m_steps == 2 )
             // result of first step already gives approximation at the center of the interval
-            boost::numeric::odeint::copy( m_x1.m_v , x_mp );
+            std::numeric::odeint::copy( m_x1.m_v , x_mp );
 
         sys( m_x1.m_v , derivs[0].m_v , th );
 
-        boost::numeric::odeint::copy( in , m_x0.m_v );
+        std::numeric::odeint::copy( in , m_x0.m_v );
 
         unsigned short i = 1;
         while( i != m_steps )
@@ -231,7 +231,7 @@ public :
                     typename operations_type::template scale_sum_swap2< value_type , time_type >( val1 , h2 ) );
             if( i == m_steps/2-1 )
                 // save approximation at the center of the interval
-                boost::numeric::odeint::copy( m_x1.m_v , x_mp );
+                std::numeric::odeint::copy( m_x1.m_v , x_mp );
 
             th += h;
             sys( m_x1.m_v , derivs[i].m_v , th);

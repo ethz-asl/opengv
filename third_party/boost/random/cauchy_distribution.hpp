@@ -152,7 +152,7 @@ public:
     template<class Engine>
     result_type operator()(Engine& eng)
     {
-        // Can we have a boost::mathconst please?
+        // Can we have a std::mathconst please?
         const result_type pi = result_type(3.14159265358979323846);
         using std::tan;
         RealType val = uniform_01<RealType>()(eng)-result_type(0.5);

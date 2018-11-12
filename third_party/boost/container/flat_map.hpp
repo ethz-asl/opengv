@@ -139,12 +139,12 @@ class flat_map
    typedef Key                                                                      key_type;
    typedef T                                                                        mapped_type;
    typedef std::pair<Key, T>                                                        value_type;
-   typedef typename boost::container::allocator_traits<Allocator>::pointer          pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::const_pointer    const_pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::reference        reference;
-   typedef typename boost::container::allocator_traits<Allocator>::const_reference  const_reference;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type        size_type;
-   typedef typename boost::container::allocator_traits<Allocator>::difference_type  difference_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer          pointer;
+   typedef typename std::container::allocator_traits<Allocator>::const_pointer    const_pointer;
+   typedef typename std::container::allocator_traits<Allocator>::reference        reference;
+   typedef typename std::container::allocator_traits<Allocator>::const_reference  const_reference;
+   typedef typename std::container::allocator_traits<Allocator>::size_type        size_type;
+   typedef typename std::container::allocator_traits<Allocator>::difference_type  difference_type;
    typedef Allocator                                                                allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(Allocator)                                        stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(value_compare_impl)                               value_compare;
@@ -215,7 +215,7 @@ class flat_map
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_map(BOOST_RV_REF(flat_map) x)
-      : m_flat_tree(boost::move(x.m_flat_tree))
+      : m_flat_tree(std::move(x.m_flat_tree))
    {}
 
    //! <b>Effects</b>: Copy constructs a flat_map using the specified allocator.
@@ -230,7 +230,7 @@ class flat_map
    //!
    //! <b>Complexity</b>: Constant if x.get_allocator() == a, linear otherwise.
    flat_map(BOOST_RV_REF(flat_map) x, const allocator_type &a)
-      : m_flat_tree(boost::move(x.m_flat_tree), a)
+      : m_flat_tree(std::move(x.m_flat_tree), a)
    {}
 
    //! <b>Effects</b>: Makes *this a copy of x.
@@ -246,7 +246,7 @@ class flat_map
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_map& operator=(BOOST_RV_REF(flat_map) mx)
-   {  m_flat_tree = boost::move(mx.m_flat_tree);   return *this;  }
+   {  m_flat_tree = std::move(mx.m_flat_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -520,7 +520,7 @@ class flat_map
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    std::pair<iterator,bool> emplace(Args&&... args)
-   {  return container_detail::force_copy< std::pair<iterator, bool> >(m_flat_tree.emplace_unique(boost::forward<Args>(args)...)); }
+   {  return container_detail::force_copy< std::pair<iterator, bool> >(m_flat_tree.emplace_unique(std::forward<Args>(args)...)); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the container if and only if there is
@@ -539,7 +539,7 @@ class flat_map
    {
       return container_detail::force_copy<iterator>
          (m_flat_tree.emplace_hint_unique( container_detail::force_copy<impl_const_iterator>(hint)
-                                         , boost::forward<Args>(args)...));
+                                         , std::forward<Args>(args)...));
    }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
@@ -590,7 +590,7 @@ class flat_map
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    std::pair<iterator,bool> insert(BOOST_RV_REF(value_type) x)
    {  return container_detail::force_copy<std::pair<iterator,bool> >(
-      m_flat_tree.insert_unique(boost::move(container_detail::force<impl_value_type>(x)))); }
+      m_flat_tree.insert_unique(std::move(container_detail::force<impl_value_type>(x)))); }
 
    //! <b>Effects</b>: Inserts a new value_type move constructed from the pair if and
    //! only if there is no element in the container with key equivalent to the key of x.
@@ -606,7 +606,7 @@ class flat_map
    std::pair<iterator,bool> insert(BOOST_RV_REF(movable_value_type) x)
    {
       return container_detail::force_copy<std::pair<iterator,bool> >
-      (m_flat_tree.insert_unique(boost::move(x)));
+      (m_flat_tree.insert_unique(std::move(x)));
    }
 
    //! <b>Effects</b>: Inserts a copy of x in the container if and only if there is
@@ -640,7 +640,7 @@ class flat_map
    {
       return container_detail::force_copy<iterator>
          (m_flat_tree.insert_unique( container_detail::force_copy<impl_const_iterator>(position)
-                                   , boost::move(container_detail::force<impl_value_type>(x))));
+                                   , std::move(container_detail::force<impl_value_type>(x))));
    }
 
    //! <b>Effects</b>: Inserts an element move constructed from x in the container.
@@ -655,7 +655,7 @@ class flat_map
    iterator insert(const_iterator position, BOOST_RV_REF(movable_value_type) x)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.insert_unique(container_detail::force_copy<impl_const_iterator>(position), boost::move(x)));
+         m_flat_tree.insert_unique(container_detail::force_copy<impl_const_iterator>(position), std::move(x)));
    }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
@@ -845,7 +845,7 @@ class flat_map
       // i->first is greater than or equivalent to k.
       if (i == end() || key_comp()(k, (*i).first)){
          container_detail::value_init<mapped_type> m;
-         i = insert(i, impl_value_type(k, ::boost::move(m.m_t)));
+         i = insert(i, impl_value_type(k, ::std::move(m.m_t)));
       }
       return (*i).second;
    }
@@ -856,7 +856,7 @@ class flat_map
       // i->first is greater than or equivalent to k.
       if (i == end() || key_comp()(k, (*i).first)){
          container_detail::value_init<mapped_type> m;
-         i = insert(i, impl_value_type(boost::move(k), ::boost::move(m.m_t)));
+         i = insert(i, impl_value_type(std::move(k), ::std::move(m.m_t)));
       }
       return (*i).second;
    }
@@ -905,7 +905,7 @@ inline void swap(flat_map<Key,T,Compare,Allocator>& x,
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::flat_map<K, T, C, Allocator> >
+struct has_trivial_destructor_after_move<std::container::flat_map<K, T, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
@@ -990,12 +990,12 @@ class flat_multimap
    typedef Key                                                                      key_type;
    typedef T                                                                        mapped_type;
    typedef std::pair<Key, T>                                                        value_type;
-   typedef typename boost::container::allocator_traits<Allocator>::pointer          pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::const_pointer    const_pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::reference        reference;
-   typedef typename boost::container::allocator_traits<Allocator>::const_reference  const_reference;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type        size_type;
-   typedef typename boost::container::allocator_traits<Allocator>::difference_type  difference_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer          pointer;
+   typedef typename std::container::allocator_traits<Allocator>::const_pointer    const_pointer;
+   typedef typename std::container::allocator_traits<Allocator>::reference        reference;
+   typedef typename std::container::allocator_traits<Allocator>::const_reference  const_reference;
+   typedef typename std::container::allocator_traits<Allocator>::size_type        size_type;
+   typedef typename std::container::allocator_traits<Allocator>::difference_type  difference_type;
    typedef Allocator                                                                allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(Allocator)                                        stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(value_compare_impl)                               value_compare;
@@ -1066,7 +1066,7 @@ class flat_multimap
    //!
    //! <b>Postcondition</b>: x is emptied.
    flat_multimap(BOOST_RV_REF(flat_multimap) x)
-      : m_flat_tree(boost::move(x.m_flat_tree))
+      : m_flat_tree(std::move(x.m_flat_tree))
    {}
 
    //! <b>Effects</b>: Copy constructs a flat_multimap using the specified allocator.
@@ -1081,7 +1081,7 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Constant if a == x.get_allocator(), linear otherwise.
    flat_multimap(BOOST_RV_REF(flat_multimap) x, const allocator_type &a)
-      : m_flat_tree(boost::move(x.m_flat_tree), a)
+      : m_flat_tree(std::move(x.m_flat_tree), a)
    { }
 
    //! <b>Effects</b>: Makes *this a copy of x.
@@ -1094,7 +1094,7 @@ class flat_multimap
    //!
    //! <b>Complexity</b>: Constant.
    flat_multimap& operator=(BOOST_RV_REF(flat_multimap) mx)
-      {  m_flat_tree = boost::move(mx.m_flat_tree);   return *this;  }
+      {  m_flat_tree = std::move(mx.m_flat_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -1309,7 +1309,7 @@ class flat_multimap
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    template <class... Args>
    iterator emplace(Args&&... args)
-   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_equal(boost::forward<Args>(args)...)); }
+   {  return container_detail::force_copy<iterator>(m_flat_tree.emplace_equal(std::forward<Args>(args)...)); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the container.
@@ -1327,7 +1327,7 @@ class flat_multimap
    iterator emplace_hint(const_iterator hint, Args&&... args)
    {
       return container_detail::force_copy<iterator>(m_flat_tree.emplace_hint_equal
-         (container_detail::force_copy<impl_const_iterator>(hint), boost::forward<Args>(args)...));
+         (container_detail::force_copy<impl_const_iterator>(hint), std::forward<Args>(args)...));
    }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
@@ -1371,7 +1371,7 @@ class flat_multimap
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    iterator insert(BOOST_RV_REF(value_type) x)
-   { return container_detail::force_copy<iterator>(m_flat_tree.insert_equal(boost::move(x))); }
+   { return container_detail::force_copy<iterator>(m_flat_tree.insert_equal(std::move(x))); }
 
    //! <b>Effects</b>: Inserts a new value move-constructed from x and returns
    //!   the iterator pointing to the newly inserted element.
@@ -1381,7 +1381,7 @@ class flat_multimap
    //!
    //! <b>Note</b>: If an element is inserted it might invalidate elements.
    iterator insert(BOOST_RV_REF(impl_value_type) x)
-      { return container_detail::force_copy<iterator>(m_flat_tree.insert_equal(boost::move(x))); }
+      { return container_detail::force_copy<iterator>(m_flat_tree.insert_equal(std::move(x))); }
 
    //! <b>Effects</b>: Inserts a copy of x in the container.
    //!   p is a hint pointing to where the insert should start to search.
@@ -1416,7 +1416,7 @@ class flat_multimap
    {
       return container_detail::force_copy<iterator>
          (m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(position)
-                                  , boost::move(x)));
+                                  , std::move(x)));
    }
 
    //! <b>Effects</b>: Inserts a value move constructed from x in the container.
@@ -1433,7 +1433,7 @@ class flat_multimap
    iterator insert(const_iterator position, BOOST_RV_REF(impl_value_type) x)
    {
       return container_detail::force_copy<iterator>(
-         m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(position), boost::move(x)));
+         m_flat_tree.insert_equal(container_detail::force_copy<impl_const_iterator>(position), std::move(x)));
    }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
@@ -1660,7 +1660,7 @@ namespace boost {
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move< boost::container::flat_multimap<K, T, C, Allocator> >
+struct has_trivial_destructor_after_move< std::container::flat_multimap<K, T, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };

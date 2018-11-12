@@ -83,8 +83,8 @@ join(SinglePassRange1& r1, SinglePassRange2& r2)
 
 } // namespace range
 
-using ::boost::range::joined_range;
-using ::boost::range::join;
+using ::std::range::joined_range;
+using ::std::range::join;
 
 } // namespace boost
 

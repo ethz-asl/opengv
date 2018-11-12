@@ -95,7 +95,7 @@ template<class VoidPtr>
 struct node_base
 {
    private:
-   typedef typename boost::intrusive::
+   typedef typename std::intrusive::
       pointer_traits<VoidPtr>                   void_ptr_traits;
    typedef typename void_ptr_traits::
       template rebind_pointer
@@ -131,12 +131,12 @@ template<typename T, typename Reference, typename Pointer>
 class iterator
    : public std::iterator< std::random_access_iterator_tag
                          , T
-                         , typename boost::intrusive::
+                         , typename std::intrusive::
                               pointer_traits<Pointer>::difference_type
                          , Pointer
                          , Reference>
 {
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<Pointer>                   ptr_traits;
    typedef typename ptr_traits::template
          rebind_pointer<void>::type             void_ptr;
@@ -144,7 +144,7 @@ class iterator
    typedef node_base<void_ptr>                  node_base_type;
    typedef typename ptr_traits::template
          rebind_pointer<node_type>::type        node_ptr;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<node_ptr>                  node_ptr_traits;
    typedef typename ptr_traits::template
          rebind_pointer<node_base_type>::type   node_base_ptr;
@@ -282,7 +282,7 @@ class iterator
 template<class VoidPtr, class VoidAllocator>
 struct index_traits
 {
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits
          <VoidPtr>                                    void_ptr_traits;
    typedef stable_vector_detail::
@@ -291,14 +291,14 @@ struct index_traits
          rebind_pointer<node_base_type>::type         node_base_ptr;
    typedef typename void_ptr_traits::template
          rebind_pointer<node_base_ptr>::type          node_base_ptr_ptr;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<node_base_ptr>                   node_base_ptr_traits;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<node_base_ptr_ptr>               node_base_ptr_ptr_traits;
    typedef typename allocator_traits<VoidAllocator>::
          template portable_rebind_alloc
             <node_base_ptr>::type                     node_base_ptr_allocator;
-   typedef ::boost::container::vector
+   typedef ::std::container::vector
       <node_base_ptr, node_base_ptr_allocator>        index_type;
    typedef typename index_type::iterator              index_iterator;
    typedef typename index_type::const_iterator        const_index_iterator;
@@ -431,7 +431,7 @@ class stable_vector
 {
    ///@cond
    typedef allocator_traits<Allocator>                allocator_traits_type;
-   typedef typename boost::intrusive::pointer_traits
+   typedef typename std::intrusive::pointer_traits
       <typename allocator_traits_type::pointer>::
          template rebind_pointer<void>::type          void_ptr;
    typedef typename allocator_traits_type::
@@ -451,33 +451,33 @@ class stable_vector
    typedef typename index_traits_type::index_iterator index_iterator;
    typedef typename index_traits_type::
       const_index_iterator                            const_index_iterator;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits
          <typename allocator_traits_type::pointer>    ptr_traits;
    typedef stable_vector_detail::node<void_ptr, T>    node_type;
    typedef typename ptr_traits::template
       rebind_pointer<node_type>::type                 node_ptr;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<node_ptr>                        node_ptr_traits;
    typedef typename ptr_traits::template
       rebind_pointer<const node_type>::type           const_node_ptr;
-   typedef boost::intrusive::
+   typedef std::intrusive::
       pointer_traits<const_node_ptr>                  const_node_ptr_traits;
    typedef typename node_ptr_traits::reference        node_reference;
    typedef typename const_node_ptr_traits::reference  const_node_reference;
 
-   typedef ::boost::container::container_detail::
+   typedef ::std::container::container_detail::
       integral_constant<unsigned, 1>                  allocator_v1;
-   typedef ::boost::container::container_detail::
+   typedef ::std::container::container_detail::
       integral_constant<unsigned, 2>                  allocator_v2;
-   typedef ::boost::container::container_detail::integral_constant
-      <unsigned, boost::container::container_detail::
+   typedef ::std::container::container_detail::integral_constant
+      <unsigned, std::container::container_detail::
       version<Allocator>::value>                              alloc_version;
    typedef typename allocator_traits_type::
       template portable_rebind_alloc
          <node_type>::type                            node_allocator_type;
 
-   typedef ::boost::container::container_detail::
+   typedef ::std::container::container_detail::
       allocator_version_traits<node_allocator_type>                    allocator_version_traits_t;
    typedef typename allocator_version_traits_t::multiallocation_chain  multiallocation_chain;
 
@@ -511,12 +511,12 @@ class stable_vector
    //
    //////////////////////////////////////////////
    typedef T                                                                           value_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::pointer           pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_pointer     const_pointer;
-   typedef typename ::boost::container::allocator_traits<Allocator>::reference         reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::const_reference   const_reference;
-   typedef typename ::boost::container::allocator_traits<Allocator>::size_type         size_type;
-   typedef typename ::boost::container::allocator_traits<Allocator>::difference_type   difference_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::pointer           pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_pointer     const_pointer;
+   typedef typename ::std::container::allocator_traits<Allocator>::reference         reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::const_reference   const_reference;
+   typedef typename ::std::container::allocator_traits<Allocator>::size_type         size_type;
+   typedef typename ::std::container::allocator_traits<Allocator>::difference_type   difference_type;
    typedef Allocator                                                                   allocator_type;
    typedef node_allocator_type                                                         stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(iterator_impl)                                       iterator;
@@ -637,7 +637,7 @@ class stable_vector
    //!
    //! <b>Complexity</b>: Constant.
    stable_vector(BOOST_RV_REF(stable_vector) x)
-      : internal_data(boost::move(x.priv_node_alloc())), index(boost::move(x.index))
+      : internal_data(std::move(x.priv_node_alloc())), index(std::move(x.index))
    {
       this->priv_swap_members(x);
    }
@@ -732,7 +732,7 @@ class stable_vector
          if(this_alloc == x_alloc){
             //Destroy objects but retain memory
             this->clear();
-            this->index = boost::move(x.index);
+            this->index = std::move(x.index);
             this->priv_swap_members(x);
             //Move allocator if needed
             container_detail::bool_<allocator_traits_type::
@@ -741,8 +741,8 @@ class stable_vector
          }
          //If unequal allocators, then do a one by one move
          else{
-            this->assign( boost::make_move_iterator(x.begin())
-                        , boost::make_move_iterator(x.end()));
+            this->assign( std::make_move_iterator(x.begin())
+                        , std::make_move_iterator(x.end()));
          }
       }
       return *this;
@@ -1197,7 +1197,7 @@ class stable_vector
    {
       typedef emplace_functor<Args...>         EmplaceFunctor;
       typedef emplace_iterator<value_type, EmplaceFunctor, difference_type> EmplaceIterator;
-      EmplaceFunctor &&ef = EmplaceFunctor(boost::forward<Args>(args)...);
+      EmplaceFunctor &&ef = EmplaceFunctor(std::forward<Args>(args)...);
       this->insert(this->cend(), EmplaceIterator(ef), EmplaceIterator());
    }
 
@@ -1217,7 +1217,7 @@ class stable_vector
       size_type pos_n = position - cbegin();
       typedef emplace_functor<Args...>         EmplaceFunctor;
       typedef emplace_iterator<value_type, EmplaceFunctor, difference_type> EmplaceIterator;
-      EmplaceFunctor &&ef = EmplaceFunctor(boost::forward<Args>(args)...);
+      EmplaceFunctor &&ef = EmplaceFunctor(std::forward<Args>(args)...);
       this->insert(position, EmplaceIterator(ef), EmplaceIterator());
       return iterator(this->begin() + pos_n);
    }
@@ -1559,7 +1559,7 @@ class stable_vector
          {
             push_back_rollback rollback(*this, p);
             //This might throw
-            this->priv_build_node_from_convertible(p, ::boost::forward<U>(x));
+            this->priv_build_node_from_convertible(p, ::std::forward<U>(x));
             rollback.release();
          }
          //This can't throw as there is room for a new elements in the index
@@ -1567,7 +1567,7 @@ class stable_vector
          index_traits_type::fix_up_pointers_from(this->index, new_index);
       }
       else{
-         this->insert(this->cend(), ::boost::forward<U>(x));
+         this->insert(this->cend(), ::std::forward<U>(x));
       }
    }
 
@@ -1580,7 +1580,7 @@ class stable_vector
    iterator priv_insert(const_iterator position, BOOST_RV_REF(T) x)
    {
       typedef repeat_iterator<T, difference_type>  repeat_it;
-      typedef boost::move_iterator<repeat_it>      repeat_move_it;
+      typedef std::move_iterator<repeat_it>      repeat_move_it;
       //Just call more general insert(pos, size, value) and return iterator
       return this->insert(position, repeat_move_it(repeat_it(x, 1)), repeat_move_it(repeat_it()));
    }
@@ -1697,7 +1697,7 @@ class stable_vector
    void priv_build_node_from_it(const node_ptr &p, const index_iterator &up_index, const Iterator &it)
    {
       //This can throw
-      boost::container::construct_in_place
+      std::container::construct_in_place
          ( this->priv_node_alloc()
          , container_detail::addressof(p->value)
          , it);
@@ -1710,17 +1710,17 @@ class stable_vector
    void priv_build_node_from_convertible(const node_ptr &p, BOOST_FWD_REF(ValueConvertible) value_convertible)
    {
       //This can throw
-      boost::container::allocator_traits<node_allocator_type>::construct
+      std::container::allocator_traits<node_allocator_type>::construct
          ( this->priv_node_alloc()
          , container_detail::addressof(p->value)
-         , ::boost::forward<ValueConvertible>(value_convertible));
+         , ::std::forward<ValueConvertible>(value_convertible));
       //This does not throw
       ::new(static_cast<node_base_type*>(container_detail::to_raw_pointer(p))) node_base_type;
    }
 
    void priv_swap_members(stable_vector &x)
    {
-      boost::container::swap_dispatch(this->internal_data.pool_size, x.internal_data.pool_size);
+      std::container::swap_dispatch(this->internal_data.pool_size, x.internal_data.pool_size);
       index_traits_type::readjust_end_node(this->index, this->internal_data.end_node);
       index_traits_type::readjust_end_node(x.index, x.internal_data.end_node);
    }
@@ -1779,7 +1779,7 @@ class stable_vector
       public:
       template<class AllocatorRLValue>
       explicit ebo_holder(BOOST_FWD_REF(AllocatorRLValue) a)
-         : node_allocator_type(boost::forward<AllocatorRLValue>(a))
+         : node_allocator_type(std::forward<AllocatorRLValue>(a))
          , pool_size(0)
          , end_node()
       {}
@@ -1856,7 +1856,7 @@ void swap(stable_vector<T,Allocator>& x,stable_vector<T,Allocator>& y)
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class T, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::stable_vector<T, Allocator> >
+struct has_trivial_destructor_after_move<std::container::stable_vector<T, Allocator> >
    : public has_trivial_destructor_after_move<Allocator>::value
 {};
 

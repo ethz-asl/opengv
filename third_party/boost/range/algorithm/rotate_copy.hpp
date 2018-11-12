@@ -34,7 +34,7 @@ namespace boost
         )
     {
         BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));
-        return std::rotate_copy(boost::begin(rng), middle, boost::end(rng), target);
+        return std::rotate_copy(std::begin(rng), middle, std::end(rng), target);
     }
 
     } // namespace range

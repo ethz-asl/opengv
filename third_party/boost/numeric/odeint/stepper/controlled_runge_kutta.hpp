@@ -266,7 +266,7 @@ public:
         controlled_step_result res = try_step( system , x , dxdt , t , m_xnew.m_v , dt );
         if( res == success )
         {
-            boost::numeric::odeint::copy( m_xnew.m_v , x );
+            std::numeric::odeint::copy( m_xnew.m_v , x );
         }
         return res;
     }
@@ -299,7 +299,7 @@ public:
      * \return success if the step was accepted, fail otherwise.
      */
     template< class System , class StateIn , class StateOut >
-    typename boost::disable_if< boost::is_same< StateIn , time_type > , controlled_step_result >::type
+    typename std::disable_if< std::is_same< StateIn , time_type > , controlled_step_result >::type
     try_step( System system , const StateIn &in , time_type &t , StateOut &out , time_type &dt )
     {
         typename odeint::unwrap_reference< System >::type &sys = system;
@@ -592,7 +592,7 @@ public:
     /*
      * Version 2 : try_step( sys , in , t , out , dt );
      *
-     * This version does not solve the forwarding problem, boost::range can not be used.
+     * This version does not solve the forwarding problem, std::range can not be used.
      * 
      * The disabler is needed to solve ambiguous overloads
      */
@@ -617,7 +617,7 @@ public:
      * \return success if the step was accepted, fail otherwise.
      */
     template< class System , class StateIn , class StateOut >
-    typename boost::disable_if< boost::is_same< StateIn , time_type > , controlled_step_result >::type
+    typename std::disable_if< std::is_same< StateIn , time_type > , controlled_step_result >::type
     try_step( System system , const StateIn &in , time_type &t , StateOut &out , time_type &dt )
     {
         if( m_dxdt_resizer.adjust_size( in , detail::bind( &controlled_runge_kutta::template resize_m_dxdt_impl< StateIn > , detail::ref( *this ) , detail::_1 ) ) || m_first_call )
@@ -631,7 +631,7 @@ public:
     /*
      * Version 3 : try_step( sys , x , dxdt , t , dt )
      *
-     * This version does not solve the forwarding problem, boost::range can not be used.
+     * This version does not solve the forwarding problem, std::range can not be used.
      */
     /**
      * \brief Tries to perform one step.
@@ -660,8 +660,8 @@ public:
         controlled_step_result res = try_step( system , x , dxdt , t , m_xnew.m_v , m_dxdtnew.m_v , dt );
         if( res == success )
         {
-            boost::numeric::odeint::copy( m_xnew.m_v , x );
-            boost::numeric::odeint::copy( m_dxdtnew.m_v , dxdt );
+            std::numeric::odeint::copy( m_xnew.m_v , x );
+            std::numeric::odeint::copy( m_dxdtnew.m_v , dxdt );
         }
         return res;
     }
@@ -670,7 +670,7 @@ public:
     /*
      * Version 4 : try_step( sys , in , dxdt_in , t , out , dxdt_out , dt )
      *
-     * This version does not solve the forwarding problem, boost::range can not be used.
+     * This version does not solve the forwarding problem, std::range can not be used.
      */
     /**
      * \brief Tries to perform one step.
@@ -750,7 +750,7 @@ public:
     template< class DerivIn >
     void initialize( const DerivIn &deriv )
     {
-        boost::numeric::odeint::copy( deriv , m_dxdt.m_v );
+        std::numeric::odeint::copy( deriv , m_dxdt.m_v );
         m_first_call = false;
     }
 

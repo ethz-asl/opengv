@@ -93,12 +93,12 @@ class map
    typedef Key                                                                      key_type;
    typedef T                                                                        mapped_type;
    typedef std::pair<const Key, T>                                                  value_type;
-   typedef typename boost::container::allocator_traits<Allocator>::pointer          pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::const_pointer    const_pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::reference        reference;
-   typedef typename boost::container::allocator_traits<Allocator>::const_reference  const_reference;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type        size_type;
-   typedef typename boost::container::allocator_traits<Allocator>::difference_type  difference_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer          pointer;
+   typedef typename std::container::allocator_traits<Allocator>::const_pointer    const_pointer;
+   typedef typename std::container::allocator_traits<Allocator>::reference        reference;
+   typedef typename std::container::allocator_traits<Allocator>::const_reference  const_reference;
+   typedef typename std::container::allocator_traits<Allocator>::size_type        size_type;
+   typedef typename std::container::allocator_traits<Allocator>::difference_type  difference_type;
    typedef Allocator                                                                allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::stored_allocator_type)           stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(value_compare_impl)                               value_compare;
@@ -185,7 +185,7 @@ class map
    //!
    //! <b>Postcondition</b>: x is emptied.
    map(BOOST_RV_REF(map) x)
-      : m_tree(boost::move(x.m_tree))
+      : m_tree(std::move(x.m_tree))
    {
       //Allocator type must be std::pair<CONST Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<const Key, T>, typename Allocator::value_type>::value));
@@ -208,7 +208,7 @@ class map
    //!
    //! <b>Postcondition</b>: x is emptied.
    map(BOOST_RV_REF(map) x, const allocator_type &a)
-      : m_tree(boost::move(x.m_tree), a)
+      : m_tree(std::move(x.m_tree), a)
    {
       //Allocator type must be std::pair<CONST Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<const Key, T>, typename Allocator::value_type>::value));
@@ -224,7 +224,7 @@ class map
    //!
    //! <b>Complexity</b>: Constant.
    map& operator=(BOOST_RV_REF(map) x)
-   {  m_tree = boost::move(x.m_tree);   return *this;  }
+   {  m_tree = std::move(x.m_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -407,7 +407,7 @@ class map
    mapped_type& operator[](const key_type &k);
 
    //! Effects: If there is no key equivalent to x in the map, inserts
-   //! value_type(boost::move(x), T()) into the map (the key is move-constructed)
+   //! value_type(std::move(x), T()) into the map (the key is move-constructed)
    //!
    //! Returns: Allocator reference to the mapped_type corresponding to x in *this.
    //!
@@ -478,7 +478,7 @@ class map
    //!
    //! <b>Complexity</b>: Logarithmic.
    std::pair<iterator,bool> insert(BOOST_RV_REF(nonconst_value_type) x)
-   { return m_tree.insert_unique(boost::move(x)); }
+   { return m_tree.insert_unique(std::move(x)); }
 
    //! <b>Effects</b>: Inserts a new value_type move constructed from the pair if and
    //! only if there is no element in the container with key equivalent to the key of x.
@@ -489,7 +489,7 @@ class map
    //!
    //! <b>Complexity</b>: Logarithmic.
    std::pair<iterator,bool> insert(BOOST_RV_REF(movable_value_type) x)
-   { return m_tree.insert_unique(boost::move(x)); }
+   { return m_tree.insert_unique(std::move(x)); }
 
    //! <b>Effects</b>: Move constructs a new value from x if and only if there is
    //!   no element in the container with key equivalent to the key of x.
@@ -500,7 +500,7 @@ class map
    //!
    //! <b>Complexity</b>: Logarithmic.
    std::pair<iterator,bool> insert(BOOST_RV_REF(value_type) x)
-   { return m_tree.insert_unique(boost::move(x)); }
+   { return m_tree.insert_unique(std::move(x)); }
 
    //! <b>Effects</b>: Inserts a copy of x in the container if and only if there is
    //!   no element in the container with key equivalent to the key of x.
@@ -524,7 +524,7 @@ class map
    //! <b>Complexity</b>: Logarithmic in general, but amortized constant if t
    //!   is inserted right before p.
    iterator insert(const_iterator position, BOOST_RV_REF(nonconst_value_type) x)
-   { return m_tree.insert_unique(position, boost::move(x)); }
+   { return m_tree.insert_unique(position, std::move(x)); }
 
    //! <b>Effects</b>: Move constructs a new value from x if and only if there is
    //!   no element in the container with key equivalent to the key of x.
@@ -536,7 +536,7 @@ class map
    //! <b>Complexity</b>: Logarithmic in general, but amortized constant if t
    //!   is inserted right before p.
    iterator insert(const_iterator position, BOOST_RV_REF(movable_value_type) x)
-   { return m_tree.insert_unique(position, boost::move(x)); }
+   { return m_tree.insert_unique(position, std::move(x)); }
 
    //! <b>Effects</b>: Inserts a copy of x in the container.
    //!   p is a hint pointing to where the insert should start to search.
@@ -554,7 +554,7 @@ class map
    //!
    //! <b>Complexity</b>: Logarithmic.
    iterator insert(const_iterator position, BOOST_RV_REF(value_type) x)
-   { return m_tree.insert_unique(position, boost::move(x)); }
+   { return m_tree.insert_unique(position, std::move(x)); }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
    //!
@@ -581,7 +581,7 @@ class map
    //!   is inserted right before p.
    template <class... Args>
    std::pair<iterator,bool> emplace(Args&&... args)
-   {  return m_tree.emplace_unique(boost::forward<Args>(args)...); }
+   {  return m_tree.emplace_unique(std::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the container if and only if there is
@@ -595,7 +595,7 @@ class map
    //!   is inserted right before p.
    template <class... Args>
    iterator emplace_hint(const_iterator hint, Args&&... args)
-   {  return m_tree.emplace_hint_unique(hint, boost::forward<Args>(args)...); }
+   {  return m_tree.emplace_hint_unique(hint, std::forward<Args>(args)...); }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
@@ -758,8 +758,8 @@ class map
       // i->first is greater than or equivalent to k.
       if (i == end() || key_comp()(k, (*i).first)){
          container_detail::value_init<mapped_type> m;
-         movable_value_type val(k, boost::move(m.m_t));
-         i = insert(i, boost::move(val));
+         movable_value_type val(k, std::move(m.m_t));
+         i = insert(i, std::move(val));
       }
       return (*i).second;
    }
@@ -772,8 +772,8 @@ class map
       // i->first is greater than or equivalent to k.
       if (i == end() || key_comp()(k, (*i).first)){
          container_detail::value_init<mapped_type> m;
-         movable_value_type val(boost::move(k), boost::move(m.m_t));
-         i = insert(i, boost::move(val));
+         movable_value_type val(std::move(k), std::move(m.m_t));
+         i = insert(i, std::move(val));
       }
       return (*i).second;
    }
@@ -832,7 +832,7 @@ inline bool operator<(const multimap<Key,T,Compare,Allocator>& x,
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::map<K, T, C, Allocator> >
+struct has_trivial_destructor_after_move<std::container::map<K, T, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };
@@ -885,12 +885,12 @@ class multimap
    typedef Key                                                                      key_type;
    typedef T                                                                        mapped_type;
    typedef std::pair<const Key, T>                                                  value_type;
-   typedef typename boost::container::allocator_traits<Allocator>::pointer          pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::const_pointer    const_pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::reference        reference;
-   typedef typename boost::container::allocator_traits<Allocator>::const_reference  const_reference;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type        size_type;
-   typedef typename boost::container::allocator_traits<Allocator>::difference_type  difference_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer          pointer;
+   typedef typename std::container::allocator_traits<Allocator>::const_pointer    const_pointer;
+   typedef typename std::container::allocator_traits<Allocator>::reference        reference;
+   typedef typename std::container::allocator_traits<Allocator>::const_reference  const_reference;
+   typedef typename std::container::allocator_traits<Allocator>::size_type        size_type;
+   typedef typename std::container::allocator_traits<Allocator>::difference_type  difference_type;
    typedef Allocator                                                                allocator_type;
    typedef typename BOOST_CONTAINER_IMPDEF(tree_t::stored_allocator_type)           stored_allocator_type;
    typedef BOOST_CONTAINER_IMPDEF(value_compare_impl)                               value_compare;
@@ -973,7 +973,7 @@ class multimap
    //!
    //! <b>Postcondition</b>: x is emptied.
    multimap(BOOST_RV_REF(multimap) x)
-      : m_tree(boost::move(x.m_tree))
+      : m_tree(std::move(x.m_tree))
    {
       //Allocator type must be std::pair<CONST Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<const Key, T>, typename Allocator::value_type>::value));
@@ -995,7 +995,7 @@ class multimap
    //!
    //! <b>Postcondition</b>: x is emptied.
    multimap(BOOST_RV_REF(multimap) x, const allocator_type &a)
-      : m_tree(boost::move(x.m_tree), a)
+      : m_tree(std::move(x.m_tree), a)
    {
       //Allocator type must be std::pair<CONST Key, T>
       BOOST_STATIC_ASSERT((container_detail::is_same<std::pair<const Key, T>, typename Allocator::value_type>::value));
@@ -1011,7 +1011,7 @@ class multimap
    //!
    //! <b>Complexity</b>: Constant.
    multimap& operator=(BOOST_RV_REF(multimap) x)
-   {  m_tree = boost::move(x.m_tree);   return *this;  }
+   {  m_tree = std::move(x.m_tree);   return *this;  }
 
    //! <b>Effects</b>: Returns a copy of the Allocator that
    //!   was passed to the object's constructor.
@@ -1197,7 +1197,7 @@ class multimap
    //!   is inserted right before p.
    template <class... Args>
    iterator emplace(Args&&... args)
-   {  return m_tree.emplace_equal(boost::forward<Args>(args)...); }
+   {  return m_tree.emplace_equal(std::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the container.
@@ -1210,7 +1210,7 @@ class multimap
    //!   is inserted right before p.
    template <class... Args>
    iterator emplace_hint(const_iterator hint, Args&&... args)
-   {  return m_tree.emplace_hint_equal(hint, boost::forward<Args>(args)...); }
+   {  return m_tree.emplace_hint_equal(hint, std::forward<Args>(args)...); }
 
    #else //#ifdef BOOST_CONTAINER_PERFECT_FORWARDING
 
@@ -1249,14 +1249,14 @@ class multimap
    //!
    //! <b>Complexity</b>: Logarithmic.
    iterator insert(BOOST_RV_REF(nonconst_value_type) x)
-   { return m_tree.insert_equal(boost::move(x)); }
+   { return m_tree.insert_equal(std::move(x)); }
 
    //! <b>Effects</b>: Inserts a new value move-constructed from x and returns
    //!   the iterator pointing to the newly inserted element.
    //!
    //! <b>Complexity</b>: Logarithmic.
    iterator insert(BOOST_RV_REF(movable_value_type) x)
-   { return m_tree.insert_equal(boost::move(x)); }
+   { return m_tree.insert_equal(std::move(x)); }
 
    //! <b>Effects</b>: Inserts a copy of x in the container.
    //!   p is a hint pointing to where the insert should start to search.
@@ -1289,7 +1289,7 @@ class multimap
    //! <b>Complexity</b>: Logarithmic in general, but amortized constant if t
    //!   is inserted right before p.
    iterator insert(const_iterator position, BOOST_RV_REF(nonconst_value_type) x)
-   { return m_tree.insert_equal(position, boost::move(x)); }
+   { return m_tree.insert_equal(position, std::move(x)); }
 
    //! <b>Effects</b>: Inserts a new value move constructed from x in the container.
    //!   p is a hint pointing to where the insert should start to search.
@@ -1300,7 +1300,7 @@ class multimap
    //! <b>Complexity</b>: Logarithmic in general, but amortized constant if t
    //!   is inserted right before p.
    iterator insert(const_iterator position, BOOST_RV_REF(movable_value_type) x)
-   { return m_tree.insert_equal(position, boost::move(x)); }
+   { return m_tree.insert_equal(position, std::move(x)); }
 
    //! <b>Requires</b>: first, last are not iterators into *this.
    //!
@@ -1491,7 +1491,7 @@ inline void swap(multimap<Key,T,Compare,Allocator>& x, multimap<Key,T,Compare,Al
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
 template <class K, class T, class C, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::multimap<K, T, C, Allocator> >
+struct has_trivial_destructor_after_move<std::container::multimap<K, T, C, Allocator> >
 {
    static const bool value = has_trivial_destructor_after_move<Allocator>::value && has_trivial_destructor_after_move<C>::value;
 };

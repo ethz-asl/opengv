@@ -145,7 +145,7 @@
         BOOST_PP_CAT(vector, N)(
             Sequence const& seq
 #if (N == 1)
-          , typename boost::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
+          , typename std::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
 #endif
             )
             : base_type(base_type::init_from_sequence(seq)) {}
@@ -154,7 +154,7 @@
         BOOST_PP_CAT(vector, N)(
             Sequence& seq
 #if (N == 1)
-          , typename boost::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
+          , typename std::disable_if<is_convertible<Sequence, T0> >::type* /*dummy*/ = 0
 #endif
             )
             : base_type(base_type::init_from_sequence(seq)) {}
@@ -168,7 +168,7 @@
         }
 
         template <typename Sequence>
-        typename boost::disable_if<is_convertible<Sequence, T0>, this_type&>::type
+        typename std::disable_if<is_convertible<Sequence, T0>, this_type&>::type
         operator=(Sequence const& seq)
         {
             typedef typename result_of::begin<Sequence const>::type I0;

@@ -29,7 +29,7 @@ template <class T,
           class ID = identity_property_map>
 class fibonacci_heap
 {
-  typedef typename boost::property_traits<ID>::value_type size_type;
+  typedef typename std::property_traits<ID>::value_type size_type;
   typedef T value_type;
 protected:
   typedef fibonacci_heap self;

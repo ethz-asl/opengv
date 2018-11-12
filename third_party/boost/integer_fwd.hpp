@@ -26,9 +26,9 @@ namespace boost
      typedef long          static_min_max_signed_type;
      typedef unsigned long static_min_max_unsigned_type;
 #else
-     typedef boost::uintmax_t static_min_max_unsigned_type;
-     typedef boost::intmax_t  static_min_max_signed_type;
-     typedef boost::uintmax_t static_log2_argument_type;
+     typedef std::uintmax_t static_min_max_unsigned_type;
+     typedef std::intmax_t  static_min_max_signed_type;
+     typedef std::uintmax_t static_log2_argument_type;
      typedef int              static_log2_result_type;
 #endif
 
@@ -79,10 +79,10 @@ template <  >
 
 #if !defined(BOOST_NO_INTEGRAL_INT64_T) && !defined(BOOST_NO_INT64_T) && defined(BOOST_HAS_LONG_LONG)
 template <  >
-class integer_traits<  ::boost::long_long_type>;
+class integer_traits<  ::std::long_long_type>;
 
 template <  >
-class integer_traits<  ::boost::ulong_long_type >;
+class integer_traits<  ::std::ulong_long_type >;
 #elif !defined(BOOST_NO_INTEGRAL_INT64_T) && !defined(BOOST_NO_INT64_T) && defined(BOOST_HAS_MS_INT64)
 template <  >
 class integer_traits<__int64>;
@@ -104,21 +104,21 @@ template< int Bits >
     struct uint_t;
 
 #if !defined(BOOST_NO_INTEGRAL_INT64_T) && defined(BOOST_HAS_LONG_LONG)
-    template< boost::long_long_type MaxValue >   // maximum value to require support
+    template< std::long_long_type MaxValue >   // maximum value to require support
 #else
   template< long MaxValue >   // maximum value to require support
 #endif
     struct int_max_value_t;
 
 #if !defined(BOOST_NO_INTEGRAL_INT64_T) && defined(BOOST_HAS_LONG_LONG)
-  template< boost::long_long_type MinValue >   // minimum value to require support
+  template< std::long_long_type MinValue >   // minimum value to require support
 #else
   template< long MinValue >   // minimum value to require support
 #endif
     struct int_min_value_t;
 
 #if !defined(BOOST_NO_INTEGRAL_INT64_T) && defined(BOOST_HAS_LONG_LONG)
-  template< boost::ulong_long_type MaxValue >   // maximum value to require support
+  template< std::ulong_long_type MaxValue >   // maximum value to require support
 #else
   template< unsigned long MaxValue >   // maximum value to require support
 #endif

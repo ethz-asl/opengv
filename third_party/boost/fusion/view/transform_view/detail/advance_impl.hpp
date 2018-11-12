@@ -41,7 +41,7 @@ namespace boost { namespace fusion
                 static type
                 call(Iterator const& i)
                 {
-                    return type(boost::fusion::advance<Dist>(i.first), i.f);
+                    return type(std::fusion::advance<Dist>(i.first), i.f);
                 }
             };
         };
@@ -64,8 +64,8 @@ namespace boost { namespace fusion
                 call(Iterator const& i)
                 {
                     return type(
-                        boost::fusion::advance<Dist>(i.first1)
-                      , boost::fusion::advance<Dist>(i.first2), i.f);
+                        std::fusion::advance<Dist>(i.first1)
+                      , std::fusion::advance<Dist>(i.first2), i.f);
                 }
             };
         };

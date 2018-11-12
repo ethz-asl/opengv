@@ -70,7 +70,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<64> const *)
 {
    BOOST_MATH_STD_USING // ADL of std functions
    T sigma = (x - a) / a;
-   T phi = -boost::math::log1pmx(sigma, pol);
+   T phi = -std::math::log1pmx(sigma, pol);
    T y = a * phi;
    T z = sqrt(2 * phi);
    if(x < a)
@@ -262,7 +262,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<64> const *)
    if(x < a)
       result = -result;
 
-   result += boost::math::erfc(sqrt(y), pol) / 2;
+   result += std::math::erfc(sqrt(y), pol) / 2;
 
    return result;
 }
@@ -275,7 +275,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<53> const *)
 {
    BOOST_MATH_STD_USING // ADL of std functions
    T sigma = (x - a) / a;
-   T phi = -boost::math::log1pmx(sigma, pol);
+   T phi = -std::math::log1pmx(sigma, pol);
    T y = a * phi;
    T z = sqrt(2 * phi);
    if(x < a)
@@ -404,7 +404,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<53> const *)
    if(x < a)
       result = -result;
 
-   result += boost::math::erfc(sqrt(y), pol) / 2;
+   result += std::math::erfc(sqrt(y), pol) / 2;
 
    return result;
 }
@@ -417,7 +417,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<24> const *)
 {
    BOOST_MATH_STD_USING // ADL of std functions
    T sigma = (x - a) / a;
-   T phi = -boost::math::log1pmx(sigma, pol);
+   T phi = -std::math::log1pmx(sigma, pol);
    T y = a * phi;
    T z = sqrt(2 * phi);
    if(x < a)
@@ -457,7 +457,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<24> const *)
    if(x < a)
       result = -result;
 
-   result += boost::math::erfc(sqrt(y), pol) / 2;
+   result += std::math::erfc(sqrt(y), pol) / 2;
 
    return result;
 }
@@ -473,7 +473,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<113> const *)
 {
    BOOST_MATH_STD_USING // ADL of std functions
    T sigma = (x - a) / a;
-   T phi = -boost::math::log1pmx(sigma, pol);
+   T phi = -std::math::log1pmx(sigma, pol);
    T y = a * phi;
    T z = sqrt(2 * phi);
    if(x < a)
@@ -754,7 +754,7 @@ T igamma_temme_large(T a, T x, const Policy& pol, mpl::int_<113> const *)
    if(x < a)
       result = -result;
 
-   result += boost::math::erfc(sqrt(y), pol) / 2;
+   result += std::math::erfc(sqrt(y), pol) / 2;
 
    return result;
 }

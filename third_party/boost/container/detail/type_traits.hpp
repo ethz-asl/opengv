@@ -8,7 +8,7 @@
 //
 // See http://www.boost.org/libs/container for documentation.
 //
-// The alignment_of implementation comes from John Maddock's boost::alignment_of code
+// The alignment_of implementation comes from John Maddock's std::alignment_of code
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,7 @@ struct LowPriorityConversion
    LowPriorityConversion(const U&) { }
 };
 
-//boost::alignment_of yields to 10K lines of preprocessed code, so we
+//std::alignment_of yields to 10K lines of preprocessed code, so we
 //need an alternative
 template <typename T> struct alignment_of;
 
@@ -101,7 +101,7 @@ struct remove_reference<T&&>
 #else
 
 template<class T>
-struct remove_reference< ::boost::rv<T> >
+struct remove_reference< ::std::rv<T> >
 {
    typedef T type;
 };

@@ -176,7 +176,7 @@ namespace boost { namespace numeric { namespace ublas {
     template<class T1, class T2>
     struct scalar_binary_assign_functor {
         // ISSUE Remove reference to avoid reference to reference problems
-        typedef typename type_traits<typename boost::remove_reference<T1>::type>::reference argument1_type;
+        typedef typename type_traits<typename std::remove_reference<T1>::type>::reference argument1_type;
         typedef typename type_traits<T2>::const_reference argument2_type;
     };
 
@@ -303,8 +303,8 @@ namespace boost { namespace numeric { namespace ublas {
 
     template<class T1, class T2>
     struct scalar_binary_swap_functor {
-        typedef typename type_traits<typename boost::remove_reference<T1>::type>::reference argument1_type;
-        typedef typename type_traits<typename boost::remove_reference<T2>::type>::reference argument2_type;
+        typedef typename type_traits<typename std::remove_reference<T1>::type>::reference argument1_type;
+        typedef typename type_traits<typename std::remove_reference<T2>::type>::reference argument2_type;
     };
 
     template<class T1, class T2>
@@ -677,7 +677,7 @@ namespace boost { namespace numeric { namespace ublas {
             }
             return t;
 #elif defined(BOOST_UBLAS_HAVE_BINDINGS)
-            return boost::numeric::bindings::atlas::dot (c1 (), c2 ());
+            return std::numeric::bindings::atlas::dot (c1 (), c2 ());
 #else
             return apply (static_cast<const vector_expression<C1> > (c1), static_cast<const vector_expression<C2> > (c2));
 #endif
@@ -814,7 +814,7 @@ namespace boost { namespace numeric { namespace ublas {
             }
             return t;
 #elif defined(BOOST_UBLAS_HAVE_BINDINGS)
-            return boost::numeric::bindings::atlas::dot (c1 ().row (i), c2 ());
+            return std::numeric::bindings::atlas::dot (c1 ().row (i), c2 ());
 #else
             return apply (static_cast<const matrix_expression<C1> > (c1), static_cast<const vector_expression<C2> > (c2, i));
 #endif
@@ -982,7 +982,7 @@ namespace boost { namespace numeric { namespace ublas {
             }
             return t;
 #elif defined(BOOST_UBLAS_HAVE_BINDINGS)
-            return boost::numeric::bindings::atlas::dot (c1 (), c2 ().column (i));
+            return std::numeric::bindings::atlas::dot (c1 (), c2 ().column (i));
 #else
             return apply (static_cast<const vector_expression<C1> > (c1), static_cast<const matrix_expression<C2> > (c2, i));
 #endif
@@ -1159,7 +1159,7 @@ namespace boost { namespace numeric { namespace ublas {
             }
             return t;
 #elif defined(BOOST_UBLAS_HAVE_BINDINGS)
-            return boost::numeric::bindings::atlas::dot (c1 ().row (i), c2 ().column (j));
+            return std::numeric::bindings::atlas::dot (c1 ().row (i), c2 ().column (j));
 #else
             return apply (static_cast<const matrix_expression<C1> > (c1), static_cast<const matrix_expression<C2> > (c2, i));
 #endif

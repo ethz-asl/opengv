@@ -58,7 +58,7 @@ namespace boost
                 else if(x < 0.5f)
                 {
                    // As below, but rearranged to preserve digits:
-                   return boost::math::log1p(x + boost::math::sqrt1pm1(x * x, pol), pol);
+                   return std::math::log1p(x + std::math::sqrt1pm1(x * x, pol), pol);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace boost
         template<typename T>
         inline typename tools::promote_args<T>::type asinh(T x)
         {
-           return boost::math::asinh(x, policies::policy<>());
+           return std::math::asinh(x, policies::policy<>());
         }
         template<typename T, typename Policy>
         inline typename tools::promote_args<T>::type asinh(T x, const Policy&)
@@ -107,7 +107,7 @@ namespace boost
                policies::assert_undefined<> >::type forwarding_policy;
            return policies::checked_narrowing_cast<result_type, forwarding_policy>(
               detail::asinh_imp(static_cast<value_type>(x), forwarding_policy()),
-              "boost::math::asinh<%1%>(%1%)");
+              "std::math::asinh<%1%>(%1%)");
         }
 
     }

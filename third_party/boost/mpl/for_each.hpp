@@ -72,10 +72,10 @@ struct for_each_impl<false>
         // dwa 2002/9/10 -- make sure not to invoke undefined behavior
         // when we pass arg.
         value_initialized<arg> x;
-        aux::unwrap(f, 0)(boost::get(x));
+        aux::unwrap(f, 0)(std::get(x));
         
         typedef typename mpl::next<Iterator>::type iter;
-        for_each_impl<boost::is_same<iter,LastIterator>::value>
+        for_each_impl<std::is_same<iter,LastIterator>::value>
             ::execute( static_cast<iter*>(0), static_cast<LastIterator*>(0), static_cast<TransformFunc*>(0), f);
     }
 };
@@ -97,7 +97,7 @@ void for_each(F f, Sequence* = 0, TransformOp* = 0)
     typedef typename begin<Sequence>::type first;
     typedef typename end<Sequence>::type last;
 
-    aux::for_each_impl< boost::is_same<first,last>::value >
+    aux::for_each_impl< std::is_same<first,last>::value >
         ::execute(static_cast<first*>(0), static_cast<last*>(0), static_cast<TransformOp*>(0), f);
 }
 

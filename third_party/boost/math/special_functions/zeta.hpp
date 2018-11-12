@@ -36,7 +36,7 @@ struct zeta_series_cache_size
    // time.  This is important when constructing rational approximations
    // to zeta for example.
    //
-   typedef typename boost::math::policies::precision<T,Policy>::type precision_type;
+   typedef typename std::math::policies::precision<T,Policy>::type precision_type;
    typedef typename mpl::if_<
       mpl::less_equal<precision_type, mpl::int_<0> >,
       mpl::int_<5000>,
@@ -93,7 +93,7 @@ T zeta_series_imp(T s, T sc, const Policy&)
       ++n;
    }while(fabs(change / sum) > tools::epsilon<T>());
 
-   return sum * 1 / -boost::math::powm1(T(2), sc);
+   return sum * 1 / -std::math::powm1(T(2), sc);
 }
 
 //
@@ -117,13 +117,13 @@ private:
 template <class T, class Policy>
 inline T zeta_series2_imp(T s, const Policy& pol)
 {
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();;
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();;
    zeta_series2<T> f(s);
    T result = tools::sum_series(
       f, 
       policies::get_epsilon<T, Policy>(),
       max_iter);
-   policies::check_series_iterations<T>("boost::math::zeta_series2<%1%>(%1%)", max_iter, pol);
+   policies::check_series_iterations<T>("std::math::zeta_series2<%1%>(%1%)", max_iter, pol);
    return result;
 }
 #endif
@@ -139,7 +139,7 @@ T zeta_polynomial_series(T s, T sc, Policy const &)
    // See: http://www.cecm.sfu.ca/personal/pborwein/PAPERS/P155.pdf
    //
    BOOST_MATH_STD_USING
-   int n = itrunc(T(log(boost::math::tools::epsilon<T>()) / -2));
+   int n = itrunc(T(log(std::math::tools::epsilon<T>()) / -2));
    T sum = 0;
    T two_n = ldexp(T(1), n);
    int ej_sign = 1;
@@ -868,7 +868,7 @@ T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
    BOOST_MATH_STD_USING
    if(sc == 0)
       return policies::raise_pole_error<T>(
-         "boost::math::zeta<%1%>", 
+         "std::math::zeta<%1%>", 
          "Evaluation of zeta function at pole %1%", 
          s, pol);
    T result;
@@ -883,9 +883,9 @@ T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
          result = 0;
       else
       {
-         result = boost::math::sin_pi(0.5f * sc, pol)
+         result = std::math::sin_pi(0.5f * sc, pol)
             * 2 * pow(2 * constants::pi<T>(), -s) 
-            * boost::math::tgamma(s, pol) 
+            * std::math::tgamma(s, pol) 
             * zeta_imp(s, sc, pol, tag);
       }
    }
@@ -909,23 +909,23 @@ struct zeta_initializer
       static void do_init(const mpl::int_<53>&){}
       static void do_init(const mpl::int_<64>&)
       {
-         boost::math::zeta(static_cast<T>(0.5), Policy());
-         boost::math::zeta(static_cast<T>(1.5), Policy());
-         boost::math::zeta(static_cast<T>(3.5), Policy());
-         boost::math::zeta(static_cast<T>(6.5), Policy());
-         boost::math::zeta(static_cast<T>(14.5), Policy());
-         boost::math::zeta(static_cast<T>(40.5), Policy());
+         std::math::zeta(static_cast<T>(0.5), Policy());
+         std::math::zeta(static_cast<T>(1.5), Policy());
+         std::math::zeta(static_cast<T>(3.5), Policy());
+         std::math::zeta(static_cast<T>(6.5), Policy());
+         std::math::zeta(static_cast<T>(14.5), Policy());
+         std::math::zeta(static_cast<T>(40.5), Policy());
       }
       static void do_init(const mpl::int_<113>&)
       {
-         boost::math::zeta(static_cast<T>(0.5), Policy());
-         boost::math::zeta(static_cast<T>(1.5), Policy());
-         boost::math::zeta(static_cast<T>(3.5), Policy());
-         boost::math::zeta(static_cast<T>(5.5), Policy());
-         boost::math::zeta(static_cast<T>(9.5), Policy());
-         boost::math::zeta(static_cast<T>(16.5), Policy());
-         boost::math::zeta(static_cast<T>(25), Policy());
-         boost::math::zeta(static_cast<T>(70), Policy());
+         std::math::zeta(static_cast<T>(0.5), Policy());
+         std::math::zeta(static_cast<T>(1.5), Policy());
+         std::math::zeta(static_cast<T>(3.5), Policy());
+         std::math::zeta(static_cast<T>(5.5), Policy());
+         std::math::zeta(static_cast<T>(9.5), Policy());
+         std::math::zeta(static_cast<T>(16.5), Policy());
+         std::math::zeta(static_cast<T>(25), Policy());
+         std::math::zeta(static_cast<T>(70), Policy());
       }
       void force_instantiate()const{}
    };
@@ -978,7 +978,7 @@ inline typename tools::promote_args<T>::type zeta(T s, const Policy&)
       static_cast<value_type>(s),
       static_cast<value_type>(1 - static_cast<value_type>(s)),
       forwarding_policy(),
-      tag_type()), "boost::math::zeta<%1%>(%1%)");
+      tag_type()), "std::math::zeta<%1%>(%1%)");
 }
 
 template <class T>

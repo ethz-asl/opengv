@@ -31,16 +31,16 @@ namespace boost {
 namespace container {
 namespace container_detail {
 
-template<class Allocator, unsigned Version = boost::container::container_detail::version<Allocator>::value>
+template<class Allocator, unsigned Version = std::container::container_detail::version<Allocator>::value>
 struct allocator_version_traits
 {
-   typedef ::boost::container::container_detail::integral_constant
+   typedef ::std::container::container_detail::integral_constant
       <unsigned, Version> alloc_version;
 
    typedef typename Allocator::multiallocation_chain multiallocation_chain;
 
-   typedef typename boost::container::allocator_traits<Allocator>::pointer    pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type  size_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer    pointer;
+   typedef typename std::container::allocator_traits<Allocator>::size_type  size_type;
 
    //Node allocation interface
    static pointer allocate_one(Allocator &a)
@@ -68,18 +68,18 @@ struct allocator_version_traits
 template<class Allocator>
 struct allocator_version_traits<Allocator, 1>
 {
-   typedef ::boost::container::container_detail::integral_constant
+   typedef ::std::container::container_detail::integral_constant
       <unsigned, 1> alloc_version;
 
-   typedef typename boost::container::allocator_traits<Allocator>::pointer    pointer;
-   typedef typename boost::container::allocator_traits<Allocator>::size_type  size_type;
-   typedef typename boost::container::allocator_traits<Allocator>::value_type value_type;
+   typedef typename std::container::allocator_traits<Allocator>::pointer    pointer;
+   typedef typename std::container::allocator_traits<Allocator>::size_type  size_type;
+   typedef typename std::container::allocator_traits<Allocator>::value_type value_type;
 
-   typedef typename boost::intrusive::pointer_traits<pointer>::
+   typedef typename std::intrusive::pointer_traits<pointer>::
          template rebind_pointer<void>::type                void_ptr;
    typedef container_detail::basic_multiallocation_chain
       <void_ptr>                                            multialloc_cached_counted;
-   typedef boost::container::container_detail::
+   typedef std::container::container_detail::
       transform_multiallocation_chain
          < multialloc_cached_counted, value_type>           multiallocation_chain;
 

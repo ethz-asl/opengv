@@ -85,7 +85,7 @@ public:
 
     static const order_type order_value = Order;
 
-    typedef boost::array< value_type , num_of_stages > coef_type;
+    typedef std::array< value_type , num_of_stages > coef_type;
 
     symplectic_nystroem_stepper_base( const coef_type &coef_a , const coef_type &coef_b , const algebra_type &algebra = algebra_type() )
         : algebra_stepper_base_type( algebra ) , m_coef_a( coef_a ) , m_coef_b( coef_b ) ,
@@ -181,7 +181,7 @@ private:
 
     // stepper for systems with function for dq/dt = f(p) and dp/dt = -f(q)
     template< class System , class StateIn , class StateOut >
-    void do_step_impl( System system , const StateIn &in , time_type t , StateOut &out , time_type dt , boost::mpl::true_ )
+    void do_step_impl( System system , const StateIn &in , time_type t , StateOut &out , time_type dt , std::mpl::true_ )
     {
         typedef typename odeint::unwrap_reference< System >::type system_type;
         typedef typename odeint::unwrap_reference< typename system_type::first_type >::type coor_deriv_func_type;
@@ -235,7 +235,7 @@ private:
 
     // stepper for systems with only function dp /dt = -f(q), dq/dt = p, time not required but still expected for compatibility reasons
     template< class System , class StateIn , class StateOut >
-    void do_step_impl( System system , const StateIn &in , time_type  /* t */ , StateOut &out , time_type dt , boost::mpl::false_ )
+    void do_step_impl( System system , const StateIn &in , time_type  /* t */ , StateOut &out , time_type dt , std::mpl::false_ )
     {
         typedef typename odeint::unwrap_reference< System >::type momentum_deriv_func_type;
         momentum_deriv_func_type &momentum_func = system;
@@ -366,7 +366,7 @@ private:
      * the momentum part. In this case the coordinate is assumed to be trivial dq/dt = p. The state
      * is updated in-place.
      *
-     * \note boost::ref or std::ref can be used for the system as well as for the state. So, it is correct
+     * \note std::ref or std::ref can be used for the system as well as for the state. So, it is correct
      * to write `stepper.do_step( make_pair( std::ref( fq ) , std::ref( fp ) ) , make_pair( std::ref( q ) , std::ref( p ) ) , t , dt )`.
      *
      * \note This method solves the forwarding problem.
@@ -385,7 +385,7 @@ private:
      * the momentum part. In this case the coordinate is assumed to be trivial dq/dt = p. The state
      * is updated in-place.
      *
-     * \note boost::ref or std::ref can be used for the system. So, it is correct
+     * \note std::ref or std::ref can be used for the system. So, it is correct
      * to write `stepper.do_step( make_pair( std::ref( fq ) , std::ref( fp ) ) , q , p , t , dt )`.
      *
      * \note This method solves the forwarding problem.
@@ -406,7 +406,7 @@ private:
      * the momentum part. In this case the coordinate is assumed to be trivial dq/dt = p. The state
      * is updated out-of-place.
      *
-     * \note boost::ref or std::ref can be used for the system. So, it is correct
+     * \note std::ref or std::ref can be used for the system. So, it is correct
      * to write `stepper.do_step( make_pair( std::ref( fq ) , std::ref( fp ) ) , x_in , t , x_out , dt )`.
      *
      * \note This method NOT solve the forwarding problem.

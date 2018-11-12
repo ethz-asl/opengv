@@ -35,7 +35,7 @@ struct scoped_deallocator
    typedef allocator_traits<A> allocator_traits_type;
    typedef typename allocator_traits_type::pointer pointer;
    typedef container_detail::integral_constant<unsigned,
-      boost::container::container_detail::
+      std::container::container_detail::
          version<A>::value>                   alloc_version;
    typedef container_detail::integral_constant<unsigned, 1>     allocator_v1;
    typedef container_detail::integral_constant<unsigned, 2>     allocator_v2;
@@ -75,7 +75,7 @@ struct scoped_deallocator
 template <class Allocator>
 struct null_scoped_deallocator
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer    pointer;
    typedef typename AllocTraits::size_type  size_type;
 
@@ -94,7 +94,7 @@ struct null_scoped_deallocator
 template <class Allocator>
 struct scoped_array_deallocator
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer    pointer;
    typedef typename AllocTraits::size_type  size_type;
 
@@ -116,7 +116,7 @@ struct scoped_array_deallocator
 template <class Allocator>
 struct null_scoped_array_deallocator
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer    pointer;
    typedef typename AllocTraits::size_type  size_type;
 
@@ -130,11 +130,11 @@ struct null_scoped_array_deallocator
 template <class Allocator>
 struct scoped_destroy_deallocator
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer    pointer;
    typedef typename AllocTraits::size_type  size_type;
    typedef container_detail::integral_constant<unsigned,
-      boost::container::container_detail::
+      std::container::container_detail::
          version<Allocator>::value>                          alloc_version;
    typedef container_detail::integral_constant<unsigned, 1>  allocator_v1;
    typedef container_detail::integral_constant<unsigned, 2>  allocator_v2;
@@ -171,7 +171,7 @@ struct scoped_destroy_deallocator
 template <class Allocator>
 struct scoped_destructor_n
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer    pointer;
    typedef typename AllocTraits::value_type value_type;
    typedef typename AllocTraits::size_type  size_type;
@@ -212,7 +212,7 @@ struct scoped_destructor_n
 template <class Allocator>
 struct null_scoped_destructor_n
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::pointer pointer;
    typedef typename AllocTraits::size_type size_type;
 
@@ -232,7 +232,7 @@ struct null_scoped_destructor_n
 template<class A>
 class scoped_destructor
 {
-   typedef boost::container::allocator_traits<A> AllocTraits;
+   typedef std::container::allocator_traits<A> AllocTraits;
    public:
    typedef typename A::value_type value_type;
    scoped_destructor(A &a, value_type *pv)
@@ -258,7 +258,7 @@ class scoped_destructor
 template<class A>
 class value_destructor
 {
-   typedef boost::container::allocator_traits<A> AllocTraits;
+   typedef std::container::allocator_traits<A> AllocTraits;
    public:
    typedef typename A::value_type value_type;
    value_destructor(A &a, value_type &rv)
@@ -278,11 +278,11 @@ class value_destructor
 template <class Allocator>
 class allocator_destroyer
 {
-   typedef boost::container::allocator_traits<Allocator> AllocTraits;
+   typedef std::container::allocator_traits<Allocator> AllocTraits;
    typedef typename AllocTraits::value_type value_type;
    typedef typename AllocTraits::pointer    pointer;
    typedef container_detail::integral_constant<unsigned,
-      boost::container::container_detail::
+      std::container::container_detail::
          version<Allocator>::value>                           alloc_version;
    typedef container_detail::integral_constant<unsigned, 1>  allocator_v1;
    typedef container_detail::integral_constant<unsigned, 2>  allocator_v2;

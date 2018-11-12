@@ -33,8 +33,8 @@ inline bool includes(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::includes(boost::begin(rng1),boost::end(rng1),
-                         boost::begin(rng2),boost::end(rng2));
+    return std::includes(std::begin(rng1),std::end(rng1),
+                         std::begin(rng2),std::end(rng2));
 }
 
 /// \overload
@@ -46,8 +46,8 @@ inline bool includes(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::includes(boost::begin(rng1), boost::end(rng1),
-                         boost::begin(rng2), boost::end(rng2), pred);
+    return std::includes(std::begin(rng1), std::end(rng1),
+                         std::begin(rng2), std::end(rng2), pred);
 }
 
 /// \brief template function set_union
@@ -65,8 +65,8 @@ inline OutputIterator set_union(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_union(boost::begin(rng1), boost::end(rng1),
-                          boost::begin(rng2), boost::end(rng2), out);
+    return std::set_union(std::begin(rng1), std::end(rng1),
+                          std::begin(rng2), std::end(rng2), out);
 }
 
 /// \overload
@@ -79,8 +79,8 @@ inline OutputIterator set_union(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_union(boost::begin(rng1), boost::end(rng1),
-                          boost::begin(rng2), boost::end(rng2), out, pred);
+    return std::set_union(std::begin(rng1), std::end(rng1),
+                          std::begin(rng2), std::end(rng2), out, pred);
 }
 
 /// \brief template function set_intersection
@@ -98,8 +98,8 @@ inline OutputIterator set_intersection(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_intersection(boost::begin(rng1), boost::end(rng1),
-                                 boost::begin(rng2), boost::end(rng2), out);
+    return std::set_intersection(std::begin(rng1), std::end(rng1),
+                                 std::begin(rng2), std::end(rng2), out);
 }
 
 /// \overload
@@ -112,8 +112,8 @@ inline OutputIterator set_intersection(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_intersection(boost::begin(rng1), boost::end(rng1),
-                                 boost::begin(rng2), boost::end(rng2),
+    return std::set_intersection(std::begin(rng1), std::end(rng1),
+                                 std::begin(rng2), std::end(rng2),
                                  out, pred);
 }
 
@@ -132,8 +132,8 @@ inline OutputIterator set_difference(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_difference(boost::begin(rng1), boost::end(rng1),
-                               boost::begin(rng2), boost::end(rng2), out);
+    return std::set_difference(std::begin(rng1), std::end(rng1),
+                               std::begin(rng2), std::end(rng2), out);
 }
 
 /// \overload
@@ -147,8 +147,8 @@ inline OutputIterator set_difference(const SinglePassRange1& rng1,
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
     return std::set_difference(
-        boost::begin(rng1), boost::end(rng1),
-        boost::begin(rng2), boost::end(rng2), out, pred);
+        std::begin(rng1), std::end(rng1),
+        std::begin(rng2), std::end(rng2), out, pred);
 }
 
 /// \brief template function set_symmetric_difference
@@ -167,8 +167,8 @@ set_symmetric_difference(const SinglePassRange1& rng1,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
-    return std::set_symmetric_difference(boost::begin(rng1), boost::end(rng1),
-                                         boost::begin(rng2), boost::end(rng2), out);
+    return std::set_symmetric_difference(std::begin(rng1), std::end(rng1),
+                                         std::begin(rng2), std::end(rng2), out);
 }
 
 /// \overload
@@ -183,8 +183,8 @@ set_symmetric_difference(const SinglePassRange1& rng1,
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange1> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
     return std::set_symmetric_difference(
-        boost::begin(rng1), boost::end(rng1),
-        boost::begin(rng2), boost::end(rng2), out, pred);
+        std::begin(rng1), std::end(rng1),
+        std::begin(rng2), std::end(rng2), out, pred);
 }
 
     } // namespace range

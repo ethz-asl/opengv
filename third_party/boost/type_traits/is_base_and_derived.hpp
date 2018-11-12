@@ -170,7 +170,7 @@ template<typename B, typename D>
 struct is_base_and_derived_impl2
 {
     BOOST_STATIC_CONSTANT(bool, value =
-        (::boost::is_convertible<D*,B*>::value));
+        (::std::is_convertible<D*,B*>::value));
 };
 
 #define BOOST_BROKEN_IS_BASE_AND_DERIVED
@@ -210,9 +210,9 @@ struct is_base_and_derived_impl
     typedef typename remove_cv<D>::type ncvD;
 
     typedef is_base_and_derived_select<
-       ::boost::is_class<B>::value,
-       ::boost::is_class<D>::value,
-       ::boost::is_same<ncvB,ncvD>::value> selector;
+       ::std::is_class<B>::value,
+       ::std::is_class<D>::value,
+       ::std::is_same<ncvB,ncvD>::value> selector;
     typedef typename selector::template rebind<ncvB,ncvD> binder;
     typedef typename binder::type bound_type;
 
@@ -225,7 +225,7 @@ struct is_base_and_derived_impl
     typedef typename remove_cv<B>::type ncvB;
     typedef typename remove_cv<D>::type ncvD;
 
-    BOOST_STATIC_CONSTANT(bool, value = (BOOST_IS_BASE_OF(B,D) && ! ::boost::is_same<ncvB,ncvD>::value));
+    BOOST_STATIC_CONSTANT(bool, value = (BOOST_IS_BASE_OF(B,D) && ! ::std::is_same<ncvB,ncvD>::value));
 };
 #endif
 } // namespace detail
@@ -234,7 +234,7 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF2(
       is_base_and_derived
     , Base
     , Derived
-    , (::boost::detail::is_base_and_derived_impl<Base,Derived>::value)
+    , (::std::detail::is_base_and_derived_impl<Base,Derived>::value)
     )
 
 #ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION

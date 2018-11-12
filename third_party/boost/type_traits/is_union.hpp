@@ -48,7 +48,7 @@ template <typename T> struct is_union_impl
 #endif
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_union,T,::boost::detail::is_union_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_union,T,::std::detail::is_union_impl<T>::value)
 
 } // namespace boost
 

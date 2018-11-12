@@ -85,15 +85,15 @@ struct lanczos6 : public mpl::int_<35>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 35, 63.99951844938187085666201263218840287667)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 35, 2.506628274631006311133031631822390264407))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint16_t) denom[6] = {
-         static_cast<boost::uint16_t>(0u),
-         static_cast<boost::uint16_t>(24u),
-         static_cast<boost::uint16_t>(50u),
-         static_cast<boost::uint16_t>(35u),
-         static_cast<boost::uint16_t>(10u),
-         static_cast<boost::uint16_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint16_t) denom[6] = {
+         static_cast<std::uint16_t>(0u),
+         static_cast<std::uint16_t>(24u),
+         static_cast<std::uint16_t>(50u),
+         static_cast<std::uint16_t>(35u),
+         static_cast<std::uint16_t>(10u),
+         static_cast<std::uint16_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -108,15 +108,15 @@ struct lanczos6 : public mpl::int_<35>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 35, 0.2412010548258800231126240760264822486599)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 35, 0.009446967704539249494420221613134244048319))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint16_t) denom[6] = {
-         static_cast<boost::uint16_t>(0u),
-         static_cast<boost::uint16_t>(24u),
-         static_cast<boost::uint16_t>(50u),
-         static_cast<boost::uint16_t>(35u),
-         static_cast<boost::uint16_t>(10u),
-         static_cast<boost::uint16_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint16_t) denom[6] = {
+         static_cast<std::uint16_t>(0u),
+         static_cast<std::uint16_t>(24u),
+         static_cast<std::uint16_t>(50u),
+         static_cast<std::uint16_t>(35u),
+         static_cast<std::uint16_t>(10u),
+         static_cast<std::uint16_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -190,20 +190,20 @@ struct lanczos11 : public mpl::int_<60>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 60, 261.6140441641668190791708576058805625502)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 60, 2.506628274631000502415573855452633787834))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[11] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(362880u),
-         static_cast<boost::uint32_t>(1026576u),
-         static_cast<boost::uint32_t>(1172700u),
-         static_cast<boost::uint32_t>(723680u),
-         static_cast<boost::uint32_t>(269325u),
-         static_cast<boost::uint32_t>(63273u),
-         static_cast<boost::uint32_t>(9450u),
-         static_cast<boost::uint32_t>(870u),
-         static_cast<boost::uint32_t>(45u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[11] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(362880u),
+         static_cast<std::uint32_t>(1026576u),
+         static_cast<std::uint32_t>(1172700u),
+         static_cast<std::uint32_t>(723680u),
+         static_cast<std::uint32_t>(269325u),
+         static_cast<std::uint32_t>(63273u),
+         static_cast<std::uint32_t>(9450u),
+         static_cast<std::uint32_t>(870u),
+         static_cast<std::uint32_t>(45u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -223,20 +223,20 @@ struct lanczos11 : public mpl::int_<60>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 60, 0.004826466289237661857584712046231435101741)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 60, 0.4624429436045378766270459638520555557321e-4))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[11] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(362880u),
-         static_cast<boost::uint32_t>(1026576u),
-         static_cast<boost::uint32_t>(1172700u),
-         static_cast<boost::uint32_t>(723680u),
-         static_cast<boost::uint32_t>(269325u),
-         static_cast<boost::uint32_t>(63273u),
-         static_cast<boost::uint32_t>(9450u),
-         static_cast<boost::uint32_t>(870u),
-         static_cast<boost::uint32_t>(45u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[11] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(362880u),
+         static_cast<std::uint32_t>(1026576u),
+         static_cast<std::uint32_t>(1172700u),
+         static_cast<std::uint32_t>(723680u),
+         static_cast<std::uint32_t>(269325u),
+         static_cast<std::uint32_t>(63273u),
+         static_cast<std::uint32_t>(9450u),
+         static_cast<std::uint32_t>(870u),
+         static_cast<std::uint32_t>(45u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -322,22 +322,22 @@ struct lanczos13 : public mpl::int_<72>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 72, 381.8801248632926870394389468349331394196)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 72, 2.506628274631000502415763426076722427007))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[13] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(39916800u),
-         static_cast<boost::uint32_t>(120543840u),
-         static_cast<boost::uint32_t>(150917976u),
-         static_cast<boost::uint32_t>(105258076u),
-         static_cast<boost::uint32_t>(45995730u),
-         static_cast<boost::uint32_t>(13339535u),
-         static_cast<boost::uint32_t>(2637558u),
-         static_cast<boost::uint32_t>(357423u),
-         static_cast<boost::uint32_t>(32670u),
-         static_cast<boost::uint32_t>(1925u),
-         static_cast<boost::uint32_t>(66u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[13] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(39916800u),
+         static_cast<std::uint32_t>(120543840u),
+         static_cast<std::uint32_t>(150917976u),
+         static_cast<std::uint32_t>(105258076u),
+         static_cast<std::uint32_t>(45995730u),
+         static_cast<std::uint32_t>(13339535u),
+         static_cast<std::uint32_t>(2637558u),
+         static_cast<std::uint32_t>(357423u),
+         static_cast<std::uint32_t>(32670u),
+         static_cast<std::uint32_t>(1925u),
+         static_cast<std::uint32_t>(66u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -359,22 +359,22 @@ struct lanczos13 : public mpl::int_<72>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 72, 0.0007469903808915448316510079585999893674101)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 72, 0.4903180573459871862552197089738373164184e-5))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[13] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(39916800u),
-         static_cast<boost::uint32_t>(120543840u),
-         static_cast<boost::uint32_t>(150917976u),
-         static_cast<boost::uint32_t>(105258076u),
-         static_cast<boost::uint32_t>(45995730u),
-         static_cast<boost::uint32_t>(13339535u),
-         static_cast<boost::uint32_t>(2637558u),
-         static_cast<boost::uint32_t>(357423u),
-         static_cast<boost::uint32_t>(32670u),
-         static_cast<boost::uint32_t>(1925u),
-         static_cast<boost::uint32_t>(66u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[13] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(39916800u),
+         static_cast<std::uint32_t>(120543840u),
+         static_cast<std::uint32_t>(150917976u),
+         static_cast<std::uint32_t>(105258076u),
+         static_cast<std::uint32_t>(45995730u),
+         static_cast<std::uint32_t>(13339535u),
+         static_cast<std::uint32_t>(2637558u),
+         static_cast<std::uint32_t>(357423u),
+         static_cast<std::uint32_t>(32670u),
+         static_cast<std::uint32_t>(1925u),
+         static_cast<std::uint32_t>(66u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -473,7 +473,7 @@ struct lanczos22 : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1167.501919472435718934219997431551246996)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 2.50662827463100050241576528481104525333))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint64_t) denom[22] = {
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint64_t) denom[22] = {
          BOOST_MATH_INT_VALUE_SUFFIX(0, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(2432902008176640000, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(8752948036761600000, uLL),
@@ -497,7 +497,7 @@ struct lanczos22 : public mpl::int_<120>
          BOOST_MATH_INT_VALUE_SUFFIX(210, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1, uLL)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -528,7 +528,7 @@ struct lanczos22 : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0.1753839324538447655939518484052327068859e-6)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0.3765495513732730583386223384116545391759e-9))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint64_t) denom[22] = {
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint64_t) denom[22] = {
          BOOST_MATH_INT_VALUE_SUFFIX(0, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(2432902008176640000, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(8752948036761600000, uLL),
@@ -552,7 +552,7 @@ struct lanczos22 : public mpl::int_<120>
          BOOST_MATH_INT_VALUE_SUFFIX(210, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1, uLL)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -651,15 +651,15 @@ struct lanczos6m24 : public mpl::int_<24>
          static_cast<T>(27.5192015197455403062503721613097825345L),
          static_cast<T>(2.50662858515256974113978724717473206342L)
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint16_t) denom[6] = {
-         static_cast<boost::uint16_t>(0u),
-         static_cast<boost::uint16_t>(24u),
-         static_cast<boost::uint16_t>(50u),
-         static_cast<boost::uint16_t>(35u),
-         static_cast<boost::uint16_t>(10u),
-         static_cast<boost::uint16_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint16_t) denom[6] = {
+         static_cast<std::uint16_t>(0u),
+         static_cast<std::uint16_t>(24u),
+         static_cast<std::uint16_t>(50u),
+         static_cast<std::uint16_t>(35u),
+         static_cast<std::uint16_t>(10u),
+         static_cast<std::uint16_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -673,15 +673,15 @@ struct lanczos6m24 : public mpl::int_<24>
          static_cast<T>(6.595765571169314946316366571954421695196L),
          static_cast<T>(0.6007854010515290065101128585795542383721L)
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint16_t) denom[6] = {
-         static_cast<boost::uint16_t>(0u),
-         static_cast<boost::uint16_t>(24u),
-         static_cast<boost::uint16_t>(50u),
-         static_cast<boost::uint16_t>(35u),
-         static_cast<boost::uint16_t>(10u),
-         static_cast<boost::uint16_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint16_t) denom[6] = {
+         static_cast<std::uint16_t>(0u),
+         static_cast<std::uint16_t>(24u),
+         static_cast<std::uint16_t>(50u),
+         static_cast<std::uint16_t>(35u),
+         static_cast<std::uint16_t>(10u),
+         static_cast<std::uint16_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -753,22 +753,22 @@ struct lanczos13m53 : public mpl::int_<53>
          static_cast<T>(210.8242777515793458725097339207133627117L),
          static_cast<T>(2.506628274631000270164908177133837338626L)
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[13] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(39916800u),
-         static_cast<boost::uint32_t>(120543840u),
-         static_cast<boost::uint32_t>(150917976u),
-         static_cast<boost::uint32_t>(105258076u),
-         static_cast<boost::uint32_t>(45995730u),
-         static_cast<boost::uint32_t>(13339535u),
-         static_cast<boost::uint32_t>(2637558u),
-         static_cast<boost::uint32_t>(357423u),
-         static_cast<boost::uint32_t>(32670u),
-         static_cast<boost::uint32_t>(1925u),
-         static_cast<boost::uint32_t>(66u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[13] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(39916800u),
+         static_cast<std::uint32_t>(120543840u),
+         static_cast<std::uint32_t>(150917976u),
+         static_cast<std::uint32_t>(105258076u),
+         static_cast<std::uint32_t>(45995730u),
+         static_cast<std::uint32_t>(13339535u),
+         static_cast<std::uint32_t>(2637558u),
+         static_cast<std::uint32_t>(357423u),
+         static_cast<std::uint32_t>(32670u),
+         static_cast<std::uint32_t>(1925u),
+         static_cast<std::uint32_t>(66u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -789,22 +789,22 @@ struct lanczos13m53 : public mpl::int_<53>
          static_cast<T>(0.5098416655656676188125178644804694509993L),
          static_cast<T>(0.006061842346248906525783753964555936883222L)
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint32_t) denom[13] = {
-         static_cast<boost::uint32_t>(0u),
-         static_cast<boost::uint32_t>(39916800u),
-         static_cast<boost::uint32_t>(120543840u),
-         static_cast<boost::uint32_t>(150917976u),
-         static_cast<boost::uint32_t>(105258076u),
-         static_cast<boost::uint32_t>(45995730u),
-         static_cast<boost::uint32_t>(13339535u),
-         static_cast<boost::uint32_t>(2637558u),
-         static_cast<boost::uint32_t>(357423u),
-         static_cast<boost::uint32_t>(32670u),
-         static_cast<boost::uint32_t>(1925u),
-         static_cast<boost::uint32_t>(66u),
-         static_cast<boost::uint32_t>(1u)
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint32_t) denom[13] = {
+         static_cast<std::uint32_t>(0u),
+         static_cast<std::uint32_t>(39916800u),
+         static_cast<std::uint32_t>(120543840u),
+         static_cast<std::uint32_t>(150917976u),
+         static_cast<std::uint32_t>(105258076u),
+         static_cast<std::uint32_t>(45995730u),
+         static_cast<std::uint32_t>(13339535u),
+         static_cast<std::uint32_t>(2637558u),
+         static_cast<std::uint32_t>(357423u),
+         static_cast<std::uint32_t>(32670u),
+         static_cast<std::uint32_t>(1925u),
+         static_cast<std::uint32_t>(66u),
+         static_cast<std::uint32_t>(1u)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -895,7 +895,7 @@ struct lanczos17m64 : public mpl::int_<64>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 488.0063567520005730476791712814838113252)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 2.50662827463100050241576877135758834683))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint64_t) denom[17] = {
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint64_t) denom[17] = {
          BOOST_MATH_INT_VALUE_SUFFIX(0, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1307674368000, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(4339163001600, uLL),
@@ -914,7 +914,7 @@ struct lanczos17m64 : public mpl::int_<64>
          BOOST_MATH_INT_VALUE_SUFFIX(120, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1, uLL)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -940,7 +940,7 @@ struct lanczos17m64 : public mpl::int_<64>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 0.002393749522058449186690627996063983095463)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 0.1229541408909435212800785616808830746135e-4))
       };
-      static const BOOST_MATH_INT_TABLE_TYPE(T, boost::uint64_t) denom[17] = {
+      static const BOOST_MATH_INT_TABLE_TYPE(T, std::uint64_t) denom[17] = {
          BOOST_MATH_INT_VALUE_SUFFIX(0, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1307674368000, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(4339163001600, uLL),
@@ -959,7 +959,7 @@ struct lanczos17m64 : public mpl::int_<64>
          BOOST_MATH_INT_VALUE_SUFFIX(120, uLL),
          BOOST_MATH_INT_VALUE_SUFFIX(1, uLL)
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 
@@ -1093,7 +1093,7 @@ struct lanczos24m113 : public mpl::int_<113>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 113, 253)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 113, 1))
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
    template <class T>
@@ -1152,7 +1152,7 @@ struct lanczos24m113 : public mpl::int_<113>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 113, 253)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 113, 1))
       };
-      return boost::math::tools::evaluate_rational(num, denom, z);
+      return std::math::tools::evaluate_rational(num, denom, z);
    }
 
 

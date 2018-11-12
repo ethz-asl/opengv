@@ -43,8 +43,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <boost/random.hpp>
-#include <boost/shared_ptr.hpp>
+#include <random>
+#include <functional>
+#include <memory>
 #include <ctime>
 
 /**
@@ -100,7 +101,7 @@ public:
    * \brief Get a pointer to the vector of indices used.
    * \return A pointer to the vector of indices used.
    */
-  boost::shared_ptr< std::vector<int> > getIndices() const;
+  std::shared_ptr< std::vector<int> > getIndices() const;
 
   /**
    * \brief Sub-function for getting samples for hypothesis generation.
@@ -222,20 +223,19 @@ public:
    *  problem. These are not the indices for generating a hypothesis, but
    *  all indices for model verification
    */
-  boost::shared_ptr< std::vector<int> > indices_;
+  std::shared_ptr< std::vector<int> > indices_;
   
   /** A shuffled version of the indices used for random sample drawing */
   std::vector<int> shuffled_indices_;
 
   /** \brief Boost-based random number generator algorithm. */
-  boost::mt19937 rng_alg_;
+  std::mt19937 rng_alg_;
 
   /** \brief Boost-based random number generator distribution. */
-  boost::shared_ptr< boost::uniform_int<> > rng_dist_;
+  std::shared_ptr< std::uniform_int_distribution<> > rng_dist_;
 
   /** \brief Boost-based random number generator. */
-  boost::shared_ptr<boost::variate_generator<
-      boost::mt19937&, boost::uniform_int<> > > rng_gen_;
+  std::shared_ptr<std::function<int()> > rng_gen_;
 
 };
 

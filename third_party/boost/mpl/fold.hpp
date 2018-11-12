@@ -31,7 +31,7 @@ template<
 struct fold
 {
     typedef typename aux::fold_impl<
-          ::boost::mpl::O1_size<Sequence>::value
+          ::std::mpl::O1_size<Sequence>::value
         , typename begin<Sequence>::type
         , typename end<Sequence>::type
         , State

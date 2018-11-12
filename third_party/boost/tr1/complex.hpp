@@ -15,13 +15,13 @@
 namespace std {
 namespace tr1 {
 
-using boost::math::acos;
-using boost::math::asin;
-using boost::math::atan;
-using boost::math::acosh;
-using boost::math::asinh;
-using boost::math::atanh;
-using boost::math::fabs;
+using std::math::acos;
+using std::math::asin;
+using std::math::atan;
+using std::math::acosh;
+using std::math::asinh;
+using std::math::atanh;
+using std::math::fabs;
 
 } }
 
@@ -149,10 +149,10 @@ inline complex<double> polar(const unsigned __int64& rho, const unsigned __int64
 #endif
 
 template<class T, class U> 
-inline complex<typename boost::tr1_detail::promote_to_real<T, U>::type> 
+inline complex<typename std::tr1_detail::promote_to_real<T, U>::type> 
    polar(const T& rho, const U& theta)
 {
-   typedef typename boost::tr1_detail::promote_to_real<T, U>::type real_type;
+   typedef typename std::tr1_detail::promote_to_real<T, U>::type real_type;
    return std::polar(static_cast<real_type>(rho), static_cast<real_type>(theta));
 }
 #endif
@@ -200,23 +200,23 @@ inline float real(const float& t)
 }
 
 template<class T, class U>
-inline complex<typename boost::tr1_detail::largest_real<T, U>::type>
+inline complex<typename std::tr1_detail::largest_real<T, U>::type>
    pow(const complex<T>& x, const complex<U>& y)
 {
-   typedef complex<typename boost::tr1_detail::largest_real<T, U>::type> result_type;
-   typedef typename boost::mpl::if_<boost::is_same<result_type, complex<T> >, result_type const&, result_type>::type cast1_type;
-   typedef typename boost::mpl::if_<boost::is_same<result_type, complex<U> >, result_type const&, result_type>::type cast2_type;
+   typedef complex<typename std::tr1_detail::largest_real<T, U>::type> result_type;
+   typedef typename std::mpl::if_<std::is_same<result_type, complex<T> >, result_type const&, result_type>::type cast1_type;
+   typedef typename std::mpl::if_<std::is_same<result_type, complex<U> >, result_type const&, result_type>::type cast2_type;
    cast1_type x1(x);
    cast2_type y1(y);
    return std::pow(x1, y1);
 }
 template<class T, class U> 
-inline complex<typename boost::tr1_detail::promote_to_real<T, U>::type>
+inline complex<typename std::tr1_detail::promote_to_real<T, U>::type>
    pow (const complex<T>& x, const U& y)
 {
-   typedef typename boost::tr1_detail::promote_to_real<T, U>::type real_type;
-   typedef complex<typename boost::tr1_detail::promote_to_real<T, U>::type> result_type;
-   typedef typename boost::mpl::if_<boost::is_same<result_type, complex<T> >, result_type const&, result_type>::type cast1_type;
+   typedef typename std::tr1_detail::promote_to_real<T, U>::type real_type;
+   typedef complex<typename std::tr1_detail::promote_to_real<T, U>::type> result_type;
+   typedef typename std::mpl::if_<std::is_same<result_type, complex<T> >, result_type const&, result_type>::type cast1_type;
    real_type r = y;
    cast1_type x1(x);
    std::complex<real_type> y1(r);
@@ -224,12 +224,12 @@ inline complex<typename boost::tr1_detail::promote_to_real<T, U>::type>
 }
 
 template<class T, class U> 
-inline complex<typename boost::tr1_detail::promote_to_real<T, U>::type>
+inline complex<typename std::tr1_detail::promote_to_real<T, U>::type>
    pow (const T& x, const complex<U>& y)
 {
-   typedef typename boost::tr1_detail::promote_to_real<T, U>::type real_type;
-   typedef complex<typename boost::tr1_detail::promote_to_real<T, U>::type> result_type;
-   typedef typename boost::mpl::if_<boost::is_same<result_type, complex<U> >, result_type const&, result_type>::type cast_type;
+   typedef typename std::tr1_detail::promote_to_real<T, U>::type real_type;
+   typedef complex<typename std::tr1_detail::promote_to_real<T, U>::type> result_type;
+   typedef typename std::mpl::if_<std::is_same<result_type, complex<U> >, result_type const&, result_type>::type cast_type;
    real_type r = x;
    std::complex<real_type> x1(r);
    cast_type y1(y);

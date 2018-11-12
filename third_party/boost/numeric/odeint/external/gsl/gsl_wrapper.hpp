@@ -36,7 +36,7 @@ class const_gsl_vector_iterator;
 /*
  * defines an iterator for gsl_vector
  */
-class gsl_vector_iterator : public boost::iterator_facade< gsl_vector_iterator , double , boost::random_access_traversal_tag >
+class gsl_vector_iterator : public std::iterator_facade< gsl_vector_iterator , double , std::random_access_traversal_tag >
 {
 public :
 
@@ -46,7 +46,7 @@ public :
 
 private :
 
-    friend class boost::iterator_core_access;
+    friend class std::iterator_core_access;
     friend class const_gsl_vector_iterator;
 
     void increment( void ) { m_p += m_stride; }
@@ -65,7 +65,7 @@ private :
 /*
  * defines an const iterator for gsl_vector
  */
-class const_gsl_vector_iterator : public boost::iterator_facade< const_gsl_vector_iterator , const double , boost::random_access_traversal_tag >
+class const_gsl_vector_iterator : public std::iterator_facade< const_gsl_vector_iterator , const double , std::random_access_traversal_tag >
 {
 public :
 
@@ -75,7 +75,7 @@ public :
 
 private :
 
-    friend class boost::iterator_core_access;
+    friend class std::iterator_core_access;
     friend class gsl_vector_iterator;
     friend const_gsl_vector_iterator end_iterator( const gsl_vector * );
 
@@ -167,8 +167,8 @@ namespace odeint {
 template<>
 struct is_resizeable< gsl_vector* >
 {
-    //struct type : public boost::true_type { };
-    typedef boost::true_type type;
+    //struct type : public std::true_type { };
+    typedef std::true_type type;
     const static bool value = type::value;
 };
 

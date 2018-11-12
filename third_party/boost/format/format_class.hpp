@@ -159,7 +159,7 @@ namespace boost {
         string_type      prefix_; // piece of string to insert before first item
         unsigned char exceptions_;
         internal_streambuf_t   buf_; // the internal stream buffer.
-        boost::optional<io::detail::locale_t>     loc_;
+        std::optional<io::detail::locale_t>     loc_;
     }; // class basic_format
 
 } // namespace boost

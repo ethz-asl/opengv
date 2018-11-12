@@ -51,7 +51,7 @@ namespace boost { namespace fusion
             : unfused<Function,false>(f)
         { }
 
-        typedef typename boost::result_of<
+        typedef typename std::result_of<
             function_c(fusion::vector0<> &) >::type call_const_0_result;
 
         inline call_const_0_result operator()() const
@@ -60,7 +60,7 @@ namespace boost { namespace fusion
             return this->fnc_transformed(arg);
         }
 
-        typedef typename boost::result_of< 
+        typedef typename std::result_of< 
             function(fusion::vector0<> &) >::type call_0_result;
 
         inline call_0_result operator()() 
@@ -102,25 +102,25 @@ namespace boost
 {
 #if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
     template<class F>
-    struct result_of< boost::fusion::unfused<F> const () >
+    struct result_of< std::fusion::unfused<F> const () >
     {
-        typedef typename boost::fusion::unfused<F>::call_const_0_result type;
+        typedef typename std::fusion::unfused<F>::call_const_0_result type;
     };
     template<class F>
-    struct result_of< boost::fusion::unfused<F>() >
+    struct result_of< std::fusion::unfused<F>() >
     {
-        typedef typename boost::fusion::unfused<F>::call_0_result type;
+        typedef typename std::fusion::unfused<F>::call_0_result type;
     };
 #endif
     template<class F>
-    struct tr1_result_of< boost::fusion::unfused<F> const () >
+    struct tr1_result_of< std::fusion::unfused<F> const () >
     {
-        typedef typename boost::fusion::unfused<F>::call_const_0_result type;
+        typedef typename std::fusion::unfused<F>::call_const_0_result type;
     };
     template<class F>
-    struct tr1_result_of< boost::fusion::unfused<F>() >
+    struct tr1_result_of< std::fusion::unfused<F>() >
     {
-        typedef typename boost::fusion::unfused<F>::call_0_result type;
+        typedef typename std::fusion::unfused<F>::call_0_result type;
     };
 }
 
@@ -135,20 +135,20 @@ namespace boost
 
         template <class Self, BOOST_PP_ENUM_PARAMS(N,typename T)>
         struct result< Self const (BOOST_PP_ENUM_PARAMS(N,T)) >
-            : boost::result_of< function_c(
+            : std::result_of< function_c(
                 BOOST_PP_CAT(fusion::vector,N)< BOOST_PP_ENUM_BINARY_PARAMS(N,
                     typename detail::mref<T,>::type BOOST_PP_INTERCEPT) > & )>
         { };
 
         template <class Self, BOOST_PP_ENUM_PARAMS(N,typename T)>
         struct result< Self(BOOST_PP_ENUM_PARAMS(N,T)) >
-            : boost::result_of< function(
+            : std::result_of< function(
                 BOOST_PP_CAT(fusion::vector,N)< BOOST_PP_ENUM_BINARY_PARAMS(N,
                     typename detail::mref<T,>::type BOOST_PP_INTERCEPT) > & )>
         { };
 
         template <BOOST_PP_ENUM_PARAMS(N,typename T)>
-        inline typename boost::result_of<function_c(BOOST_PP_CAT(fusion::vector,N)
+        inline typename std::result_of<function_c(BOOST_PP_CAT(fusion::vector,N)
             <BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT)> & )>::type
         operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& a)) const
         {
@@ -159,7 +159,7 @@ namespace boost
         }
 
         template <BOOST_PP_ENUM_PARAMS(N,typename T)>
-        inline typename boost::result_of<function(BOOST_PP_CAT(fusion::vector,N)
+        inline typename std::result_of<function(BOOST_PP_CAT(fusion::vector,N)
             <BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT)> & )>::type
         operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& a)) 
         {

@@ -80,8 +80,8 @@ struct minimum_category
 # if BOOST_WORKAROUND(BOOST_MSVC, < 1300) // ETI workaround
         is_same<T2,int>::value ||
 # endif 
-        ::boost::is_convertible<T1,T2>::value
-      , ::boost::is_convertible<T2,T1>::value
+        ::std::is_convertible<T1,T2>::value
+      , ::std::is_convertible<T2,T1>::value
 # if BOOST_WORKAROUND(BOOST_MSVC, < 1300) // ETI workaround
         || is_same<T1,int>::value
 # endif 
@@ -111,6 +111,6 @@ struct minimum_category<int,int>
 };
 # endif
     
-}} // namespace boost::detail
+}} // namespace std::detail
 
 #endif // MINIMUM_CATEGORY_DWA20031119_HPP

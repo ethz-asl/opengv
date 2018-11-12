@@ -32,13 +32,13 @@ namespace odeint {
 namespace detail {
 
     template< class Container1 , class Container2 >
-    void do_copying( const Container1 &from , Container2 &to , boost::mpl::true_ )
+    void do_copying( const Container1 &from , Container2 &to , std::mpl::true_ )
     {
-        boost::range::copy( from , boost::begin( to ) );
+        std::range::copy( from , std::begin( to ) );
     }
 
     template< class Container1 , class Container2 >
-    void do_copying( const Container1 &from , Container2 &to , boost::mpl::false_ )
+    void do_copying( const Container1 &from , Container2 &to , std::mpl::false_ )
     {
         to = from;
     }
@@ -55,7 +55,7 @@ struct copy_impl
 {
     static void copy( const Container1 &from , Container2 &to )
     {
-        typedef typename boost::numeric::odeint::detail::is_range< Container1 >::type is_range_type;
+        typedef typename std::numeric::odeint::detail::is_range< Container1 >::type is_range_type;
         detail::do_copying( from , to , is_range_type() );
     }
 };

@@ -90,7 +90,7 @@ namespace boost { namespace numeric { namespace convdetail
     typedef typename mpl::if_<is_trivial,trivial_imp,non_trivial_imp>::type type ;
   } ;
 
-} } } // namespace boost::numeric::convdetail
+} } } // namespace std::numeric::convdetail
 
 #endif
 

@@ -38,7 +38,7 @@ namespace detail{
 
 template <class Tuple, class T>
 inline void unpack_0(const Tuple& t, T& val)
-{ val = boost::math::get<0>(t); }
+{ val = std::math::get<0>(t); }
 
 template <class F, class T>
 void handle_zero_derivative(F f,
@@ -94,7 +94,7 @@ void handle_zero_derivative(F f,
 } // namespace
 
 template <class F, class T, class Tol, class Policy>
-std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_iter, const Policy& pol)
+std::pair<T, T> bisect(F f, T min, T max, Tol tol, std::uintmax_t& max_iter, const Policy& pol)
 {
    T fmin = f(min);
    T fmax = f(max);
@@ -106,22 +106,22 @@ std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_iter, c
    //
    // Error checking:
    //
-   static const char* function = "boost::math::tools::bisect<%1%>";
+   static const char* function = "std::math::tools::bisect<%1%>";
    if(min >= max)
    {
       policies::raise_evaluation_error(function, 
-         "Arguments in wrong order in boost::math::tools::bisect (first arg=%1%)", min, pol);
+         "Arguments in wrong order in std::math::tools::bisect (first arg=%1%)", min, pol);
    }
    if(fmin * fmax >= 0)
    {
       policies::raise_evaluation_error(function, 
-         "No change of sign in boost::math::tools::bisect, either there is no root to find, or there are multiple roots in the interval (f(min) = %1%).", fmin, pol);
+         "No change of sign in std::math::tools::bisect, either there is no root to find, or there are multiple roots in the interval (f(min) = %1%).", fmin, pol);
    }
 
    //
    // Three function invocations so far:
    //
-   boost::uintmax_t count = max_iter;
+   std::uintmax_t count = max_iter;
    if(count < 3)
       count = 0;
    else
@@ -156,7 +156,7 @@ std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_iter, c
 #ifdef BOOST_MATH_INSTRUMENT
    std::cout << "Bisection iteration, final count = " << max_iter << std::endl;
 
-   static boost::uintmax_t max_count = 0;
+   static std::uintmax_t max_count = 0;
    if(max_iter > max_count)
    {
       max_count = max_iter;
@@ -168,7 +168,7 @@ std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_iter, c
 }
 
 template <class F, class T, class Tol>
-inline std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_iter)
+inline std::pair<T, T> bisect(F f, T min, T max, Tol tol, std::uintmax_t& max_iter)
 {
    return bisect(f, min, max, tol, max_iter, policies::policy<>());
 }
@@ -176,12 +176,12 @@ inline std::pair<T, T> bisect(F f, T min, T max, Tol tol, boost::uintmax_t& max_
 template <class F, class T, class Tol>
 inline std::pair<T, T> bisect(F f, T min, T max, Tol tol)
 {
-   boost::uintmax_t m = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t m = (std::numeric_limits<std::uintmax_t>::max)();
    return bisect(f, min, max, tol, m, policies::policy<>());
 }
 
 template <class F, class T>
-T newton_raphson_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& max_iter)
+T newton_raphson_iterate(F f, T guess, T min, T max, int digits, std::uintmax_t& max_iter)
 {
    BOOST_MATH_STD_USING
 
@@ -193,13 +193,13 @@ T newton_raphson_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_
    T delta1 = tools::max_value<T>();
    T delta2 = tools::max_value<T>();
 
-   boost::uintmax_t count(max_iter);
+   std::uintmax_t count(max_iter);
 
    do{
       last_f0 = f0;
       delta2 = delta1;
       delta1 = delta;
-      boost::math::tie(f0, f1) = f(result);
+      std::math::tie(f0, f1) = f(result);
       if(0 == f0)
          break;
       if(f1 == 0)
@@ -250,7 +250,7 @@ T newton_raphson_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_
 #ifdef BOOST_MATH_INSTRUMENT
    std::cout << "Newton Raphson iteration, final count = " << max_iter << std::endl;
 
-   static boost::uintmax_t max_count = 0;
+   static std::uintmax_t max_count = 0;
    if(max_iter > max_count)
    {
       max_count = max_iter;
@@ -264,12 +264,12 @@ T newton_raphson_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_
 template <class F, class T>
 inline T newton_raphson_iterate(F f, T guess, T min, T max, int digits)
 {
-   boost::uintmax_t m = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t m = (std::numeric_limits<std::uintmax_t>::max)();
    return newton_raphson_iterate(f, guess, min, max, digits, m);
 }
 
 template <class F, class T>
-T halley_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& max_iter)
+T halley_iterate(F f, T guess, T min, T max, int digits, std::uintmax_t& max_iter)
 {
    BOOST_MATH_STD_USING
 
@@ -288,13 +288,13 @@ T halley_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& max_i
    std::cout << "Halley iteration, limit = " << factor << std::endl;
 #endif
 
-   boost::uintmax_t count(max_iter);
+   std::uintmax_t count(max_iter);
 
    do{
       last_f0 = f0;
       delta2 = delta1;
       delta1 = delta;
-      boost::math::tie(f0, f1, f2) = f(result);
+      std::math::tie(f0, f1, f2) = f(result);
 
       BOOST_MATH_INSTRUMENT_VARIABLE(f0);
       BOOST_MATH_INSTRUMENT_VARIABLE(f1);
@@ -427,12 +427,12 @@ T halley_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& max_i
 template <class F, class T>
 inline T halley_iterate(F f, T guess, T min, T max, int digits)
 {
-   boost::uintmax_t m = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t m = (std::numeric_limits<std::uintmax_t>::max)();
    return halley_iterate(f, guess, min, max, digits, m);
 }
 
 template <class F, class T>
-T schroeder_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& max_iter)
+T schroeder_iterate(F f, T guess, T min, T max, int digits, std::uintmax_t& max_iter)
 {
    BOOST_MATH_STD_USING
 
@@ -448,13 +448,13 @@ T schroeder_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& ma
    std::cout << "Schroeder iteration, limit = " << factor << std::endl;
 #endif
 
-   boost::uintmax_t count(max_iter);
+   std::uintmax_t count(max_iter);
 
    do{
       last_f0 = f0;
       delta2 = delta1;
       delta1 = delta;
-      boost::math::tie(f0, f1, f2) = f(result);
+      std::math::tie(f0, f1, f2) = f(result);
       if(0 == f0)
          break;
       if((f1 == 0) && (f2 == 0))
@@ -514,7 +514,7 @@ T schroeder_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& ma
 #ifdef BOOST_MATH_INSTRUMENT
    std::cout << "Schroeder iteration, final count = " << max_iter << std::endl;
 
-   static boost::uintmax_t max_count = 0;
+   static std::uintmax_t max_count = 0;
    if(max_iter > max_count)
    {
       max_count = max_iter;
@@ -528,7 +528,7 @@ T schroeder_iterate(F f, T guess, T min, T max, int digits, boost::uintmax_t& ma
 template <class F, class T>
 inline T schroeder_iterate(F f, T guess, T min, T max, int digits)
 {
-   boost::uintmax_t m = (std::numeric_limits<boost::uintmax_t>::max)();
+   std::uintmax_t m = (std::numeric_limits<std::uintmax_t>::max)();
    return schroeder_iterate(f, guess, min, max, digits, m);
 }
 

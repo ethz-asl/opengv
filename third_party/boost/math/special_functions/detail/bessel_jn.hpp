@@ -73,7 +73,7 @@ T bessel_jn(int n, T x, const Policy& pol)
     {
         prev = bessel_j0(x);
         current = bessel_j1(x);
-        policies::check_series_iterations<T>("boost::math::bessel_j_n<%1%>(%1%,%1%)", n, pol);
+        policies::check_series_iterations<T>("std::math::bessel_j_n<%1%>(%1%,%1%)", n, pol);
         for (int k = 1; k < n; k++)
         {
             T fact = 2 * k / x;
@@ -99,11 +99,11 @@ T bessel_jn(int n, T x, const Policy& pol)
     {
         T fn; int s;                        // fn = J_(n+1) / J_n
         // |x| <= n, fast convergence for continued fraction CF1
-        boost::math::detail::CF1_jy(static_cast<T>(n), x, &fn, &s, pol);
+        std::math::detail::CF1_jy(static_cast<T>(n), x, &fn, &s, pol);
         prev = fn;
         current = 1;
         // Check recursion won't go on too far:
-        policies::check_series_iterations<T>("boost::math::bessel_j_n<%1%>(%1%,%1%)", n, pol);
+        policies::check_series_iterations<T>("std::math::bessel_j_n<%1%>(%1%,%1%)", n, pol);
         for (int k = n; k > 0; k--)
         {
             T fact = 2 * k / x;
@@ -123,7 +123,7 @@ T bessel_jn(int n, T x, const Policy& pol)
     value *= factor;
 
     if(tools::max_value<T>() * scale < fabs(value))
-       return policies::raise_overflow_error<T>("boost::math::bessel_jn<%1%>(%1%,%1%)", 0, pol);
+       return policies::raise_overflow_error<T>("std::math::bessel_jn<%1%>(%1%,%1%)", 0, pol);
 
     return value / scale;
 }

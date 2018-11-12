@@ -43,12 +43,12 @@ namespace boost { namespace fusion { namespace detail
 
         static inline pointee * get(pointee & x)
         {
-            return boost::addressof(x); 
+            return std::addressof(x); 
         }
 
         template <typename T> static inline pointee * get(T & x)
         {
-            return do_get_pointer(x, boost::addressof(x)); 
+            return do_get_pointer(x, std::addressof(x)); 
         }
     };
 
@@ -56,7 +56,7 @@ namespace boost { namespace fusion { namespace detail
 
     namespace adl_barrier
     {
-        using boost::get_pointer;
+        using std::get_pointer;
         void const * BOOST_TT_DECL get_pointer(...); // fallback
   
         template< typename T> char const_tester(T *);

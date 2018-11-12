@@ -98,9 +98,9 @@ namespace boost { namespace fusion
         template <typename F, class Sequence, int N, bool RandomAccess>
         struct invoke_nonmember_builtin
         // use same implementation as for function objects but...
-            : invoke_fn_ptr< // ...work around boost::result_of bugs
+            : invoke_fn_ptr< // ...work around std::result_of bugs
                 typename mpl::eval_if< ft::is_function<F>,
-                    boost::add_reference<F>, boost::remove_cv<F> >::type,
+                    std::add_reference<F>, std::remove_cv<F> >::type,
                 Sequence, N, RandomAccess >
         { };
 
@@ -130,8 +130,8 @@ namespace boost { namespace fusion
 
             typedef typename result_of::front<Sequence>::type that;
 
-            typedef mpl::or_< boost::is_convertible<that,C*>,
-                              boost::is_convertible<that,C&>,
+            typedef mpl::or_< std::is_convertible<that,C*>,
+                              std::is_convertible<that,C&>,
                               non_const_pointee<that> > non_const_cond;
 
             typedef typename mpl::eval_if< non_const_cond,
@@ -142,7 +142,7 @@ namespace boost { namespace fusion
 
         public:
 
-            typedef typename boost::add_reference<qualified_type>::type
+            typedef typename std::add_reference<qualified_type>::type
                 result_type;
 
             static inline result_type call(T C::* f, Sequence & s)
@@ -158,7 +158,7 @@ namespace boost { namespace fusion
         template <typename Function, class Sequence> struct invoke
         {
             typedef typename detail::invoke_impl<
-                typename boost::remove_reference<Function>::type, Sequence
+                typename std::remove_reference<Function>::type, Sequence
               >::result_type type;
         };
     }
@@ -168,7 +168,7 @@ namespace boost { namespace fusion
     invoke(Function f, Sequence & s)
     {
         return detail::invoke_impl<
-                typename boost::remove_reference<Function>::type,Sequence
+                typename std::remove_reference<Function>::type,Sequence
             >::call(f,s);
     }
 
@@ -177,7 +177,7 @@ namespace boost { namespace fusion
     invoke(Function f, Sequence const & s)
     {
         return detail::invoke_impl<
-                typename boost::remove_reference<Function>::type,Sequence const
+                typename std::remove_reference<Function>::type,Sequence const
             >::call(f,s);
     }
 
@@ -197,7 +197,7 @@ namespace boost { namespace fusion
         {
         public:
 
-            typedef typename boost::result_of<
+            typedef typename std::result_of<
 #define M(z,j,data) typename result_of::at_c<Sequence,j>::type
                     Function(BOOST_PP_ENUM(N,M,~)) >::type result_type;
 #undef M
@@ -286,7 +286,7 @@ namespace boost { namespace fusion
             typedef invoke_param_types<Sequence,N> seq;
         public:
 
-            typedef typename boost::result_of<
+            typedef typename std::result_of<
                 Function(BOOST_PP_ENUM_PARAMS(N,typename seq::T))
                 >::type result_type;
 

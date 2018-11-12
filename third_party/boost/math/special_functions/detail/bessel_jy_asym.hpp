@@ -140,10 +140,10 @@ template <class T, class Policy>
 void temme_asyptotic_y_small_x(T v, T x, T* Y, T* Y1, const Policy& pol)
 {
    T c = 1;
-   T p = (v / boost::math::sin_pi(v, pol)) * pow(x / 2, -v) / boost::math::tgamma(1 - v, pol);
-   T q = (v / boost::math::sin_pi(v, pol)) * pow(x / 2, v) / boost::math::tgamma(1 + v, pol);
+   T p = (v / std::math::sin_pi(v, pol)) * pow(x / 2, -v) / std::math::tgamma(1 - v, pol);
+   T q = (v / std::math::sin_pi(v, pol)) * pow(x / 2, v) / std::math::tgamma(1 + v, pol);
    T f = (p - q) / v;
-   T g_prefix = boost::math::sin_pi(v / 2, pol);
+   T g_prefix = std::math::sin_pi(v / 2, pol);
    g_prefix *= g_prefix * 2 / v;
    T g = f + g_prefix * q;
    T h = p;
@@ -195,8 +195,8 @@ T asymptotic_bessel_i_large_x(T v, T x, const Policy& pol)
 
    s = e * (e * s / sqrt(2 * x * constants::pi<T>()));
 
-   return (boost::math::isfinite)(s) ? 
-      s : policies::raise_overflow_error<T>("boost::math::asymptotic_bessel_i_large_x<%1%>(%1%,%1%)", 0, pol);
+   return (std::math::isfinite)(s) ? 
+      s : policies::raise_overflow_error<T>("std::math::asymptotic_bessel_i_large_x<%1%>(%1%,%1%)", 0, pol);
 }
 
 }}} // namespaces

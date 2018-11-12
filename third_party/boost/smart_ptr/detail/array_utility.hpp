@@ -16,27 +16,27 @@
 namespace boost {
     namespace detail {
         template<typename T>
-        inline void array_destroy(T*, std::size_t, boost::true_type) {
+        inline void array_destroy(T*, std::size_t, std::true_type) {
         }
         template<typename T>
-        inline void array_destroy(T* memory, std::size_t size, boost::false_type) {
+        inline void array_destroy(T* memory, std::size_t size, std::false_type) {
             for (std::size_t i = size; i > 0; ) {
                 memory[--i].~T();
             }
         }
         template<typename T>
         inline void array_destroy(T* memory, std::size_t size) {
-            boost::has_trivial_destructor<T> type;
+            std::has_trivial_destructor<T> type;
             array_destroy(memory, size, type);
         }
         template<typename T>
-        inline void array_init(T* memory, std::size_t size, boost::true_type) {
+        inline void array_init(T* memory, std::size_t size, std::true_type) {
             for (std::size_t i = 0; i < size; i++) {
                 memory[i] = T();
             }
         }
         template<typename T>
-        inline void array_init(T* memory, std::size_t size, boost::false_type) {
+        inline void array_init(T* memory, std::size_t size, std::false_type) {
 #if !defined(BOOST_NO_EXCEPTIONS)
             std::size_t i = 0;
             try {
@@ -57,7 +57,7 @@ namespace boost {
         }
         template<typename T>
         inline void array_init(T* memory, std::size_t size) {
-            boost::has_trivial_default_constructor<T> type;            
+            std::has_trivial_default_constructor<T> type;            
             array_init(memory, size, type);
         }
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
@@ -145,10 +145,10 @@ namespace boost {
 #endif
         }
         template<typename T>
-        inline void array_noinit(T*, std::size_t, boost::true_type) {
+        inline void array_noinit(T*, std::size_t, std::true_type) {
         }
         template<typename T>
-        inline void array_noinit(T* memory, std::size_t size, boost::false_type) {
+        inline void array_noinit(T* memory, std::size_t size, std::false_type) {
 #if !defined(BOOST_NO_EXCEPTIONS)
             std::size_t i = 0;
             try {
@@ -169,7 +169,7 @@ namespace boost {
         }
         template<typename T>
         inline void array_noinit(T* memory, std::size_t size) {
-            boost::has_trivial_default_constructor<T> type;
+            std::has_trivial_default_constructor<T> type;
             array_noinit(memory, size, type);
         }
     }

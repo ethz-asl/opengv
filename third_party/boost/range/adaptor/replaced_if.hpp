@@ -48,16 +48,16 @@ namespace boost
 
         template< class Pred, class R >
         class replaced_if_range :
-            public boost::iterator_range<
-                boost::transform_iterator<
+            public std::iterator_range<
+                std::transform_iterator<
                     replace_value_if< Pred, BOOST_DEDUCED_TYPENAME range_value<R>::type >,
                     BOOST_DEDUCED_TYPENAME range_iterator<R>::type > >
         {
         private:
             typedef replace_value_if< Pred, BOOST_DEDUCED_TYPENAME range_value<R>::type > Fn;
 
-            typedef boost::iterator_range<
-                boost::transform_iterator<
+            typedef std::iterator_range<
+                std::transform_iterator<
                     replace_value_if< Pred, BOOST_DEDUCED_TYPENAME range_value<R>::type >,
                     BOOST_DEDUCED_TYPENAME range_iterator<R>::type > > base_t;
 
@@ -65,8 +65,8 @@ namespace boost
             typedef BOOST_DEDUCED_TYPENAME range_value<R>::type value_type;
 
             replaced_if_range( R& r, const Pred& pred, value_type to )
-                : base_t( make_transform_iterator( boost::begin(r), Fn(pred, to) ),
-                          make_transform_iterator( boost::end(r), Fn(pred, to) ) )
+                : base_t( make_transform_iterator( std::begin(r), Fn(pred, to) ),
+                          make_transform_iterator( std::end(r), Fn(pred, to) ) )
             { }
         };
 

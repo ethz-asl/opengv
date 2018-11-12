@@ -30,21 +30,21 @@ inline void overwrite( const SinglePassRange1& from, SinglePassRange2& to )
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<SinglePassRange2> ));
 
     BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange1>::type
-        i = boost::begin(from), e = boost::end(from);
+        i = std::begin(from), e = std::end(from);
 
     BOOST_DEDUCED_TYPENAME range_iterator<SinglePassRange2>::type
-        out = boost::begin(to);
+        out = std::begin(to);
 
 #ifndef NDEBUG
     BOOST_DEDUCED_TYPENAME range_iterator<SinglePassRange2>::type
-        last_out = boost::end(to);
+        last_out = std::end(to);
 #endif
 
     for( ; i != e; ++out, ++i )
     {
 #ifndef NDEBUG
         BOOST_ASSERT( out != last_out
-            && "out of bounds in boost::overwrite()" );
+            && "out of bounds in std::overwrite()" );
 #endif
         *out = *i;
     }
@@ -57,21 +57,21 @@ inline void overwrite( const SinglePassRange1& from, const SinglePassRange2& to 
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange2> ));
 
     BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange1>::type
-        i = boost::begin(from), e = boost::end(from);
+        i = std::begin(from), e = std::end(from);
 
     BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange2>::type
-        out = boost::begin(to);
+        out = std::begin(to);
 
 #ifndef NDEBUG
     BOOST_DEDUCED_TYPENAME range_iterator<const SinglePassRange2>::type
-        last_out = boost::end(to);
+        last_out = std::end(to);
 #endif
 
     for( ; i != e; ++out, ++i )
     {
 #ifndef NDEBUG
         BOOST_ASSERT( out != last_out
-            && "out of bounds in boost::overwrite()" );
+            && "out of bounds in std::overwrite()" );
 #endif
         *out = *i;
     }

@@ -31,7 +31,7 @@ namespace boost
     remove_copy_if(const SinglePassRange& rng, OutputIterator out_it, Predicate pred)
     {
         BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const SinglePassRange> ));
-        return std::remove_copy_if(boost::begin(rng), boost::end(rng), out_it, pred);
+        return std::remove_copy_if(std::begin(rng), std::end(rng), out_it, pred);
     }
 }
 

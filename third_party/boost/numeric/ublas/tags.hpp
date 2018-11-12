@@ -31,7 +31,7 @@ struct minor {};
 /// \brief Tag for the leading dimension.
 struct leading {};
 
-}}}} // Namespace boost::numeric::ublas::tag
+}}}} // Namespace std::numeric::ublas::tag
 
 
 #endif // BOOST_NUMERIC_UBLAS_TAG_HPP

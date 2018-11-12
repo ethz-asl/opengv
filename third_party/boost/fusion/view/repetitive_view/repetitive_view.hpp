@@ -32,7 +32,7 @@ namespace boost { namespace fusion
 
         typedef single_pass_traversal_tag category;
 
-        typedef typename boost::remove_reference<Sequence>::type sequence_type;
+        typedef typename std::remove_reference<Sequence>::type sequence_type;
         typedef typename 
             mpl::if_<traits::is_view<Sequence>, Sequence, sequence_type&>::type
         stored_seq_type;

@@ -39,9 +39,9 @@ inline std::complex<T> asin(const std::complex<T>& z)
    static const T half = static_cast<T>(0.5L);
    static const T a_crossover = static_cast<T>(10);
    static const T b_crossover = static_cast<T>(0.6417L);
-   static const T s_pi = boost::math::constants::pi<T>();
+   static const T s_pi = std::math::constants::pi<T>();
    static const T half_pi = s_pi / 2;
-   static const T log_two = boost::math::constants::ln_two<T>();
+   static const T log_two = std::math::constants::ln_two<T>();
    static const T quarter_pi = s_pi / 4;
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -61,11 +61,11 @@ inline std::complex<T> asin(const std::complex<T>& z)
    // below, but handling it as a special case prevents overflow/underflow
    // arithmetic which may trip up some machines:
    //
-   if((boost::math::isnan)(x))
+   if((std::math::isnan)(x))
    {
-      if((boost::math::isnan)(y))
+      if((std::math::isnan)(y))
          return std::complex<T>(x, x);
-      if((boost::math::isinf)(y))
+      if((std::math::isinf)(y))
       {
          real = x;
          imag = std::numeric_limits<T>::infinity();
@@ -73,14 +73,14 @@ inline std::complex<T> asin(const std::complex<T>& z)
       else
          return std::complex<T>(x, x);
    }
-   else if((boost::math::isnan)(y))
+   else if((std::math::isnan)(y))
    {
       if(x == 0)
       {
          real = 0;
          imag = y;
       }
-      else if((boost::math::isinf)(x))
+      else if((std::math::isinf)(x))
       {
          real = y;
          imag = std::numeric_limits<T>::infinity();
@@ -88,9 +88,9 @@ inline std::complex<T> asin(const std::complex<T>& z)
       else
          return std::complex<T>(y, y);
    }
-   else if((boost::math::isinf)(x))
+   else if((std::math::isinf)(x))
    {
-      if((boost::math::isinf)(y))
+      if((std::math::isinf)(y))
       {
          real = quarter_pi;
          imag = std::numeric_limits<T>::infinity();
@@ -101,7 +101,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
          imag = std::numeric_limits<T>::infinity();
       }
    }
-   else if((boost::math::isinf)(y))
+   else if((std::math::isinf)(y))
    {
       real = 0;
       imag = std::numeric_limits<T>::infinity();
@@ -161,7 +161,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
             {
                am1 = half * (yy/(r + xp1) + (s + xm1));
             }
-            imag = boost::math::log1p(am1 + std::sqrt(am1 * (a + one)));
+            imag = std::math::log1p(am1 + std::sqrt(am1 * (a + one)));
          }
          else
          {
@@ -186,7 +186,7 @@ inline std::complex<T> asin(const std::complex<T>& z)
                if(((std::numeric_limits<T>::max)() / xp1) > xm1)
                {
                   // xp1 * xm1 won't overflow:
-                  imag = boost::math::log1p(xm1 + std::sqrt(xp1*xm1));
+                  imag = std::math::log1p(xm1 + std::sqrt(xp1*xm1));
                }
                else
                {
@@ -222,13 +222,13 @@ inline std::complex<T> asin(const std::complex<T>& z)
          {
             real = std::atan(x/y);
             T xoy = x/y;
-            imag = log_two + std::log(y) + half * boost::math::log1p(xoy*xoy);
+            imag = log_two + std::log(y) + half * std::math::log1p(xoy*xoy);
          }
          else
          {
             T a = std::sqrt(one + y*y);
             real = x/a; // This can underflow!
-            imag = half * boost::math::log1p(static_cast<T>(2)*y*(y+a));
+            imag = half * std::math::log1p(static_cast<T>(2)*y*(y+a));
          }
       }
    }
@@ -236,10 +236,10 @@ inline std::complex<T> asin(const std::complex<T>& z)
    //
    // Finish off by working out the sign of the result:
    //
-   if((boost::math::signbit)(z.real()))
-      real = (boost::math::changesign)(real);
-   if((boost::math::signbit)(z.imag()))
-      imag = (boost::math::changesign)(imag);
+   if((std::math::signbit)(z.real()))
+      real = (std::math::changesign)(real);
+   if((std::math::signbit)(z.imag()))
+      imag = (std::math::changesign)(imag);
 
    return std::complex<T>(real, imag);
 #ifdef BOOST_MSVC

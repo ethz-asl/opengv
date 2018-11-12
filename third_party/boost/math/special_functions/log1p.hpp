@@ -76,7 +76,7 @@ T log1p_imp(T const & x, const Policy& pol, const mpl::int_<0>&)
    typedef typename tools::promote_args<T>::type result_type;
    BOOST_MATH_STD_USING
 
-   static const char* function = "boost::math::log1p<%1%>(%1%)";
+   static const char* function = "std::math::log1p<%1%>(%1%)";
 
    if(x < -1)
       return policies::raise_domain_error<T>(
@@ -93,7 +93,7 @@ T log1p_imp(T const & x, const Policy& pol, const mpl::int_<0>&)
    if(a < tools::epsilon<result_type>())
       return x;
    detail::log1p_series<result_type> s(x);
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582)) && !BOOST_WORKAROUND(__EDG_VERSION__, <= 245)
    result_type result = tools::sum_series(s, policies::get_epsilon<result_type, Policy>(), max_iter);
 #else
@@ -109,7 +109,7 @@ T log1p_imp(T const& x, const Policy& pol, const mpl::int_<53>&)
 { // The function returns the natural logarithm of 1 + x.
    BOOST_MATH_STD_USING
 
-   static const char* function = "boost::math::log1p<%1%>(%1%)";
+   static const char* function = "std::math::log1p<%1%>(%1%)";
 
    if(x < -1)
       return policies::raise_domain_error<T>(
@@ -162,7 +162,7 @@ T log1p_imp(T const& x, const Policy& pol, const mpl::int_<64>&)
 { // The function returns the natural logarithm of 1 + x.
    BOOST_MATH_STD_USING
 
-   static const char* function = "boost::math::log1p<%1%>(%1%)";
+   static const char* function = "std::math::log1p<%1%>(%1%)";
 
    if(x < -1)
       return policies::raise_domain_error<T>(
@@ -217,7 +217,7 @@ T log1p_imp(T const& x, const Policy& pol, const mpl::int_<24>&)
 { // The function returns the natural logarithm of 1 + x.
    BOOST_MATH_STD_USING
 
-   static const char* function = "boost::math::log1p<%1%>(%1%)";
+   static const char* function = "std::math::log1p<%1%>(%1%)";
 
    if(x < -1)
       return policies::raise_domain_error<T>(
@@ -271,7 +271,7 @@ struct log1p_initializer
       static void do_init(const mpl::int_<N>&){}
       static void do_init(const mpl::int_<64>&)
       {
-         boost::math::log1p(static_cast<T>(0.25), Policy());
+         std::math::log1p(static_cast<T>(0.25), Policy());
       }
       void force_instantiate()const{}
    };
@@ -318,7 +318,7 @@ inline typename tools::promote_args<T>::type log1p(T x, const Policy&)
    detail::log1p_initializer<value_type, forwarding_policy, tag_type>::force_instantiate();
 
    return policies::checked_narrowing_cast<result_type, forwarding_policy>(
-      detail::log1p_imp(static_cast<value_type>(x), forwarding_policy(), tag_type()), "boost::math::log1p<%1%>(%1%)");
+      detail::log1p_imp(static_cast<value_type>(x), forwarding_policy(), tag_type()), "std::math::log1p<%1%>(%1%)");
 }
 
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
@@ -420,7 +420,7 @@ inline double log1p(double x, const Policy& pol)
 template <class Policy>
 inline float log1p(float x, const Policy& pol)
 {
-   return static_cast<float>(boost::math::log1p(static_cast<double>(x), pol));
+   return static_cast<float>(std::math::log1p(static_cast<double>(x), pol));
 }
 #ifndef _WIN32_WCE
 //
@@ -448,7 +448,7 @@ inline long double log1p(long double x, const Policy& pol)
 template <class T>
 inline typename tools::promote_args<T>::type log1p(T x)
 {
-   return boost::math::log1p(x, policies::policy<>());
+   return std::math::log1p(x, policies::policy<>());
 }
 //
 // Compute log(1+x)-x:
@@ -459,7 +459,7 @@ inline typename tools::promote_args<T>::type
 {
    typedef typename tools::promote_args<T>::type result_type;
    BOOST_MATH_STD_USING
-   static const char* function = "boost::math::log1pmx<%1%>(%1%)";
+   static const char* function = "std::math::log1pmx<%1%>(%1%)";
 
    if(x < -1)
       return policies::raise_domain_error<T>(
@@ -475,14 +475,14 @@ inline typename tools::promote_args<T>::type
    // epsilon just returns zero, and our "optimisation" will always fail:
    if(a < tools::epsilon<result_type>())
       return -x * x / 2;
-   boost::math::detail::log1p_series<T> s(x);
+   std::math::detail::log1p_series<T> s(x);
    s();
-   boost::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
+   std::uintmax_t max_iter = policies::get_max_series_iterations<Policy>();
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
    T zero = 0;
-   T result = boost::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, zero);
+   T result = std::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter, zero);
 #else
-   T result = boost::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter);
+   T result = std::math::tools::sum_series(s, policies::get_epsilon<T, Policy>(), max_iter);
 #endif
    policies::check_series_iterations<T>(function, max_iter, pol);
    return result;

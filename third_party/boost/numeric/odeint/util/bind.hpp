@@ -39,7 +39,7 @@ using namespace ::std::placeholders;
 
 #else
 
-using ::boost::bind;
+using ::std::bind;
 using ::_1;
 using ::_2;
 

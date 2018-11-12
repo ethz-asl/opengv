@@ -41,7 +41,7 @@ public:
       : m_location(location), m_scale(scale)
    {
       RealType result;
-      check_parameters("boost::math::laplace_distribution<%1%>::laplace_distribution()", &result);
+      check_parameters("std::math::laplace_distribution<%1%>::laplace_distribution()", &result);
    }
 
 
@@ -80,14 +80,14 @@ typedef laplace_distribution<double> laplace;
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const laplace_distribution<RealType, Policy>&)
 {
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(-max_value<RealType>(), max_value<RealType>());
 }
 
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> support(const laplace_distribution<RealType, Policy>&)
 {
-   using boost::math::tools::max_value;
+   using std::math::tools::max_value;
    return std::pair<RealType, RealType>(-max_value<RealType>(),  max_value<RealType>());
 }
 
@@ -98,12 +98,12 @@ inline RealType pdf(const laplace_distribution<RealType, Policy>& dist, const Re
 
    // Checking function argument
    RealType result = 0;
-   const char* function = "boost::math::pdf(const laplace_distribution<%1%>&, %1%))";
+   const char* function = "std::math::pdf(const laplace_distribution<%1%>&, %1%))";
    if (false == dist.check_parameters(function, &result)) return result;
    if (false == detail::check_x(function, x, &result, Policy())) return result;
 
    // Special pdf values
-   if((boost::math::isinf)(x))
+   if((std::math::isinf)(x))
       return 0; // pdf + and - infinity is zero.
 
    // General case
@@ -127,12 +127,12 @@ inline RealType cdf(const laplace_distribution<RealType, Policy>& dist, const Re
 
    // Checking function argument
    RealType result = 0;
-   const char* function = "boost::math::cdf(const laplace_distribution<%1%>&, %1%)";
+   const char* function = "std::math::cdf(const laplace_distribution<%1%>&, %1%)";
    if (false == dist.check_parameters(function, &result)) return result;
    if (false == detail::check_x(function, x, &result, Policy())) return result;
 
    // Special cdf values:
-   if((boost::math::isinf)(x))
+   if((std::math::isinf)(x))
    {
      if(x < 0) return 0; // -infinity
      return 1; // + infinity
@@ -161,7 +161,7 @@ inline RealType quantile(const laplace_distribution<RealType, Policy>& dist, con
 
    // Checking function argument
    RealType result = 0;
-   const char* function = "boost::math::quantile(const laplace_distribution<%1%>&, %1%)";
+   const char* function = "std::math::quantile(const laplace_distribution<%1%>&, %1%)";
    if (false == dist.check_parameters(function, &result)) return result;
    if(false == detail::check_probability(function, p, &result, Policy())) return result;
 
@@ -203,13 +203,13 @@ inline RealType cdf(const complemented2_type<laplace_distribution<RealType, Poli
 
    // Checking function argument
    RealType result = 0;
-   const char* function = "boost::math::cdf(const complemented2_type<laplace_distribution<%1%>, %1%>&)";
+   const char* function = "std::math::cdf(const complemented2_type<laplace_distribution<%1%>, %1%>&)";
    if(false == detail::check_x(function, x, &result, Policy()))return result;
 
    // Calculate complement of cdf.
 
    // Special cdf value
-   if((boost::math::isinf)(x))
+   if((std::math::isinf)(x))
    {
      if(x < 0) return 1; // cdf complement -infinity is unity.
      return 0; // cdf complement +infinity is zero.

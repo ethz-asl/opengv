@@ -92,7 +92,7 @@ namespace boost
 
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
-            BOOST_DEDUCED_TYPENAME boost::enable_if_c<
+            BOOST_DEDUCED_TYPENAME std::enable_if_c<
                 std::numeric_limits<Float>::is_iec559 &&
                 std::numeric_limits<Float>::digits == 24 &&
                 std::numeric_limits<Float>::radix == 2 &&
@@ -106,7 +106,7 @@ namespace boost
 
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
-            BOOST_DEDUCED_TYPENAME boost::enable_if_c<
+            BOOST_DEDUCED_TYPENAME std::enable_if_c<
                 std::numeric_limits<Float>::is_iec559 &&
                 std::numeric_limits<Float>::digits == 53 &&
                 std::numeric_limits<Float>::radix == 2 &&
@@ -119,7 +119,7 @@ namespace boost
 
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
-            BOOST_DEDUCED_TYPENAME boost::enable_if_c<
+            BOOST_DEDUCED_TYPENAME std::enable_if_c<
                 std::numeric_limits<Float>::is_iec559 &&
                 std::numeric_limits<Float>::digits == 64 &&
                 std::numeric_limits<Float>::radix == 2 &&
@@ -132,7 +132,7 @@ namespace boost
 
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
-            BOOST_DEDUCED_TYPENAME boost::enable_if_c<
+            BOOST_DEDUCED_TYPENAME std::enable_if_c<
                 std::numeric_limits<Float>::is_iec559 &&
                 std::numeric_limits<Float>::digits == 113 &&
                 std::numeric_limits<Float>::radix == 2 &&
@@ -151,8 +151,8 @@ namespace boost
         template <class T>
         inline std::size_t float_hash_impl2(T v)
         {
-            boost::hash_detail::call_frexp<T> frexp;
-            boost::hash_detail::call_ldexp<T> ldexp;
+            std::hash_detail::call_frexp<T> frexp;
+            std::hash_detail::call_ldexp<T> ldexp;
 
             int exp = 0;
 
@@ -173,7 +173,7 @@ namespace boost
             // ceiling(digits(T) * log2(radix(T))/ digits(size_t)) - 1;
             std::size_t const length
                 = (limits<T>::digits *
-                        boost::static_log2<limits<T>::radix>::value
+                        std::static_log2<limits<T>::radix>::value
                         + limits<std::size_t>::digits - 1)
                 / limits<std::size_t>::digits;
 
@@ -261,7 +261,7 @@ namespace boost
         template <class T>
         inline std::size_t float_hash_value(T v)
         {
-            return boost::hash_detail::is_zero(v) ? 0 : float_hash_impl(v, 0);
+            return std::hash_detail::is_zero(v) ? 0 : float_hash_impl(v, 0);
         }
     }
 }

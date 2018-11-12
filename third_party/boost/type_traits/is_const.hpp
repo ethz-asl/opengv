@@ -59,9 +59,9 @@ template <class T>
 struct is_const_rvalue_filter
 {
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<typename boost::remove_bounds<T>::type*>::is_const);
+   BOOST_STATIC_CONSTANT(bool, value = ::std::detail::cv_traits_imp<typename std::remove_bounds<T>::type*>::is_const);
 #else
-   BOOST_STATIC_CONSTANT(bool, value = ::boost::detail::cv_traits_imp<T*>::is_const);
+   BOOST_STATIC_CONSTANT(bool, value = ::std::detail::cv_traits_imp<T*>::is_const);
 #endif
 };
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
@@ -74,7 +74,7 @@ struct is_const_rvalue_filter<T&&>
 }
 
 //* is a type T  declared const - is_const<T>
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_const,T,::boost::detail::is_const_rvalue_filter<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_const,T,::std::detail::is_const_rvalue_filter<T>::value)
 BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T&,false)
 
 #if  defined(BOOST_ILLEGAL_CV_REFERENCES)
@@ -90,23 +90,23 @@ BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T& const volatile,fa
 #if defined(__GNUC__) && (__GNUC__ < 3)
 // special case for gcc where illegally cv-qualified reference types can be
 // generated in some corner cases:
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T const,!(::boost::is_reference<T>::value))
-BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T volatile const,!(::boost::is_reference<T>::value))
+BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T const,!(::std::is_reference<T>::value))
+BOOST_TT_AUX_BOOL_TRAIT_PARTIAL_SPEC1_1(typename T,is_const,T volatile const,!(::std::is_reference<T>::value))
 #endif
 
 #else
 
 namespace detail {
 
-using ::boost::type_traits::yes_type;
-using ::boost::type_traits::no_type;
+using ::std::type_traits::yes_type;
+using ::std::type_traits::no_type;
 
 yes_type is_const_tester(const volatile void*);
 no_type is_const_tester(volatile void *);
 
 template <bool is_ref, bool array>
 struct is_const_helper
-    : public ::boost::type_traits::false_result
+    : public ::std::type_traits::false_result
 {
 };
 
@@ -117,7 +117,7 @@ struct is_const_helper<false,false>
     {
         static T* t;
         BOOST_STATIC_CONSTANT(bool, value = (
-            sizeof(boost::detail::yes_type) == sizeof(boost::detail::is_const_tester(t))
+            sizeof(std::detail::yes_type) == sizeof(std::detail::is_const_tester(t))
             ));
     };
 };
@@ -129,7 +129,7 @@ struct is_const_helper<false,true>
     {
         static T t;
         BOOST_STATIC_CONSTANT(bool, value = (
-            sizeof(boost::detail::yes_type) == sizeof(boost::detail::is_const_tester(&t))
+            sizeof(std::detail::yes_type) == sizeof(std::detail::is_const_tester(&t))
             ));
     };
 };
@@ -153,7 +153,7 @@ BOOST_TT_AUX_BOOL_TRAIT_IMPL_SPEC1(is_const,void const volatile,true)
 } // namespace detail
 
 //* is a type T  declared const - is_const<T>
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_const,T,::boost::detail::is_const_impl<T>::value)
+BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_const,T,::std::detail::is_const_impl<T>::value)
 
 #endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 

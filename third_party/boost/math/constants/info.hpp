@@ -78,18 +78,18 @@ void print_info_on_type(std::ostream& os = std::cout BOOST_MATH_APPEND_EXPLICIT_
         os << "Unknown radix = " << std::numeric_limits<T>::radix << "\n";
       }
    }
-   typedef typename boost::math::policies::precision<T, Policy>::type precision_type;
+   typedef typename std::math::policies::precision<T, Policy>::type precision_type;
    if(precision_type::value)
    {
       if (std::numeric_limits<T>::radix == 2)
       {
        os <<
-       "boost::math::policies::precision<" << nameof<T>() << ", " << nameof<Policy>() << " reports that the compile time precision is \n" << precision_type::value << " binary digits.\n";
+       "std::math::policies::precision<" << nameof<T>() << ", " << nameof<Policy>() << " reports that the compile time precision is \n" << precision_type::value << " binary digits.\n";
       }
       else if (std::numeric_limits<T>::radix == 10)
       {
          os <<
-         "boost::math::policies::precision<" << nameof<T>() << ", " << nameof<Policy>() << " reports that the compile time precision is \n" << precision_type::value << " binary digits.\n";
+         "std::math::policies::precision<" << nameof<T>() << ", " << nameof<Policy>() << " reports that the compile time precision is \n" << precision_type::value << " binary digits.\n";
       }
       else
       {
@@ -99,11 +99,11 @@ void print_info_on_type(std::ostream& os = std::cout BOOST_MATH_APPEND_EXPLICIT_
    else
    {
       os <<
-         "boost::math::policies::precision<" << nameof<T>() << ", Policy> \n"
+         "std::math::policies::precision<" << nameof<T>() << ", Policy> \n"
          "reports that there is no compile type precision available.\n"
-         "boost::math::tools::digits<" << nameof<T>() << ">() \n"
+         "std::math::tools::digits<" << nameof<T>() << ">() \n"
          "reports that the current runtime precision is \n" <<
-         boost::math::tools::digits<T>() << " binary digits.\n";
+         std::math::tools::digits<T>() << " binary digits.\n";
    }
 
    typedef typename construction_traits<T, Policy>::type construction_type;
@@ -116,7 +116,7 @@ void print_info_on_type(std::ostream& os = std::cout BOOST_MATH_APPEND_EXPLICIT_
          "will be decided at runtime and results will not be cached \n"
          "- this may lead to poor runtime performance.\n"
          "Current runtime precision indicates that\n";
-      if(boost::math::tools::digits<T>() > max_string_digits)
+      if(std::math::tools::digits<T>() > max_string_digits)
       {
          os << "the constant will be recalculated on each call.\n";
       }
@@ -155,7 +155,7 @@ void print_info_on_type(std::ostream& os = std::cout BOOST_MATH_APPEND_EXPLICIT_
 template <class T>
 void print_info_on_type(std::ostream& os = std::cout BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(T))
 {
-   print_info_on_type<T, boost::math::policies::policy<> >(os);
+   print_info_on_type<T, std::math::policies::policy<> >(os);
 }
 
 }}} // namespaces

@@ -16,7 +16,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-//  typedef <implementation-defined> boost::detail::atomic_count;
+//  typedef <implementation-defined> std::detail::atomic_count;
 //
 //  atomic_count a(n);
 //

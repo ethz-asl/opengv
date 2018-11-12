@@ -13,7 +13,7 @@
 // this file should not contain any code, but the documentation
 // global to all files
 
-/** \namespace boost::numeric::ublas
+/** \namespace std::numeric::ublas
         \brief contains all important classes and functions of uBLAS
 
         all ublas definitions ...

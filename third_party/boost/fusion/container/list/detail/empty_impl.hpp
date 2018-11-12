@@ -28,7 +28,7 @@ namespace boost { namespace fusion
         {
             template <typename Sequence>
             struct apply
-                : boost::is_convertible<Sequence, nil>
+                : std::is_convertible<Sequence, nil>
             {};
         };
     }

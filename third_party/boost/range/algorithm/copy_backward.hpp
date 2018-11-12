@@ -33,7 +33,7 @@ copy_backward(const BidirectionalRange& rng,
               BidirectionalTraversalWriteableIterator out)
 {
     BOOST_RANGE_CONCEPT_ASSERT(( BidirectionalRangeConcept<const BidirectionalRange> ));
-    return std::copy_backward(boost::begin(rng), boost::end(rng), out);
+    return std::copy_backward(std::begin(rng), std::end(rng), out);
 }
 
     } // namespace range
