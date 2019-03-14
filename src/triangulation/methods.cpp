@@ -110,6 +110,9 @@ opengv::triangulation::triangulate2(
   if (lambda(1) < 0) {
     lambda(1) = -lambda(1);
   }
+  if (lambda(0) < 1e-8) {
+    return point_t::Zero();
+  }
   CHECK_GT(lambda(0), 0.0);
   CHECK_GT(lambda(1), 0.0);
   Eigen::Vector3d xm = lambda[0] * f1;
