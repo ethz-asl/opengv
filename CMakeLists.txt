@@ -223,6 +223,10 @@ ELSE()
       cs_add_executable( test_point_cloud_sac test/test_point_cloud_sac.cpp )
       target_link_libraries( test_point_cloud_sac ${PROJECT_NAME} random_generators )
 
+      install(DIRECTORY test
+              DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/opengv
+              FILES_MATCHING PATTERN "*.hpp")
+
       cs_install()
       cs_export()
 
